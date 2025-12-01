@@ -1,0 +1,399 @@
+passStr = '../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+$red1 = #bf0000
+$pink1 = #faebf0
+$gray1 = #eee
+$gray_txt = #444444
+$max-width = 1216px
+$m-width = 1100px
+//------------------------------
+
+#SeminarEntry // #Pagenameはページ固有の名前に置換してください
+
+  +pc()
+
+    a
+      color:#bf0000
+      &:hover
+        text-decoration: underline
+
+    #mainArea
+      width: $m-width
+      margin: 30px auto 0
+      h1.main_ttl
+        border-left:5px solid $red1
+        padding-left:20px
+        margin:0 auto 20px 0
+        font-weight: bold
+        font-size: 2.3rem
+        line-height:1.5
+        color:$gray_txt
+      .discriptions
+        text-align:center
+        color:$gray_txt
+        .discriptions__wrap
+          margin-bottom:8px
+          p
+            font-size:1.6rem
+            line-height:1.5
+            &.attention
+              color:#bf0000
+          ul
+            margin:10px 0 0 20px
+            li
+              list-style-type: disc
+              font-size: 1.3rem
+              line-height:1.8
+              &.nolistsyle
+                list-style:none
+          span
+            color:$red1
+            font-size:1.3rem
+      .rblp-date
+        text-align:center
+        margin-bottom:16px
+        font-size:1.6rem
+        font-weight:bold
+        line-height: 1.5
+        padding:16px 0
+        .attention
+          color:#bf0000
+        .txt
+          font-weight: normal
+      .request_area
+        background: $gray1
+        padding: 40px 0
+        p.caption
+          padding:20px 50px
+          font-weight:bold
+          line-height:1.5
+          font-size:1.4rem
+          span
+            color:$red1
+            padding-left:10px
+            font-size:1.3rem
+            .red
+              padding:0 5px 0 0
+          b
+            &.captionSmall
+              display:block
+              font-size:1.3rem
+              font-weight:bold
+              color:$red1
+        table
+          border-top: 1px solid #ccc
+          border-right: 1px solid #ccc
+          width: 90%
+          margin: 0 auto
+          background: #fff
+          font-size: 1.3rem
+          line-height: 1.5
+          td
+            border-bottom: 1px solid #ccc
+            border-left: 1px solid #ccc
+            padding: 10px
+            vertical-align: middle
+            p
+              &.example
+                color:#999
+                font-size:1.2rem
+                margin-top:3px
+              &.imagebox
+                width: (1202px * 2/5)
+                margin-top:4px
+                border: 1px solid grayLineColor
+                box-sizing: border-box
+                img
+                  width: 100%
+            span
+              color:$red1
+              &.attention
+                color:#bf0000
+                display:block
+                margin-top:5px
+                font-size:1.2rem
+                line-height:1.5
+            input
+              &[type="text"]
+                width:80%
+              &[type="radio"]
+                width:auto
+                margin:0 5px
+                vertical-align:bottom
+            &:first-child
+              width:40%
+            select
+              height:26px
+              width:80%
+        .readme
+          padding:30px 50px
+          h2,p.subttl
+            font-size:1.8rem
+            font-weight:bold
+            text-align:center
+            color:$gray_txt
+            margin-bottom:16px
+          p
+            font-size:1.2rem
+            line-height:1.5
+            margin-bottom:25px
+            &.subttl
+              font-size:1.4rem
+              margin-bottom:25px
+              span
+                &.attention
+                  color:#bf0000
+              border-bottom:1px dashed #ccc
+              padding-bottom:30px
+          h3
+            font-size:1.5rem
+            font-weight:bold
+            margin:20px 0 10px
+            color:$gray_txt
+          ol
+            list-style-type: none
+            list-style-position:inside
+            color:$gray_txt
+            li
+              font-size:1.2rem
+              line-height: 1.8
+        .btn_check
+          font-size:1.6rem
+          font-weight:bold
+          text-align:center
+          display:block
+          margin:24px auto
+          input
+            margin:auto 8px 2px auto
+            vertical-align:middle
+        .btn_area
+          text-align: center
+          color: #000
+          margin-top:20px
+          input
+            margin:0 auto
+            display:block
+            font-size:1.8rem
+            padding:15px 100px
+            border-radius:8px
+            border:none
+            border-bottom:3px solid $gray_txt
+            cursor: pointer
+            background-color: #fff
+            &:disabled
+              opacity:0.6
+              pointer-events: none
+
+
+
+
+  +sp()
+
+    a
+      color:red
+      text-decoration: underline
+
+    #mainArea
+      width: 100%
+      h1.main_ttl
+        text-align:left
+        border-left:5px solid $red1
+        margin:16px
+        padding-left:20px
+        font-weight: bold
+        font-size: 1.8rem
+        line-height:1.4
+        color:$gray_txt
+      .discriptions
+        padding:0 16px 10px
+        color:$gray_txt
+        line-height:1.6
+        .discriptions__wrap
+          &:not(:last-of-type)
+            margin-bottom:8px
+          p
+            font-size:1.3rem
+            &.attention
+              color:#bf0000
+          ul
+            border-top:1px dashed #ccc
+            border-bottom:1px dashed #ccc
+            padding:10px 0 10px 16px
+            margin:10px 0
+            li
+              list-style-type: disc
+              font-size:1.1rem
+              line-height:1.6
+      .rblp-date
+        font-size:1.3rem
+        font-weight:bold
+        margin-bottom:5px
+        .attention
+          color:red
+        .txt
+          font-weight: normal
+      .request_area
+        background: $pink1
+        padding: 5%
+        color:$gray_txt
+        margin-bottom: 24px
+        .form_ttl
+          font-weight: bold
+          font-size: 1.4rem
+          line-height:1.5
+          text-align: center
+          padding-bottom: 20px
+        p
+          &.caption
+            margin:5% 0
+            font-size:1.4rem
+            font-weight:bold
+            span
+              font-size:1rem
+              font-weight:normal
+              color:red
+              line-height:1.3
+              &.red
+                font-size:1.2rem
+                font-weight:bold
+                vertical-align:middle
+            b
+              &.captionSmall
+                display:block
+                color:$gray_txt
+                font-size:1.4rem
+                color:red
+                font-weight:bold
+                line-height:1.5
+                //margin-bottom:-10px
+          &.example
+            color:#888
+            font-size:1.0rem
+            margin:8px 0 0
+            line-height:1.5
+          &.imagebox
+            max-width: 600px
+            margin-top:8px
+            border: 1px solid grayLineColor
+            box-sizing: border-box
+            img
+              width: 100%
+        table
+          width:100%
+          border-collapse: collapse
+          border(1px solid #ccc)
+          margin: 0 auto
+          background: #fff
+          font-size: 1.2rem
+          &.freetxt
+            margin-top:20px
+            textarea
+              width:100%
+          tr
+            padding:0
+            td
+              display: block
+              width:auto
+              border:none
+              padding: 10px
+              font-size:1.2rem
+              &:first-of-type
+                line-height: 1.5
+              &:nth-child(odd)
+                background:$gray1
+                font-weight:bold
+              input,select
+                width:100%
+                height:40px
+                box-sizing: border-box
+                font-size:1.1rem
+                border:1px solid #ddd
+                background:#fff
+                &.form_w_s
+                  width:50%
+                &[type="checkbox"]
+                  width:auto
+                  height:auto
+                  vertical-align: middle
+                &[type="radio"]
+                  width:auto
+                  height:auto
+                  text-align:left
+                  vertical-align:text-bottom
+                  margin:0 1%
+              label
+                display:block
+                padding:10px 0
+                height:auto
+                box-sizing: border-box
+              span
+                display: block
+                color: #ff0103
+                &.attention
+                  font-size: 1rem
+                  margin: 8px 0 0
+                  line-height: 1.5
+                  color:red
+        .readme
+          margin: 5% 0
+          // padding-bottom: 5%
+          h2
+            font-size:1.8rem
+            line-height: 1.5
+            font-weight:bold
+            text-align:center
+            color:$gray_txt
+            margin:3% auto
+          p
+            font-size:1.1rem
+            line-height:1.5
+            &.subttl
+              font-size:1.3rem
+              font-weight:bold
+              margin:5% 0
+              padding-bottom:5%
+              span
+                &.attention
+                  color:red
+                  font-size:1.2rem
+              border-bottom:1px dashed #ccc
+          h3
+            font-size:1.4rem
+            font-weight:bold
+            margin:16px 0
+            color:$gray_txt
+          ol
+            color:$gray_txt
+            li
+              font-size:1.1rem
+              line-height: 1.6
+              list-style-type: none
+              list-style-position:inside
+
+        .btn_check
+          text-align:center
+          display:block
+          font-size: 1.6rem
+          margin: 16px auto
+          input
+            margin:auto 5px 2px auto
+            vertical-align:middle
+        .btn_area
+          text-align: center
+          color: #000
+          margin-top:20px
+          input
+            cursor: pointer
+            margin:0 auto 8px
+            display:block
+            font-size:1.6rem
+            padding:5% 30%
+            border-radius:8px
+            border:none
+            border-bottom:3px solid $gray_txt
+            background-color: #fff
+            &:disabled
+              opacity:0.6
+              pointer-events: none

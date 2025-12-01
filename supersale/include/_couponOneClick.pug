@@ -1,0 +1,184 @@
+//- 非遷移クーポン(_kintone.pug 内の coupon 必須)
+
+//- minxin coupon component
+mixin couponSet(statusTxt, no)
+  .couponComponent
+    .couponDetail
+      span.overlay-content
+        img.overlay-contentImg(src='/cnt/common/images/area/icon-checked.svg' alt='クーポン獲得済み')
+      .couponDetailBottom
+        .couponDetailBottomR
+          p.couponDetailBottomRTitle
+            if coupon[no].対象店舗予約有無 == 'なし'
+              if coupon[no]['割引適用ショップ・アイテム'] == '全ショップ'
+                if coupon[no].対象条件 == '新規限定'
+                  | 初めてご利用の方限定
+                else if coupon[no].対象条件 == 'セグメントなし'
+                  | 全員対象
+              else if coupon[no]['割引適用ショップ・アイテム'] == '指定ショップ'
+                if coupon[no].対象条件 == '新規限定'
+                  | 初めてご利用の方限定
+                else if coupon[no].対象条件 == 'セグメントなし'
+                  | 全員対象
+            else if coupon[no].対象店舗予約有無 == '0:サロン新規'
+              if coupon[no]['割引適用ショップ・アイテム'] == '指定ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 対象サロン初回来店の方限定
+              else if coupon[no]['割引適用ショップ・アイテム'] == '全ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 初回来店の方限定
+            else if coupon[no].対象店舗予約有無 == '1:サロンリピーター促進(2回目)'
+              if coupon[no]['割引適用ショップ・アイテム'] == '指定ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 対象サロン2回目来店の方限定
+              else if coupon[no]['割引適用ショップ・アイテム'] == '全ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 2回目来店の方限定
+            else if coupon[no].対象店舗予約有無 == '2:サロンリピーター促進(3回目)'
+              if coupon[no]['割引適用ショップ・アイテム'] == '指定ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 対象サロン3回目以降来店の方限定
+              else if coupon[no]['割引適用ショップ・アイテム'] == '全ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 3回目以降来店の方限定
+          p.couponDetailBottomRPrice
+            span.couponDetailBottomRPrice.-num !{addComma(coupon[no].割引額)}
+            | 円OFF
+    .couponStatus
+      p.couponStatusTxt !{statusTxt}
+
+//- minxin coupon component (finished)
+mixin couponEndSet(statusTxt, no)
+  .couponComponent
+    span.overlay-content !{statusTxt}
+    .couponDetail
+      .couponDetailBottom
+        .couponDetailBottomR
+          p.couponDetailBottomRTitle
+            if coupon[no].対象店舗予約有無 == 'なし'
+              if coupon[no]['割引適用ショップ・アイテム'] == '全ショップ'
+                if coupon[no].対象条件 == '新規限定'
+                  | 初めてご利用の方限定
+                else if coupon[no].対象条件 == 'セグメントなし'
+                  | 全員対象
+              else if coupon[no]['割引適用ショップ・アイテム'] == '指定ショップ'
+                if coupon[no].対象条件 == '新規限定'
+                  | 初めてご利用の方限定
+                else if coupon[no].対象条件 == 'セグメントなし'
+                  | 全員対象
+            else if coupon[no].対象店舗予約有無 == '0:サロン新規'
+              if coupon[no]['割引適用ショップ・アイテム'] == '指定ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 対象サロン初回来店の方限定
+              else if coupon[no]['割引適用ショップ・アイテム'] == '全ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 初回来店の方限定
+            else if coupon[no].対象店舗予約有無 == '1:サロンリピーター促進(2回目)'
+              if coupon[no]['割引適用ショップ・アイテム'] == '指定ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 対象サロン2回目来店の方限定
+              else if coupon[no]['割引適用ショップ・アイテム'] == '全ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 2回目来店の方限定
+            else if coupon[no].対象店舗予約有無 == '2:サロンリピーター促進(3回目)'
+              if coupon[no]['割引適用ショップ・アイテム'] == '指定ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 対象サロン3回目以降来店の方限定
+              else if coupon[no]['割引適用ショップ・アイテム'] == '全ショップ'
+                if coupon[no].対象条件 == 'セグメントなし'
+                  | 3回目以降来店の方限定
+          p.couponDetailBottomRPrice
+            span.couponDetailBottomRPrice.-num !{addComma(coupon[no].割引額)}
+            | 円OFF
+    .couponStatus
+      p.couponStatusTxt ラ・クーポンは終了しました
+
+//- 1click Set
+mixin couponOneClickSet()
+  .couponOneClickSetWrap
+    .couponOneClickSet
+      //- coupon box
+      - for (var i = 0; i < coupon.length; i++)
+        .couponBox
+          .couponBoxUpper
+            //- 非遷移クーポン
+            .couponOneClick(data-coupon-authkey='0srG3FtweAmC22f1hagus6h2wAQQNynY')
+              //- click tag（不要になったら削除）
+              - var clickTag = '1clickAcquisition_' + meta.directory + '_' + i
+              - var clickTagAcquired = '1clickAcquisition_' + meta.directory + '_' + i + '_acquired'
+              - var clickTagHaving = '1clickAcquisition_' + meta.directory + '_' + i + '_having'
+              a.couponOneClick-default(href=coupon[i].獲得用URL data-ratid=clickTag data-ratEvent='click' data-ratParam='all')
+                +couponSet('ラ・クーポンを獲得する',i)
+              //- 獲得後urlがある時
+              if coupon[i].リダイレクトURL != ''
+                a.couponOneClick-acquired(href=coupon[i].リダイレクトURL data-ratid=clickTagAcquired data-ratEvent='click' data-ratParam='all')
+                  +couponSet('ラ・クーポン獲得済み',i)
+                a.couponOneClick-having(href=coupon[i].リダイレクトURL data-ratid=clickTagHaving data-ratEvent='click' data-ratParam='all')
+                  +couponSet('ラ・クーポンを使う',i)
+              //- 獲得後urlがない時
+              else
+                .couponOneClick-acquired.-disabled
+                  +couponSet('ラ・クーポン獲得済み',i)
+                .couponOneClick-having.-disabled
+                  +couponSet('ラ・クーポンを使う',i)
+              .couponOneClick-expired
+                +couponEndSet('利用期間が終了しました',i)
+              .couponOneClick-finished
+                +couponEndSet('ご好評につき終了しました',i)
+          .couponBoxBottom
+            //- 新項目「会員利用上限枚数(一人あたりの利用回数)」が存在、かつ空欄以外の場合
+            if coupon[i]["会員利用上限枚数(一人あたりの利用回数)"] && coupon[i]["会員利用上限枚数(一人あたりの利用回数)"] != ''
+              - var couponUseNum = coupon[i]["会員利用上限枚数(一人あたりの利用回数)"]
+            //- 旧項目「獲得枚数」が存在、かつ空欄以外の場合
+            //- 旧Kinotneで発行されたクーポンがなくなったら／「利用上限回数」項目がなくなったら削除
+            else if coupon[i]["獲得枚数"] && coupon[i]["獲得枚数"] != ''
+              - var couponUseNum = coupon[i]["獲得枚数"]
+            //- 値が空の場合は上限利用回数1回
+            else
+              - var couponUseNum = 1
+            //- coupon terms
+            .couponOneClickTerms
+              p.couponOneClickTermsTxts
+                span.couponOneClickTermsTxt 先着利用
+                  span.couponOneClickTermsTxtBold
+                    | !{addComma(coupon[i].利用上限枚数)}回
+                  | ／1人
+                  span.couponOneClickTermsTxtBold
+                    | !{couponUseNum}回
+                  | まで
+                span.couponOneClickTermsTxt
+                  span.couponOneClickTermsTxtBold
+                    | !{addComma(coupon[i].利用最低金額)}円(税込)以上
+                  | の施術が対象
+              .couponOneClickTermsAttention
+                if coupon[i].対象店舗予約有無 == 'なし' && coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ' && coupon[i].対象条件 == '新規限定'
+                  p.couponOneClickTermsAttentionTxt ※楽天ビューティからネット予約・施術したことのない方が対象
+                else if coupon[i].対象店舗予約有無 == 'なし' && coupon[i]['割引適用ショップ・アイテム'] == '全ショップ' && coupon[i].対象条件 == '新規限定'
+                  p.couponOneClickTermsAttentionTxt ※楽天ビューティからネット予約・施術したことのない方が対象
+                else if coupon[i].対象店舗予約有無 == '0:サロン新規' && coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ' && coupon[i].対象条件 == 'セグメントなし'
+                  p.couponOneClickTermsAttentionTxt ※楽天ビューティからネット予約・施術したことのない対象サロンでの利用が可能
+                else if coupon[i].対象店舗予約有無 == '1:サロンリピーター促進(2回目)' && coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ' && coupon[i].対象条件 == 'セグメントなし'
+                  p.couponOneClickTermsAttentionTxt ※楽天ビューティからネット予約・施術したことのある対象サロンの2回目の予約で利用可能
+                else if coupon[i].対象店舗予約有無 == '2:サロンリピーター促進(3回目)' && coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ' && coupon[i].対象条件 == 'セグメントなし'
+                  p.couponOneClickTermsAttentionTxt ※楽天ビューティからネット予約・施術したことのある対象サロンの3回目以降の予約で利用可能
+                else if coupon[i].対象店舗予約有無 == '0:サロン新規' && coupon[i]['割引適用ショップ・アイテム'] == '全ショップ' && coupon[i].対象条件 == 'セグメントなし'
+                  p.couponOneClickTermsAttentionTxt ※楽天ビューティからネット予約・施術したことのないサロンが対象
+                else if coupon[i].対象店舗予約有無 == '1:サロンリピーター促進(2回目)' && coupon[i]['割引適用ショップ・アイテム'] == '全ショップ' && coupon[i].対象条件 == 'セグメントなし'
+                  p.couponOneClickTermsAttentionTxt ※楽天ビューティからネット予約・施術したことのあるサロンの2回目の予約で利用可能
+                else if coupon[i].対象店舗予約有無 == '2:サロンリピーター促進(3回目)' && coupon[i]['割引適用ショップ・アイテム'] == '全ショップ' && coupon[i].対象条件 == 'セグメントなし'
+                  p.couponOneClickTermsAttentionTxt ※楽天ビューティからネット予約・施術したことのあるサロンの3回目以降の予約で利用可能
+                //- click tag（不要になったら削除）
+                - var clickTagDetail = '1clickAcquisition_' + meta.directory + '_' + i + '_detail'
+                a.couponOneClickTermsAttentionLink(href=coupon[i].獲得用URL data-ratid=clickTagDetail data-ratEvent='click' data-ratParam='all')
+                  | 残り利用回数＆ラ・クーポン詳細を確認
+    //- coupon btn
+    //- クーポン数が1の時 iは119行目のfor文のiでクーポンの数を格納している
+    //- if i == 1
+    //-   .couponOneClickBtns.-single
+    //-     a.couponOneClickBtn(href='#Shoplist')
+    //-       span.couponOneClickBtnTxt 対象サロンはこちら
+    //- //- クーポン数が1より多い時
+    //- else if i > 1
+    //-   .couponOneClickBtns
+    //-     a.couponOneClickBtn(href='#Shoplist')
+    //-       span.couponOneClickBtnTxt 対象サロンはこちら

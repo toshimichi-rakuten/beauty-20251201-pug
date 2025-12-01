@@ -1,0 +1,351 @@
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var meta = {
+      title: "ケラスターゼメニュー満足度アンケート",
+      description: "ケラスターゼメニュー満足度アンケート",
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/kerastase_questionaire/",
+      og_image: "https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png?202101",//- default (It can change if you need)
+    }
+  - var css = "css/main.css?v20190724"
+
+block addHead
+  meta(name='robots', content='noindex,nofollow')
+
+  //- enen js
+  script(type="text/javascript").
+    <!--
+    function isChecked(el) {
+    if (el.length) {
+    for (var i = 0; i < el.length; i++) {
+    if (el[i].checked) {
+    return true;
+    }
+    }
+    } else {
+    if (el.checked) {
+    return true;
+    }
+    }
+    return false;
+    }
+    
+    function checkForm() {
+    var el;
+    var obj = document.enenForm;
+    
+    el = obj.elements['answers[40355_274541][]'];
+    if (!isChecked(el)) {
+      alert("「以前、「ケラスターゼメニュー」を予約されたきっかけは何でしたか？」を選択してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[40355_274542]'];
+    if (!isChecked(el)) {
+      alert("「美容室に「ケラスターゼメニュー」があることをどのように知りましたか？」を選択してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[40355_274543]'];
+    if (!isChecked(el)) {
+      alert("「「ケラスターゼメニュー」を楽天ビューティで予約できることをどのように知りましたか？」を選択してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[40355_274544]'];
+    if (!isSelected(el)) {
+      alert("「今回体験された「ケラスターゼメニュー」の満足度を５段階で評価してください」を選択してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[40355_274545]'];
+    if (!isChecked(el)) {
+      alert("「今後も「ケラスターゼメニュー」を受けたいと思いますか？」を選択してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[40355_274546][]'];
+    if (!isChecked(el)) {
+      alert("「その理由を教えてください」を選択してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[40355_274547][]'];
+    if (!isChecked(el)) {
+      alert("「「ケラスターゼメニュー」をどんなタイミングで受けたいと思いますか？」を選択してください。");
+      return false;
+    }
+    
+    }
+    // -->
+
+block nav
+  //- grobalNav
+  +grobalNav()
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'ケラスターゼメニュー満足度アンケート',
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+
+  #kerastase_questionnaire
+
+    #mainArea
+      .main_image.pc
+        img(src="img/pc_main.png" width="1100px" height="auto")
+      .main_image.sp
+        img(src="img/sp_main.png" width="100%")
+      .request_area
+        form(action='https://form.rakuten.co.jp/ans/apply/40355', name='enenForm', method='POST', onsubmit='return checkForm()')
+          table(border='0')
+            tr
+              td.question
+                | Q1. 「ケラスターゼメニュー」を予約されたきっかけは何でしたか？
+                span.mandatory *
+                br
+                span.annotation （複数選択可）
+            tr
+              td
+                label(for="a761483")
+                  input#a761483(type="checkbox", name="answers[40355_274541][]", value="761483")
+                  | 髪や頭皮の悩みがあったから
+                  br
+                label(for="a761484")
+                  input#a761484(type="checkbox", name="answers[40355_274541][]", value="761484")
+                  | ご褒美 または リラックスしたかったから
+                  br
+                label(for="a761485")
+                  input#a761485(type="checkbox", name="answers[40355_274541][]", value="761485")
+                  | 自宅でケラスターゼ製品を使っており、サロンメニューに興味を持ったから
+                  br
+                label(for="a761486")
+                  input#a761486(type="checkbox", name="answers[40355_274541][]", value="761486")
+                  | クーポンが使えてお得だったから
+                  br
+                label(for="a761487")
+                  input#a761487(type="checkbox", name="answers[40355_274541][]", value="761487")
+                  | 特に意識していない・たまたま予約した
+                  br
+                label(for="a761488")
+                  input#a761488(type="checkbox", name="answers[40355_274541][]", value="761488")
+                  | その他（当てはまるものはない）
+            tr
+              td.question
+                | Q2. 美容室に「ケラスターゼメニュー」があることをどのように知りましたか？
+                span.mandatory *
+                br 
+                span.annotation （もっとも影響の大きいものを1つ選択）
+            tr
+              td
+                label(for="a761489")
+                  input#a761489(type="radio", name="answers[40355_274542]", value="761489")
+                  | 楽天ビューティのコンテンツ
+                  br
+                label(for="a761490")
+                  input#a761490(type="radio", name="answers[40355_274542]", value="761490")
+                  | スタイリストからの紹介
+                  br
+                label(for="a761491")
+                  input#a761491(type="radio", name="answers[40355_274542]", value="761491")
+                  | 知人・友人からの紹介
+                  br
+                label(for="a761492")
+                  input#a761492(type="radio", name="answers[40355_274542]", value="761492")
+                  | ケラスターゼ商品を購入した際のお知らせ
+                  br
+                label(for="a761493")
+                  input#a761493(type="radio", name="answers[40355_274542]", value="761493")
+                  | Webサイト（楽天ビューティ除く）・SNS
+                  br
+                label(for="a761494")
+                  input#a761494(type="radio", name="answers[40355_274542]", value="761494")
+                  | 特に意識していない・たまたま予約した
+                  br
+                label(for="a761495")
+                  input#a761495(type="radio", name="answers[40355_274542]", value="761495")
+                  | その他（当てはまるものはない）
+            tr
+              td.question 
+                | Q3. 楽天ビューティで「ケラスターゼメニュー」を予約できることをどのように知りましたか？
+                span.mandatory *
+                br 
+                span.annotation （もっとも影響の大きいものを1つ）
+            tr
+              td
+                label(for="a761496")
+                  input#a761496(type="radio", name="answers[40355_274543]", value="761496")
+                  | メニュー（通常・スペシャルメニュー）を見た
+                  br
+                label(for="a761497")
+                  input#a761497(type="radio", name="answers[40355_274543]", value="761497")
+                  | スーパーDEALの対象になっていた
+                  br
+                label(for="a761498")
+                  input#a761498(type="radio", name="answers[40355_274543]", value="761498")
+                  | ケラスターゼ特集ページを見た
+                  br
+                label(for="a761499")
+                  input#a761499(type="radio", name="answers[40355_274543]", value="761499")
+                  | メール・SNS等を見た
+                  br
+                label(for="a761500")
+                  input#a761500(type="radio", name="answers[40355_274543]", value="761500")
+                  | 通っているサロンから案内された
+                  br
+                label(for="a761501")
+                  input#a761501(type="radio", name="answers[40355_274543]", value="761501")
+                  | 特に意識していない・たまたま予約した
+                  br
+                label(for="a761502")
+                  input#a761502(type="radio", name="answers[40355_274543]", value="761502")
+                  | その他（当てはまるものはない）
+            tr
+              td.question 
+                | Q4. 今回体験された「ケラスターゼメニュー」の満足度を５段階で評価してください
+                span.mandatory *
+            tr
+              td
+                select(name="answers[40355_274544]")
+                  option(value="0") ▼選択してください。
+                  option(value="761503") ５：大変満足
+                  option(value="761504") ４：満足
+                  option(value="761505") ３：ふつう
+                  option(value="761506") ２：不満
+                  option(value="761507") １：非常に不満
+            tr
+              td.question
+                | Q5. 今後も「ケラスターゼメニュー」を受けたいと思いますか？
+                span.mandatory *
+            tr
+              td
+                label(for="a761508")
+                  input#a761508(type="radio", name="answers[40355_274545]", value="761508")
+                  | はい
+                  br
+                label(for="a761509")
+                  input#a761509(type="radio", name="answers[40355_274545]", value="761509")
+                  | いいえ
+                  br
+                label(for="a761510")
+                  input#a761510(type="radio", name="answers[40355_274545]", value="761510")
+                  | わからない
+            tr
+              td.question 
+                | Q6. その理由を教えてください
+                span.mandatory *
+                br 
+                span.annotation （複数選択可）
+            tr
+              td
+                span.bold ▼「はい」とお答えの方
+                br 
+                label(for="a761511")
+                  input#a761511(type="checkbox", name="answers[40355_274546][]", value="761511")
+                  | 効果があったから
+                  br
+                label(for="a761512")
+                  input#a761512(type="checkbox", name="answers[40355_274546][]", value="761512")
+                  | お得だったから
+                  br
+                label(for="a761513")
+                  input#a761513(type="checkbox", name="answers[40355_274546][]", value="761513")
+                  | 有名だから
+                  br
+                label(for="a761514")
+                  input#a761514(type="checkbox", name="answers[40355_274546][]", value="761514")
+                  | 毎回メニューを変えたくないから
+                  br
+                label(for="a761515")
+                  input#a761515(type="checkbox", name="answers[40355_274546][]", value="761515")
+                  | 贅沢な気分になれたから
+                  br
+                  br
+                span.bold ▼「いいえ」とお答えの方
+                br 
+                label(for="a761516")
+                  input#a761516(type="checkbox", name="answers[40355_274546][]", value="761516")
+                  | 効果を感じられなかったから
+                  br
+                label(for="a761517")
+                  input#a761517(type="checkbox", name="answers[40355_274546][]", value="761517")
+                  | 高かったから
+                  br
+                label(for="a761518")
+                  input#a761518(type="checkbox", name="answers[40355_274546][]", value="761518")
+                  | 取り扱いサロンが少ないから
+                  br
+                label(for="a761519")
+                  input#a761519(type="checkbox", name="answers[40355_274546][]", value="761519")
+                  | 別のトリートメントも試してみたいから
+                  br
+                label(for="a761520")
+                  input#a761520(type="checkbox", name="answers[40355_274546][]", value="761520")
+                  | 施術時間が長かったから
+                  br
+                  br
+                label(for="a761521")
+                  input#a761521(type="checkbox", name="answers[40355_274546][]", value="761521")
+                  | わからない・その他（当てはまるものはない）
+            tr
+              td.question 
+                | Q7. 「ケラスターゼメニュー」をどんなタイミングで受けたいと思いますか？
+                span.mandatory *
+                br 
+                span.annotation （複数選択可）
+            tr
+              td 
+                label(for="a761522")
+                  input#a761522(type="checkbox", name="answers[40355_274547][]", value="761522")
+                  | 髪の状態が気になったタイミング
+                  br
+                label(for="a761523")
+                  input#a761523(type="checkbox", name="answers[40355_274547][]", value="761523")
+                  | ヘアカット・カラーを予約するついでのタイミング
+                  br
+                label(for="a761524")
+                  input#a761524(type="checkbox", name="answers[40355_274547][]", value="761524")
+                  | お呼ばれやイベント前のタイミング
+                  br
+                label(for="a761525")
+                  input#a761525(type="checkbox", name="answers[40355_274547][]", value="761525")
+                  | キャンペーン等でお得に予約できるタイミング
+                  br
+                label(for="a761528")
+                  input#a761528(type="checkbox", name="answers[40355_274547][]", value="761528")
+                  | 自分へのご褒美やリフレッシュがしたいタイミング
+                  br
+                label(for="a761529")
+                  input#a761529(type="checkbox", name="answers[40355_274547][]", value="761529")
+                  | 受けたいと思わない・予定はない
+                  br
+                label(for="a761530")
+                  input#a761530(type="checkbox", name="answers[40355_274547][]", value="761530")
+                  | その他（当てはまるものはない）
+                  br
+          .kerastase_questionnaire__submitBox
+            input(type='hidden', name='c', value='楽天')
+            input(type='hidden', name='l', value='ja')
+            input#button.kerastase_questionnaire__submitBtn(type='submit', value='送信')
+          .readme
+            h3 【個人情報について】
+            ol
+              li 楽天グループでは、お預かりした個人情報は個人情報保護方針に定める個人情報の利用目的の範囲内で利用します。
+              li 個人情報保護方針についてはこちら&emsp;
+                br.-sp
+                a(href="https://beauty.rakuten.co.jp/kiyaku.php")
+                  | https://beauty.rakuten.co.jp/kiyaku.php
+            h3 【問合せ先】
+            ol
+              li 楽天ビューティお客様サポート&emsp;
+                br.-sp
+                a(href="https://beauty.faq.rakuten.net/user/s/ask")
+                  | https://beauty.faq.rakuten.net/user/s/ask
+

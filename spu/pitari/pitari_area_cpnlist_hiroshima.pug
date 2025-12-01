@@ -1,0 +1,14 @@
+#CampaignHiroshima
+  .rbSPU-content-pitari_inner
+    h2.ttl
+      span
+        | 広島市対象！
+        span お得なキャンペーン開催中
+  .cpnList
+    //- Campaign List AreaAll
+    //- jsonが空orエラーの時非表示にしたい親要素にCampaign[Areaname]をつけておく
+    include ../../../../../_common/pug/Module/Common/_campaignList
+    +campaignListAreaAllPitari('Hiroshima','広島')
+
+script.
+  readJsonHiroshima();

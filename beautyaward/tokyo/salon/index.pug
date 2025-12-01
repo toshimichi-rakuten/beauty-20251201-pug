@@ -1,0 +1,177 @@
+extends ../../../../../../_common/pug/Base/_layout.pug
+
+block init
+  include ../../_data.pug
+  - var currentPageName = "東京都 ベストサロン一覧"
+  -
+    var meta = {
+      title: currentPageName + " | 楽天ビューティアワード 2025",
+      description: common.description,
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/beautyaward/tokyo/salon/",
+      og_image: "https://beauty.rakuten.co.jp/cnt/topics/campaign/beautyaward/images/ogp.jpg?v" + parameter,//- default (シェア画像があれば変更)
+    }
+  - var css = "../../css/main.css?v" + parameter
+
+
+block addHead
+  link(rel="preconnect", href="//fonts.gstatic.com")
+  link(rel="stylesheet", href="//fonts.googleapis.com/css2?family=Lora:wght@700&display=swap&text=BESTALONYI0123456789")
+
+
+block js
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js')
+  script(src='/cnt/common/js/vue/axios.min.js')
+
+  //- json読み込み (vue)
+  script(src='../../js/readjson.js?v' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    tokyosalons = true;
+    //- js用パラメータ
+    const param = '!{parameter}';
+
+  //- 画像の遅延ロード
+  script(src="../../js/lazysizes.min.js", defer)
+
+  //- スクロールイベント（parallax）
+  script(src="../../js/ScrollTrigger.min.js")
+  script(src="../../js/list.bundle.js?v2210119", defer)
+
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: '楽天ビューティアワード 2025',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/beautyaward/',
+      },
+      {
+        name: currentPageName, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+
+block content
+  #award
+    #mainVisual
+      .mainVisual
+        a(href="../../", class="mainVisual__logo")
+          img(src="../../images/logo_award.png?v" + parameter,width="100%", height="auto", alt="楽天ビューティアワード 2025", class="mainVisual__logo__img")
+        h1.mainVisual__title #{currentPageName}
+        span.mainVisual__label BEST SALON
+
+    #award-content
+      nav.awardNav
+        p.awardNav__current BEST SALON
+        a(href="../../tokyo/stylist/", class="awardNav__item") BEST STYLIST
+
+      #bestsalon
+        #bestsalontokyo(v-cloak)
+          template(v-for="(res, index) in results" :key="res")
+
+            //- gold
+            template(v-if="res.rank === 'gold'")
+              section.bestSalon(v-if="res.no === 1")
+                div(:id="['header-' + res.rank + '-before']")
+                h2(class="bestSalon__headings", :id="['header-' + res.rank]")
+                  img(:src="['../../images/headings_salon_' + res.rank + '.png']", width="402", :alt="res.rank", class="bestSalon__headings__image")
+
+                .bestSalonList.container
+                  template(v-for="(res, index) in results" :key="res")
+                    div(v-if="res.rank === 'gold'" class="bestSalonList__item" :class="{'is-open': res.status === 'open', 'is-close': res.status === 'close'}", data-trigger-list)
+                      .bestSalonList__item__cover
+                        img(v-if="res.noimage === 'on'" src="../../images/noimage.png", width="100%", height="auto", class="lazyload bestSalonList__item__coverItem", :alt="res.name")
+                        img(v-else :data-src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_500,h_354/v' + param + '/' + res.salonId + '_01.jpg']", width="100%", height="auto", class="lazyload bestSalonList__item__coverItem", alt="res.salon")
+                      .bestSalonList__item__outline
+                        p.bestSalonList__item__place {{ res.area }}
+                        h3.bestSalonList__item__name(v-if="res.status === 'open'")
+                          a(:href="'/' + res.salonId + '/?l-id=rb_beautyaward-tokyo_salon'", class="stretched-link") {{ res.salon }}
+                        h3.bestSalonList__item__name(v-if="res.status === 'close'") {{ res.salon }}
+                        a(v-if="res.interview", :href="res.interview", class="bestSalonList__item__interview ignore-stretched-link")
+                          | 受賞インタビュー
+                          i.icon-chevronRight
+
+            //- silver
+            template(v-if="res.rank === 'silver'")
+              section.bestSalon(v-if="res.no === 1")
+                div(:id="['header-' + res.rank + '-before']")
+                h2(class="bestSalon__headings", :id="['header-' + res.rank]")
+                  img(:src="['../../images/headings_salon_' + res.rank + '.png']", width="402", :alt="res.rank", class="bestSalon__headings__image")
+
+                .bestSalonList.container
+                  template(v-for="(res, index) in results" :key="res")
+                    div(v-if="res.rank === 'silver'" class="bestSalonList__item" :class="{'is-open': res.status === 'open', 'is-close': res.status === 'close'}", data-trigger-list)
+                      .bestSalonList__item__cover
+                        img(v-if="res.noimage === 'on'" src="../../images/noimage.png", width="100%", height="auto", class="lazyload bestSalonList__item__coverItem", :alt="res.name")
+                        img(v-else :data-src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_500,h_354/v' + param + '/' + res.salonId + '_01.jpg']", width="100%", height="auto", class="lazyload bestSalonList__item__coverItem", alt="res.salon")
+                      .bestSalonList__item__outline
+                        p.bestSalonList__item__place {{ res.area }}
+                        h3.bestSalonList__item__name(v-if="res.status === 'open'")
+                          a(:href="'/' + res.salonId + '/?l-id=rb_beautyaward-tokyo_salon'", class="stretched-link") {{ res.salon }}
+                        h3.bestSalonList__item__name(v-if="res.status === 'close'") {{ res.salon }}
+                        a(v-if="res.interview", :href="res.interview", class="bestSalonList__item__interview ignore-stretched-link")
+                          | 受賞インタビュー
+                          i.icon-chevronRight
+
+            //- bronze
+            template(v-if="res.rank === 'bronze'")
+              section.bestSalon(v-if="res.no === 1")
+                div(:id="['header-' + res.rank + '-before']")
+                h2(class="bestSalon__headings", :id="['header-' + res.rank]")
+                  img(:src="['../../images/headings_salon_' + res.rank + '.png']", width="402", :alt="res.rank", class="bestSalon__headings__image")
+
+                .bestSalonList.container
+                  template(v-for="(res, index) in results" :key="res")
+                    div(v-if="res.rank === 'bronze'" class="bestSalonList__item" :class="{'is-open': res.status === 'open', 'is-close': res.status === 'close'}", data-trigger-list)
+                      .bestSalonList__item__cover
+                        img(v-if="res.noimage === 'on'" src="../../images/noimage.png", width="100%", height="auto", class="lazyload bestSalonList__item__coverItem", :alt="res.name")
+                        img(v-else :data-src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_500,h_354/v' + param + '/' + res.salonId + '_01.jpg']", width="100%", height="auto", class="lazyload bestSalonList__item__coverItem", alt="res.salon")
+                      .bestSalonList__item__outline
+                        p.bestSalonList__item__place {{ res.area }}
+                        h3.bestSalonList__item__name(v-if="res.status === 'open'")
+                          a(:href="'/' + res.salonId + '/?l-id=rb_beautyaward-tokyo_salon'", class="stretched-link") {{ res.salon }}
+                        h3.bestSalonList__item__name(v-if="res.status === 'close'") {{ res.salon }}
+                        a(v-if="res.interview", :href="res.interview", class="bestSalonList__item__interview ignore-stretched-link")
+                          | 受賞インタビュー
+                          i.icon-chevronRight
+
+            //- rookie
+            template(v-if="res.rank === 'rookie'")
+              section.bestSalon(v-if="res.no === 1")
+                div(:id="['header-' + res.rank + '-before']")
+                h2(class="bestSalon__headings", :id="['header-' + res.rank]")
+                  img(:src="['../../images/headings_salon_' + res.rank + '.png']", width="402", :alt="res.rank", class="bestSalon__headings__image")
+
+                .bestSalonList.container
+                  template(v-for="(res, index) in results" :key="res")
+                    div(v-if="res.rank === 'rookie'" class="bestSalonList__item" :class="{'is-open': res.status === 'open', 'is-close': res.status === 'close'}", data-trigger-list)
+                      .bestSalonList__item__cover
+                        img(v-if="res.noimage === 'on'" src="../../images/noimage.png", width="100%", height="auto", class="lazyload bestSalonList__item__coverItem", :alt="res.name")
+                        img(v-else :data-src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_500,h_354/v' + param + '/' + res.salonId + '_01.jpg']", width="100%", height="auto", class="lazyload bestSalonList__item__coverItem", alt="res.salon")
+                      .bestSalonList__item__outline
+                        p.bestSalonList__item__place {{ res.area }}
+                        h3.bestSalonList__item__name(v-if="res.status === 'open'")
+                          a(:href="'/' + res.salonId + '/?l-id=rb_beautyaward-tokyo_salon'", class="stretched-link") {{ res.salon }}
+                        h3.bestSalonList__item__name(v-if="res.status === 'close'") {{ res.salon }}
+                        a(v-if="res.interview", :href="res.interview", class="bestSalonList__item__interview ignore-stretched-link")
+                          | 受賞インタビュー
+                          i.icon-chevronRight
+
+    #footer-nav
+      nav.backBtn
+        a.backBtn__link(href="../../")
+          span.backBtn__txt
+            | BEAUTY AWARD
+            br.-sp
+            | トップに戻る

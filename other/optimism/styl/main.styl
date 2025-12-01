@@ -1,0 +1,476 @@
+passStr = '../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+
+
+rosePinkColor = #ffe9f8
+RoseColor = #ff41b4
+cherryPinkColor = #fface3
+
+
+pcWidth = 1216px
+
+//------------------------------
+
+#Optimism // #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  .title--text
+    margin-bottom: 12px
+    color: RoseColor
+    text-align: center
+    font-size: 2.2rem
+    font-weight: bold
+    line-height: 1.3
+  .title--text--caption
+    text-align: center
+    font-size: 2rem
+    font-weight: bold
+    line-height: 1.3
+    +pc()
+      margin-bottom: 24px
+    +sp()
+      margin-bottom: 16px
+    &.-app
+      margin-bottom: 0
+    .title--text--caption--decoration
+      display: inline-block
+      position: relative
+      &::before
+        content: "|"
+        position: absolute
+        top: 0
+        left: -1.5rem
+        font-weight: normal
+        transform: rotate(-45deg)
+      &::after
+        content: "|"
+        position: absolute
+        top: 0
+        right: -1.5rem
+        font-weight: normal
+        transform: rotate(45deg)
+
+  // main
+  .main
+    +pc()
+      background: rosePinkColor
+    .main__title
+      display: block
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +pc()
+        width: 750px
+      +sp()
+        width: 100%
+      &Img
+        width: 100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      width: 100%
+      margin: 0 auto
+      padding-bottom: 10px
+      box-sizing: border-box
+      background: grayBgColor
+      .main__termsBox
+        margin: 0 auto 10px
+        +pc()
+          width: 750px
+        +sp()
+          width: 100%
+      .main__termsTxt
+        line-height 1.5
+        color: grayTxtColor
+        +pc()
+          font-size: 1.6rem
+        +sp()
+          width: calc(100% - 32px)
+          margin: auto
+          font-size: 1.2rem
+
+  // entry btn
+  .entryBox
+    position: relative
+    &::after
+      position: absolute
+      z-index: 1
+      right: 0
+      bottom: -60px
+      left: 0
+      width: 0
+      height: 0
+      margin: auto
+      border-style: solid
+      border-top: 60px solid #fff
+      border-bottom: 0
+      content: ""
+      +pc()
+        border-right: 187px solid transparent
+        border-left: 187px solid transparent
+      +sp()
+        border-right: 50vw solid transparent
+        border-left: 50vw solid transparent
+
+    .entryBox__wrap
+      padding: 32px 0 0
+    .entryBox__container
+      padding: 0 0 32px
+      +sp()
+        width: calc(100% - 32px)
+        margin: auto
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+
+  //- メインコンテンツ
+  .mainContent
+    position: relative
+    width: 100%
+    background: repeating-linear-gradient(
+      -45deg,
+      #ffe9f8,
+      #ffe9f8 7px,
+      #fff2fb 0,
+      #fff2fb 16px
+    )
+    .mainContent__wrap
+      margin: auto
+      padding: 72px 0 92px
+      +pc()
+        width: 950px
+      +sp()
+        width: calc(100% - 32px)
+      .mainContent__container
+        overflow: hidden
+        border-radius: 0 0 20px 20px
+        box-sizing: border-box
+        +pc()
+          margin-bottom: 40px
+        +sp()
+          margin-bottom: 24px
+        &:last-of-type
+          margin-bottom: 0
+        .mainContent__question
+          margin-top: 30px
+          background: white
+          border-radius: 20px 20px 0 0
+          text-align: center
+          .mainContent__question--title
+            position: relative
+            padding: 26px 16px 14px
+            background: RoseColor
+            border-radius: 20px 20px 0 0
+            color: white
+            font-size: 2.2rem
+            font-weight: bold
+            line-height: 1.3
+            .mainContent__question--title--icon
+              display: flex
+              align-items: center
+              justify-content: center
+              position: absolute
+              top: -30px
+              right: 0
+              left: 0
+              width: 60px
+              height: 60px
+              margin: auto
+              background: RoseColor
+              border-radius: 110px
+          .mainContent__question__item
+            margin: auto
+            padding: 30px 0
+            +pc()
+              width: 600px
+            +sp()
+              width: calc(100% - 32px)
+            .mainContent__question__item__list
+              margin-bottom: 16px
+              &:last-of-type
+                margin-bottom: 0
+              .mainContent__question__item--button
+                display: flex
+                align-items: center
+                justify-content: center
+                position: relative
+                padding: 16px 12px
+                background: grayBgColor
+                border: 4px solid RoseColor
+                border-radius: 10px
+                box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.20)
+                box-sizing: border-box
+                color: RoseColor
+                text-align: left
+                font-size: 1.8rem
+                font-weight: bold
+                line-height: 1.4
+                &::after
+                  position: absolute
+                  top: 50%
+                  right: 12px
+                  bottom: 0
+                  width: 12px
+                  height: 12px
+                  margin-top: -4px
+                  border-top: solid 2px RoseColor
+                  border-right: solid 2px RoseColor
+                  transform: translateY(-50%) rotate(135deg)
+                  content: ''
+                &.-small
+                  +pc()
+                    font-size: 1.8rem
+                  +sp()
+                    padding: 16px 24px 16px 32px
+                    font-size: 1.4rem
+                .mainContent__question__item--button__icon
+                  display: flex
+                  align-items: center
+                  justify-content: center
+                  position: absolute
+                  left: 12px
+                  width: 28px
+                  height: 28px
+                  background: white
+                  border-radius: 40px
+                  box-sizing: border-box
+                  line-height: 1
+        .mainContent__answer
+          display: none
+          padding: 50px 0 20px
+          background: cherryPinkColor
+          &.-active
+            display: block
+          .mainContent__answer__wrap
+            position: relative
+            margin: auto
+            padding: 0 16px 30px
+            background: white
+            border-radius: 10px
+            box-sizing: border-box
+            text-align: center
+            +pc()
+              width: 800px
+            +sp()
+              width: calc(100% - 32px)
+            &::after
+              position: absolute
+              top: -27px
+              left: 0
+              right: 0
+              width: 80px
+              height: 40px
+              margin: auto
+              background: white
+              border-top-left-radius: 40px
+              border-top-right-radius: 40px
+              content: ""
+            .mainContent__answer--title
+              position: relative
+              z-index: 1
+              margin-bottom: 18px
+              color: RoseColor
+              font-size: 2.6rem
+              font-weight: bold
+              line-height: 1.5
+            .mainContent__answer--lead
+              display: flex
+              align-items: center
+              justify-content: center
+              width: 100%
+              margin-bottom: 24px
+              padding: 16px
+              background: rosePinkColor
+              box-sizing: border-box
+              font-size: 2rem
+              font-weight: bold
+              line-height: 1.7
+            .mainContent__answer--summary
+              margin-bottom: 24px
+              font-size: 1.6rem
+              font-weight: bold
+              line-height: 1.5
+              .mainContent__answer--summary-emphasis
+                color: RoseColor
+            .mainContent__answer__img-q1
+              margin: 0 auto 24px
+              +pc()
+                width: 440px
+              +sp()
+                width: 100%
+            .mainContent__answer__img-q2
+              margin: 0 auto 24px
+              +pc()
+                width: 600px
+              +sp()
+                width: 100%
+            .mainContent__answer__img-q3
+              margin: 0 auto 24px
+              +pc()
+                width: 400px
+              +sp()
+                width: 100%
+            .mainContent__answer__button__wrap
+              margin: auto
+              +pc()
+                width: 500px
+              +sp()
+                width: 100%
+              &>li:nth-of-type(n+2)
+                margin-top: 16px
+              .mainContent__answer__button
+                display: flex
+                align-items: center
+                justify-content: center
+                padding: 16px 12px
+                background: RoseColor
+                border-radius: 10px
+                box-sizing: border-box
+                color: white
+                font-size: 2rem
+                font-weight: bold
+                line-height: 1.8
+  //- result
+  .resultContent
+    position: relative
+    width: 100%
+    margin-bottom: 32px
+    padding-bottom: 32px
+    background: grayBgColor
+    .resultContent__dec
+      position: relative
+      z-index: 1
+      display: flex
+      justify-content: space-between
+      top: -60px
+      height: 60px
+      +sp()
+        background: grayBgColor
+        &::after
+          width: 100vw
+          height: 60px
+          background: repeating-linear-gradient(
+            -45deg,
+            #ffe9f8,
+            #ffe9f8 7px,
+            #fff2fb 0,
+            #fff2fb 16px
+          )
+          clip-path: polygon(50% 100%, 0 0, 100% 0);
+          content: ""
+      .resultContent__dec-left
+        +pc()
+          position: relative
+          width: calc(50% - 187px)
+          background: grayBgColor
+          &::after
+            position: absolute
+            top: 0
+            right: -187px
+            width: 0
+            height: 0
+            border-style: solid
+            border-right: 187px solid transparent
+            border-left: 187px solid transparent
+            border-bottom: 60px solid grayBgColor
+            border-top: 0
+            content: ""
+      .resultContent__dec-right
+        +pc()
+          position: relative
+          width: calc(50% - 187px)
+          background: grayBgColor
+          &::after
+            position: absolute
+            top: 0
+            left: -187px
+            width: 0
+            height: 0
+            border-style: solid
+            border-right: 187px solid transparent
+            border-left: 187px solid transparent
+            border-bottom: 60px solid grayBgColor
+            border-top: 0
+            content: ""
+    .resultContent__wrap
+      position: relative
+      margin: -60px auto 0
+      padding-top: 12px
+      +pc()
+        width: 100%
+      +sp()
+        width: calc(100% - 32px)
+      .resultContent__dl__wrap
+        margin: 24px auto 0
+        padding: 20px
+        background: white
+        border-radius: 10px
+        box-sizing: border-box
+        +pc()
+          width: 950px
+        +sp()
+          width: 100%
+        .resultContent__dl
+          display: flex
+          align-items: center
+          justify-content: center
+          +sp()
+            flex-direction: column
+          .resultContent__dl__device
+            +pc()
+              width: 200px
+              margin-right: 24px
+            +sp()
+              width: 59.6%
+              margin: 0 auto 16px
+          .resultContent__dl__button
+            +pc()
+              width: 156px
+            +sp()
+              width: 61%
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)

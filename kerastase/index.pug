@@ -1,0 +1,516 @@
+//- 新クーポンLP専用テンプレート。毎回最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- CSV Coupon Template / ver 1.4.1 / 更新日時：2025.4.7 / クーポン注意事項追記・クーポン使い方画像切り替え追加
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  //- Kintone情報読み込み
+  include _kintone
+  - var css = `${'css/main.css' + parameter}`
+  //- シェア画像切り替え
+  if coupon[0].種別 == '事前登録'
+    - var shareImg = 'https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png' + parameter //- default
+  if coupon[0].種別 == '獲得'
+    - var shareImg = coupon[0].ページURL + 'img/share.png' + parameter //- default (シェア画像があれば変更)
+  //- description（全員対象優先、全員対象がなければ一番最後のクーポンのdescriptionが入ります）
+  - var loopflag = true;
+  - for(var i = 0; i < coupon.length; i++)
+    if loopflag == true && coupon[i].対象条件 == 'セグメントなし'
+      - var descStr = coupon[i].クーポン説明
+      - var loopflag = false //- break
+    else if loopflag == true
+      - var descStr = coupon[i].クーポン説明
+  //- metaタグ等に反映
+  include _setting
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  #CouponTemplate
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このラ・クーポンは終了しました' //- ページ上部の文言
+      - var btnTxt = '終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+
+    //- このLP全体の対象判定    
+    //- 全員対象が1つでもあったら全員対象（全員対象＞対象サロン新規限定＞新規限定=対象サロン限定）
+    - var tag_target = []
+    - var hasNoReservation = false
+    //- 対象店舗予約有無が「なし」の要素があるかをチェック
+    - for (var i = 0; i < coupon.length; i++)
+      if coupon[i].対象店舗予約有無 == 'なし'
+        - hasNoReservation = true
+        - break // 1つでも見つかればループを終了
+    - for (var i = 0; i < coupon.length; i++)
+      //- 全員対象判定（1つでもあれば全員対象）
+      if coupon[i].対象条件 == 'セグメントなし'
+        if coupon[i].対象店舗予約有無 == 'なし'
+          if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = []
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            if genre == 'hair'
+              - var tag_target = ['美容室限定']
+            else if genre == 'all' || genre == ''
+              - var tag_target = ['対象サロン限定']
+        else if coupon[i].対象店舗予約有無 == '0:サロン新規' || coupon[i].対象店舗予約有無 == '1:サロンリピーター促進(2回目)' || coupon[i].対象店舗予約有無 == '2:サロンリピーター促進(3回目)'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            if genre == 'hair'
+              - var tag_target = ['美容室限定', '対象者限定']
+            else if genre == 'all' || genre == ''
+              - var tag_target = ['対象サロン限定', '対象者限定']
+          else if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = ['対象者限定']
+      //- 新規限定判定
+      else if coupon[i].対象条件 == '新規限定'
+        if coupon[i]['対象店舗予約有無'] == 'なし'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            if genre == 'hair'
+              - var tag_target = ['美容室限定', '初回利用限定']
+            else if genre == 'all' || genre == ''
+              - var tag_target = ['対象サロン限定', '初回利用限定']
+          else if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = ['初回利用限定']
+
+      //- 「対象者限定」を削除する処理
+      if hasNoReservation
+        - tag_target = tag_target.filter(tag => tag !== '対象者限定')    
+
+      //- 毎月開催判定
+      if coupon[i].毎月開催 == '毎月'
+        - var alwaysflag = true;
+    //- tagリスト作り
+    -
+      var tags = ['ラ・クーポン']
+      for (var j = 0; j < tag_target.length; j++)
+        tags.push(tag_target[j])
+    if alwaysflag
+      - tags.push('毎月開催')
+
+    //- 手動のtaglistがなければKintoneを反映
+    if !taglist
+      -
+        var taglist = {
+          tag: tags,
+        }
+
+    //- section#CpnTags
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter alt=meta.title)
+
+    //- ナビゲーション
+    ul.nav__container
+      li.nav__list
+        a.nav__link(href='#Chronologiste')
+          p.nav__text
+            | ケラスターゼ最高峰
+            br
+            span.nav__text--emphasis CHRONOLOGISTE
+      li.nav__list
+        a.nav__link(href='#Fusiodose')
+          p.nav__text
+            | 最適アプローチ
+            br
+            span.nav__text--emphasis FUSIO-DOSE
+      li.nav__list
+        a.nav__link(href='#Shoplist')
+          p.nav__text
+            | ケラスターゼ
+            br
+            span.nav__text--emphasis 取扱いサロン
+
+    //-  ケラスターゼについて
+    section#brand.brand(data-ratid='cpn_' + directory + '_brand' data-ratevent='appear' data-ratparam='all')
+      h3.brand__title
+        | ケラスターゼについて
+      .brand__wrap
+        p.brand__info.slideInContent
+          | 1964年、パリで誕生したケラスターゼは
+          br
+          | 先進の研究に裏付けられた確かな知識と
+          br
+          | 世界中の美容師に支えられた高い技術を融合して
+          br
+          | あなたに最適なケアで極上の
+          br.-sp
+          | ラグジュアリー体験を提供します
+
+    //-  メニュー紹介
+    section.introduction(data-ratid='cpn_' + directory + '_Introduction' data-ratevent='appear' data-ratparam='all')
+      .introduction__wrap
+        h3.introduction__title
+          | 贅沢なサロントリートメントこそ、
+          br.-sp
+          | ケラスターゼの醍醐味
+        p.introduction__info
+          br
+          | ケラスターゼから、
+          br
+          | おすすめのトリートメントをご紹介いたします
+        ul.introduction__menu
+          li.introduction__menu__item
+            a.introduction__menu__button(href='#Chronologiste')
+              img(src='img/img_menu1.png' + parameter alt="頭皮から毛先まで包括的な美髪ケアをしたい方へ ケラスターゼ最高峰ライン CHRONOLOGISTE クロノロジスト")
+          li.introduction__menu__item
+            a.introduction__menu__button(href='#Fusiodose')
+              img(src='img/img_menu2.png' + parameter alt="髪悩み×なりたい髪で自分に合ったケアをしたい方へ パーソナライズ・トリートメント FUSIO-DOSE フュジオドーズ")
+
+    //-  クロノロジスト紹介
+    #Chronologiste
+    section.chronologiste(data-ratid='cpn_' + directory + '_Chronologiste' data-ratevent='appear' data-ratparam='all')
+      h3.chronologiste__title
+        img.chronologiste__title__img(src='img/img_chronologiste_title.png' + parameter alt="ケラスターゼ最高峰ライン CHRONOLOGISTE クロノロジスト")
+      articl.chronologiste__explanation
+        img.chronologiste__item__img(src='img/img_chronologiste_item.png' + parameter alt="CHRONOLOGISTE クロノロジスト")
+        h5.chronologiste__item__title
+          | LIVE BEYOND TIME
+        p.chronologiste__item__title__label
+          | 時を超えた美しさ
+        .chronologiste__item__info
+          p.chronologiste__item__info__text 先進のテクノロジーを総結集させ、時とともに感じる変化をあらゆる方向からケア
+          p.chronologiste__item__info__text 包括的で最高峰*の贅沢を極めたヘアケアは未来への投資です
+          p.chronologiste__item__info__secondary *ケラスターゼにおいて
+      articl.chronologiste__article
+        h3.chronologiste__article__title
+          | ケラスターゼの美髪ケアに着目した
+          br.-sp
+          | 先進テクノロジー
+        ul.chronologiste__technology__list.slideInContent
+          li.chronologiste__technology__item
+            .chronologiste__technology__item__img
+              img(src='img/img_technology2.png' + parameter alt="アビジン")
+            .chronologiste__technology__item__right
+              p.chronologiste__technology__item__title アビシン
+                span.chronologiste__technology__item__label アルテロモナス発酵エキス
+              p.chronologiste__technology__item__secondary （健やか成分）
+              p.chronologiste__technology__item__text 一般的に、アビシンは紫外線等の外的要因から肌を守ることが知られている。
+          li.chronologiste__technology__item
+            .chronologiste__technology__item__img
+              img(src='img/img_technology3.png' + parameter alt="ヒアルロン酸")
+            .chronologiste__technology__item__right
+              p.chronologiste__technology__item__title ヒアルロン酸
+                span.chronologiste__technology__item__label ヒアルロン酸Na
+              p.chronologiste__technology__item__secondary （うるおい・保湿）
+              p.chronologiste__technology__item__text 角質層に溜まりたっぷり水分を含んだ膜で肌内部、髪内側の水分が蒸発しないように蓋をする。
+          li.chronologiste__technology__item
+            .chronologiste__technology__item__img
+              img(src='img/img_technology4.png' + parameter alt="ビタミンE")
+            .chronologiste__technology__item__right
+              p.chronologiste__technology__item__title ビタミンE
+                span.chronologiste__technology__item__label トコフェロール
+              p.chronologiste__technology__item__secondary （コンディショニング成分）
+              p.chronologiste__technology__item__text 肌を健やかに保つことで知られる。
+      articl.chronologiste__article
+        .chronologiste__item__info
+        h3.chronologiste__article__title
+          span.-s クロノロジスト キャビア トリートメント
+          br
+          | サロン限定トリートメント
+          br
+          | キャビア リチュアルで、ハイクラスな美髪体験を
+        .chronologiste__approach__img.slideInContent
+          img.-sp(src='img/img_approach_sp.png' + parameter alt="複数の髪悩みに包括的にアプローチ")
+          img.-pc(src='img/img_approach_pc.png' + parameter alt="複数の髪悩みに包括的にアプローチ")
+      articl.chronologiste__article
+        h3.chronologiste__article__title
+          | 仕上がりイメージ
+        //- slide in用wrapper追加
+        .slideInContent
+          p.chronologiste__make__img
+            img(src='img/img_make.png' + parameter alt="仕上がりイメージ")
+          p.chronologiste__make__info
+          | ※仕上がりイメージ。個人差があります。
+
+    //-  フュジオドーズ紹介
+    #Fusiodose
+    section.fusiodose(data-ratid='cpn_' + directory + '_Fusiodose' data-ratevent='appear' data-ratparam='all')
+      .fusiodose__main
+        h3.fusiodose__main__title
+          img(src='img/img_fusiodose_title.png' + parameter alt="パーソナライズ・トリートメント FUSIO-DOSE フュジオドーズ")
+        .fusiodose__main__container
+          .fusiodose__main__img
+            img(src='img/img_fusiodose_main.png' + parameter alt="ケラスターゼサロントリートメント売上No.1※ プロがカウンセリングを基にあなたに最適な組み合わせを")
+          .fusiodose__main__summary
+            p ケラスターゼサロントリートメント売上No.1
+              span.fusiodose__main__small ※
+              br
+              | プロがカウンセリングを基にあなたに最適な組み合わせを
+            p 髪悩み×なりたい髪で見つける
+              br
+              | パーソナライズ・トリートメント
+            p.fusiodose__main__summary__info ※ケラスターゼ調べ。2023年1月～12月までのサロントリートメントカテゴリーにおけるケラスターゼ取扱いサロン向け出荷金額に基づく
+      .fusiodose__product
+        h3.fusiodose__product__title
+          | 20通りの組み合わせから、
+          br.-sp
+          | あなたのための1滴を
+        .concentres.fusiodose__product__menu
+          h4.product__menu__title
+            img(src='img/concentres_title.png' + parameter alt="髪悩みから選ぶ THE CONCENTRÉS コンサントレ")
+          #concentres__swiper.fusiodose__product__wrap
+            ul.concentres__list.fusiodose__product__list
+              li.concentres__item.fusiodose__product__item
+                img(src='img/con_01.png' + parameter alt="オレオフュージョンコンサントレ")
+              li.concentres__item.fusiodose__product__item
+                img(src='img/con_02.png' + parameter alt="レジスタンスコンサントレ")
+              li.concentres__item.fusiodose__product__item
+                img(src='img/con_03.png' + parameter alt="ブロンドアブソリュコンサントレ")
+              li.concentres__item.fusiodose__product__item
+                img(src='img/con_04.png' + parameter alt="ジェネシスコンサントレ")
+              li.concentres__item.fusiodose__product__item
+                img(src='img/con_05.png' + parameter alt="クロマアブソリュコンサントレ")
+          #concentres__pagination.RBpagination.-sp
+            span.RBpagination_bullet.active
+            span.RBpagination_bullet
+            span.RBpagination_bullet
+        .fusiodose__product__x
+          img(src='img/x.png' + parameter)
+        .boosters.fusiodose__product__menu
+          h4.product__menu__title
+            img(src='img/boosters_title.png' + parameter alt="なりたい髪から選ぶ THE BOOSTERS ブースター")
+          #boosters__swiper.fusiodose__product__wrap
+            ul.boosters__list.fusiodose__product__list
+              li.boosters__item.fusiodose__product__item
+                img(src='img/boosters_01.png' + parameter alt="オレオフュージョンブースター")
+              li.boosters__item.fusiodose__product__item
+                img(src='img/boosters_02.png' + parameter alt="レジスタンスブースター")
+              li.boosters__item.fusiodose__product__item
+                img(src='img/boosters_03.png' + parameter alt="ブロンドアブソリュブースター")
+              li.boosters__item.fusiodose__product__item
+                img(src='img/boosters_04.png' + parameter alt="クロマアブソリュブースター")
+          #boosters__pagination.RBpagination.-sp
+            span.RBpagination_bullet.active
+            span.RBpagination_bullet
+            span.RBpagination_bullet
+
+    //- anchor link
+    #Shoplist(data-ratid='cpn_' + directory + '_Shoplist' data-ratevent='appear' data-ratparam='all')
+
+    //- shoplist
+    section#salonFilterContainer
+      #salonFilterSection(ref="wrapper", class="is-loading")
+        .loader
+
+        //- mixin card
+        mixin card()
+          if shoplist.select == '1column' || shoplist.select == 'btn'
+            - var type = 'filterList'
+          else if shoplist.select == '2column'
+            - var type = 'filteredSalonList'
+          #salonList(ref="list")
+            .salonList
+              section(v-for="item, index in " + type, :key="index", class="salonList__item position-relative")
+                .salonList__content
+                  .salonList__cover
+                    img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/" + item.shop_id + "_01.jpg" + param', class="salonList__image", rel="preload", :alt="item.shop_name")
+                  .salonList__outline
+                    h3.salonList__salonName
+                      a(:href='"/" + item.shop_id + "/?" + lid', class="salonList__link stretched-link") {{ item.shop_name }}
+                    span.salonList__area
+                      i.icon.icon-location
+                      | {{ item.area }}
+                    span.salonList__station
+                      i.icon.icon-train
+                      | {{ item.station }}
+        //- mixin menuCard
+        mixin menuCard()
+          #salonList(ref="list")
+            if shoplist.select == '1column' || shoplist.select == 'btn'
+              - var type = 'filterList'
+            else if shoplist.select == '2column'
+              - var type = 'filteredSalonList'
+            .salonList
+              section(v-for="item, index in " + type, :key="index", class="salonList__item has-divide")
+                .salonList__content.position-relative
+                  .salonList__cover
+                    img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/" + item.shop_id + "_01.jpg" + param', class="salonList__image", rel="preload", :alt="item.shop_name")
+                  .salonList__outline
+                    h3.salonList__salonName
+                      a(:href='"/" + item.shop_id + "/?" + lid', class="salonList__link stretched-link") {{ item.shop_name }}
+                    span.salonList__area
+                      i.icon.icon-location
+                      | {{ item.area }}
+                    span.salonList__station
+                      i.icon.icon-train
+                      | {{ item.station }}
+                .salonList__divide.position-relative
+                  .salonList__outline
+                    .salonList__detail
+                      .salonList__menuIcon
+                        span.salonList__genre.-no1(v-if='item.genreNo_1 == 1') {{ item.genre_1 }}
+                        span.salonList__genre.-no2(v-if='item.genreNo_1 == 2') {{ item.genre_1 }}
+                        span.salonList__genre.-no3(v-if='item.genreNo_1 == 3') {{ item.genre_1 }}
+                      .salonList__menuDetail
+                        h4.salonList__menuName
+                          span.salonList__target(v-if='item.target_1 == "初回"') {{ item.target_1 }}
+                          span.salonList__target.is-all(v-if='item.target_1 == "全員"') {{ item.target_1 }}
+                          | {{ item.menu_name_1 }}
+                    p.salonList__description {{ item.menu_detail_1 }}
+                  .salonList__buttonArea
+                    .salonList__menuPriceArea
+                      span.salonList__menuTime 約{{ item.menu_time_1 }}分
+                      span.salonList__menuPrice ￥{{ item.menu_price_1.toLocaleString() }}
+                    .salonList__menuTermsArea
+                      span.salonList__menuTerm {{ item.condition_1 }}
+                    a(:href='"/reserve/?shop_ex_id=" + item.shop_id + "&menu_id=" + item.menu_id_1 + "&" + lid', class="stretched-link salonList__button") このメニューで予約する
+                .salonList__divide.position-relative(v-if='item.menu_id_2')
+                  .salonList__outline
+                    .salonList__detail
+                      .salonList__menuIcon
+                        span.salonList__genre.-no1(v-if='item.genreNo_2 == 1') {{ item.genre_2 }}
+                        span.salonList__genre.-no2(v-if='item.genreNo_2 == 2') {{ item.genre_2 }}
+                        span.salonList__genre.-no3(v-if='item.genreNo_2 == 3') {{ item.genre_2 }}
+                      .salonList__menuDetail
+                        h4.salonList__menuName
+                          span.salonList__target(v-if='item.target_2 == "初回"') {{ item.target_2 }}
+                          span.salonList__target.is-all(v-if='item.target_2 == "全員"') {{ item.target_2 }}
+                          | {{ item.menu_name_2 }}
+                    p.salonList__description {{ item.menu_detail_2 }}
+                  .salonList__buttonArea
+                    .salonList__menuPriceArea
+                      span.salonList__menuTime 約{{ item.menu_time_2 }}分
+                      span.salonList__menuPrice ￥{{ item.menu_price_2.toLocaleString() }}
+                    .salonList__menuTermsArea
+                      span.salonList__menuTerm {{ item.condition_2 }}
+                    a(:href='"/reserve/?shop_ex_id=" + item.shop_id + "&menu_id=" + item.menu_id_2 + "&" + lid', class="stretched-link salonList__button") このメニューで予約する
+
+        //- 1column
+        if shoplist.select == '1column'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            .filter-select
+              select.filter-select__item(v-model="select1")
+                option(value="") !{shoplist.firstTxt1}
+                option(v-for="(item, index) in select1List", :value="item.name") {{ item.name }} ({{ item.count }}件)
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+        //- 2column
+        else if shoplist.select == '2column'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            .filter-select
+              select.filter-select__item(v-model="select1", ref="select1")
+                option(value="", selected) !{shoplist.firstTxt1}
+                option(v-for="(item, index) in select1List", :value="item") {{ item }}
+            .filter-select
+              select.filter-select__item(v-model="select2", ref="select2", disabled)
+                option(value="", selected) !{shoplist.firstTxt2}
+                option(v-for="(item, index) in select2List", :value="item") {{ item }}
+            button(class="filter-button", disabled, v-on:click="search", ref="button")
+              span 検索
+              span(v-if="count !== 0 && !firstFlag") （{{count}}件）
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+        //- btn
+        else if shoplist.select == 'btn'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            ul.filter-button-list
+              li.filter-button-list-item
+                button.filter-list-button(@click="select1 = ''", :class="{'is-selected': select1 == ''}") すべて
+              li.filter-button-list-item(v-for="(item, index) in select1List")
+                button.filter-list-button(@click="select1 = item.name", :class="{'is-selected': select1 == item.name}") {{ item.name }} ({{ item.count }}件)
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- slide in用のJS（JQuery使用）
+  script(src="js/rb-slide-in.js", defer)
+
+  //- SP slider用のJS（JQuery使用）
+  script(src="js/rb-swipe-slider-sp.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- 1click coupon
+  script(src='//r.r10s.jp/com/js/d/Rmodules/Rmodules.min.js?v=1.4.0', defer)
+  script(src='//r.r10s.jp/com/js/d/coupon/one_click_acquisition/1.2/one_click_acquisition-1.2.0.min.js', defer)
+
+  //------------------------------- Shoplist 絞り込み (vue) -------------------------------//
+
+  //- js用パラメータ生成
+  script.
+    const param = '!{parameter}';
+    const firstSelect1 = '!{shoplist.firstSelect1}';
+    const firstSelect2 = '!{shoplist.firstSelect2}';
+    const dir = '!{directory}';
+    const lid = 'l-id=rb_' + dir + '_shopdetail';
+
+  //- pugで読み込むjsのurl（パラメータつき）を生成 = キャッシュ対策
+  -
+    var jsUrl1column = `${'js/filter-by-1column.js' + parameter}`
+    var jsUrl2column = `${'js/filter-by-2column.js' + parameter}`
+
+  //- json読み込み & 絞り込み (vue)
+  if shoplist.select == '1column' || shoplist.select == 'btn'
+    script(src=jsUrl1column, defer)
+  else if shoplist.select == '2column'
+    script(src=jsUrl2column, defer)
+    
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+

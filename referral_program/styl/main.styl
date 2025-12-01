@@ -1,0 +1,1234 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #bfa100
+secondColorSub = #98ccd6
+thirdColor = #25a4d0
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+grayTabColor = #f7f7f7
+linkColor = #45a9bc
+redColor = #bf0000
+greenColor = #06c755
+blackColor = #000
+currentColor = #45a9bc
+peonyColor = #e0436b
+
+pcWidth = 1216px
+
+//------------------------------
+
+#Referral　// #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  // main
+  .main
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.2rem
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+        .main__sendTxt
+          color: secondColor
+        .main__receiveTxt
+          color: thirdColor
+        .main__termsLink
+          color: linkColor
+    // 毎月開催
+    .main__termsAlways
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+        padding: 20px
+      +sp()
+        padding: 8px 10px
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        &:first-of-type
+          display: block
+          border-bottom: 1px solid secondColor
+          +pc()
+            width: 800px
+            margin-bottom: 10px
+            padding-bottom: 10px
+          +sp()
+            margin-bottom: 8px
+            padding-bottom: 8px
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          font-weight: bold
+          margin-bottom: 0.4rem
+          +pc()
+            display: block
+            font-size: 1.8rem
+          +sp()
+            font-size: 1.4rem
+          &.-big
+            line-height 1.3
+            color: secondColor
+            margin: 0
+            +pc()
+              font-size: 2.8rem
+            +sp()
+              font-size: 1.6rem
+          &.-small
+            color:grayTxtColor
+            font-weight: normal
+            margin: 0
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+        .main__termsLink
+          color:secondColor
+    // メニュー用ページ内リンク
+    .referral__menu
+      display: flex
+      align-items: center
+      width 100%
+      gap: 2px
+      .referral__menu__list
+        width: 50%
+        &.-send
+          background: secondColor
+        &.-receive
+          background: thirdColor
+        &.-search
+          background: peonyColor
+        .referral__link
+          display: block
+          padding: 8px 8px 20px
+          text-align: center
+          +pc()
+            padding: 24px
+          .referral__termsTxt
+            position: relative
+            display: inline-block
+            color: #fff
+            font-size: 1.4rem
+            +pc()
+              font-size: 2rem
+            &::after
+              content: '';
+              position: absolute
+              top: 1.5rem
+              right 50%
+              width: 8px;
+              height: 8px;
+              border-top: solid 1px #fff
+              border-right: solid 1px #fff
+              transform: rotate(135deg)
+              +pc()
+                top: 50%;
+                right: -3.2rem
+                width: 10px;
+                height: 10px;
+                margin-top: -8px
+              +sp()
+                margin-right: -8px
+
+  // 項目タイトル
+  .titleWrap
+    &.-send
+      +pc()
+        border-left: 4px solid secondColor
+      .titleWrap--title
+        +sp()
+          border-left: 6px solid secondColor
+    &.-receive
+      +pc()
+        border-left: 4px solid thirdColor
+      .titleWrap--title
+        +sp()
+          border-left: 6px solid thirdColor
+    &.-search
+      +pc()
+        border-left: 4px solid peonyColor
+      .titleWrap--title
+        +sp()
+          border-left: 6px solid peonyColor
+  .flow__wrapper
+    margin-top: 24px
+    +pc()
+      margin-top: 40px
+    .flow__caption
+      padding: 0 16px
+      font-size: 1.4rem
+      text-align: center
+      font-weight:bold
+      line-height: 1.4
+      +pc()
+        font-size: 2rem
+      &.-send
+        color: secondColor
+      &.-normal
+        color: grayTxtColor
+      &.-receive
+        color: thirdColor
+      &.-search
+        color: peonyColor
+      .flow__txt
+        &.-xxlarge
+          font-size: 2.8rem
+          line-height: 1.1
+          +pc()
+            font-size: 3.2rem
+            line-height: 1
+          +sp()
+            font-weight: bold
+        &.-small
+          color:grayTxtColor
+          font-weight: normal
+          margin: 0
+          +pc()
+            display: inline-block
+            font-size: 1.4rem
+          +sp()
+            display: inline
+            font-size: 1.2rem
+
+
+
+  // 紹介する方
+  .flow
+    width: 100%
+    margin: 40px auto
+    +pc()
+      width: 1216px
+      margin: 60px auto
+    .flow__tab
+        display: flex
+        justify-content: space-btween
+        margin-top: 24px
+        +pc()
+          margin-top: 40px
+          gap: 10px
+      .flow__tabMenuSend,
+      .flow__tabMenuReceive
+        position: relative
+        z-index: 1
+        flex: 1;
+        top: 2px
+        height: 60px
+        padding: 20px 0
+        background: grayTabColor
+        border: 2px solid grayTabColor
+        border-radius: 4px 4px 0px 0px
+        box-sizing: border-box
+        font-size: 1.2rem
+        text-align: center
+        font-weight: bold
+        +pc()
+          font-size: 1.6rem
+        +sp()
+          margin-right: 2px
+          &:last-of-type
+            margin-right: 0
+        &:hover
+          color: currentColor
+          transition 0.2s
+          cursor pointer
+        &.-active
+          z-index: 3
+          background: #fff
+          border: 2px solid grayLineColor
+          border-bottom: 0
+          color: secondColor
+        .flow__tabImg
+          display: inline-block
+          position: relative
+          top: -.3rem
+          width: 20px
+          height: auto
+          margin-right: 8px
+          +pc()
+            width: 24px
+    .flow__tabMenuReceive
+      &.-active
+        color: thirdColor
+    .flow__tabContents
+      position: relative;
+      z-index: 2;
+      padding: 24px 16px 0
+      border-top: 2px solid grayLineColor
+      +pc()
+        padding: 40px 0 0
+      .flow__tabContentsItemSend,
+      .flow__tabContentsItemReceive
+        display: none
+        &.-show
+          display: block
+        .flow__boxWrap
+          +pc()
+            display: flex
+            justify-content: space-between
+            width: 100%
+            margin: 0 auto 44px
+            gap: 0 40px
+          .flow__box
+            display: flex
+            align-items: center
+            position: relative
+            padding: 16px
+            background: grayBgColor
+            border-radius: 8px
+            box-sizing: border-box
+            +pc()
+              flex: 1
+              flex-direction: column
+            +sp()
+              flex-wrap: wrap
+              justify-content: center
+              margin: 0 auto 34px
+            &::after
+              +pc()
+                content:''
+                position: absolute
+                top:calc((100% - 20px * 2) / 2)
+                right: -32px
+                arrowFill(right,20px,grayTagColor)
+              +sp()
+                content:''
+                position: absolute
+                left:calc((100% - 10px * 2) / 2)
+                bottom: -22px
+                arrowFill(bottom,10px,grayTagColor)
+            &:last-of-type
+              // margin-bottom: 0
+              &::after
+                display: none
+            .flow__box0
+              width: 100%
+              margin-bottom: 8px
+              +pc()
+                margin-bottom: 16px
+            .flow__box1
+              +pc()
+                width: 160px
+                margin-bottom: 16px
+              +sp()
+                display: inline-block
+                width: 35%
+                text-align: center
+                img
+                  width: 80%
+            &:last-of-type
+              .flow__box1
+                &::after
+                  border:none
+            .flow__box2
+              position: relative
+              width: 100%
+              +pc()
+                display: flex
+                flex-direction: column
+                align-items: center
+                height: 100%
+              +sp()
+                display: inline-block
+                width: calc(100% - 35% - 8px);
+                margin-left: 8px
+              // override
+              .flow__txt
+                &.-small
+                  +sp()
+                    color: grayTagColor
+            .flow__iconBtn
+              width: 100%;
+              margin: 0 auto
+              padding-bottom: 24px
+              text-align: center
+              +sp()
+                max-width: 100%
+                padding: 0
+              .flow__boxIcon
+                width: 49px
+                height: 49px
+              .send__boxBtn
+                display: flex
+                justify-content: center
+                align-items: center
+                height: 44px
+                margin-top: 8px
+                padding: 0 8px
+                border-radius: 100px
+                color: #fff
+                text-align: center
+                font-size: 16px;
+                line-height: 1.5
+                +pc()
+                  margin-top: 16px
+                &.-green
+                  background: greenColor
+                &.-black
+                  background: blackColor
+                &.-red
+                  background: redColor
+                &.-end
+                  background: grayTagColor
+              .flow__iconText
+                display: inline-block
+                margin-bottom: 2px
+                padding-left: 8px
+              .line__boxTxt
+                font-size: 1.4rem
+                line-height: 1.8
+              .line__form
+                display: flex;
+                flex-direction: column;
+                margin-top: 8px
+                .line__formTxt
+                  width: 100%
+                  padding: 8px 16px
+                  background: #fff
+                  border: 1px solid grayLineColor
+                  border-radius: 4px
+                  box-sizing: border-box
+                  font-size: 1.4rem
+                  text-align: left
+                  line-height: 1.5
+                .line__formButton
+                  display: flex
+                  justify-content: center
+                  align-items: center
+                  margin-top: 8px
+                  padding: 8px
+                  background: greenColor
+                  border: none
+                  box-sizing: border-box
+                  border-radius: 4px
+                  color: #fff
+                  text-align: center
+                  line-height: 1.5
+                  font-size: 1.4rem
+                  cursor: pointer
+                  .line__formIcon
+                    width: 16px
+                    height: 16px
+                    margin-right: 8px
+              .line__message
+                display: none
+                position: absolute
+                top: calc((100% - 70px) / 2)
+                width: 100%
+                padding: 24px 16px
+                background: #e8f7e1
+                border-radius: 4px
+                box-sizing: border-box
+                text-align: left
+                .line__messageTxt
+                  display: flex
+                  justify-content: center
+                  color: #069907
+                  font-size: 1.4rem
+                  line-height: 1.5
+                  .icon-check
+                    padding-right: 8px
+                    font-size: 2.4rem
+          // common
+          .flow__boxTitle
+            text-align: center
+            line-height: 1.4
+            font-weight: bold
+            +pc()
+              font-size: 2rem
+              line-height: 1.2
+            +sp()
+              font-size: 1.6rem
+            &.-send
+              color: secondColor
+            &.-receive
+              color: thirdColor
+          .flow__txt
+            color: grayTxtColor
+            text-align: center
+            line-height: 1.8
+            font-size: 1.4rem
+            +pc()
+              font-weight: bold
+              line-height: 1.5
+            &.-xxlarge
+              font-size: 2.8rem
+              line-height: 1.1
+              +pc()
+                font-size: 3.2rem
+                line-height: 1
+              +sp()
+                font-weight: bold
+            &.-xlarge
+              +pc()
+                font-size: 1.6rem
+                line-height: 1
+              +sp()
+                font-weight: bold
+            &.-large
+              font-size: 1.8rem
+              +pc()
+                font-size: 2rem
+              +sp()
+                font-weight: bold
+            &.-small
+              margin-top: 8px
+              font-size: 1.2rem
+              +pc()
+                font-weight: normal
+            &.-send
+              color: secondColor
+            &.-receive
+              color: thirdColor
+          .flow__link
+            color: linkColor
+            &:hover
+              opacity: .8
+          .flow__boxImg
+            width: 100%
+            height: auto
+            
+    .flow__panda
+      position: relative
+      display: flex
+      align-items: center
+      justify-content: center
+      border-radius: 8px
+      max-width: 720px 
+      margin: 0 auto
+      padding: 30px 0
+      gap: 16px
+      +sp()
+        flex-direction: column
+        margin: 0 16px
+        max-width :inherit
+      &::before
+        content:''
+        position: absolute
+        top:-28px
+        width: 0;
+        height: 0;
+        border-right: 40px solid transparent
+        border-left: 40px solid transparent
+        border-top: 18px solid 
+        +sp()
+          top: -23px
+          border-right: 30px solid transparent
+          border-left: 30px solid transparent
+          border-top: 16px solid 
+      &.-send
+        background: #FEF9DD
+        color: secondColor
+      &.-receive
+        color: thirdColor
+        background: #E5F9FF
+        +pc()
+          flex-direction: row-reverse
+      img
+        +sp()
+          width: 80%
+      .flow__box
+          text-align: center
+          
+          
+
+  // 楽天ビューティ利用者様の声
+  .review
+  .merit
+    width: 100%
+    margin: 40px auto
+    +pc()
+      width: 1216px
+      margin: 60px auto
+    .review__tabContents
+      padding: 0 16px
+      .review__boxWrap
+        +pc()
+          display: flex
+          justify-content: space-between
+          width: 100%
+          margin: 0 auto
+          gap: 0 40px
+        .review__box
+          display: flex
+          align-items: center
+          position: relative
+          box-sizing: border-box
+          flex-direction: column
+          +pc()
+            flex: 1
+          +sp()
+            flex-wrap: wrap
+            justify-content: center
+            margin: 0 auto 24px
+          .review__boxTitle
+            text-align: center
+            line-height: 1.4
+            font-weight: bold
+            color: peonyColor
+            margin-bottom: 16px
+            +pc()
+              font-size: 2rem
+              line-height: 1.2
+            +sp()
+              font-size: 1.6rem
+          .review__box0
+          .merit__box0
+            display: flex
+            height: 100%
+            flex-direction: column
+            margin-bottom: 8px
+            padding: 16px
+            align-items: center
+            border-radius: 8px
+            background: grayBgColor
+            +sp()
+              flex-direction: row
+              padding: 16px 0
+              width: 100%
+            .flow__box1
+              +pc()
+                width: 160px
+                margin-bottom: 16px
+              +sp()
+                display: inline-block
+                width: 35%
+                text-align: center
+                img
+                  width: 80%
+            .flow__box2
+              position: relative
+              width: 100%
+              +pc()
+                display: flex
+                flex-direction: column
+                align-items: center
+                height: 100%
+              +sp()
+                display: inline-block
+                width: calc(100% - 35% - 8px);
+              &::before,&::after
+                display :block
+                width: 100%
+              &::before
+                content :url('/cnt/topics/campaign/referral_program/img/img_icon_quote1.png')
+                padding-bottom :4px
+              &::after
+                content :url('/cnt/topics/campaign/referral_program/img/img_icon_quote2.png')
+                padding-top :4px
+                text-align: right
+          .flow__txt
+            color: grayTxtColor
+            text-align: center
+            line-height: 1.8
+            font-size: 1.4rem
+            +pc()
+              font-weight: bold
+              line-height: 1.5
+            &.-xxlarge
+              font-size: 2.8rem
+              line-height: 1.1
+              +pc()
+                font-size: 3.2rem
+                line-height: 1
+              +sp()
+                font-weight: bold
+            &.-xlarge
+              +pc()
+                font-size: 1.6rem
+                line-height: 1
+              +sp()
+                font-weight: bold
+            &.-large
+              font-size: 1.8rem
+              +pc()
+                font-size: 2rem
+              +sp()
+                font-weight: bold
+            &.-small
+              margin-top: 8px
+              font-size: 1.2rem
+              +pc()
+                font-weight: normal
+            &.-send
+              color: secondColor
+            &.-receive
+              color: thirdColor
+          .flow__boxImg
+            width: 100%
+            height: auto
+            img
+              +sp()
+                width: 35%
+  
+  // Merit
+  .merit
+    width: 100%
+    margin: 40px auto
+    +pc()
+      width: 1216px
+      margin: 60px auto
+    .merit__wrapper
+      margin: 40px auto 0
+      display: flex
+      max-width: 950px
+      flex-direction: column
+      align-items: center
+      gap: 40px
+      +sp()
+        margin: 0 16px
+        gap: 24px
+      .merit__box
+        display: flex
+        padding-bottom: 40px
+        flex-direction: column
+        align-items: center
+        gap: 32px
+        align-self: stretch
+        display: flex
+        border-radius: 14px
+        border-width: 0 8px 8px 8px
+        border-style: solid
+        border-color: grayBgColor
+        +sp()
+          gap:24px
+        .merit__Btn
+          display: flex
+          width: 600px
+          padding: 20px
+          justify-content: center
+          align-items: center
+          gap: 10px
+          border-radius: 44px;
+          color: white
+          background: redColor
+          font-size: 2rem
+          +sp()
+            width: 80%
+            padding: 16px 24px
+            font-size: 1.6rem
+      .merit__boxImgWrap
+        display: flex
+        justify-content: center
+        align-items: center
+        align-content: center
+        gap: 16px;
+        align-self: stretch
+        flex-wrap: wrap
+        img
+          +sp()
+            width: 92px
+      .merit__boxImg
+        &.-dealLogo
+          width: 30%
+        &.-deal
+          width: 100%
+        +sp()
+          width: 18%
+          height: auto
+      .merit__boxTitle
+        text-align: center
+        line-height: 1.4
+        font-weight: bold
+        display: flex
+        padding: 16px
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        align-self: stretch
+        border-radius: 8px 8px 0px 0px
+        background: grayBgColor
+        +pc()
+          font-size: 2rem
+          line-height: 1.2
+        +sp()
+          font-size: 1.6rem
+      .merit__boxSubTitle
+        display: flex
+        justify-content: center
+        align-items: center
+        gap: 24px;
+        margin: 0 8px
+        +sp()
+          flex-direction: column
+      .merit__boxTxt
+        display: flex
+        flex-direction: row
+        text-align: center
+        line-height: 1.8
+        font-size: 1.4rem
+        justify-content:center
+        gap: 16px
+        align-items: center
+        &.-large
+          font-size: 1.8rem
+          font-weight: bold
+          +pc()
+            font-size: 2rem
+        +pc()
+          line-height: 1.5
+          gap: 24px
+          padding: 0 16px
+        .-bold
+          font-weight: bold
+      .description
+        display: inline-block
+        padding: 0 16px
+        box-sizing: border-box
+        &&.-link
+          color: linkColor
+
+        
+    // app DL parts(bgColor)
+    .downloadapp
+      .app__cpnBanner
+        text-align: center
+        margin: 0 16px
+        .app__img
+          +sp()  
+            width: 100%
+            height: auto
+      .downloadapp__container
+        display: flex
+        justify-content: center
+        border-radius: 16px
+        box-sizing: border-box
+        +pc()
+          margin-top: 40px
+        +sp()
+          flex-direction: column
+          margin-top: 24px
+        .downloadapp__app-device
+          +pc()
+            margin-right: 60px
+            padding-top: 24px
+            text-align: right
+          +sp()
+            width: 194px
+            margin: auto
+          .downloadapp__app-device--img
+            +pc()
+              width: 280px
+        .downloadapp__app-link
+          +pc()
+            width: 250px
+          +sp()
+            margin: 16px auto 0
+          .downloadapp__app-link--title
+            +pc()
+              display: inline-block
+              position: relative
+              margin: 44px 0 0 24px
+              font-size: 2rem
+              font-weight: bold
+              line-height: 1.4
+              &::before
+                content: "|"
+                position: absolute
+                top: 0
+                left: -1.75rem
+                font-weight: normal
+                transform: rotate(-45deg)
+              &::after
+                content: "|"
+                position: absolute
+                top: 0
+                right: -1.75rem
+                font-weight: normal
+                transform: rotate(45deg)
+          .downloadapp__app-link--button
+            +pc()
+              width: 188px
+              height: 188px
+              margin: 24px auto 0
+            +sp()
+              text-align: center
+            img
+              &.-desktop
+                width: 180px
+                margin: auto
+              &.-iphone
+                width: 164px
+                margin: auto
+              &.-android
+                width: 203px
+                margin: auto
+
+  // コンテンツ下部注意文言
+  .howto__attentionBox
+    margin: 24px 16px 0
+    +pc()
+      margin: 24px 0 0
+    &.-appdl
+      margin-top: 0
+    .howto__attentionTxt
+      padding-left: 1.6rem
+      font-size: 1.2rem
+      line-height: 1.8
+      &::before
+        display: inline-block;
+        margin: 0;
+        content: '※';
+        text-indent: -1.6rem;
+      .main__termsLink
+        color: linkColor
+  // entry btn
+  .entryBox
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin: 0 16px 24px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+  //- ラ・クーポン
+  .coupon
+    width:100%
+    text-align: center
+    +pc()
+      margin-bottom:40px
+      //
+      display: flex
+      flex-direction: column
+      justify-content: center
+    +sp()
+      padding 10px 10px 16px
+      box-sizing: border-box
+
+    // ボタンセット(bgColor,txtColor)
+    btnSet(Colors.CrimsonRed.color,#fff)
+
+    .coupon__terms
+      +pc()
+        display: flex
+        flex-direction: column
+        //
+        width: auto
+        height:auto
+        margin: 16px auto
+        &:last-of-type
+          margin: 0 auto
+      +sp()
+        margin: 0 auto
+      .coupon__termsTxt
+        font-size: 1.4rem
+        line-height 1.5
+        color:grayTxtColor
+        +sp()
+          font-size: 1.2rem
+        .coupon__termsLink
+          color:secondColor
+
+  // 条件付きボタン
+  .couponBtn
+    text-align: center
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin: 0 16px 24px
+
+    // ボタンセット2(bgColor,txtColor)
+    btnSet2(redColor, #fff)
+    .coupon__terms
+      +pc()
+        display: flex
+        flex-direction: column
+        //
+        width: auto
+        height:auto
+        margin: 16px auto
+        &:last-of-type
+          margin: 0 auto
+      +sp()
+        margin: 0 auto
+      .coupon__termsTxt
+        font-size: 1.4rem
+        line-height 1.5
+        color:grayTxtColor
+        +sp()
+          font-size: 1.2rem
+        .coupon__termsLink
+          color:secondColor
+
+  // チェックボックス付きボタン
+  .couponBox
+    text-align: center
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin: 0 16px 24px
+    .couponCheckBtn
+      +sp()
+        margin-bottom: 16px
+
+      // ボタン+Check Boxセット(bgColor,txtColor)
+      btnCheckBoxSet(Colors.CrimsonRed.color, #fff)
+
+      // paermission text
+      @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+      mailPermissionTxt()
+
+  // UA Parser
+  .uaParserSample
+    .uaParserSampleBox
+      font-size: 1.4rem
+      line-height: 1.5
+      +pc()
+        width: pcWidth
+        margin: 0 auto 60px
+      +sp()
+        width: auto
+        margin: 0 16px 40px
+    .flow__attention
+      margin: 0 auto
+      +pc()
+        width: 1160px
+      +sp()
+        width: auto
+        margin: 16px 16px 0
+      // override
+      .flow__txt
+        text-align: left
+        line-height: 1.8
+        &::before
+          display:inline-block
+          margin:0
+          content:'※'
+          text-indent:-1.8rem
+          +sp()
+            text-indent:-1.6rem
+        +pc()
+          margin-left: 1.8rem // text-indent分
+        +sp()
+          margin-left: 1.6rem // text-indent分
+        &.-small
+          margin-top: 0
+  
+  //- howto
+  .howto
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // ラ・クーポンの使い方セット
+    howtoCouponset()
+
+  //- presentation of RB
+  .presentRB
+    .presentRB__introductionBox
+      width: pcWidth
+      margin: 0 auto 60px
+      text-align: center
+      +sp()
+        width: auto
+        margin-bottom: 40px
+
+      // RBを使うわけセット
+      presenRBset()
+
+  // banner
+  .banner
+    margin: 40px auto
+    +pc()
+      margin: 60px auto 0
+    .banner__box
+      text-align: center
+      background-color: grayBgColor
+      box-sizing: border-box
+      +pc()
+        width: 890px
+        margin: 0 auto
+        padding: 24px
+      +sp()
+        width: auto
+        margin: 0 8px
+        padding: 10px 16px 16px
+      .banner__txt
+        font-weight: bold
+        line-height: 1.5
+        +pc()
+          font-size 2rem
+          padding-bottom: 24px
+        +sp()
+          font-size 1.4rem
+          padding-bottom: 8px
+      .banner__boxInner
+        background-color: #fff
+        box-sizing: border-box
+        +pc()
+          padding: 24px
+        +sp()
+          padding: 16px
+        .banner__link
+          display: block
+          width: auto
+          max-width: 640px
+          margin: 0 auto
+          transition: opacity .2s ease-out
+          &:hover
+            opacity: 0.8
+          .banner__img
+            width: 100%
+            height: auto
+
+  // QA
+  .qa
+    +pc()
+      width: pcWidth
+      margin: 0 auto 60px
+    +sp()
+      margin-bottom: 40px
+    .qa__listBox
+
+      // よくあるご質問セット
+      QAset()
+
+  // Search Area
+  .searchArea
+    +pc()
+      margin: 60px auto
+    +sp()
+      margin: 40px auto
+    .search--container
+      position: relative
+      background: grayBgColor
+      +pc()
+        margin: 32px auto 0
+        padding: 32px 0
+        width: 1216px
+      +sp()
+        width: 100%
+        margin-top: 192px
+      .search--icon
+        position: absolute
+        +pc()
+          bottom: 0
+          right: 70px
+          height: 255px
+        +sp()
+          top: -178px
+          left: 50%
+          height: 178px
+          transform: translate(-50%,0)
+      .titleWrap--subtitle
+        color: peonyColor
+      .feature-search__form
+        +pc()
+          margin: 0 0 0 -90px !important
+        .feature-search__item select
+          border: 2px solid peonyColor !important
+        .feature-search__buttonItem
+          background: peonyColor !important
+
+
+    //- Search Area Component / ()内に色を入れる
+    @import passStr + '_common/stylus/Module/Common/_searchArea'
+    searchArea(mainColor)
+    
+  // app DL
+  .app
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFE8E8)
+
+  // Campaign Deatail
+  .detail
+    margin: 40px auto 0
+    +pc()
+      margin: 60px auto 0
+    .titleWrap
+      margin: 0 0 16px 0
+      +pc()
+        margin: 0 0 32px 0
+        border-left: 4px solid peonyColor
+      .titleWrap--title
+        +sp()
+          border-left: 6px solid peonyColor
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

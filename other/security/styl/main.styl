@@ -1,0 +1,1053 @@
+passStr = '../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+rosePinkColor = #ffe9f8
+lightBlueColor = #dcf3ff
+chromeYellowColor = #fff5cc
+
+CherryPinkColor = #ff41be
+RosePinkColor = #ffe9f8
+CyanColor = #00a0f0
+MarineBlueColor = #006a9e
+ChromeYellowColor = #dbaf00
+
+whiteColor = #fff
+blackColor = #000
+
+pcWidth = 1216px
+
+//------------------------------
+
+#Security　// #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  // アンカー
+  navHeightPc = 63px
+  navHeightSp = 62px
+
+  #Step1,
+  #Step2,
+  #ConditionsBeauty,
+  #ConditionsCertificate,
+  #Step3,
+  #Beauty,
+  #Securities,
+  #Detail
+    display: block
+    +pc()
+      padding-top: (navHeightPc + 0)
+      margin-top: -(navHeightPc + 0)
+    +sp()
+      padding-top: (navHeightSp + 0)
+      margin-top: -(navHeightSp + 0)
+
+  a,
+  .global-nav__list
+    &:hover
+      opacity: .8
+
+  // link
+  .info__link
+    color: secondColor
+
+  // main
+  .main
+    margin-bottom: 16px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          font-weight: bold
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+          &.-secondary
+            +pc()
+              display: inline-block
+              margin-left: 1.25rem
+            +sp()
+              display: block
+        .main__termsLink
+          color:secondColor
+    .main__stepWrap
+      display: flex
+      margin: 16px auto 0
+      +pc()
+        width: 950px
+      +sp()
+        width: calc(100% - 32px)
+      .main__step__primary-container
+        position: relative
+        background: rosePinkColor
+        box-sizing: border-box
+        text-align: center
+        +pc()
+          width: 337px
+          height: 135px
+          margin-right: 20px
+          padding: 6px 12px 12px
+        +sp()
+          width: calc((100% - 32px)/3)
+          height: 182px
+          margin-right: 16px
+          padding: 0 0 8px 6px
+          box-sizing: border-box
+        &::after
+          position: absolute
+          top: 0
+          width: 0
+          height: 0
+          border-style: solid
+          border-right: 0
+          content:''
+          +pc()
+            right: -20px
+            border-top: 67px solid transparent
+            border-bottom: 68px solid transparent
+            border-left: 20px solid rosePinkColor
+          +sp()
+            right: -16px
+            border-top: 91px solid transparent
+            border-bottom: 91px solid transparent
+            border-left: 16px solid rosePinkColor
+        &.-lightblue
+          background: lightBlueColor
+          &::after
+            +pc()
+              border-left: 20px solid lightBlueColor
+            +sp()
+              border-left: 16px solid lightBlueColor
+      .main__step__secondary-container
+        background: chromeYellowColor
+        text-align: center
+        +pc()
+          width: 236px
+          height: 135px
+          padding: 6px 12px 12px
+          box-sizing: border-box
+        +sp()
+          width: calc((100% - 32px)/3)
+          height: 182px
+          padding: 0 6px 8px
+          box-sizing: border-box
+      .main__step__title
+        display: block
+        margin: auto
+        +pc()
+          height: 32px
+        +sp()
+          height: 25px
+      .main__step__time
+        display: inline-block
+        position: relative
+        background: whiteColor
+        border-radius: 8px
+        line-height: 1.2
+        +pc()
+          margin-top: 6px
+          padding: 6px 12px
+          font-size: 1.4rem
+        +sp()
+          margin-top: 7px
+          padding: 6px
+          font-size: 1.2rem
+        &::after
+          position: absolute
+          bottom: -8px
+          right: 0
+          left: 0
+          width: 0
+          height: 0
+          margin: auto
+          border-style: solid
+          border-right: 6px solid transparent
+          border-left: 6px solid transparent
+          border-top: 8px solid whiteColor
+          border-bottom: 0
+          content:''
+      .main__step__lead
+        display: flex
+        justify-content: center
+        align-items: center
+        +pc()
+          margin-top: 13px
+        +sp()
+          flex-direction: column
+          margin-top: 12px
+        .main__step__lead__text
+          line-height: 1.3
+          +pc()
+            width: 190px
+            margin-right: 18px
+            font-size: 1.4rem
+          +sp()
+            font-size: 1.1rem
+        .main__step__lead__icon
+          +pc()
+            height: 32px
+          +sp()
+            height: 34px
+            margin-top: 7px
+          &.-lightblue
+            +sp()
+              margin-top: 13px
+      .main__step__secondary-lead
+        display: flex
+        justify-content: center
+        align-items: center
+        +pc()
+          margin-top: 14.5px
+        +sp()
+          flex-direction: column
+          margin-top: 16.5px
+        .main__step__secondary-lead__text
+          +pc()
+            width: 126px
+            margin-right: 6px
+            font-size: 1.4rem
+            line-height: 1.4
+          +sp()
+            font-size: 1.2rem
+            line-height: 1.3
+          .main__step__secondary-lead__point
+            color: #B89300
+            font-weight: bold
+            +pc()
+              font-size: 1.6rem
+        .main__step__secondary-lead__icon
+          +pc()
+            width: 62px
+          +sp()
+            width: 62px
+            margin-top: 6px
+    .main__step__info
+      margin: 8px auto 0
+      line-height: 1.4
+      +pc()
+        width: 950px
+        text-align: center
+        font-size: 1.4rem
+      +sp()
+        width: calc(100% - 32px)
+        text-align: left
+        font-size: 1.2rem
+      .main__step__info__text
+        +pc()
+          display: inline-block
+        +sp()
+          display: block
+        .main__termsLink
+          color: secondColor
+      .main__step__info__text:nth-of-type(1),
+      .main__step__info__text:nth-of-type(3)
+        +pc()
+          margin-right: 1rem
+
+  // ナビゲーション
+  .navigation
+    position: sticky
+    z-index: 10
+    top: 0
+    width: 100%
+    background: grayBgColor
+    +pc()
+      height: 63px
+      margin-bottom: 60px
+    +sp()
+      height: 62px
+      margin-bottom: 40px
+    .global-nav
+      display: flex
+      align-items: center
+      justify-content: center
+      +pc()
+        width: 950px
+        margin: auto
+      +sp()
+        width: 100%
+      .global-nav__list
+        position: relative
+        width: calc(100% / 4)
+        &:nth-child(-n+3)::after
+          position: absolute
+          right: 0
+          border-right: 1px solid grayTagColor
+          content: ''
+          +pc()
+            top: 8px
+            height: 47px
+          +sp()
+            top: 7px
+            height: 46px
+        .global-nav__link
+          display: block
+          position: relative
+          width: 100%
+          color: blackColor
+          text-align: center
+          line-height: 1.4
+          box-sizing: border-box
+          +pc()
+            height: 63px
+            padding-top: 17.5px
+            font-size: 1.4rem
+          +sp()
+            height: 62px
+            padding-top: 19.5px
+            font-size: 1.2rem
+          &::after
+            position: absolute
+            display: inline-block
+            bottom: 8px
+            left: 0
+            right: 0
+            margin: auto
+            border: 1px solid currentColor
+            border-left: 0
+            border-bottom: 0
+            box-sizing: border-box
+            color: grayTagColor
+            transform: translateY(-25%) rotate(135deg)
+            content: ''
+            +pc()
+              width: 11.5px
+              height: 11.5px
+            +sp()
+              width: 9px
+              height: 9px
+          &.-nav__position
+            +sp()
+              padding-top: 8px
+
+  // title
+  .contentStep--title
+    +pc()
+      width: 140px
+      margin: 0 auto 32px
+    +sp()
+      width: 120px
+      margin: 0 auto 28px
+
+  // entry btn
+  .entryBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin: 0 16px 40px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+  // 条件達成
+  .conditionsBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+  // 表示枠
+  .conditionsBox--title
+    text-align: center
+    font-weight: bold
+    line-height: 1.4
+    +pc()
+      margin-bottom: 32px
+      font-size: 3.2rem
+    +sp()
+      margin-bottom: 24px
+      font-size: 1.8rem
+    .title-beauty
+      color: CherryPinkColor
+    .title-certificate
+      color: CyanColor
+    .title-achievement
+      color: ChromeYellowColor
+    .title-achievement-point
+      +pc()
+        font-size: 4.6rem
+        line-height: 1.3
+      +sp()
+        font-size: 3.6rem
+        line-height: 1.2
+    &.-achievementBox
+      +pc()
+        margin-bottom: 20px
+      +sp()
+        margin-bottom: 12px
+  .conditionsBox__section
+    background: RosePinkColor
+    .conditionsBox--title
+      display: flex
+      align-items: center
+      justify-content: center
+      background: CherryPinkColor
+      color: whiteColor
+      font-weight: bold
+      line-height: 1.4
+      +pc()
+        height: 69px
+        font-size: 3.2rem
+      +sp()
+        height: 44px
+        font-size: 2rem
+      .conditionsBox__title__text
+        +pc()
+          padding: 0 32px
+        +sp()
+          padding: 0 6px
+      .conditionsBox__title__icon
+        +pc()
+          width: 30px
+        +sp()
+          width: 25px
+    .conditionsBox__section__wrap
+      padding-bottom: 40px
+      +sp()
+        overflow: hidden
+      .conditionsBox__section__lead
+        text-align: center
+        font-weight: bold
+        +pc()
+          padding-bottom: 51px
+          font-size: 2.4rem
+          line-height: 1.6
+        +sp()
+          padding-bottom: 24px
+          font-size: 1.8rem
+          line-height: 1.4
+    &.-certificate
+      background: lightBlueColor
+      .conditionsBox--title
+        background: CyanColor
+      .conditionsBox__section__lead
+        padding-bottom: 8px
+      .conditionsBox__section__info
+        text-align: center
+        line-height: 1.6
+        +pc()
+          padding-bottom: 51px
+          font-size: 1.4rem
+        +sp()
+          padding-bottom: 24px
+          font-size: 1.2rem
+
+    // Step2 条件詳細 ビューティー
+    .conditionsBeauty__menu
+      +pc()
+        display: flex
+        width: 950px
+        margin: auto
+        padding-bottom: 32px
+      +sp()
+        margin-left calc((100% - 280px) / 2) !important
+        padding-top: 22px !important
+        &:last-of-type
+          margin-left: 0
+          margin-right calc((100% - 280px) / 2) !important
+      .conditionsBeauty__menu--list
+        position: relative
+        margin-right: 36px
+        padding: 26px 20px 0
+        background: whiteColor
+        border-radius: 14px
+        box-sizing: border-box
+        text-align: center
+        +pc()
+          width: 294px
+        +sp()
+          width: 280px !important
+        &:nth-of-type(-n+2)::after
+          +pc()
+            position: absolute
+            top: 50%
+            right: -26px
+            width: 0
+            height: 0
+            border-top: 13px solid transparent
+            border-left: 13px solid grayTagColor
+            border-bottom: 13px solid transparent
+            transform: translateY(-50%)
+            content: ''
+        &:last-of-type
+          +pc()
+            margin-right: 0
+            padding: 26px 20px 7px
+          +sp()
+            padding: 32px 20px 14px
+          .conditionsBeauty__menu--list__img
+            height: 160px
+        .conditionsBeauty__menu--list--icon
+          position: absolute
+          left: 50%
+          transform: translate(-50%,0)
+          top: -21px
+          width: 43px
+          height: 43px
+          background: CherryPinkColor
+          border-radius: 50%
+          color: whiteColor
+          text-align: center
+          font-size: 1.8rem
+          font-weight: bold
+          line-height: 2.3
+        .conditionsBeauty__menu--list--lead
+          padding-bottom: 12px
+          font-weight: bold
+          line-height: 1.6
+          text-align: center
+          +pc()
+            font-size: 1.8rem
+          +sp()
+            font-size: 1.4rem
+        .conditionsBeauty__menu--list__img
+          +pc()
+            height: 144px
+          +sp()
+            height: 158px
+
+    // Step2 条件詳細 証券
+    .conditionsCertificate__menu
+      +pc()
+        display: flex
+        width: 624px
+        margin: auto
+        padding-bottom: 32px
+      +sp()
+        margin-left calc((100% - 280px) / 2) !important
+        padding-top: 22px !important
+        &:last-of-type
+          margin-left: 0
+          margin-right calc((100% - 280px) / 2) !important
+      .conditionsCertificate__menu--list
+        position: relative
+        background: whiteColor
+        border-radius: 14px
+        box-sizing: border-box
+        text-align: center
+        +pc()
+          width: 294px
+          padding: 33px 20.5px 23px
+        +sp()
+          width: 280px !important
+          padding: 40px 21.5px 30px
+        &:first-of-type
+          margin-right: 36px
+        &:first-of-type::after
+          +pc()
+            position: absolute
+            top: 50%
+            right: -26px
+            width: 0
+            height: 0
+            border-top: 13px solid transparent
+            border-left: 13px solid grayTagColor
+            border-bottom: 13px solid transparent
+            transform: translateY(-50%)
+            content: ''
+        .conditionsCertificate__menu--list--icon
+          position: absolute
+          left: 50%
+          transform: translate(-50%,0)
+          top: -21px
+          width: 43px
+          height: 43px
+          background: CyanColor
+          border-radius: 50%
+          color: whiteColor
+          text-align: center
+          font-size: 1.8rem
+          font-weight: bold
+          line-height: 2.3
+        .conditionsCertificate__menu--list--lead
+          padding-bottom: 12px
+          font-weight: bold
+          line-height: 1.6
+          text-align: center
+          +pc()
+            font-size: 1.8rem
+          +sp()
+            font-size: 1.4rem
+        .conditionsCertificate__menu--list__img
+          +pc()
+            height: 144px
+          +sp()
+            height: 105px
+    .conditionsCertificate__menu--info
+      padding-top: 16px
+      text-align: center
+      line-height: 1.6
+      +pc()
+        padding-bottom: 24px
+        font-size: 1.4rem
+      +sp()
+        font-size: 1.2rem
+
+    //- Step2 splide スライダー
+    .splide
+      +sp()
+        width: 280px
+        margin: 0 auto 24px
+    .splide__track
+      +sp()
+        overflow: visible !important
+    .splide__arrow.splide__arrow--next:disabled
+      display: none !important
+    .splide__pagination
+      bottom: -26px
+    .splide__arrow:disabled
+      display: none !important
+    .splide__pagination__page
+      width: 6px
+      height: 6px
+      background #ccc
+    .splide__pagination__page.is-active
+      width: 6px
+      height: 6px
+      background grayTagColor
+      transform: scale(1)
+    .splide__arrow
+      display: block
+      position: absolute !important
+      top: 50% !important
+      width: 0 !important
+      height: 0 !important
+      background: transparent !important
+      border-radius: 0 !important
+      transform: translateY(-50%) !important
+      content: '' !important
+      &.splide__arrow--next
+        right: -25px !important
+        border-top: 15px solid transparent !important
+        border-left: 15px solid grayTagColor !important
+        border-bottom: 15px solid transparent !important
+      &.splide__arrow--prev
+        left: -25px !important
+        border-top: 15px solid transparent !important
+        border-right: 15px solid grayTagColor !important
+        border-bottom: 15px solid transparent !important
+      svg
+        display: none
+
+  //- 検索ボタン
+  .conditionsBox__search
+    margin: auto
+    +pc()
+      width: 600px
+    +sp()
+      padding-top: 24px
+      width: calc(100% - 32px)
+    .conditionsBox__search--button
+      display: block
+      margin: auto
+      background: CherryPinkColor
+      border-radius: 44px
+      color: whiteColor
+      text-align: center
+      font-weight: bold
+      line-height: 1.5
+      +pc()
+        padding: 16px 24px
+        font-size: 3rem
+      +sp()
+        padding: 16px 24px
+        box-sizing: border-box
+        font-size: 1.6rem
+      &.-first-button
+        margin-bottom: 24px
+        background: CyanColor
+      &.-secondary-button
+        background: MarineBlueColor
+    .conditionsBox__search--button--info
+      padding-top: 8px
+      text-align: center
+      line-height: 1.8
+      +pc()
+        font-size: 1.4rem
+      +sp()
+        font-size: 1.2rem
+    .conditionsBox__search--title
+      margin-bottom: 8px
+      font-weight: bold
+      text-align: center
+      line-height: 1.4
+      +pc()
+        font-size: 1.8rem
+      +sp()
+        font-size: 1.4rem
+
+  // 条件達成
+  .achievementBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .achievementBox__point
+      +pc()
+        width: 354px
+        margin: 0 auto 20px
+      +sp()
+        width: calc(100% - 139px)
+        margin: 0 auto 12px
+    .achievementBox--info
+      +pc()
+        font-size: 1.4rem
+        text-align: center
+        line-height: 1.6
+      +sp()
+        width: calc(100% - 32px)
+        margin: auto
+        font-size: 1.2rem
+        line-height: 1.8
+
+  //- 楽天ビューティーのメリット
+  .beautyintro
+    .beautyintro__wrap
+      padding-bottom: 40px
+      +pc()
+        width: 950px
+        margin: 64px auto 0
+      +sp()
+        width: calc(100% - 32px)
+        margin: 44px auto 0
+      .beautyintro__container
+        position: relative
+        width: 100%
+        background: whiteColor
+        border-radius: 14px
+        box-sizing: border-box
+        text-align: center
+        +pc()
+          margin-bottom: 48px
+          padding: 50px 16px 40px
+        +sp()
+          margin-bottom: 56px
+          padding: 32px 16px 24px
+        &:last-of-type
+          margin-bottom: 0
+        .beautyintro__title
+          position: absolute
+          left: 50%
+          transform: translate(-50%,0)
+          background: CherryPinkColor
+          border-radius: 40px
+          box-sizing: border-box
+          color: whiteColor
+          text-align: center
+          font-weight: bold
+          line-height: 1.4
+          +pc()
+            top: -24px
+            width: 151px
+            padding: 8px 20px
+            font-size: 2.4rem
+          +sp()
+            top: -19px
+            width: 122px
+            padding: 8px 24px
+            font-size: 1.6rem
+        .beautyintro__lead__wrap
+          display: flex
+          justify-content: center
+          align-items: center
+          .beautyintro__lead__icon__point
+            +pc()
+              margin-right: 14px
+              width: 52px
+            +sp()
+              margin-right: 12px
+              width: 49px
+          .beautyintro__lead__icon__deal
+            width: 95px
+            margin-right: 14px
+          .beautyintro__lead__icon__appicon
+            width: 45px
+            margin-right: 12px
+          .beautyintro__lead--lead
+            font-weight: bold
+            text-align: center
+            line-height: 1.4
+            +pc()
+              font-size: 2.4rem
+            +sp()
+              font-size: 1.8rem
+        .beautyintro__lead--lead--text
+          font-weight: normal
+          text-align: center
+          line-height: 1.6
+          +pc()
+            font-size: 1.8rem
+          +sp()
+            padding-top: 16px
+            font-size: 1.4rem
+        .beautyintro__lead--lead--info
+          font-size: 1.2rem
+          line-height: 1.4
+          +pc()
+            padding-top: 21.5px
+            text-align: center
+          +sp()
+            padding-top: 16px
+            text-align: left
+        .beautyintro__menu
+          display: flex
+          align-items: center
+          justify-content: center
+          +pc()
+            margin-top: 32px
+          +sp()
+            flex-wrap: wrap
+            margin-top: 15.5px
+          .beautyintro__menu__list
+            +pc()
+              width: 110px
+              margin-right: 16px
+              &:last-of-type
+                margin-right: 0
+            +sp()
+              width: 92px
+              margin-right: 7.5px
+              &:nth-child(-n+3)
+                margin-bottom: 7.5px
+              &:nth-child(3n),
+              &:last-of-type
+                margin-right: 0
+        .beautyintro__menu--info
+          text-align: center
+          line-height: 1.6
+          +pc()
+            padding-top: 32px
+            font-size: 1.8rem
+          +sp()
+            padding-top: 16px
+            font-size: 1.4rem
+        .beautyintro__menu__img
+          +pc()
+            width: 600px
+            margin: 32px auto 0
+          +sp()
+            width: calc(100% - 87px)
+            margin: 16px auto 0
+        .beautyintro__menu__button__wrap
+          +pc()
+            width: 600px
+            margin: 32px auto 0
+          +sp()
+            width: calc(100% - 32px)
+            margin: 16px auto 0
+          .beautyintro__menu__button
+            display: inline-block
+            width: 100%
+            padding: 16px 24px
+            background: CherryPinkColor
+            border-radius: 44px
+            box-sizing: border-box
+            color: whiteColor
+            text-align: center
+            font-weight: bold
+            line-height: 1.5
+            +pc()
+              font-size: 3rem
+            +sp()
+              font-size: 1.6rem
+        .beautyintro__menu__app__wrap
+          +pc()
+            width: 632px
+            margin: 32px auto 0
+          +sp()
+            width: 100%
+            margin: 16px auto 0
+          .beautyintro__menu__app__banner
+            display: inline-block
+            width: 100%
+        .beautyintro__menu__app__link__wrap
+          +pc()
+            width: 632px
+            margin: 32px auto 0
+          +sp()
+            width: 61%
+            margin: 16px auto 0
+          .beautyintro__menu__app__article
+            +pc()
+              display: flex
+              align-items: center
+              justify-content: center
+              width: 530px
+              margin: auto
+            .beautyintro__menu__app__img
+              +pc()
+                width: 268px
+                margin-right: 12px
+            .beautyintro__menu__app__qr
+              +pc()
+                width: 250px
+                text-align: center
+              .beautyintro__menu__app__qr--text
+                +pc()
+                  display: inline-block
+                  position: relative
+                  margin-top: 24px
+                  font-size: 2rem
+                  font-weight: bold
+                  line-height: 1.4
+                  &::before
+                    content: "|"
+                    position: absolute
+                    top: 0
+                    left: -1.5rem
+                    font-weight: normal
+                    transform: rotate(-45deg)
+                  &::after
+                    content: "|"
+                    position: absolute
+                    top: 0
+                    right: -1.5rem
+                    font-weight: normal
+                    transform: rotate(45deg)
+              .beautyintro__menu__app__qr__img
+                +pc()
+                  display: block
+                  width: 192px
+                  margin: 24px auto 0
+          .beautyintro__menu__app__button
+            +sp()
+              display: block
+              width: 100%
+
+  //- 楽天証券のメリット
+  .securitiesintro
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .securitiesintro__wrap
+      padding-bottom: 40px
+      +pc()
+        width: 950px
+        margin: 60px auto 0
+      +sp()
+        width: calc(100% - 32px)
+        margin: 44px auto 0
+      .securitiesintro__container
+        position: relative
+        width: 100%
+        background: whiteColor
+        border-radius: 14px
+        box-sizing: border-box
+        text-align: center
+        +pc()
+          margin-bottom: 40px
+          padding: 40px 55px
+        +sp()
+          padding: 32px 16px 24px
+        &:first-of-type
+          +sp()
+            margin-bottom: 24px
+            position: relative
+        &:last-of-type
+          margin-bottom: 0
+        .securitiesintro__container--title
+          +sp()
+            position: absolute
+            top: -19px
+            left: 50%
+            transform: translate(-50%,0)
+            width: 291px
+        .securitiesintro__container--info
+          font-size: 1.2rem
+          text-align: left
+          line-height: 1.4
+          +pc()
+            padding-top: 10px
+          +sp()
+            padding-top: 24px
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .detail__headline
+      display: inline-block
+      padding: 0 4px
+      background: rgba(0, 0, 0, .08)
+      font-weight: bold
+    .detail__indent
+      padding-left: 1em
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

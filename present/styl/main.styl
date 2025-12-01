@@ -1,0 +1,455 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+champagneGold = #A67C52
+
+pcWidth = 1216px
+
+//------------------------------
+
+#Pagename　// #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  // main
+  .main
+    margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      position relative
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      display: flex
+      justify-content: center
+      align-items: center
+      +pc()
+        height: 240px
+        background-image: url('../img/main_bg.png')
+        background-repeat: no-repeat;
+        background-position: center 0;
+        background-size: cover;
+      +sp()
+        background-image: url('../img/main_sp_bg.png')
+        background-repeat: no-repeat;
+        background-position: center 0;
+        background-size: contain;
+        margin: 0 auto
+        width 100%
+        box-sizing: border-box
+        height: 58.5vw
+        picture
+          position: absolute;
+          left: 0;
+          right: 0;
+          width: 100%;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      .main__titleImg
+        animation-duration: 1.5s;
+        animation-timing-function: ease-in;
+        animation-delay: 1s;
+        animation-iteration-count: 1;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+        animation-play-state: running;
+        animation-name: h1;
+        opacity: 0;
+        +sp()
+          width: 100%
+      @keyframes h1 
+        0%
+          opacity: 0;
+        50%
+          opacity: 0.3;
+        100%
+          opacity: 1;
+
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          font-weight: bold
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+    .main__step
+      text-align: center
+      margin-top: 10px
+      img
+        width: 100%
+        +pc()
+          max-width: 450px
+      .main__termsBox
+        .main__termsTxt
+          line-height 1.5
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: block
+              font-size: 1.4rem
+            +sp()
+              display: block
+              font-size: 1.2rem
+        .main__termsLink
+          color:secondColor
+          text-decoration: underline
+
+  .howto__obi
+    background-color: grayBgColor
+    text-align: center
+    color: champagneGold
+    padding: 10px
+    font-weight: bold
+    margin-bottom: 32px
+    +pc()
+      font-size: 3.2rem
+    +sp()
+      font-size: 1.8rem
+
+  // flow parts  
+  .step__title
+    position relative
+    text-align: center
+    font-weight: bold
+    padding: 10px
+    margin-bottom: 16px
+    +pc()
+      font-size: 3.2rem
+    +sp()
+      font-size: 1.8rem
+    .step__title__marker
+      background: linear-gradient(transparent 60%, #E0CCB7 10%)
+  .step__txt
+    text-align: center
+    font-size: 1.6rem
+    line-height: 1.5
+    margin-bottom: 32px
+    .-b
+      font-weight: bold
+    .-big
+      font-weight: bold
+      font-size: 1.8rem
+    a.step__txt__link
+      color: secondColor
+      text-decoration: underline
+  .stepSalon__img
+    text-align: center
+    img
+      width 200px
+
+  // entry btn
+  .entryBox
+    position relative
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin: 0 16px 40px
+    &:after
+      display: block
+      content: ""
+      height: calc(90px / 2);
+      width: 100%;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      background-color: #FFF
+      position: absolute
+      z-index 100
+      +pc()
+       bottom -100px
+      +sp()
+       bottom -85px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+    // ボタンセット(bgColor,txtColor)
+    btnSet(Colors.CrimsonRed.color,#fff)
+
+
+  // Search Area
+  .searchArea
+    position relative
+    background: grayBgColor
+    +pc()
+      display: block
+      padding: 112px 0px 32px
+      margin-bottom: 60px
+    +sp()
+      padding: 112px 16px 40px
+    &:after
+      display: block
+      content: ""
+      height: calc(90px / 2);
+      width: 100%;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      background-color: grayBgColor
+      position: absolute
+      z-index 100
+      +pc()
+       bottom -40px
+      +sp()
+       bottom -45px
+       width 96%
+
+    // Search Area Component / ()内に色を入れる
+    @import passStr + '_common/stylus/Module/Common/_searchArea'
+    searchArea(champagneGold)
+
+    .titleWrap--subtitle
+      +pc()
+        margin: 64px 0 24px
+        max-width: none
+
+    #shopSearch
+      +pc()
+        margin-bottom: 64px
+      +sp()
+        margin-bottom: 32px
+      .feature-search__form
+        padding: 16px 0
+
+    .section--sub-title
+      margin-bottom: 24px
+      font-size: 2rem
+      font-weight: bold
+      text-align: center
+      line-height: 1.4
+      +sp()
+        margin-bottom: 16px
+        font-size: 1.6rem
+
+    .catalog__search
+      display: flex
+      flex-wrap: wrap
+      position: relative
+      width: 864px
+      margin: 0 auto
+      padding: 24px 40px
+      background: #fff
+      +sp()
+        width: 100%
+        padding: 0
+      .catalog__search__list
+        width: 204px
+        margin: 0 16px 16px 0
+        +pc()
+          &:last-child
+            margin: 0 0 16px 0
+        +sp()
+          width: calc((100% - 24px) / 2)
+          margin: 8px 8px 0 8px
+          &:nth-child(even)
+            margin: 8px 0 0 0
+          &:last-of-type
+            margin-bottom: 8px
+
+        .catalog__search__list__item
+          display: flex
+          align-items: center
+          img
+            flex-grow: 0
+          .catalog__search__list__item--type
+            flex-grow: 1
+            margin-left: 8px
+            font-size: 1.2rem
+            line-height: 1.4
+
+  // stepSalon
+  .stepSalon
+    position relative
+    padding-bottom: 32px
+    +sp()
+      padding-top: 64px
+    &:after
+      display: block
+      content: ""
+      height: calc(90px / 2);
+      width: 100%;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      background-color: #FFF
+      position: absolute
+      z-index 100
+      bottom -45px
+
+  // stepPoint
+  .stepPoint
+    background-color: grayBgColor
+    padding: 96px 0 32px
+    .stepSalon__img
+      img
+        width 120px
+
+  .flow__attention
+    text-align: center
+    +pc()
+      padding: 32px 0
+    +sp()
+      padding: 24px 0
+    ul
+      display inline-block
+      margin: 0 auto
+      +pc()
+        font-size: 1.4rem
+      +sp()
+        width: auto
+        margin: 0 16px
+        font-size: 1.2rem
+      // override
+      .flow__txt
+        text-align: left
+        line-height: 1.8
+        &::before
+          display:inline-block
+          margin:0
+          content:'※'
+          text-indent:-1.8rem
+          +sp()
+            text-indent:-1.6rem
+        +pc()
+          margin-left: 1.8rem // text-indent分
+        +sp()
+          margin-left: 1.6rem // text-indent分
+        &.-small
+          margin-top: 0
+        .flow__link
+          color: secondColor
+          text-decoration: underline
+
+  // app DL
+  .app
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFE8E8)
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)
+
+
+  //- Reservation Btn
+  .btn-reservation
+    position: fixed
+    transform: translateX(200px)
+    transition: transform 0.5s;
+    z-index: 9999;
+    &.js-active
+      transform: translateX(0)
+    +pc()
+      right: 40px
+      bottom: 40px
+    +sp()
+      right: 12px
+      bottom: 12px
+    .btn-link
+      display: block
+      background-color: champagneGold
+      color: #FFF
+      text-align: center
+      line-height: 1.3
+      border-radius: 50%
+      border: 1px solid #FFF
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-flow: column
+      box-shadow: 1px 1px 3px rgba(0, 0, 255, .3)
+      +pc()
+        font-size: 1.4rem
+        width 100px
+        height: 100px
+      +sp()
+        font-size: 1.1rem
+        width 80px
+        height: 80px
+      &::after
+        content: ""
+        display: block
+        background: url('../img/search_icon.svg') no-repeat
+        background-size: contain
+        +pc()
+          width 32px
+          height: 32px
+          margin-top: 4px
+        +sp()
+          width 26px
+          height: 26px
+
+  // Popask
+  .popask
+    +pc()
+      margin: 0 auto
+      padding: 40px 0 0
+
+    +sp()
+      margin-bottom: 32px
+      padding: 0

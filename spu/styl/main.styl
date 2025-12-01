@@ -1,0 +1,1916 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+// -------------------------------------------------------//
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+whiteColor = #ffffff
+//
+pinkBgColor = #FFE9ED
+colorStr = #cc5777
+
+pcWidth = 1216px
+pcInnerWidth = 950px
+
+// -------------------------------------------------------//common
+
+// 配布ヘッダー調整用
+.header
+  +pc()
+    margin-bottom: 8px
+
+  .spuCommonHeader__serviceScroller
+    +sp()
+      height: 100px
+
+// -------------------------------------------------------//common in contents
+
+// common
+.text-link
+  color: secondColor
+  text-decoration: underline
+  &:hover
+    text-decoration: none
+
+.spu // Change #Pagename to a unique ID for this page
+  .rbSPUContainer
+    margin: 0 auto
+    width: 100%
+    line-height: 1.5
+
+  .rbSPU
+    a
+      +pc()
+        img
+          // transition: filter .3s ease
+          transition: opacity .25s ease-in-out
+
+          &:hover
+            // filter: brightness(1.2)
+            opacity: .75
+
+    .link-underline
+      text-decoration: underline
+
+      &:hover
+        text-decoration: none
+
+    h2.ttl,
+    h3.ttl
+      color: grayTxtColor
+      text-align: center
+      font-weight: bold
+      line-height: 1.5
+
+    h2.ttl
+      margin: 0 auto 16px
+      font-size: 2.4rem
+
+      span
+        border-bottom: dashed 2px grayTxtColor
+
+        span
+          display: inline-block
+          border: none
+
+      +sp()
+        box-sizing: border-box
+        margin: 0
+        padding: 24px 12px 16px
+        width: 100%
+        border-bottom: dashed 1px grayTxtColor
+        background: #fff
+        font-size: 2rem
+
+        span
+          border-bottom: none
+
+    h3.ttl
+      margin: 0 auto 24px
+      font-size: 3rem
+
+      +sp()
+        margin: 0
+        padding: 16px 0
+        font-size: 1.8rem
+
+    .bg__pink
+      background: linear-gradient(rgba(Colors.Primary.color, .035), rgba(Colors.Primary.color, .035)), linear-gradient(rgba(#fff, .45), rgba(#fff, .45)), url('../img/bg-stripe.png')
+
+// -------------------------------------------------------//contents
+
+.rbSPU-box
+  box-sizing: border-box
+  margin: 0 auto
+  width: pcInnerWidth
+  background: redColor
+  +pc()
+    padding: 32px
+  +sp()
+    width: 100%
+    margin: 0 auto
+    padding: 16px 10px
+
+  h2.rbSPU-title
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100%
+    color: white
+    font-weight: bold
+    line-height: normal
+    +pc()
+      margin-bottom: 8px
+      font-size: 4.2rem
+      white-space: nowrap
+    +sp()
+      margin: 0 auto 8px
+      font-size: 2.3rem
+      line-height: 1.3
+      text-align: left
+
+    .rb_logo
+      height: auto
+      +pc()
+        width: 70px
+        margin-right: 15px
+      +sp()
+        width: 63px
+        margin-right: 10px
+
+  .rbSPU-tag-box
+    text-align: right
+    +pc()
+      margin-bottom: 16px
+    +sp()
+      margin-bottom: 8px
+
+    ul
+      +sp()
+        margin: 0 auto
+
+      .rbSPU-tag
+        display: inline-block
+        margin-left: 3px
+        padding: 6px
+        background: #fff
+        font-weight: bold
+        font-size: 1.2rem
+        line-height: 1
+
+        +sp()
+          margin-left: 4px
+          padding: 5px 10px
+          font-size: 1rem
+
+  .rbSPU-box-inner-wrap
+    background: white
+    +pc()
+      padding: 40px 0 
+    +sp()
+      padding: 16px 0
+
+    // inner部分
+    .rbSPU-box-inner
+      position: relative
+      text-align: center
+      +pc()
+        margin-bottom: 90px
+      +sp()
+        margin-bottom: 104px
+      .rbSPU-box-inner-catch
+        color: #000
+        font-weight: bold
+        letter-spacing: 0.2px
+        line-height: 1.6
+        +pc()
+          margin-bottom: 24px
+          font-size: 2.8rem
+        +sp()
+          margin-bottom: 8px
+          font-size: 1.8rem
+        .rbSPU-box-inner-catch-underline
+          border-bottom: 1px solid #333
+        .rbSPU-box-inner-catch-normal
+          font-weight: normal
+      .rbSPU-box-inner-lead
+        display: inline-block
+        margin-bottom: 8px
+        border: 2px solid redColor
+        border-radius: 56px
+        box-sizing: border-box
+        color: redColor
+        font-weight: bold
+        letter-spacing: 0.1px
+        line-height: 1.2
+        +pc()
+          padding: 16px 24px
+          font-size: 2.4rem
+        +sp()
+          padding: 8px 10px
+          font-size: 1.3rem
+        .rbSPU-box-inner-underline
+          text-decoration: underline
+      .rbSPU-box-inner-caption
+        display: flex
+        justify-content: center
+        align-items: center
+        color: redColor
+        font-weight: bold
+        +pc()
+          padding-bottom: 80px
+        +sp()
+          padding-bottom: 44px
+        .rbSPU-box-inner-caption-unit
+          display: flex
+          flex-direction: column
+          line-height: 1
+          +pc()
+            font-size: 2.9rem
+          +sp()
+            font-size: 1.2rem
+          .rbSPU-box-inner-caption-unit-icon
+            +pc()
+              font-size: 7.8rem
+            +sp()
+              font-size: 3.2rem
+        .rbSPU-box-inner-caption-point
+          letter-spacing: -0.6px
+          line-height: 1
+          +pc()
+            font-size: 16.6rem
+          +sp()
+            font-size: 6.8rem
+          .rbSPU-box-inner-caption-point-text
+            +pc()
+              font-size: 7.8rem
+            +sp()
+              font-size: 3.2rem
+      .rbSPU-box-inner-left-img
+        position: absolute
+        left: 0
+        bottom: 0
+        +pc()
+          width: 272px
+        +sp()
+          width: 102px
+      .rbSPU-box-inner-right-img
+        position: absolute
+        right: 0
+        +pc()
+          bottom: -48px
+          width: 263px
+        +sp()
+          bottom: -6px
+          width: 102px
+      .rbSPU-box-inner-panda-img
+        position: absolute
+        z-index: 1
+        +pc()
+          bottom: 32px
+          right: 8px
+          width: 213px
+        +sp()
+          bottom: 24px
+          right: 0
+          width: 80px
+      .rbSPU-box-inner-info-wrap
+        position: absolute
+        z-index: 5
+        right: 0
+        left: 0
+        margin: 0 auto
+        background: white
+        box-sizing: border-box
+        +pc()
+          bottom: -60px
+          width: 824px
+          height: 116px
+          padding: 16px
+          border: solid 2px grayBgColor
+        +sp()
+          bottom: -88px
+          width: 96%
+          height: 121px
+          padding: 8px
+          border: solid 1px grayBgColor
+        .rbSPU-box-inner-info
+          line-height: 1.5
+          +pc()
+            font-size: 1.4rem
+          +sp()
+            font-size: 1rem
+          .rbSPU-box-inner-info-action
+            color: redColor
+            font-weight: bold
+            .rbSPU-box-inner-info-action-underline
+              text-decoration: underline
+
+    .rbSPU-box-inner-announce
+      margin: 0 auto
+      background: #fff9e4
+      box-sizing: border-box
+      +pc()
+        width: 824px
+        padding: 19px
+      +sp()
+        width: 96%
+        padding: 8px 8px 16px 8px
+      .rbSPU-box-inner-announce-title-add
+        position: relative
+        color: #000
+        font-weight: bold
+        text-align: center
+        line-height: 1.4
+        +pc()
+          width: 500px
+          margin: 0 auto 0px
+          padding-bottom: 8px
+          font-size: 2.8rem
+        +sp()
+          width: 204px
+          margin: 0 auto 0px
+          padding-bottom: 4px
+          font-size: 1.6rem
+        &::before
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(-45deg)
+          +pc()
+            top: 0.4rem;
+            left: 18rem;
+            font-size: 2.4rem
+          +sp()
+            top: 0.2rem
+            left: 6rem
+            font-size: 1.4rem
+        &::after
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(45deg)
+          +pc()
+            top: 0.4rem
+            right: 18rem
+            font-size: 2.4rem
+          +sp()
+            top: 0.2rem;
+            left: 14rem;
+            font-size: 1.4rem
+      .rbSPU-box-inner-announce-box
+        display: flex
+        .rbSPU-box-inner-announce-title
+          justify-content: center
+          position: relative
+          color: #000
+          font-weight: bold
+          text-align: center
+          line-height: 1.4
+          display: flex
+          +pc()
+            width: 500px
+            margin: 0 auto 8px
+            font-size: 2.4rem
+          +sp()
+            width: 204px
+            margin: 0 auto 4px
+            font-size: 1.3rem
+          .rbSPU-box-inner-announce-title-icon
+            position: absolute
+            +pc()
+              top: 2px
+              left: 124px
+              width: 20px        
+            +sp()
+              top: -2px
+              left: 28px
+              width: 14px
+
+      .rbSPU-box-inner-announce-desc-wrap
+        width: 100%
+        .rbSPU-box-inner-announce-desc
+          text-align: center
+          +pc()
+            margin-bottom: 16px
+          +sp()
+            margin-bottom: 8px
+          .rbSPU-box-inner-announce-desc-text
+            color: #000
+            font-weight: bold
+            letter-spacing: 0.3px
+            line-height: 1.2
+            +pc()
+              font-size: 2.4rem
+            +sp()
+              font-size: 1.3rem
+            .rbSPU-box-inner-announce-desc-text-icon
+              display: inline-block
+              position: relative
+              margin-right: 1px
+              color: #fff9e4
+              background: #000
+              text-align: center
+              box-sizing: border-box
+              +pc()
+                top: -3.5px
+                width: 28px
+                height: 28px
+                border-radius: 28px
+                font-size: 2rem
+                line-height: 1.3
+              +sp()
+                top: -1px
+                width: 13px
+                height: 13px
+                border-radius: 13px
+                font-size: 1rem
+                line-height: 1.2
+            .rbSPU-box-inner-announce-desc-text-catch
+              color: #df205f
+            .rbSPU-box-inner-announce-desc-text-catch-point
+              color: #df205f
+              font-weight: bold
+              letter-spacing: 0.3px
+              line-height: 1.2
+              +pc()
+                font-size: 5.0rem
+              +sp()
+                font-size: 2.6rem
+
+      .rbSPU-box-inner-announce-info
+        color: #000
+        text-align: center
+        line-height: 1.5
+        +pc()
+          font-size: 1.4rem
+        +sp()
+          font-size: 1rem
+
+    //ビューティで予約する
+    +pc()
+      .rbSPU-box .rbSPU-content-yoyaku_inner
+        border-top dashed 2px #333
+        padding-top 40px
+        margin-top 48px
+
+    +sp()
+      .rbSPU-box .rbSPU-content-yoyaku_inner
+        margin-top 32px
+      .rbSPU-box .rbSPU-content-yoyaku_inner h2.ttl
+        padding-top 32px
+
+    .spu .rbSPU h2.ttl span
+      border-bottom none
+
+  .rbSPU-content-yoyaku_inner
+    box-sizing: border-box
+    width: 100%
+
+    +pc()
+      margin: 40px auto 0
+    +sp()
+      box-sizing: border-box
+      padding: 0
+      margin-top: 16px
+
+    h2.ttl
+      +sp()
+        font-size: 1.6rem
+        padding: 16px 8px 0px
+        // override
+        border-bottom: none
+
+    .rbSPU-content-yoyaku_box
+      // Search Area
+      .searchArea
+        @import passStr + '_common/stylus/Module/Common/_searchArea'
+        searchArea(mainColor)
+
+
+
+        +pc()
+          display: block
+          padding: 16px 0
+          margin-bottom: 16px
+          
+          .feature-search__form
+            width :824px !important
+            .feature-search__item.is-genre select
+              width 220px!important
+              margin-right 16px
+            .feature-search__item select
+              width 110px!important
+              border: 2px solid #DF205F!important
+              margin-right 16px
+            .feature-search__buttonItem
+              background: #df205f!important
+            .feature-search__item.is-areas select
+              width 300px!important
+              margin-right 16px
+            
+
+        +sp()
+
+          .feature-search__form
+            display flex
+            flex-wrap wrap
+            padding 16px
+            .feature-search__menu
+              width: 100%
+              .feature-search__item
+                width 100%
+              .feature-search__item.is-genre
+                width 100%
+              .feature-search__item.is-areas
+                // margin-left 2%
+            .feature-search__buttonItem
+              width 100%!important
+              background: #df205f!important
+            .feature-search__item select
+              border-width 1px
+              border: 2px solid #df205f!important
+               
+                
+                
+
+              
+// navigation
+.pageScrollNav
+  // position: sticky
+  // position: -webkit-sticky
+  top: 0
+  z-index: 100
+  display: block
+  margin: 60px 0 0
+  background-color: redColor
+  box-shadow: 0 1px 0 #eaeaea, 0 -1px 0 #eaeaea
+  text-align: center
+  +sp()
+    margin-top: 0;
+
+.navigation
+  display: flex
+  padding: 0
+
+  +pc()
+    margin: 0 auto
+    width: 950px
+
+  .navigation__item
+    position: relative
+    flex: 1
+    border-right: 1px solid whiteColor 
+    font-weight: bold
+
+    &:first-child
+      border-left: 1px solid whiteColor 
+
+    +pc()
+      // &:first-of-type
+        // &::before
+        //   position: absolute
+        //   top: 50%
+        //   left: 0
+        //   display: inline-block
+        //   margin-top: -15px
+        //   width: 1px
+        //   height: 30px
+        //   background: Colors.MediumGray.color
+        //   content: ''
+
+    &:last-of-type
+      &::after
+        +sp()
+          display: none
+
+    .navigation__link
+      position: relative
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      height: 46px
+      font-size: 1.4rem
+      line-height: 1.3
+      color: whiteColor
+      padding: 20px 0   
+      &:hover
+        color: Colors.CrimsonRed.color
+
+      +sp()
+        font-size: 1.2rem
+
+      +pc()
+        transition: all 0.2s linear
+        &:hover
+          background-color: rgb(241, 181, 181)
+          color Colors.CrimsonRed.color
+          border: none
+        &:after
+          transition: all 0.2s linear
+
+      .navigation__text
+        padding: 0 8px 14px
+        color #FFF
+
+        // height: 40px
+        span
+          white-space: nowrap
+
+          +sp()
+            display: inline-block
+
+      &:after
+        position: absolute
+        bottom: 15px
+        $size = 6px
+        left: 50%
+        display: inline-block
+        margin-left: -3px
+        width: $size
+        height: @width
+        border: solid whiteColor
+        border-width: 0 1px 1px 0
+        content: ''
+        transform: rotate(45deg)
+        +pc()
+          transition: all 0.2s linear
+
+.pageScrollNav
+  +pc()
+    .navigation__link:hover
+      & .navigation__text
+        transition: all 0.2s linear
+        color Colors.CrimsonRed.color
+      &:after
+        border-color: Colors.CrimsonRed.color
+
+  .navigation  
+    .navigation__item
+      &.current
+        background-color: rgb(241, 181, 181)
+        color Colors.CrimsonRed.color
+        .navigation__text
+          color Colors.CrimsonRed.color
+        .navigation__link:after
+          border-color: Colors.CrimsonRed.color
+
+.rbSPU-content
+  +sp()
+    margin-top: 10px
+
+  // PITARI_area_cpnlist
+  .rbSPU-content-pitari
+    +pc()
+      margin: 0 auto 60px
+    h2.ttl
+      +pc()
+        margin: 0 auto 40px
+      +sp()
+        margin-bottom: 0
+
+    .cpnList
+      // campaign list
+      @import '../../../../../_common/stylus/Module/Common/_campaignList'
+
+      // ()の中にPCのwidthを入れる。SPは何もしなくてもwidth:autoになる
+      campaignList(pcWidth)
+
+      // override
+      .campaignListSendai
+      .campaignListKobe
+      .campaignListFukuoka
+      .campaignListSaitama
+      .campaignListSapporo
+      .campaignListHiroshima
+      .campaignListTokyo
+        // バナーが1つだけの時は真ん中寄せ(手動)
+        .campaignListWrap
+          +pc()
+            justify-content: center
+
+        // 一部非表示（タイトル、特集）
+        .area__title3
+        .tokushuSendai
+        .tokushuKobe
+        .tokushuFukuoka
+        .tokushuSaitama
+        .tokushuSapporo
+        .tokushuHiroshima
+        .tokushuTokyo
+          display: none
+
+  // 付与スケジュール
+  .rbSPU-content-pointflow
+    text-align: center
+    +pc()
+      margin: 0
+      padding: 60px 0
+    +sp()
+      padding: 0 0 40px
+
+    .point-simulation
+      box-sizing: border-box
+      min-height: 500px
+      opacity: 0
+      transition: opacity .2s ease
+
+      &.is-show
+        opacity: 1
+
+      +sp()
+        padding: 20px 10px 0
+
+      +pc()
+        margin: 24px auto 0
+        padding: 30px 0 0
+        width: 860px
+        border-radius: 8px
+
+      &__content
+        background-color: #fff
+        +pc()
+          padding 32px 0
+
+      &__main
+        +pc()
+          display: flex
+          justify-content: space-between
+
+      &__section
+        margin-bottom: 20px
+        text-align center
+
+        &:last-of-type
+          margin-bottom: 0
+
+      &__form,
+      &__result
+        box-sizing: border-box
+
+        +sp()
+          padding: 24px 16px
+
+        +pc()
+          padding: 24px
+
+      &__form
+        +sp()
+          margin-bottom 24px
+
+          .point-simulation__title
+            margin-bottom: 8px
+
+        +pc()
+          width: 420px
+          padding 26px 0 26px 32px
+
+      &__result
+        background-color grayBgColor
+        border-radius 10px
+        +pc()
+          width: 420px
+          margin-right 24px
+          width 390px
+
+        +sp()
+          margin 40px 16px 0
+          padding-bottom 16px
+
+      &__heading
+        margin: 0
+        padding: 30px 0 4px
+        font-weight: bold
+        font-size: 2.4rem
+
+        +sp()
+          font-size: 2rem
+
+        span
+          display: inline-block
+
+      &__title
+        margin: 0
+        padding: 0
+        font-weight: bold
+        font-size: 1.6rem
+
+        span
+          display: inline-block
+
+        +pc()
+          display: inline-block
+          vertical-align: middle
+
+      &__date
+        color: Colors.CrimsonRed.color
+        font-weight: bold
+        font-size: 3.6rem
+
+        +sp()
+          font-size: 3.2rem
+
+      &__note
+        margin-top: 5px
+        padding-left: 1.7rem
+        color: grayTxtColor
+        text-align: left
+        text-indent: -1.7rem
+        font-size: 1.4rem
+
+        +sp()
+          text-align: left
+          font-size: 1.2rem
+
+      &__form
+        position: relative
+
+        +pc()
+          padding: 0 26px
+
+        &:after
+          position: absolute
+          display: block
+          width: 0
+          height: 0
+          content: ''
+
+          +pc()
+            $size = 16px
+            top: 50%
+            right: -10px
+            margin-top: -(($size + 26px) / 2)
+            border-width: $size 0 $size $size
+            border-style: solid
+            border-color: transparent transparent transparent Colors.CrimsonRed.color
+
+          +sp()
+            $size = 16px
+            bottom: -24px
+            left: 50%
+            margin-left: -($size / 2)
+            border-width: $size $size 0 $size
+            border-style: solid
+            border-color: Colors.CrimsonRed.color transparent transparent transparent
+
+        .point-simulation__section:last-of-type
+          margin-bottom: 30px
+
+        .point-simulation__title
+          +pc()
+            width: 120px
+
+        &__line
+          display: flex
+          align-items: center
+
+          +pc()
+            justify-content: space-between
+
+          +sp()
+            flex-wrap: wrap
+            justify-content: center
+
+        .point-simulation__title
+          +pc()
+            width: 100px
+
+          +sp()
+            margin-bottom: 12px
+            width: 100%
+
+        &__select
+          position: relative
+          z-index: 1
+
+          &:after
+            $size = 8px
+            position: absolute
+            top: 50%
+            right: 12px
+            z-index: -1
+            display: inline-block
+            margin-top: -($size / 2)
+            width: $size
+            height: @width
+            border: solid Colors.DarkGray.color
+            border-width: 0 2px 2px 0
+            content: ''
+            transform: rotate(45deg)
+
+          &.is-year
+            width: 135px
+
+            +sp()
+              margin-right: 8px
+
+          &.is-month
+            width: 105px
+
+        &__month,
+        &__year
+          box-sizing: border-box
+          padding: 10px 12px
+          width: 100%
+          border: 2px solid Colors.MediumGray.color
+          border-radius: 6px
+          background: none
+          vertical-align: middle
+          font-weight: bold
+          font-size: 2.4rem
+          cursor: pointer
+          appearance: none
+
+          &::-ms-expand
+            display: none
+
+        &__submit
+          padding: 16px
+          width: 100%
+          border: none
+          border-radius: 8px
+          background-color: Colors.CrimsonRed.color
+          box-shadow: 0 4px 8px rgba(#000, .25)
+          color: #fff
+          font-weight: bold
+          font-size: 2.2rem
+          cursor: pointer
+          transition: background .2s ease
+          appearance: none
+
+          +pc()
+            &:hover
+              background-color: #ff1212
+              border-color: #ff1212
+
+      &__result
+        +pc()
+          display: flex
+          flex-direction: column
+          justify-content: center
+
+      &__accordion
+        border-radius: 8px
+        background: #fff
+
+        +pc()
+          margin: 30px 0 1px
+
+        +sp()
+          margin: 24px 0 1px
+
+        &__button
+          display: flex
+          justify-content: center
+          align-items: center
+          box-sizing: border-box
+          padding: 16px
+          width: 100%
+          border: none
+          background: #fff
+          line-height: 100%
+          cursor: pointer
+          appearance: none
+
+          +pc()
+            transition: background .2s ease
+
+            &:hover
+              background-color: pinkBgColor
+
+          +sp()
+            padding: 8px 16px
+
+          &__icon
+            display: block
+            margin: 0 16px 0 0
+            width: 24px
+            height: @width
+            border: 1px solid Colors.CrimsonRed.color
+            border-radius: 100%
+            color: Colors.CrimsonRed.color
+            vertical-align: middle
+            text-align: center
+            font-size: 1.6rem
+            line-height: 0
+
+            .icon-plus,
+            .icon-minus
+              margin: ((24px - 16px) / 2) - 0 0
+              width: 16px
+              height: @width
+
+          &__text
+            font-size: 1.6rem
+            line-height: 1.4
+
+            +sp()
+              flex: 1
+              text-align: left
+              font-size: 1.4rem
+
+        &__body
+          overflow-y: hidden
+          min-height: 0
+          max-height: 0
+          background: #fff
+          opacity: 0
+          transition: all .2s ease-in-out
+
+          &.is-expand
+            max-height: 1000px
+            opacity: 1
+
+          .point-simulation__note
+            margin-top: 16px
+
+            +pc()
+              text-align: center
+
+          &__img
+            +pc()
+              padding: 30px
+
+            +sp()
+              padding: 16px
+
+              img
+                width: 100%
+
+      &__info
+        +pc()
+          width: calc(100% - 48px)
+          margin: 32px auto 0
+          font-size: 1.4rem
+          line-height: 1.7
+        +sp()
+          width: calc(100% - 32px)
+          margin: 16px auto 0
+          padding-bottom: 16px
+          font-size: 1.2rem
+          line-height: 1.5
+
+    .point-caption
+      text-align: center
+
+      +pc()
+        margin-bottom: 24px
+
+      +sp()
+        margin: 16px
+
+      .point-caption-txt
+        color: grayTxtColor
+
+        +pc()
+          font-size: 2rem
+
+        +sp()
+          font-size: 1.2rem
+
+    div.point-flow
+      margin: 40px auto
+      width: 1000px
+
+      +sp()
+        margin: 0 auto 16px
+        width: 80%
+
+      img
+        width: 100%
+
+      +sp()
+        img
+          margin: 0
+          width: 100%
+
+  // 楽天ビューティをはじめてご利用する方限定
+  .rbSPU-content-firstuse-container-wrap
+    background: #f9dcdc
+    +pc()
+      padding: 60px 0
+    +sp()
+      padding: 40px 0
+    .rbSPU-content-firstuse-container
+      margin: 0 auto
+      background: white
+      border-radius: 16px
+      box-sizing: border-box
+      text-align: center
+      +pc()
+        width: 860px
+        padding: 51px 40px
+      +sp()
+        width: calc(100% - 32px)
+        padding: 22px 10px
+      .rbSPU-content-firstuse-container-title
+        display: flex
+        justify-content: center
+        align-items: center
+        +pc()
+          margin-bottom: 27px
+        +sp()
+          margin-bottom: 14px
+        .rbSPU-content-firstuse-container-title-icon
+          +pc()
+            width: 97px
+            margin-right: 32px
+          +sp()
+            width: 38px
+            margin-right: 12px
+        .rbSPU-content-firstuse-container-title-text
+          color: #000
+          text-align: left
+          font-weight: bold
+          line-height: 1.2
+          +pc()
+            font-size: 5.4rem
+          +sp()
+            font-size: 2.1rem
+      .rbSPU-content-firstuse-container-lead
+        color: #000
+        text-align: center
+        font-weight: bold
+        line-height: 1.2
+        +pc()
+          margin-bottom: 13px
+          font-size: 3.5rem
+        +sp()
+          margin-bottom: 5px
+          font-size: 1.3rem
+        .rbSPU-content-firstuse-container-lead-small
+          +pc()
+            font-size: 2.4rem
+          +sp()
+            font-size: 1rem
+      .rbSPU-content-firstuse-container-catch
+        display: flex
+        justify-content: center
+        align-items: center
+        +pc()
+          margin-bottom: 24px
+        +sp()
+          margin-bottom: 13px
+        .rbSPU-content-firstuse-container-catch-icon
+          +pc()
+            width: 160px
+            margin-right: 16px
+          +sp()
+            width: 62px
+            margin-right: 7px
+        .rbSPU-content-firstuse-container-catch-point
+          +pc()
+            width: 309px
+            margin-right: 10px
+          +sp()
+            width: 121px
+            margin-right: 3px
+        .rbSPU-content-firstuse-container-catch-text
+          +pc()
+            width: 274px
+          +sp()
+            width: 107px
+      .rbSPU-content-firstuse-container-summary
+        display: inline-block
+        position: relative
+        text-align: center
+        +pc()
+          font-size: 3.2rem
+        +sp()
+          font-size: 1.2rem
+        &::before
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(-45deg)
+          +pc()
+            left: -2.5rem
+          +sp()
+            left: -1rem
+        &::after
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(45deg)
+          +pc()
+            right: -2.5rem
+          +sp()
+            right: -1rem
+      .rbSPU-content-firstuse-container-entry
+        +pc()
+          width: 600px
+          margin: 0 auto 60px
+        +sp()
+          width: 100%
+          margin: 0 auto 19px
+        .CampaignEntryButton_campaignButton__n6hK5
+          +pc()
+            margin: 24px 0 0 !important
+          +sp()
+            margin: 15px 0 0 !important
+
+         // paermission text
+        @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+        mailPermissionTxt()
+
+        .entryBoxTxt
+          +pc()
+            margin: 24px auto
+            max-width:100%
+          +sp()
+            margin: 24px auto
+        
+
+
+
+
+      .rbSPU-content-firstuse-container-entry-detail-wrap
+        box-sizing: border-box
+        +pc()
+          width: 780px
+          margin: 0 auto 40px
+          padding: 32px
+          border: 5px solid rgba(191, 0, 0, 0.50)
+          border-radius: 18px
+        +sp()
+          max-width: 323px
+          margin: 0 auto 19px
+          padding: 16px
+          border: 2px solid rgba(191, 0, 0, 0.50)
+          border-radius: 7px
+        .rbSPU-content-firstuse-container-entry-detail-title
+          display: flex
+          justify-content: center
+          align-items: center
+          +pc()
+            margin-bottom: 32px
+          +sp()
+            margin-bottom: 16px
+          .rbSPU-content-firstuse-container-entry-detail-title-icon
+            display: flex
+            justify-content: center
+            align-items: center
+            background: redColor
+            box-sizing: border-box
+            +pc()
+              width: 57px
+              height: 57px
+              border-radius: 57px
+              img
+                width: 33px
+            +sp()
+              width: 24px
+              height: 24px
+              border-radius: 24px
+              img
+                width: 14px
+          .rbSPU-content-firstuse-container-entry-detail-title-text
+            color: redColor
+            font-weight: bold
+            +pc()
+              padding-left: 7px
+              font-size: 3.2rem
+            +sp()
+              padding-left: 3px
+              font-size: 1.6rem
+        .rbSPU-content-firstuse-container-entry-detail
+          line-height: 1.3
+          +pc()
+            font-size: 2.4rem
+          +sp()
+            font-size: 1.2rem
+          .rbSPU-content-firstuse-container-entry-detail-container
+            +pc()
+              margin-bottom: 60px
+            +sp()
+              margin-bottom: 24px
+            &:last-of-type
+              margin-bottom: 0
+            .rbSPU-content-firstuse-container-entry-detail-intro
+              color: #000
+              font-weight: bold
+              line-height: 1.3
+              +pc()
+                margin-bottom: 8px
+                font-size: 2.8rem
+              +sp()
+                margin-bottom: 8px
+                font-size: 1.6rem
+            .rbSPU-content-firstuse-container-entry-detail-text
+              line-height: 1.5
+              +pc()
+                margin-bottom: 18px
+                font-size: 2.4rem
+              +sp()
+                margin-bottom: 7px
+                font-size: 1.6rem
+            .rbSPU-content-firstuse-container-entry-detail-info
+              +pc()
+                margin-top: 18px
+                font-size: 1.8rem
+              +sp()
+                margin-top: 7px
+                font-size: 1.2rem
+      .rbSPU-content-firstuse-container-info
+        +pc()
+          font-size: 1.4rem
+        +sp()
+          font-size: 1.1rem
+
+  // ポイントアップまでの3ステップ
+  .rbSPU-content-step
+    background: #fff9e4
+    +pc()
+      padding: 60px 0
+
+    .rbSPU-content-step-menu
+      +pc()
+        display: flex
+        padding-top: 56px
+        justify-content: center
+      +sp()
+        margin-left calc((100% - 280px) / 2) !important
+        padding: 24px 0 24px !important
+        &:last-of-type
+          margin-left: 0
+          margin-right calc((100% - 280px) / 2) !important
+      .rbSPU-content-step-menu-list
+        position: relative
+        margin-right: 36px
+        padding: 23px 20px
+        background: whiteColor
+        border-radius: 16px
+        box-sizing: border-box
+        text-align: center
+        +pc()
+          width: 280px
+        +sp()
+          width: 280px !important
+        &:nth-of-type(-n+2)::after
+          +pc()
+            position: absolute
+            top: 50%
+            right: -26px
+            width: 0
+            height: 0
+            border-top: 13px solid transparent
+            border-left: 13px solid grayTagColor
+            border-bottom: 13px solid transparent
+            transform: translateY(-50%)
+            content: ''
+        &:last-of-type
+          +pc()
+            margin-right: 0
+            padding: 26px 20px 7px
+          +sp()
+            padding: 32px 20px 14px
+          .rbSPU-content-step-menu-list-img
+            width: 98px
+        .rbSPU-content-step-menu-list-lead
+          padding-bottom: 12px
+          text-align: center
+          font-weight: bold
+          line-height: 1.6
+          +pc()
+            font-size: 1.8rem
+          +sp()
+            font-size: 1.4rem
+        .rbSPU-content-step-menu-list-img
+          width: 98px
+        .rbSPU-content-step-menu-summary-container
+          display: flex
+          justify-content: center
+          align-items: center
+          flex-direction: column
+          width: 170px
+          height: 98px
+          padding: 8px 4px 12px
+          margin: 0 auto
+          .rbSPU-content-step-menu-summary
+            display: flex
+            justify-content: center
+            align-items: center
+            line-height: 1.3
+            margin-bottom: 7px
+            font-size: 1.3rem
+            line-height: 1.3
+            &:last-child
+              margin-bottom: 0
+            .rbSPU-content-step-menu-summary-icon
+              width: 25px
+            .rbSPU-content-step-menu-summary-text
+              flex-grow: 1
+              line-height: 1.5
+              .rbSPU-content-step-menu-summary-info
+                display: block
+                margin-top: 7px
+                color: grayTagColor
+        .rbSPU-content-step-menu-start-container
+          width: 224px
+          margin: 0 auto
+          padding: 8px 16px
+          border: 1px solid grayLineColor
+          border-radius: 10px
+          box-sizing: border-box
+          .rbSPU-content-step-menu-start-title
+            display: flex
+            align-items: center
+            margin-bottom: 4px
+            .rbSPU-content-step-menu-start-title-icon
+              width: 24px
+              margin-right: 13px
+            .rbSPU-content-step-menu-start-title-text
+              font-size: 13px
+              text-align: left
+              font-weight: bold
+              line-height: 1.3
+          .rbSPU-content-step-menu-start-liad
+            color: #e23B72
+            font-size: 1.1rem
+            .rbSPU-content-step-menu-start-liad-bold
+              font-weight: bold
+
+    //- splide スライダー
+    .splide
+      +sp()
+        width: 280px
+        margin: 0 auto 
+    .splide__track
+      +sp()
+        overflow: hidden !important
+    .splide__arrow.splide__arrow--next:disabled
+      display: none !important
+    .splide__pagination
+      bottom: 12px
+      display: none !important
+    .splide__arrow:disabled
+      display: none !important
+    .splide__pagination__page
+      width: 6px
+      height: 6px
+      background #ccc
+    .splide__pagination__page.is-active
+      width: 6px
+      height: 6px
+      background grayTagColor
+      transform: scale(1)
+    .splide__arrow
+      display: block
+      position: absolute !important
+      top: 50% !important
+      width: 0 !important
+      height: 0 !important
+      background: transparent !important
+      border-radius: 0 !important
+      transform: translateY(-50%) !important
+      content: '' !important
+      &.splide__arrow--next
+        right: -25px !important
+        border-top: 15px solid transparent !important
+        border-left: 15px solid grayTagColor !important
+        border-bottom: 15px solid transparent !important
+      &.splide__arrow--prev
+        left: -25px !important
+        border-top: 15px solid transparent !important
+        border-right: 15px solid grayTagColor !important
+        border-bottom: 15px solid transparent !important
+      svg
+        display: none
+
+  // app DL
+  .app
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFE8E8)
+
+  // SPU達成条件
+  .rbSPU-content-point
+    +pc()
+      margin: 0
+      padding: 60px 0
+    +sp()
+      padding: 40px 0
+
+    .point-txt
+      color: grayTxtColor
+
+      +pc()
+        font-size: 1.4rem
+
+      +sp()
+        font-size: 1rem
+
+    .point-caption
+      text-align: center
+
+      +pc()
+        margin-bottom: 24px
+
+      +sp()
+        margin: 16px
+
+      .point-caption-txt
+        color: grayTxtColor
+
+        +pc()
+          font-size: 2rem
+
+        +sp()
+          font-size: 1.2rem
+
+        &.-strong
+          font-weight: bold
+
+        &.-red
+          color: redColor
+
+        &.-big
+          +pc()
+            font-size: 2.8rem
+
+          +sp()
+            font-size: 1.4rem
+
+    .point-table-wrap
+      display: flex
+      justify-content: center
+
+      // for IE
+      @media all and (-ms-high-contrast: none)
+        display: block
+
+      +sp()
+        margin: 0 16px
+
+      .point-table
+        display: block
+        width: auto
+        color: grayTxtColor
+        text-align: center
+
+        +pc()
+          width: 1024px // for IE
+          margin: 0 auto 24px
+
+        +sp()
+          margin: 0
+
+        // table cell setting
+        th,
+        td
+          box-sizing: border-box
+          border: 1px solid grayLineColor
+          vertical-align: middle
+
+          +pc()
+            padding: 16px 40px
+
+          +sp()
+            padding: 8px
+
+        // texts
+        .point-table-title
+          background: grayBgColor
+          font-weight: bold
+
+          +pc()
+            font-size: 1.8rem
+
+          +sp()
+            font-size: 1.4rem
+
+          &.-big
+            font-size: 2.4rem
+
+            +sp()
+              font-size: 1.6rem
+
+          &.-red
+            color: redColor
+
+        .point-table-txt
+          font-size: 1.6rem
+
+          +sp()
+            font-size: 1.4rem
+
+          &.-bold
+            font-weight: bold
+
+          &.-red
+            color: redColor
+
+          &.-attention
+            font-size: 1.2rem
+
+            +sp()
+              font-size: 1rem
+
+    .point-attention
+      display: block
+      box-sizing: border-box
+      margin: 0 auto
+      width: 1000px
+
+      +sp()
+        margin: 16px 16px 0
+        width: auto
+
+      .point-attention-txt
+        padding-left: 2rem
+        font-size: 1.4rem
+
+        +sp()
+          padding-left: 1.5rem
+          font-size: 1.2rem
+          line-height: 1.8
+
+        &::before
+          display: inline-block
+          content: '※'
+          text-indent: -2rem
+
+          +sp()
+            text-indent: -1.5rem
+
+  //Shop Search
+  .rbSPU-shop-search
+    +pc()
+      margin-bottom: 60px
+      padding: 60px 0
+    +sp()
+      margin-bottom: 40px
+      padding-bottom: 40px
+    .rbSPU-shop-search__wrap
+      background: white
+      border-radius: 16px
+      box-sizing: border-box
+      +pc()
+        width: 860px
+        margin: 56px auto 0
+        padding: 60px 0
+      +sp()
+        width: calc(100% - 32px)
+        margin: 40px auto 0
+        padding: 40px 0 20px
+      .searchArea
+        +pc()
+          padding: 16px 0 32px
+        .feature-search__menu
+          display: flex
+          +sp()
+            width: 100%
+            flex-direction: column
+        .feature-search__form
+          +pc()
+            display:flex
+            justify-content:center
+            width:ContainerWidth
+            margin:auto
+          +sp()
+            padding:16px 16px 40px
+          .feature-search__item
+            position: relative
+            &::after
+              content:''
+              position: absolute
+              display: block
+              pointer-events: none
+              BasicArrow(6px, bottom, Colors.DarkGray.color)
+              +pc()
+                top:((60px - 6px) /2)
+                right:(24px + 8px)
+              +sp()
+                top:((48px - 6px) /2)
+                right:8px
+            select
+              appearance none
+              padding: 0 8px
+            +pc()
+              select
+                display:inline-block
+                width: 150px
+                height:60px
+                font-size:1.8rem
+                border:2px solid colorStr
+                background-color:#fff
+                margin-right:24px
+              &.is-genre
+                select
+                  width:260px
+              &.is-areas
+                select
+                  width:340px
+            +sp()
+              select
+                width:100%
+                height:48px
+                font-size:1.6rem
+                border:2px solid colorStr
+                background-color:#fff
+                margin-bottom:8px
+
+          .feature-search__buttonItem
+            display: flex
+            align-items: center
+            //
+            text-align:center
+            background:colorStr
+            border-radius: 4px
+            cursor: pointer
+            +pc()
+              width:140px
+            +sp()
+              height:48px
+            &:hover
+              opacity: 0.8
+            .feature-search__button
+              width:100%
+              color:#fff
+              letter-spacing:4px
+              line-height: 1
+              +pc()
+                font-size:2rem
+              +sp()
+                font-size:1.8rem
+    .searchCategory__button__wrap
+      +pc()
+        width: 600px
+        margin: 0 auto 56px
+      +sp()
+        width: calc(100% - 32px)
+        margin: 0 auto 40px
+      .searchCategory__button__icon
+        margin: 0 auto
+        +pc()
+          width: 222px
+        +sp()
+          width: 137px
+
+      .searchCategory__button
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100%
+        background: #df205f
+        border-radius: 44px
+        box-sizing: border-box
+        color: white
+        +pc()
+          height: 88px
+          padding: 20px
+          font-size: 3.6rem
+          line-height: 1.3
+        +sp()
+          height: 65px
+          padding: 13px
+          font-size: 2.2rem
+          line-height: 1.5
+    .searchCategory__wrap
+      margin: 0 auto
+      +pc()
+        width: 100%
+      +sp()
+        width: calc(100% - 32px)
+      .searchCategory--title
+        text-align: center
+        font-weight: bold
+        line-height: 1.4
+        +pc()
+          margin-bottom: 24px
+          font-size: 2rem
+        +sp()
+          margin-bottom: 16px
+          font-size: 1.6rem
+      .searchCategory
+        display: flex
+        align-items: center
+        background: white
+        box-sizing: border-box
+        +pc()
+          justify-content: center
+          padding: 24px 40px
+        +sp()
+          justify-content: flex-start
+          flex-wrap: wrap
+          padding: 8px
+        .searchCategory__menu
+          +pc()
+            width: 160px
+            margin-right: 16px
+            &:last-of-type
+              margin-right: 0
+          +sp()
+            width: calc(50% - 4px)
+            margin-bottom: 16px
+            &:nth-of-type(odd)
+              margin-right: 8px
+            &:last-of-type
+              margin-right: 0
+          .searchCategory__menuLink
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            font-size: 1.2rem
+            line-height: 1.4
+            .searchCategory__menuLink__icon
+              display: block
+              width: 60px
+              padding-right: 8px
+
+  // QA
+  .rbSPU-content-qa
+    background: grayBgColor
+    +pc()
+      margin: 0 auto 60px
+      padding: 40px 0 60px
+    +sp()
+      margin: 0 auto 40px
+
+    .qa__listBox
+      +sp()
+        padding: 16px
+
+      // よくあるご質問セット
+      QAset(redColor, none, pinkBgColor)
+
+      // override
+      .qaSet
+        padding: 0
+
+  // presentation of RB
+  .rbSPU-content-rb
+    +pc()
+      margin: 0
+      padding: 0 0 60px
+
+    .rb-box
+      +sp()
+        margin: 16px 0
+
+      // RBを使うわけセット
+      presenRBset()
+
+
+
+  // other campaign
+  .rbSPU-content-cpnList
+    +pc()
+      margin-bottom: 60px
+    h2.ttl
+      +pc()
+        padding-top: 40px
+      +sp()
+        margin-bottom: 0
+
+    .cpnList
+      // campaign list
+      @import '../../../../../_common/stylus/Module/Common/_campaignList'
+
+      // ()の中にPCのwidthを入れる。SPは何もしなくてもwidth:autoになる
+      campaignList(pcWidth)
+
+      // override
+      .campaignList
+        +pc()
+          padding-top: 0
+        padding-bottom: 24px
+        background: none
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+
+  // POPASK
+  .rbSPU-content-popask
+    +pc()
+      margin: 0 auto
+      padding: 40px 0 0
+
+    +sp()
+      margin-bottom: 32px
+      padding: 0
+  
+// .rexSurveyNamespace .sc-kLwhqv .RexCheckboxWithLabel-Checkbox .rex-checkbox-label
+//   font-size: 1.2rem !important

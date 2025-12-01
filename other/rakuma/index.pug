@@ -1,0 +1,753 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- template / ver 3.1.1 / 更新日時：2024.9.19 / テンプレートコンフル追記
+
+extends ../../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20240930'
+    var meta = {
+      title: 'ラクマ×楽天ビューティ ポイント最大11倍キャンペーン',
+      description: 'ラクマで出品＆楽天ビューティでサロン予約・施術完了で楽天ビューティ利用分のポイントが最大11倍！',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/other/rakuma/',
+      directory: 'rakuma', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/other/rakuma/img/share.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+  link(rel='stylesheet', href="css/splide.min.css")
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #Rakuma
+
+    //- 終了対応
+    #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー必要', //- エントリー不要は自動的に青色になります
+            //- '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+            'ネット予約・施術完了',
+            '条件達成',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+      .main__period
+        p.main__period__text
+          | キャンペーン期間：10月15日 10:00 〜 11月15日 9:59  
+          span.main__period__text__terms
+            | 条件達成期間：10月15日 10:00 〜 11月30日 23:59
+      .main__caption
+        img.main__caption__img.-pc(src='img/mainn_caption_pc.png' + parameter, alt='1.エントリー 2.ラクマ出品 3.ネットサロン予約※1 10月15日10:00~11月15日9:59まで 4.施術終了 11月30日まで ラクマ初出品の方 ポイント11倍※2 ラクマ出品経験がある方 ポイント3倍※3' width='100%' height='auto')
+        img.main__caption__img.-sp(src='img/mainn_caption_sp.png' + parameter, alt='1.エントリー 2.ラクマ出品 3.ネットサロン予約※1 10月15日10:00~11月15日9:59まで 4.施術終了 11月30日まで ラクマ初出品の方 ポイント11倍※2 ラクマ出品経験がある方 ポイント3倍※3' width='100%' height='auto')
+      ul.main__terms
+        li.main__terms--text
+          | ※1 
+          span.main__terms--text-bold
+            | 2,500円(税込)以上のネット予約
+          | が対象。
+        li.main__terms--text
+          | ※2 楽天ビューティの通常利用分における進呈率との比較となります。
+        li.main__terms--text
+          | ※進呈するポイント（期間限定ポイント）には上限や条件があります。詳細は
+          a.textLink(href='#Detail')
+            | こちら。
+        li.main__terms--text
+          | ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        li.main__terms--text
+          | ※条件の達成順序は順不同です。
+
+    //- Navigation
+    section#Navigation.nav(data-ratid='cpn_' + meta.directory + '_Navigation' data-ratevent='appear' data-ratparam='all')
+      ul.nav__list__wrap
+        li.nav__list
+          a.nav__list--btn.-entry(href='#EntryBox')
+            span.nav__list--btn-text
+              | エントリー
+        li.nav__list
+          a.nav__list--btn.-flow(href='#StepRakuma')
+            span.nav__list--btn-text
+              | ポイント
+              br.-sp
+              | 獲得方法
+        li.nav__list
+          a.nav__list--btn.-rakuma(href='#IntroductionRakuma')
+            span.nav__list--btn-text
+              | ラクマは
+              br.-sp
+              | 安心＆かんたん！
+
+
+    //- Entry Btn
+    section#EntryBox.entryBox(data-ratid='cpn_' + meta.directory + '_EntryBox' data-ratevent='appear' data-ratparam='all')
+      .step--title__wrap.-pink
+        h2.step--title
+          | Step1
+          p.step--title--caption
+            | ※各Stepは順不同です
+      .entryBox__container
+        h3.entryBox__container--title
+          | まずはこちらからエントリー
+
+        //- 終了対応
+        if endflag == true
+          //- ボタンセット(url,txt,endflag)
+          +btnSet('',btnTxt,true)
+        else
+
+          //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+          //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+          // ReX Campaign Entry Button: Mounting points
+          // mounting point for button 1
+          #rex-ceb-01
+          // ReX Campaign Entry Button: Configuration
+          script
+            | var rexButtons = {language: 'ja', buttons: [{"code":"/rakuma2410","theme":"red","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","below":{"isCheckboxMandatory":true,"isChecked":true,"checkboxText":"エントリーしてメルマガを購読する","html":""},"ids":["rex-ceb-01"]}]}
+          // ReX Campaign Entry Button: Script
+          script(src='https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js' defer='')
+
+          //- メルマガパーミッション
+          include ../../../../../_common/pug/Module/Common/_mailPermissionTxt
+          +mailPermissionTxt()
+
+
+    //- Step2
+    section#StepRakuma.stepRakuma(data-ratid='cpn_' + meta.directory + '_StepRakuma' data-ratevent='appear' data-ratparam='all')
+      .step--title__wrap.-pink
+        h2.step--title
+          | Step2
+      .stepRakuma_wrapper    
+        .step__title__img
+          img(src='img/img_logo_rakuma.png' + parameter, alt='Rakuten Rakuma' width='100%' height='auto')
+        .stepRakuma__flow
+          .step__flow
+            .step__flow--lead
+              span.-blue
+                | 11月15日9:59
+              | までに
+              br
+              | 楽天のフリマアプリ
+              br
+              | 「ラクマ」に商品を出品
+              .step__flow__info.-pc
+                | ※特典進呈までに、下書き化または削除されている商品や利用規約違反の商品は進呈の対象外となります。
+            .step__flow__img
+              img(src='img/imf_rakuma_flow.png' + parameter, alt='出品する' width='100%' height='auto')
+            .step__flow__info.-sp
+              | ※特典進呈までに、下書き化または削除されている商品や利用規約違反の商品は進呈の対象外となります。
+          .conditionsBox__search.-excludeApp
+            .conditionsBox__search--top
+              | ＼アプリをお持ちの方はこちら／
+            a.conditionsBox__search--button.-blue(href='fril://post', target='_blank')
+              | ラクマに出品する
+            p.conditionsBox__search--button--info
+              | WEB版ラクマで出品する方は
+              a(href='https://fril.jp/item/new', target='_blank')
+                | こちら
+          .conditionsBox__search.-app
+            a.conditionsBox__search--button.-blue(href='https://fril.jp/item/new', target='_blank')
+              | WEB版ラクマで出品する
+          .step__rakuma_app
+            .step__rakuma_app__txt.-excludeApp
+              | ラクマアプリの
+              br.-sp
+              | ダウンロード&amp;新規登録はコチラ
+            .step__rakuma_app__txt.-app
+              | ラクマアプリで出品・ダウンロード
+              br.-sp
+              | &amp;新規登録はコチラ
+            .step__rakuma_app__link
+              .step__rakuma_app__icon.-excludeApp
+                img(src='img/img_rakuma_icon.png' + parameter, alt='Rakuma')
+              ul.step__rakuma_app__dl.-sp
+                li.step__rakuma_app__dl__btn.-android
+                  a(href='https://app.adjust.com/1esqemi1')
+                    img(src='img/btn_android.png' + parameter, alt='Google Playで手に入れよう')
+                li.step__rakuma_app__dl__btn.-iphone
+                  a(href='https://app.adjust.com/1esqemi1')
+                    img(src='img/btn_ios.png' + parameter, alt='App Storeからダウンロード')
+              ul.step__rakuma_app__dl.-desktop
+                li.step__rakuma_app__dl__btn 
+                  a(href='https://app.adjust.com/1esqemi1')
+                    img(src='img/btn_android.png' + parameter, alt='Google Playで手に入れよう')
+                li.step__rakuma_app__dl__btn 
+                  a(href='https://app.adjust.com/1esqemi1')
+                    img(src='img/btn_ios.png' + parameter, alt='App Storeからダウンロード')
+              ul.step__rakuma_app__dl.-sp.-app
+                li.step__rakuma_app__dl__btn 
+                  a(href='https://app.adjust.com/1esqemi1')
+                    img(src='img/btn_android.png' + parameter, alt='Google Playで手に入れよう')
+                li.step__rakuma_app__dl__btn 
+                  a(href='https://app.adjust.com/1esqemi1')
+                    img(src='img/btn_ios.png' + parameter, alt='App Storeからダウンロード')
+
+    //- Step3&4
+    section#StepBeauty.stepBeauty(data-ratid='cpn_' + meta.directory + '_StepBeauty' data-ratevent='appear' data-ratparam='all')
+      .step--title__wrap.-pink
+        h2.step--title
+          | Step3 &amp; 4
+      .stepBeauty_wrapper
+        .step__title__img
+          img(src='img/img_logo_beauty.png' + parameter, alt='Rakuten Beauty' width='100%' height='auto')
+        .step__flow
+          span.-pink
+            | 11月15日9:59
+          | までに
+          br
+          | 2,500円(税込)以上のサロン予約＆
+          br
+          span.-pink
+            | 11月30日23:59
+          | までに施術完了
+
+        //-  pc用 リスト
+        ul.conditionsBeauty__menu.-pc
+          li.conditionsBeauty__menu--list
+            .conditionsBeauty__menu--list--icon
+              | 1
+            p.conditionsBeauty__menu--list--lead
+              | ご希望の条件に
+              br
+              | 合うサロンを検索
+            img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list1.png' + parameter, alt='ご希望の条件に合うサロンを検索' width='' height='100%')
+          li.conditionsBeauty__menu--list
+            .conditionsBeauty__menu--list--icon
+              | 2
+            p.conditionsBeauty__menu--list--lead
+              | 日時やメニューを選択
+              br
+              | して予約
+            img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list2.png' + parameter, alt='日時やメニューを選択して予約' width='' height='100%')
+          li.conditionsBeauty__menu--list
+            .conditionsBeauty__menu--list--icon
+              | 3
+            p.conditionsBeauty__menu--list--lead
+              | 施術完了
+            img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list3.png' + parameter, alt='施術完了' width='' height='100%')
+
+        //-  sp用 リスト スライダー
+        .splide.-sp
+          .splide__track
+            ul.splide__list.conditionsBeauty__menu.-sp
+              li.splide__slide.conditionsBeauty__menu--list
+                .conditionsBeauty__menu--list--icon
+                  | 1
+                p.conditionsBeauty__menu--list--lead
+                  | ご希望の条件に
+                  br
+                  | 合うサロンを検索
+                img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list1.png' + parameter, alt='ご希望の条件に合うサロンを検索' width='' height='100%')
+              li.splide__slide.conditionsBeauty__menu--list
+                .conditionsBeauty__menu--list--icon
+                  | 2
+                p.conditionsBeauty__menu--list--lead
+                  | 日時やメニューを選択
+                  br
+                  | して予約
+                img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list2.png' + parameter, alt='日時やメニューを選択して予約' width='' height='100%')
+              li.splide__slide.conditionsBeauty__menu--list
+                .conditionsBeauty__menu--list--icon
+                  | 3
+                p.conditionsBeauty__menu--list--lead
+                  | 施術完了
+                img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list3.png' + parameter, alt='施術完了' width='' height='100%')
+        .conditionsBox__search__wrapper
+          .conditionsBox__search
+            a.conditionsBox__search--button.-pink(href='https://beauty.rakuten.co.jp/?l-id=rb_rakuma_search')
+              | 対象サロンの検索はこちら
+            p.conditionsBox__search--button--annotation
+              | ※ネット予約できるサロンが対象です。
+
+    //- StepLast
+    section#StepLast.stepLast(data-ratid='cpn_' + meta.directory + '_StepLast' data-ratevent='appear' data-ratparam='all')
+      .step__last__img
+        img.-sp(src='img/img_point_get_sp.png' + parameter, alt='ラクマ初出品ならポイント11倍、ラクマ出品経験がある方はポイント3倍' width='100%')
+        img.-pc(src='img/img_point_get_pc.png' + parameter, alt='ラクマ初出品ならポイント11倍、ラクマ出品経験がある方はポイント3倍')
+      .step__last__notice
+        | ※楽天ビューティの通常利用分における付与率との比較となります。※ポイント進呈予定日は2024年12月31日頃。
+        br
+        | ※進呈するポイント（期間限定ポイント）の上限は、ラクマ初出品の方が1,200ポイント、ラクマ出品経験がある方が300ポイントとなります。その他の条件など詳細は
+        a.textLink(href='#Detail')
+          | こちら
+        | 。
+
+    //- StepLast
+    section#AppDownload.appDownload(data-ratid='cpn_' + meta.directory + '_appDownload' data-ratevent='appear' data-ratparam='all')
+    .beautyintro__container
+      .beautyintro__lead__wrap
+        .beautyintro__lead__icon__appicon
+          img(src='img/img_beauty_value3.png' + parameter, alt='楽天ビューティ' width='100%' height='')
+        .beautyintro__lead--lead
+          | アプリから予約で
+          br.-sp
+          | さらにポイントアップ
+      .beautyintro__lead--lead--info
+        | ※「ポイント最大11倍」とは別にエントリーが必要です。詳細は
+        a.textLink(href='#Detail')
+          | こちら
+        | 。
+      .beautyintro__menu__app__wrap
+        a.beautyintro__menu__app__banner(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/app2x/?l-id=rb_rakuma_app2x')
+          img(src='../../../../common/banner/campaign/bnr_common_640x160.png' + parameter, alt='アプリから予約でポイント最大3倍' width='100%' height='')
+      .beautyintro__menu__app__link__wrap.-excludeApp
+        ul.beautyintro__menu__app__article.-pc
+          li.beautyintro__menu__app__img
+            img(src='img/img_app2x_info.png' + parameter, width='100%' height='')
+          li.beautyintro__menu__app__qr
+            p.beautyintro__menu__app__qr--text
+              | ダウンロードはこちら
+            img.beautyintro__menu__app__qr__img(src='img/app_dl_qr.png' + parameter, alt='qrコード' width='100%' height='')
+        a.beautyintro__menu__app__button.-excludeApp.-sp.-iphone(href='https://app.adjust.com/1gmg6agt' target="_blank" rel="noopener noreferrer")
+          img(src='img/btn_ios.png' + parameter, alt='App Storeからダウンロード' width='100%' height='')
+        a.beautyintro__menu__app__button.-excludeApp.-sp.-android(href='https://app.adjust.com/1gmg6agt' target="_blank" rel="noopener noreferrer")
+          img(src='img/btn_android.png' + parameter, alt='Google Playからダウンロード' width='100%' height='')
+
+    //- ラクマとは
+    section#IntroductionRakuma.introductionRakuma(data-ratid='cpn_' + meta.directory + '_introductionRakuma' data-ratevent='appear' data-ratparam='all')
+      .step--title__wrap.-blue
+        h2.step--title
+          | フリマアプリ「ラクマ」とは
+      .introductionRakuma__intro
+        .introductionRakuma__intro__txt
+          | 個人間売買が手軽にできる
+          br.-pc
+          | 楽天のフリマアプリ。
+          br
+          | お金のやり取りはラクマが
+          br.-pc
+          | 仲介するので安心です。
+        .introductionRakuma__intro__img
+          img(src='img/img_rakuma_intro.png' + parameter, alt='ラクマ売買の関連図' width='100%')
+      .introductionRakuma__merit
+        h3.introductionRakuma__merit__title
+          | 楽天サービスならではの
+          br.-sp
+          | メリットがたくさん
+        ul.introductionRakuma__merit__list 
+          li
+            .introductionRakuma__merit__list__img
+              img(src='img/img_rakuma_merit01.png' + parameter, alt='ポイント' height='100%')
+            .introductionRakuma__merit__list__txt
+              | キャンペーン参加で
+              br
+              | 楽天ポイント
+              br.-sp
+              | もらえる！
+              span.introductionRakuma__merit__list__txt__cap ※1
+          li
+            .introductionRakuma__merit__list__img
+             img(src='img/img_rakuma_merit02.png' + parameter, alt='お買い物' height='100%')
+            .introductionRakuma__merit__list__txt
+              | 楽天ポイント
+              br.-sp
+              | で
+              br.-pc
+              | お買い物
+              br.-sp
+              | できる！
+          li
+            .introductionRakuma__merit__list__img
+              img(src='img/img_rakuma_merit03.png' + parameter, alt='楽天市場' height='100%')
+            .introductionRakuma__merit__list__txt
+              | 売上金が
+              br.-sp
+              | 楽天市場や
+              br
+              | お店で使える！
+              span.introductionRakuma__merit__list__txt__cap ※2
+        .introductionRakuma__merit__annotation 
+          | ※1 対象外のキャンペーンもあります。
+          br.-sp
+          | ※2 ラクマの売上金は、楽天キャッシュにチャージすることで楽天サービスでご利用できます。
+
+    //- バーコード出品
+    section#BarcodeRakuma.barcodeRakuma(data-ratid='cpn_' + meta.directory + '_barcodeRakuma' data-ratevent='appear' data-ratparam='all')
+      .step--title__wrap.-blue
+        h2.step--title
+          span.-yellow
+            | バーコード出品
+          | なら
+          br.-sp
+          | サクッと出品できます！
+      .barcodeRakuma__box
+        .barcodeRakuma__point
+          .barcodeRakuma__point__barcode__img 
+              img(src='img/img_rakuma_barcode.png' + parameter, alt='かんたん・便利' width='100%')
+          ul.barcodeRakuma__point__list
+            li.barcodeRakuma__point__list__point
+              .barcodeRakuma__point__list__point__head
+                | POINT  01
+              img.barcodeRakuma__point__list__point__img(src='img/img_rakuma_point01.png' + parameter, alt='賞品情報が自動で入力' width='100%')
+              .barcodeRakuma__point__list__point__txt 
+                | バーコードをスキャンすると、商品名や著者名、出品カテゴリや商品に関連するタグ情報が自動で入力されます。
+            li.barcodeRakuma__point__list__point
+              .barcodeRakuma__point__list__point__head
+                | POINT  02
+              img.barcodeRakuma__point__list__point__img(src='img/img_rakuma_point02.png' + parameter, alt='オススメ価格も自動で入力' width='100%')
+              .barcodeRakuma__point__list__point__txt 
+                | 出品時のオススメ価格も自動で入力されます。
+        .barcodeRakuma__category
+          h3.barcodeRakuma__category__title
+            | バーコード出品の対応カテゴリ
+          ul.barcodeRakuma__category__list
+           li.barcodeRakuma__category__list_item
+            .barcodeRakuma__category__list_txt
+              | 本
+            .barcodeRakuma__category__list_img
+              img(src='img/img_rakuma_category01.png' + parameter, alt='本' width='100%')
+           li.barcodeRakuma__category__list_item
+            .barcodeRakuma__category__list_txt
+              | 漫画
+            .barcodeRakuma__category__list_img
+              img(src='img/img_rakuma_category02.png' + parameter, alt='漫画' width='100%')
+           li.barcodeRakuma__category__list_item
+            .barcodeRakuma__category__list_txt
+              | 雑誌
+            .barcodeRakuma__category__list_img
+              img(src='img/img_rakuma_category03.png' + parameter, alt='雑誌' width='100%')
+           li.barcodeRakuma__category__list_item
+            .barcodeRakuma__category__list_txt
+              | ゲームソフト
+            .barcodeRakuma__category__list_img
+              img(src='img/img_rakuma_category04.png' + parameter, alt='ゲームソフト' width='100%')
+           li.barcodeRakuma__category__list_item
+            .barcodeRakuma__category__list_txt
+              | DVD /  Blu-ray
+            .barcodeRakuma__category__list_img
+              img(src='img/img_rakuma_category05.png' + parameter, alt='DVD /  Blu-ray' width='100%')
+           li.barcodeRakuma__category__list_item
+            .barcodeRakuma__category__list_txt
+              | CD
+            .barcodeRakuma__category__list_img
+              img(src='img/img_rakuma_category06.png' + parameter, alt='CD' width='100%')
+           li.barcodeRakuma__category__list_item
+            .barcodeRakuma__category__list_txt
+              | コスメ美容
+            .barcodeRakuma__category__list_img
+              img(src='img/img_rakuma_category07.png' + parameter, alt='コスメ美容' width='100%')
+           li.barcodeRakuma__category__list_item
+            .barcodeRakuma__category__list_txt
+              | スマホ/カメラ/家電
+            .barcodeRakuma__category__list_img
+              img(src='img/img_rakuma_category08.png' + parameter, alt='スマホ/カメラ/家電' width='100%')
+          a.barcodeRakuma__category__link(href='https://faq.fril.jp/guide/first/sell/barcode/', target='_blank')
+            | バーコード出品について詳しくはこちら
+          .conditionsBox__search.-excludeApp
+            .conditionsBox__search--top
+              | ＼アプリをお持ちの方はこちら／
+            a.conditionsBox__search--button.-blue(href='fril://post', target='_blank')
+              | ラクマに出品する
+            p.conditionsBox__search--button--info
+              | WEB版ラクマで出品する方は
+              a(href='https://fril.jp/item/new', target='_blank')
+                | こちら
+          .conditionsBox__search.-app
+            a.conditionsBox__search--button.-blue(href='https://fril.jp/item/new', target='_blank')
+              | WEB版ラクマで出品する
+      .barcodeRakuma__shoot
+        h3.barcodeRakuma__shoot__title
+          | バーコードがない商品の
+          br.-sp
+          | 出品方法
+        ul.barcodeRakuma__shoot__step
+          li.barcodeRakuma__shoot__step_box
+            .barcodeRakuma__shoot__step_box__top
+              .barcodeRakuma__shoot__step_box__no
+                | 1
+              .barcodeRakuma__shoot__step_box__txt
+                | 商品を撮影
+            .barcodeRakuma__shoot__step_box__img 
+              img(src='img/img_rakuma_shoot_step01.png' + parameter, alt='商品を撮影' width='100%')
+          li.barcodeRakuma__shoot__step_box
+            .barcodeRakuma__shoot__step_box__top
+              .barcodeRakuma__shoot__step_box__no
+                | 2
+              .barcodeRakuma__shoot__step_box__txt
+                | 商品詳細を入力
+            .barcodeRakuma__shoot__step_box__img 
+              img(src='img/img_rakuma_shoot_step02.png' + parameter, alt='商品詳細を入力' width='100%')
+          li.barcodeRakuma__shoot__step_box
+            .barcodeRakuma__shoot__step_box__top
+              .barcodeRakuma__shoot__step_box__no
+                | 3
+              .barcodeRakuma__shoot__step_box__txt
+                | 出品完了
+            .barcodeRakuma__shoot__step_box__img 
+              img(src='img/img_rakuma_shoot_step03.png' + parameter, alt='出品完了' width='100%')
+        .conditionsBox__search__wrapper
+          .conditionsBox__search.-excludeApp
+            .conditionsBox__search--top
+              | ＼アプリをお持ちの方はこちら／
+            a.conditionsBox__search--button.-blue(href='fril://post', target='_blank')
+              | ラクマに出品する
+            p.conditionsBox__search--button--info
+              | WEB版ラクマで出品する方は
+              a(href='https://fril.jp/item/new', target='_blank')
+                | こちら
+          .conditionsBox__search.-app
+            a.conditionsBox__search--button.-blue(href='https://fril.jp/item/new', target='_blank')
+              | WEB版ラクマで出品する
+
+
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle 【MAQUIA】限定ラ・クーポン
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead エントリー・出品・サロン予約期間
+              td.detail__tableBlockBody 2024年10月15日(火)10:00～2024年11月15日(金) 09:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 施術期間
+              td.detail__tableBlockBody 2024年10月15日(火)10:00～2024年11月30日(土)23:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                  br
+                  | 条件達成順序は順不同です。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li エントリーをされた方
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li エントリーには楽天会員登録が必要です。楽天会員でない方は、エントリーと同時に楽天会員登録(無料)ができます。
+                  li.detail__tableBlockList--li エントリー履歴は
+                    a.detail__tableBlockTxt--link(href="https://oubo.rakuten.co.jp/list?spk=f1636b")
+                      | こちら
+                    | から確認できます。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 下記の楽天ビューティと楽天ラクマの条件をどちらも達成された方
+                p.detail__tableBlockTxt--bold.-pink 楽天ビューティ条件
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 予約期間中に楽天ビューティで 2,500 円以上(税込)のネット予約をされた方
+                  li.detail__tableBlockList--li 施術期間中に施術を完了された方
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、
+                    span.detail__tableBlockTxt--red クーポン割引後
+                    | の価格が 2,500 円(税込)以上の場合に対象となります。
+                  li.detail__tableBlockList--li 電話予約や直接来店での施術は対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約や直接来店で施術完了された場合は、ポイント進呈の対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の来店期間内で施術完了された場合は、ポイント進呈の対象となります。
+                  li.detail__tableBlockList--li 期間内の予約・施術完了であればエントリーと予約・施術完了どちらが先でも対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt--bold.-blue 楽天ラクマ条件
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 出品期間中に楽天ラクマで商品を出品された方
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 特典進呈までに、下書き化または削除されている商品や利用規約違反の商品は進呈の対象外となります。ラクマのルールをご確認の上、出品をお願いします。
+                  li.detail__tableBlockList--li アプリ・WEB のどちらも対象になります。
+                  li.detail__tableBlockList--li バーコード出品機能のご利用有無にかかわらず、本キャンペーンの対象になります。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt--bold 楽天ラクマ初出品の方
+                p.detail__tableBlockTxt 楽天ビューティのネット予約に対し、通常の 11 倍(通常分含む)の特典ポイントが進呈されます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt--bold 既に楽天ラクマ出品経験のある方
+                p.detail__tableBlockTxt 楽天ビューティのネット予約に対し、通常の 3 倍(通常分含む)の特典ポイントが進呈されます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜例＞
+                p.detail__tableBlockTxt 施術金額 5,500 円(税込)で楽天ビューティのネット予約後、2024年11月30日までに施術完了した場合に獲得できるポイント
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜計算方法（楽天ラクマ初出品の場合）＞
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li 5,500 円(税込)の税抜価格：5,000 円(税抜)
+                  li.detail__tableBlockList--li 楽天ビューティの通常のネット予約分(1 倍)＝50 ポイント
+                  li.detail__tableBlockList--li 本特典分(10 倍)＝500 ポイント
+                  li.detail__tableBlockList--li 合計獲得ポイント：550 ポイント
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 1 倍(楽天ビューティの通常のネット予約分)は、施術完了月の翌月 12 日頃に進呈されます。残りの 10 倍または 2 倍(本特典分)は、後述の本特典ポイント進呈予定日に進呈されます。
+                  li.detail__tableBlockList--li ネット予約時のメニュー、またはスペシャルメニューの金額を基準としてポイントが進呈されます。
+                  li.detail__tableBlockList--li ネット予約後にメニューが変更になり金額が変わった場合は、変更後の金額に対してポイントが進呈されます。
+                  li.detail__tableBlockList--li ポイントを利用してネット予約をされた場合は、
+                    span.detail__tableBlockTxt--red ポイント差引前
+                    | の金額に対して、特典ポイントが計算されます。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、
+                    span.detail__tableBlockTxt--red クーポン割引後
+                    | の金額に対して、特典ポイントが計算されます。
+                  li.detail__tableBlockList--li 現在実施中のキャンペーンとの併用が可能です(一部併用が出来ないキャンペーンもございます)。
+                    a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/')
+                      | キャンペーン一覧はこちら
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 進呈上限
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt--bold 楽天ラクマ初出品の方
+                p.detail__tableBlockTxt 1,200 ポイント
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li ラクマでの初めての出品に該当する方限定の特典となります。
+                  li.detail__tableBlockList--li キャンペーン開催期間以前にラクマで一度でも出品したことがある方は対象外となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt--bold 既に楽天ラクマ出品経験のある方
+                p.detail__tableBlockTxt 300 ポイント
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント進呈予定日
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 2024年12月31日(火)頃
+                p.detail__tableBlockTxt 獲得した特典ポイントは、
+                  a.detail__tableBlockTxt--link(href='https://point.rakuten.co.jp/history/')
+                    | 楽天PointClubのポイント実績
+                  | でご確認いただけます。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt ポイント進呈日から約 6 ヶ月間有効な期間限定ポイントとして進呈されます。
+                  br
+                  | 期間限定ポイントの詳細は
+                  a.detail__tableBlockTxt--link(href='https://ichiba.faq.rakuten.net/detail/000006532?scid=su_2312')
+                    | こちら
+                  | をご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt ■楽天ビューティ条件についての注意事項
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 一部ネット予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ■楽天ラクマについての注意事項
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li キャンペーンに参加いただくには、ラクマの会員登録(無料)が必要となります。
+                  li.detail__tableBlockList--li 本キャンペーンの開始日から特典進呈までの間に下記に該当した場合は、特典進呈の対象外、アカウントの停止などの対応をさせていただく場合があります。
+                    ul.detail__tableBlockList--disc
+                      li.detail__tableBlockList--li ラクマを退会された方
+                      li.detail__tableBlockList--li 楽天会員を退会された方
+                      li.detail__tableBlockList--li 不正行為をされた方
+                      li.detail__tableBlockList--li ラクマでの利用制限がある方
+                      li.detail__tableBlockList--li 規約に違反していると当社が合理的に判断した方
+                  li.detail__tableBlockList--li ポイントをもらうには、キャンペーン終了までに
+                    a.detail__tableBlockTxt--link(href='https://fril.jp/guide/balance/rid_cooperation?srsltid=AfmBOopwL0rbpIvbXlDYj2kXaiBSynaF7s4X24-6nDJBj9i0rCmCvbVl', target='_blank')
+                      | 楽天 ID 連携
+                    | が必要です。
+                  li.detail__tableBlockList--li キャンペーン期間終了日からポイント進呈日までに楽天 ID 連携を一度でも解除した場合、キャンペーンの対象外となる場合があります。
+                  li.detail__tableBlockList--li キャンペーン期間前に一度出品した商品を「下書き」に保存し、キャンペーン期間中に再度出品されても対象にはなりませんのでご注意ください。
+                  li.detail__tableBlockList--li キャンペーン期間前に既に出品されていた商品情報を編集した場合は出品とはみなされないためご注意ください。
+                  li.detail__tableBlockList--li 出品された商品が新たに禁止商品に追加されたなどの理由により、お客様ご自身で削除、または運営により商品を削除された場合、進呈の対象外となります。あらかじめご了承ください。
+                  li.detail__tableBlockList--li 取引キャンセルがあった場合、該当取引はその理由を問わず本キャンペーンの対象外となります。
+                  li.detail__tableBlockList--li 出品代行サービス
+                    a.detail__tableBlockTxt--link(href='https://fril.jp/rakumarutto', target='_blank')
+                      | ラクまるっと
+                    | 、
+                    a.detail__tableBlockTxt--link(href='https://tansma.com/', target='_blank')
+                      | タンスマ
+                    | を利用した出品はキャンペーンの対象外となります。
+                  li.detail__tableBlockList--li ラクマ公式事業者など、個人のラクマ利用者でないと当社が合理的に判断した方は、本キャンペーンには参加できません。条件を達成した場合でも、キャンペーン特典は得られませんので、あらかじめご了承ください。
+                  li.detail__tableBlockList--li 万が一特典を取得された場合には、返還要請その他ラクマ公式事業者出品利用規約等の契約関係に基づく対応をとらせていただく場合があります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ■その他
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 楽天ビューティの掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li エントリーが完了した際、個別にキャンペーン参加完了のご連絡はいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li キャンペーンのエントリー及び条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li 「QR コード」は、株式会社デンソーウェーブの登録商標です。
+                  li.detail__tableBlockList--li その他ご不明な点は下記よりお問い合わせください。
+                    ul.detail__tableBlockList--none
+                     li.detail__tableBlockList--li 
+                      a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/')
+                        | 楽天ビューティについて
+                     li.detail__tableBlockList--li 
+                      a.detail__tableBlockTxt--link(href='https://faq.fril.jp/6311/', target='_blank')
+                        | 楽天ラクマについて
+                  li.detail__tableBlockList--li 本キャンペーンは楽天グループ株式会社「楽天ビューティ」及び「楽天ラクマ」が主催しているものであり、Apple Inc., Apple Japan 合同会社によるものではありません。                
+
+
+
+    //- Other Campaign
+    section#Campaign.campaign(data-ratid='cpn_' + meta.directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title その他のキャンペーン
+
+      include ../../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  //- script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  //- script(src="/cnt/common/js/area-search/shopSearch.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  //- script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+  script(src="js/splide.min.js", defer)
+  script.
+    document.addEventListener( 'DOMContentLoaded', function() {
+      var elms = document.getElementsByClassName( 'splide' );
+      for ( var i = 0; i < elms.length; i++ ) {
+        new Splide( elms[ i ] ).mount();
+      }
+    });

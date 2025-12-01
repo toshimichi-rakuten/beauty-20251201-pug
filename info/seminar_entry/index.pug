@@ -1,0 +1,208 @@
+extends ../../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var meta = {
+      title: "【楽天ビューティ】第7回オンライン勉強会 〜メンズ集客編〜",
+      description: "【楽天ビューティ】第7回オンライン勉強会 〜メンズ集客編〜 のお申し込みフォームです",
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/info/seminar202109_entry/",
+      og_image: "https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png?202101",//- default (シェア画像があれば変更)
+    }
+  - var css = "css/main.css?v20230908"
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  meta(name='robots', content='noindex,nofollow')
+
+  //- enen js
+  script(type='text/javascript').
+    <!--
+    function doTrim(el) {
+    el.value = el.value.replace(/^\\s+|\s+$/g, '');
+    }
+    function isInput(el) {
+    return el.value.length != 0;
+    }
+    function isSelected(el) {
+    return el.selectedIndex != 0;
+    }
+    function isLength(el, len) {
+    if ("え".length == 2) {
+    len *= 2;
+    }
+    return el.value.length <= len;
+    }
+    function isEmail(el) {
+    if (el.value.length == 0) {
+    return true;
+    }
+    if (el.value.length > 512) {
+    return false;
+    }
+    if (!el.value.match(/^[\\/_a-z0-9-+]+[\/\._a-z0-9-+]*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i)){
+    return false;
+    }
+    return true;
+    }
+    function zen2han(el) {
+    el.value = el.value.replace(/[０]/g, "0");
+    el.value = el.value.replace(/[１]/g, "1");
+    el.value = el.value.replace(/[２]/g, "2");
+    el.value = el.value.replace(/[３]/g, "3");
+    el.value = el.value.replace(/[４]/g, "4");
+    el.value = el.value.replace(/[５]/g, "5");
+    el.value = el.value.replace(/[６]/g, "6");
+    el.value = el.value.replace(/[７]/g, "7");
+    el.value = el.value.replace(/[８]/g, "8");
+    el.value = el.value.replace(/[９]/g, "9");
+    }
+    function checkForm() {
+    var el;
+    var obj = document.enenForm;
+    el = obj.elements['answers[38319_262543]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+    alert("「サロン名」を入力してください。");
+    return false;
+    }
+    if (!isLength(el, 256)) {
+    alert("「サロン名」は256文字以内で入力してください。");
+    return false;
+    }
+    el = obj.elements['answers[38319_262544]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+    alert("「電話番号(ハイフンなし)」を入力してください。");
+    return false;
+    }
+    if (!isLength(el, 256)) {
+    alert("「電話番号(ハイフンなし)」は256文字以内で入力してください。");
+    return false;
+    }
+    el = obj.elements['answers[38319_262545]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+    alert("「連絡先メールアドレス」を入力してください。");
+    return false;
+    }
+    if (!isEmail(el)) {
+    alert("メールアドレスが半角英数字で正しく入力されているかを確認してください。");
+    return false;
+    }
+    el = obj.elements['answers[38319_262546]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+    alert("「店舗ID」を入力してください。");
+    return false;
+    }
+    if (!isLength(el, 256)) {
+    alert("「店舗ID」は256文字以内で入力してください。");
+    return false;
+    }
+    el = obj.elements['answers[38319_262547]'];
+    if (!isSelected(el)) {
+    alert("「勉強会参加」を選択してください。");
+    return false;
+    }
+    }
+    // -->
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+
+  #SeminarEntry
+
+    #mainArea
+      h1.main_ttl
+        | 【楽天ビューティ】第7回オンライン勉強会 ～メンズ集客編～
+      .discriptions
+        //- .discriptions__wrap
+          //-
+        .rblp-date
+          p 開催日時：2022年11月25日(金)&nbsp;9:30&nbsp;～&nbsp;10:00
+            span.-pc &nbsp;｜&nbsp;
+            br.-sp
+            | エントリー期間：2022年11月24日(木)&nbsp;15:00迄
+          p.attention ※ 本セミナーはヘアサロン様向けとなります ※
+          p.attention ※ zoomにて開催いたします ※
+          p.txt ご参加を希望される方は、下記フォームにてエントリーいただき、当日は弊社にて発行させていただくID・パスワードをご入力の上ご参加ください
+      .request_area
+        form(action='https://form.rakuten.co.jp/ans/apply/38319' name='enenForm' method='POST' onsubmit='return checkForm()')
+          table(border='1')
+            tbody
+              tr
+                td
+                  | サロン名
+                  span  [必須]
+                td
+                  input(type='text' name='answers[38319_262543]')
+              tr
+                td
+                  | 電話番号(ハイフンなし)
+                  span  [必須]
+                td
+                  input(type='text' name='answers[38319_262544]')
+              tr
+                td
+                  | 連絡先メールアドレス
+                  span  [必須]
+                td
+                  input(type='text' name='answers[38319_262545]')
+              tr
+                td
+                  | 店舗ID
+                  span  [必須]
+                td
+                  input(type='text' name='answers[38319_262546]')
+                  p.example
+                    | ※クライアントマネージャーログイン後、上部に記載されているsから始まる10桁の数字です
+                  p.imagebox
+                    img(src="img/img_shop_id.png", alt="クライアントマネージャー画面")
+              tr
+                td
+                  | 勉強会参加
+                  span  [必須]
+                td
+                  select(name='answers[38319_262547]')
+                    option(value='0') ▼選択してください。
+                    option(value='710025') 参加する
+                    option(value='710026') 今回不参加だが営業からの連絡を希望
+          //- label.btn_check
+            input#check(type='checkbox')
+          p.btn_area
+            input(type='hidden' name='c' value='楽天')
+            input(type='hidden' name='l' value='ja')
+            input#button(type='submit' value='送信する')
+            //- input#button(type='submit', disabled='disabled', value='送信する')
+
+
+block js
+  //- script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js")
+  //- script.
+  //-   $('#check').change(function () {
+  //-     // チェックが入っていたら有効化
+  //-     if ($(this).is(':checked')) {
+  //-       // ボタンを有効化
+  //-       $('#button').prop('disabled', false);
+  //-     } else {
+  //-       // ボタンを無効化
+  //-       $('#button').prop('disabled', true);
+  //-     }
+  //-   });

@@ -1,0 +1,1447 @@
+passStr = '../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+BeautyColor = #F48
+BeautyColorSub = #FFF9D7
+gurunaviColor = #F16A00
+gurunaviColorSub = #FFEFD6
+linkColor = #45a9bc
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+whiteColor = #fff
+redColor = #bf0000
+
+pcWidth = 1216px
+
+//------------------------------
+
+#gurunavi // #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // 汎用テキストリンク
+  .textLink
+    color: linkColor
+    text-decoration: underline
+    &:hover
+      text-decoration: none
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+      border-left: 4px solid redColor
+    +sp()
+      margin-bottom: 24px
+    .titleWrap--title
+      +sp()
+        border-left: 6px solid redColor
+
+
+  // アンカー
+  navHeightPc = 63px
+  navHeightSp = 62px
+
+  #EntryBox,
+  #ConditionsBox,
+  #IncentiveBox,
+  #AboutBeauty,
+  #AboutGurunavi,
+  #Detail
+    display: block
+    +pc()
+      padding-top: (navHeightPc + 0)
+      margin-top: -(navHeightPc + 0)
+    +sp()
+      padding-top: (navHeightSp + 0)
+      margin-top: -(navHeightSp + 0)
+
+  // main
+  .main
+    margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      position relative
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      display: flex
+      justify-content: center
+      align-items: center
+      +pc()
+        height: 556px
+        background-image: url('../img/main_pc_bg.png')
+        background-repeat: no-repeat;
+        background-position: center 0;
+        background-size: cover;
+        picture
+          position: absolute;
+          top: 114px;
+      +sp()
+        background-image: url('../img/main_sp_bg.png')
+        background-repeat: no-repeat;
+        background-position: center 0;
+        background-size: contain;
+        margin: 0 auto
+        width 100%
+        box-sizing: border-box
+        background-color: grayBgColor
+        height: 114vw
+        picture
+          position: absolute;
+          top: 33vw;
+          left: 0;
+          right: 0;
+          width: 88vw;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      .main__titleImg
+        animation-duration: 1s;
+        animation-timing-function: ease-in;
+        animation-delay: 0.5s;
+        animation-iteration-count: 1;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+        animation-play-state: running;
+        animation-name: h1;
+        opacity: 0;
+        +sp()
+          width: 100%
+      @keyframes h1 
+        0%
+          transform: scale(0);
+          opacity: 0;
+        50%
+          transform: scale(1.5);
+          opacity: 1;
+        60%
+          transform: scale(1);
+          opacity: 1;
+        65%
+          transform: scale(1.1);
+          opacity: 1;
+        85% 
+          transform: scale(1);
+          opacity: 1;
+        93%
+          transform: scale(1.025);
+          opacity: 1;
+        95%
+          transform: scale(1);
+          opacity: 1;
+        100%
+          transform: scale(1);
+          opacity: 1;
+    .main__terms
+      text-align: center
+      //
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        padding: 24px 0
+        width:pcWidth
+      +sp()
+        padding: 10px
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+        .main__termsLink
+          color: linkColor
+          text-decoration: underline
+          &:hover
+            text-decoration: none
+    .main__serviceWrap
+      text-align: center
+      padding: 24px 8px
+      .main__serviceTitle
+        font-weight: bold
+        position: relative
+        display: inline-block
+        padding-right: 12px
+        .-red
+          color: redColor
+        +pc()
+          font-size: 2rem
+          padding-bottom: 24px
+          .-large
+            font-size: 2.4rem
+        +sp()
+          font-size: 1.6rem
+          padding-bottom: 16px
+          .-large
+            font-size: 1.8rem
+        &:after
+          content: ''
+          position: absolute
+          display: block
+          right:0
+          width: 24px
+          height: 22px
+          top: -2px
+          right: -12px
+          background-image: url('../img/arrow.png')
+          background-size: cover
+          background-repeat: no-repeat
+          background-position: center
+          z-index: 5 
+      .main__serviceFlex_img
+        padding-bottom: 8px
+        &.-cross
+          +pc()
+            padding: 0 24px
+          +sp()
+            padding: 0 8px
+            width :24px
+            height: 24px
+      .main__serviceFlex
+        display: flex
+        justify-content: center
+        align-items: center
+        .main__serviceFlex_wrap
+          display: flex
+          flex-direction: column
+          align-items: center
+          &.-beauty
+            +pc()
+              padding-left: 96px
+        .main__serviceFlex_txt
+          font-size: 1.6rem
+          line-height: 1.6
+          padding-bottom: 8px
+          +sp()
+            font-size: 1.2rem
+            .-large
+              font-size: 1.4rem
+              font-weight: bold
+        .main__serviceFlex_arrow
+          align-self: stretch
+          border-radius: 8px
+          &.-beauty
+            border: 1px #FFE358 solid
+          &.-gurunavi
+            border: 1px gurunaviColor solid
+    .main__stepWrap
+      position: relative
+      display: flex
+      margin: 16px auto 50px
+      +pc()
+        width: 950px
+      +sp()
+        width: calc(100% - 32px)
+      &::after
+        position: absolute
+        color: grayTagColor
+        content: ""
+        bottom: -36px;
+        +pc()
+          left: calc(50% - 31px)
+          border-right: 31px solid transparent;
+          border-left: 31px solid transparent;
+          border-top: 16px solid;
+        +sp()
+          left: calc(50% - 24px)
+          border-right: 24px solid transparent;
+          border-left: 24px solid transparent;
+          border-top: 16px solid;
+      .main__step__primary-container
+        position: relative
+        background: BeautyColorSub
+        box-sizing: border-box
+        text-align: center
+        display: flex
+        flex-direction: column
+        justify-content: space-evenly
+        align-items: center
+        +pc()
+          width: 337px
+          height: 128px
+          margin-right: 20px
+          padding: 6px 12px 12px
+        +sp()
+          width: calc((100% - 32px)/3)
+          height: 160px
+          margin-right: 16px
+          padding: 0 0 8px 6px
+          box-sizing: border-box
+        &::after
+          position: absolute
+          top: 0
+          width: 0
+          height: 0
+          border-style: solid
+          border-right: 0
+          content:''
+          +pc()
+            right: -20px
+            border-top: 64px solid transparent
+            border-bottom: 64px solid transparent
+            border-left: 20px solid BeautyColorSub
+          +sp()
+            right: -16px
+            border-top: 80px solid transparent
+            border-bottom: 80px solid transparent
+            border-left: 16px solid BeautyColorSub
+      .main__step__container_icon
+        position: absolute
+        left: 50%
+        transform: translate(-50%,0)
+        top: -21px
+        color: whiteColor
+        text-align: center
+        font-weight: bold
+        line-height: 1.6
+        z-index: 5
+        font-size: 1.6rem
+        +sp()
+          top: -10px
+          font-size: 1.2rem
+        &.-primary
+          border-radius: 50%
+          background: BeautyColor
+          +pc()
+            width: 30px
+            height: 30px
+          +sp()
+            width: 22px
+            height: 22px
+        &.-secondary
+          border-radius: 50px
+          width: max-content
+          padding: 2px 16px
+          background: gurunaviColor
+      .main__step__secondary-container
+        position: relative
+        background: gurunaviColorSub
+        text-align: center
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: space-evenly
+        +pc()
+          width: 300px
+          height: 128px
+          padding: 6px 12px 12px
+          box-sizing: border-box
+        +sp()
+          width: calc((100% - 32px)/3)
+          height: 160px
+          padding: 0 6px 8px
+          box-sizing: border-box
+      .main__step__title
+        display: block
+        margin: auto
+        +pc()
+          height: 32px
+        +sp()
+          height: 25px
+      .main__step__time
+        display: inline-block
+        position: relative
+        background: whiteColor
+        border-radius: 8px
+        line-height: 1.1
+        width: fit-content
+        +pc()
+          margin-top: 6px
+          padding: 6px 12px
+          font-size: 1.4rem
+        +sp()
+          margin-top: 18px
+          padding: 6px
+          font-size: 1.1rem
+        &.-gurunavi
+          color: gurunaviColor
+          font-weight: bold
+        &::after
+          position: absolute
+          bottom: -8px
+          right: 0
+          left: 0
+          width: 0
+          height: 0
+          margin: auto
+          border-style: solid
+          border-right: 6px solid transparent
+          border-left: 6px solid transparent
+          border-top: 8px solid whiteColor
+          border-bottom: 0
+          content:''
+      .main__step__lead
+        display: flex
+        justify-content: center
+        align-items: center
+        +pc()
+          margin-top: 13px
+        +sp()
+          flex-direction: column
+          margin-top: 12px
+        .main__step__lead__text
+          line-height: 1.3
+          +pc()
+            margin-right: 18px
+            font-size: 1.4rem
+          +sp()
+            font-size: 1.1rem
+        .main__step__lead__icon
+          +pc()
+            height: 32px
+          +sp()
+            height: 34px
+            margin-top: 7px
+          &.-lightblue
+            +sp()
+              margin-top: 13px
+      .main__step__secondary-lead
+        display: flex
+        justify-content: center
+        align-items: center
+        +pc()
+          margin-top: 14.5px
+        +sp()
+          flex-direction: column
+          margin-top: 16.5px
+        .main__step__secondary-lead__text
+          +pc()
+            margin-right: 18px
+            font-size: 1.4rem
+            line-height: 1.4
+          +sp()
+            font-size: 1rem
+            line-height: 1.2
+          &.-small
+            +sp()
+              font-size: 1rem
+          .main__step__secondary-lead__point
+            color: redColor
+            font-weight: bold
+            font-size: large
+            +pc()
+              font-size: 1.6rem
+        .main__step__secondary-lead__icon
+          +pc()
+            width: 30px
+          +sp()
+            margin-top: 6px
+    .conditionsBox__section
+      position: relative
+      &.-add
+        &:before
+          content: ''
+          position: absolute
+          display: block
+          left: 0
+          bottom: 0
+          width: 24px
+          height: 22px
+          background-image: url('../img/img_main_icon_coin.png')
+          background-size: cover
+          background-repeat: no-repeat
+          background-position: center
+          z-index: 5 
+      .conditionsBox__section__wrap
+        display: flex
+        justify-content: center
+        align-items: end
+        .-coin
+          padding:0 8px 18px 0
+        .conditionsBox__section__lead
+          padding-bottom: 16px
+  .main__step__info
+    margin: 8px auto 0
+    line-height: 1.4
+    +pc()
+      width: 950px
+      font-size: 1.4rem
+    +sp()
+      width: calc(100% - 32px)
+      font-size: 1.2rem
+    .main__step__info__text
+      +pc()
+        display: inline-block
+        margin-right: 1rem
+      +sp()
+        display: block
+      .main__termsLink
+        color: linkColor
+        text-decoration: underline
+        &:hover
+          text-decoration: none
+
+  // ナビゲーション
+  .navigation
+    position: sticky
+    z-index: 10
+    top: 0
+    width: 100%
+    background: redColor
+    font-weight: bold
+    +pc()
+      height: 63px
+    +sp()
+      height: 62px
+    .global-nav
+      display: flex
+      align-items: center
+      justify-content: center
+      +pc()
+        width: 950px
+        margin: auto
+      +sp()
+        width: 100%
+      .global-nav__list
+        position: relative
+        width: calc(100% / 4)
+        &:nth-child(-n+3)::after
+          position: absolute
+          right: 0
+          border-right: 1px solid whiteColor
+          content: ''
+          +pc()
+            top: 8px
+            height: 47px
+          +sp()
+            top: 7px
+            height: 46px
+        .global-nav__link
+          display: block
+          position: relative
+          width: 100%
+          color: whiteColor
+          text-align: center
+          line-height: 1.4
+          box-sizing: border-box
+          +pc()
+            height: 63px
+            padding-top: 17.5px
+            font-size: 1.4rem
+          +sp()
+            height: 62px
+            padding-top: 19.5px
+            font-size: 1.2rem
+          &::after
+            position: absolute
+            display: inline-block
+            bottom: 8px
+            left: 0
+            right: 0
+            margin: auto
+            border: 1px solid whiteColor
+            border-left: 0
+            border-bottom: 0
+            box-sizing: border-box
+            color: grayTagColor
+            transform: translateY(-25%) rotate(135deg)
+            content: ''
+            +pc()
+              width: 11.5px
+              height: 11.5px
+            +sp()
+              width: 9px
+              height: 9px
+          &.-nav__position
+            +sp()
+              padding-top: 8px
+
+  // stepTitle
+  .contentStep--title
+    +pc()
+      width: 140px
+      margin: 0 auto 32px
+    +sp()
+      width: 120px
+      margin: 0 auto 28px
+
+  // logoImg
+  .contentStep--title--logo
+    +pc()
+      max-width: 342px
+      margin: 0 auto 40px
+    +sp()
+      max-width: 278px
+      margin: 0 auto 24px
+
+  // serviceTitle
+  .about--title
+    display: flex
+    align-items: center
+    justify-content: center
+    color: whiteColor
+    font-weight: bold
+    line-height: 1.4
+    +pc()
+      height: 69px
+      font-size: 3.2rem
+    +sp()
+      height: 44px
+      font-size: 2rem
+    .about__title__text
+      +pc()
+        padding: 0 32px
+      +sp()
+        padding: 0 6px
+    .about__title__icon
+      +pc()
+        width: 30px
+      +sp()
+        width: 25px
+    &.beauty
+      background-color: BeautyColor
+    &.gurunavi
+      background-color: gurunaviColor
+
+
+
+  // entry btn
+  .entryBox
+    background-color: BeautyColorSub
+    +pc()
+      padding: 60px 0
+    +sp()
+      padding: 40px 16px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    // ボタンエントリー(bgColor,txtColor)
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+    // 追加分
+    //エントリーボタン上書用
+    .CampaignEntryButton_campaignButton__n6hK5 .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem
+      background: BeautyColor
+      border-color: BeautyColor
+      &:hover
+        opacity: 0.8
+
+    //　エントリーボタン エントリー後
+    .CampaignEntryButton_campaignButton__n6hK5 .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem.disabled
+      background-color: #dfdfdf
+      border-color: #dfdfdf
+
+    //　エントリーボタン ローディング
+    .CampaignEntryButton_campaignButton__n6hK5 .CampaignEntryButton_loading__lYu0i.CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem.disabled
+      background-color: BeautyColor
+      border-color: BeautyColor
+
+    //　エントリーボタン エントリー完了
+    .CampaignEntryButton_success__GLKNB
+      background: #ebf7ec !important
+      border-color: #ebf7ec !important
+
+    //　エントリーボタン チェックボックスチェックあり
+    .Permission_checkbox__2N5q8:checked+.Permission_icon__uXZyD.Permission_red__wstq2
+      background-color: BeautyColor
+      border-color: BeautyColor
+
+
+    //エントリーボタン用チェックボックス上書用
+    .Permission_checkbox__2N5q8:checked+.Permission_icon__uXZyD.Permission_red__wstq2
+      background-color: BeautyColor
+      border-color: BeautyColor
+
+  //- Step2
+  .conditionsBox
+    background-color: BeautyColorSub
+    +pc()
+      margin-bottom: 80px
+    +sp()
+      margin-bottom: 60px
+
+  .conditionsBox__section
+    .conditionsBox--title
+      display: flex
+      align-items: center
+      justify-content: center
+      background: BeautyColor
+      color: whiteColor
+      font-weight: bold
+      line-height: 1.4
+      +pc()
+        height: 69px
+        font-size: 3.2rem
+      +sp()
+        height: 44px
+        font-size: 2rem
+      .conditionsBox__title__text
+        +pc()
+          padding: 0 32px
+        +sp()
+          padding: 0 6px
+      .conditionsBox__title__icon
+        +pc()
+          width: 30px
+        +sp()
+          width: 25px
+    .conditionsBox__section__wrap
+      &.-beauty
+        padding-bottom: 40px
+      &.-gurunavi
+        padding-bottom: 24px
+        +pc()
+          margin: 0 24px
+      +sp()
+        overflow: hidden
+      .conditionsBox__section__lead
+        text-align: center
+        font-weight: bold
+        +pc()
+          padding-bottom: 51px
+          font-size: 2.4rem
+          line-height: 1.6
+        +sp()
+          padding-bottom: 24px
+          font-size: 1.8rem
+          line-height: 1.4
+        &.-red
+          color: redColor
+        &.-large
+          font-size: 3rem
+        &.-small
+          font-size: 1.2rem
+          font-weight: normal
+        
+
+    // slider
+    .conditionsBeauty__menu
+      +pc()
+        display: flex
+        width: 950px
+        margin: auto
+      +sp()
+        margin-left calc((100% - 280px) / 2) !important
+        padding-top: 22px !important
+        &:last-of-type
+          margin-left: 0
+          margin-right calc((100% - 280px) / 2) !important
+      &.-beauty
+        width: 950px
+        padding-bottom: 32px
+      &.-gurunavi
+        width: inherit
+      .conditionsBeauty__menu--list
+        position: relative
+        margin-right: 36px
+        padding: 26px 20px 0
+        background: whiteColor
+        border-radius: 14px
+        box-sizing: border-box
+        text-align: center
+        +pc()
+          width: 294px
+        +sp()
+          width: 280px !important
+        &:nth-of-type(-n+2)::after
+          +pc()
+            position: absolute
+            top: 50%
+            right: -26px
+            width: 0
+            height: 0
+            border-top: 13px solid transparent
+            border-left: 13px solid grayTagColor
+            border-bottom: 13px solid transparent
+            transform: translateY(-50%)
+            content: ''
+        &:last-of-type
+          +pc()
+            margin-right: 0
+            padding: 26px 20px 7px
+          +sp()
+            padding: 32px 20px 14px
+          .conditionsBeauty__menu--list__img.-beauty
+            height: 160px
+        &.-gurunavi
+          border: 1px gurunaviColor solid
+          width: 100%
+          display: flex
+          flex-direction: column
+          justify-content: space-evenly
+          padding: 32px 16px 16px
+        .conditionsBeauty__menu--list--icon
+          position: absolute
+          left: 50%
+          transform: translate(-50%,0)
+          top: -21px
+          width: 43px
+          height: 43px
+          background: BeautyColor
+          border-radius: 50%
+          color: whiteColor
+          text-align: center
+          font-size: 1.8rem
+          font-weight: bold
+          line-height: 2.3
+          &.-gurunavi
+            background: gurunaviColor
+        .conditionsBeauty__menu--list--lead
+          padding-bottom: 12px
+          font-weight: bold
+          line-height: 1.6
+          text-align: center
+          +pc()
+            font-size: 1.8rem
+          +sp()
+            font-size: 1.4rem
+        .conditionsBeauty__menu--list__img.-beauty
+          +pc()
+            height: 144px
+          +sp()
+            height: 158px
+
+    //- splide スライダー
+    .splide
+      +sp()
+        width: 280px
+        margin: 0 auto 24px
+    .splide__track
+      +sp()
+        overflow: visible !important
+    .splide__arrow.splide__arrow--next:disabled
+      display: none !important
+    .splide__pagination
+      bottom: -26px
+    .splide__arrow:disabled
+      display: none !important
+    .splide__pagination__page
+      width: 6px
+      height: 6px
+      background #ccc
+    .splide__pagination__page.is-active
+      width: 6px
+      height: 6px
+      background grayTagColor
+      transform: scale(1)
+    .splide__arrow
+      display: block
+      position: absolute !important
+      top: 50% !important
+      width: 0 !important
+      height: 0 !important
+      background: transparent !important
+      border-radius: 0 !important
+      transform: translateY(-50%) !important
+      content: '' !important
+      &.splide__arrow--next
+        right: -25px !important
+        border-top: 15px solid transparent !important
+        border-left: 15px solid grayTagColor !important
+        border-bottom: 15px solid transparent !important
+      &.splide__arrow--prev
+        left: -25px !important
+        border-top: 15px solid transparent !important
+        border-right: 15px solid grayTagColor !important
+        border-bottom: 15px solid transparent !important
+      svg
+        display: none
+
+    //- 検索ボタン
+    .conditionsBox__search
+      margin: auto
+      +pc()
+        max-width: 600px
+      +sp()
+        padding-top: 24px
+        width: calc(100% - 32px)
+      &.-gurunavi
+        padding-top: 16px
+        max-width: 600px
+        width : 100%
+      &.-gurunaviId
+        width : 100%
+      .conditionsBox__search--button
+        display: block
+        margin: auto
+        border-radius: 44px
+        color: whiteColor
+        text-align: center
+        line-height: 1.5
+        font-weight: bold
+        &:hover
+          opacity :0.8
+        &.-beauty
+          background: BeautyColor
+        &.-gurunavi
+          background-color: redColor
+        &.-gurunaviId
+          background-color: redColor
+          padding: 12px
+          +pc()
+            font-size: 2.4rem
+          +sp()
+            font-size: 1.8rem
+        +pc()
+          padding: 16px 24px
+          font-size: 3rem
+        +sp()
+          padding: 16px 24px
+          box-sizing: border-box
+          font-size: 1.6rem
+      .conditionsBox__search--button--info
+        padding-top: 8px
+        text-align: center
+        line-height: 1.8
+        +pc()
+          font-size: 1.4rem
+        +sp()
+          font-size: 1.2rem
+      .conditionsBox__search--title
+        margin-bottom: 8px
+        font-weight: bold
+        text-align: center
+        line-height: 1.4
+        +pc()
+          font-size: 1.8rem
+        +sp()
+          font-size: 1.4rem
+      .conditionsBox__banner
+        +pc()
+          padding-top:40px
+        +sp()
+          padding-top:24px
+
+  //- step3
+  .incentiveBox
+    .main__step__info__text
+      margin-right: 0
+    .incentiveBox_first
+      background-color: gurunaviColorSub
+      position: relative
+      +pc()
+        padding: 60px 8px 0px
+      +sp()
+        padding: 24px 8px 16px
+      &::before
+        position: absolute
+        color: grayTagColor
+        content: ""
+        +pc()
+          top: -53px;
+          left: calc(50% - 58px)
+          border-right: 58px solid transparent;
+          border-left: 58px solid transparent;
+          border-top: 32px solid;
+        +sp()
+          top: -39px;
+          left: calc(50% - 36px)
+          border-right: 36px solid transparent;
+          border-left: 36px solid transparent;
+          border-top: 20px solid;
+      &::after
+        position: absolute
+        border-color: gurunaviColorSub transparent transparent transparent
+        z-index: 5
+        bottom: -90px
+        left: 0
+        right: 0
+        width: 0
+        height: 0
+        margin: 0 auto
+        border-style: solid
+        content: ""
+        +pc()
+          bottom: -90px
+        +sp()
+          border-width: 40px 48vw 0 48vw
+          bottom: -40px
+          overflow: hidden
+        @media screen and (min-width: 1247px) {
+          border-width: 90px 49vw 0 49vw
+          overflow: hidden
+        }
+        @media screen  and (min-width: 941px) and (max-width: 1246px) {
+          border-width: 90px 49vw 0 49vw
+          overflow: hidden
+        }
+    .main__step__info
+      +pc()
+        text-align: center
+      +sp()
+        width: calc(100% - 16px)
+    .incentiveBox_second
+      background-color: whiteColor
+      position: relative
+      +pc()
+        padding: 120px 0 40px
+      +sp()
+        padding: 60px 0 32px
+    .incentiveBox__section
+      .incentiveBox__section__wrap
+        text-align: center
+        position: relative
+        .incentiveBox__section__add
+          display: inline-block
+          position: relative
+          color: whiteColor
+          background: redColor
+          border-radius: 40px
+          font-weight: bold
+          line-height: 1.2
+          font-size: 1.8rem
+          width: fit-content
+          margin: 0 24px 16px
+          padding: 8px 16px
+          &::after
+            position: absolute
+            bottom: -8px
+            right: 0
+            left: 0
+            width: 0
+            height: 0
+            margin: auto
+            border-style: solid
+            border-right: 6px solid transparent
+            border-left: 6px solid transparent
+            border-top: 8px solid redColor
+            border-bottom: 0
+            content: ''
+        +pc()
+          margin-top: 6px
+          padding: 6px 12px
+          font-size: 1.4rem
+        +sp()
+          margin-top: 7px
+          padding: 6px
+          font-size: 1.2rem
+        .incentiveBox__section__lead
+          padding-bottom: 8px
+          text-align: center
+          font-weight: bold
+          +pc()
+            font-size: 2.4rem
+            line-height: 1.6
+          +sp()
+            font-size: 1.8rem
+            line-height: 1.4
+          .-link
+            color: linkColor
+            text-decoration: underline
+            &:hover
+              text-decoration: none
+        .incentiveBox__section__img__wrap
+          text-align: center
+          display: flex
+          flex-direction: column
+          align-items: center
+          position: relative
+          .incentiveBox__section__img
+            padding-bottom: 24px
+            &.-coupon
+              +pc()
+                width : 500px
+              +sp()
+                width: 100%
+                max-width: 300px
+            &.-mycoupon
+              +pc()
+                width : 300px
+              +sp()
+                width: 100%
+                max-width: 237px
+            &.-pointTxt
+              +pc()
+                width : 353px
+              +sp()
+                width: 100%
+                max-width: 300px
+            &.-point
+              +pc()
+                width : 478px
+              +sp()
+                width: 100%
+                max-width: 343px
+            &.-coinTower
+              +pc()
+                width : 296px
+              +sp()
+                width: 100%
+                max-width: 236px
+      .incentiveBox__section__coupon
+        height: 240px
+        width 370px
+        margin: 0 auto
+        background-image: url('../img/gnavi_coupon_bg.png')
+        background-repeat: no-repeat;
+        background-position: center 0;
+        background-size: contain
+        position: relative
+        +sp()
+          max-width: 100%
+          height: 170px
+        .incentiveBox__section__coupon__inner
+          position: absolute
+          transform: translateY(35%);
+          width :100%
+          display: flex
+          justify-content: space-evenly
+          align-items: center
+          +sp()
+            transform: translateY(54%);
+            justify-content: center
+            img
+              max-width:90px
+              height: auto
+              padding-right: 16px
+            
+
+
+  //- aboutService＆gurunavi
+  .aboutBeauty
+    background-color: BeautyColorSub
+  .aboutGurunavi
+    background-color: gurunaviColorSub
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+  .aboutService
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .aboutService__box
+      background-color: whiteColor
+      box-sizing: border-box
+      text-align: center
+      +pc()
+        width: 950px
+        margin: 40px auto 0
+        border-radius: 14px
+      +sp()
+        width: calc(100% - 32px)
+        margin: 24px auto 0
+        border-radius: 8px
+      .aboutService__contents
+        box-sizing: border-box
+        +pc()
+          padding: 40px 24px
+        +sp()
+          padding: 24px 16px
+        &.-splide
+          +pc()
+            padding: 40px 0
+          +sp()
+            padding: 24px 0
+        .aboutService__subtitles
+          display: flex
+          justify-content: center
+          align-items: center
+          +pc()
+            margin-bottom: 32px
+          +sp()
+            margin-bottom: 24px
+          .aboutService__subtitleIcon
+            +pc()
+              width: auto
+              margin-right: 24px
+            +sp()
+              width: auto
+              margin-right: 16px
+          .aboutService__subtitleTxts
+            .aboutService__subtitle
+              font-weight: bold
+              text-align: center
+              line-height: 1.4
+              +pc()
+                margin-bottom: 8px
+                font-size: 2.4rem
+              +sp()
+                font-size: 1.8rem
+              &.-large
+                font-size: 2.4rem
+        .aboutService__flex
+          display: flex
+          justify-content: center
+          +pc()
+            padding-bottom: 16px
+          +sp()
+            padding-bottom: 8px
+          .aboutService__flex__wrap
+            width: fit-content
+            &:first-child
+              padding-right: 24px
+              +sp()
+                padding-right: 16px
+            .aboutService__flex__img
+              width :80%
+            .aboutService__flex__text
+              padding-top: 8px
+              +pc()
+                font-size: 1.8rem
+              +sp()
+                font-size: 1.4rem
+        .aboutService__caption
+          line-height: 1.6;
+          margin-bottom: 24px;
+          +pc()
+            font-size: 1.8rem
+          +sp()
+            font-size: 1.4rem
+        .aboutService__attention
+          text-align: center
+          line-height: 1.4
+          &.-gurunavi
+            text-align: left
+            +pc()
+              padding: 0 24px
+            +sp()
+              padding: 0 16px
+          +pc()
+            font-size: 1.4rem
+          +sp()
+            font-size: 1.2rem
+        .aboutService__link
+          color: linkColor
+          text-decoration: underline
+          &:hover
+            text-decoration: none
+        .aboutService__pictBox
+          display: flex
+          justify-content: center
+          align-items: center
+          +pc()
+            margin-bottom: 32px
+          +sp()
+            flex-wrap: wrap
+            margin-bottom: 24px
+          .aboutService__img
+            +pc()
+              width: 110px
+              margin-right: 16px
+              &:last-of-type
+                margin-right: 0
+            +sp()
+              width: 30.3%
+              height: auto
+              margin-right: 8px
+              &:nth-of-type(-n+3)
+                margin-bottom: 8px
+              &:nth-of-type(3),
+              &:nth-of-type(5)
+                margin-right: 0
+            &.-gurunavi
+              +pc()
+                padding-top: 40px
+              +sp()
+                padding-top: 24px
+        .aboutService__bottom
+          .aboutService__txt
+            text-align: center
+            +pc()
+              font-size: 1.6rem
+              line-height: 1.8
+            +sp()
+              font-size: 1.4rem
+              line-height: 1.6
+              margin-bottom: 8px
+              &:last-of-type
+                margin-bottom: 0
+            .aboutService__txt.-bold
+              font-weight: bold
+          // ボタンセット(bgColor,txtColor)
+          btnSet(redColor, #fff)
+        .aboutService__dealBox
+          +pc()
+            width: 600px
+            margin: 0 auto 32px
+          +sp()
+            width: 100%
+            margin: 0 auto 24px
+        .aboutService__picts
+          +pc()
+            margin-bottom: 32px
+          +sp()
+            margin-bottom: 24px
+        .aboutService__banner
+          margin-top: 24px
+          &:hover
+            opacity : 0.8
+          +pc()
+            margin-bottom: 32px
+          +sp()
+            margin-bottom: 24px    
+          &.-gurunavi
+            +pc()
+              margin: 40px 0 0
+            +sp()
+              margin: 24px 0 0
+          .aboutService__img
+            +sp()
+              width: 100%
+              height: auto
+
+        .aboutService__dl
+          display: flex
+          justify-content: center
+          +sp()
+            flex-direction: column
+          .aboutService__dlPicbox
+            +pc()
+              width: 286px
+              margin-right: 40px
+            .aboutService__dlPic
+              +sp()
+                margin-bottom: 16px
+          .aboutService__dlbtnbox
+            +pc()
+              display: flex
+              justify-content: center
+              flex-direction: column
+            .aboutService__dlTitle
+              +pc()
+                position: relative
+                display: inline-block
+                margin-bottom: 16px
+                text-align: center
+                font-size: 2rem
+                font-weight: bold
+                line-height: 1.4
+                &::before
+                  content: "|"
+                  position: absolute
+                  top: 0
+                  left: -2rem
+                  font-weight: normal
+                  transform: rotate(-45deg)
+                &::after
+                  content: "|"
+                  position: absolute
+                  top: 0
+                  right: -2rem
+                  font-weight: normal
+                  transform: rotate(45deg)
+            .aboutService__link
+              +sp()
+                display: block
+                margin: 0 auto
+                max-width: 200px
+                .aboutService__img
+                  width: 100%
+            .aboutService__article__app__qr
+              +pc()
+                display: block
+                width: 160px
+                margin: 0 auto 16px
+      .aboutService__group
+        .aboutService__bottom
+          .aboutService__txt 
+            margin-bottom: 10px
+            font-weight: bold                
+      +sp()
+        .aboutService__point, .aboutService__app
+          .aboutService__subtitleIcon
+            .aboutService__img
+              width 50px
+              height: auto
+        .aboutService__deal
+          .aboutService__subtitleIcon
+            .aboutService__img
+              width 84px
+              height: auto
+  // app DL
+  .app
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFE8E8)
+
+  // banner
+  .banner
+    margin: 0 auto 60px
+    +sp()
+      margin-bottom: 40px
+    .banner__box
+      text-align: center
+      background-color: grayBgColor
+      box-sizing: border-box
+      +pc()
+        width: 890px
+        margin: 0 auto
+        padding: 24px
+      +sp()
+        width: auto
+        margin: 0 8px
+        padding: 10px 16px 16px
+      .banner__txt
+        font-weight: bold
+        line-height: 1.5
+        +pc()
+          font-size 2rem
+          padding-bottom: 24px
+        +sp()
+          font-size 1.4rem
+          padding-bottom: 8px
+      .banner__boxInner
+        background-color: #fff
+        box-sizing: border-box
+        +pc()
+          padding: 24px
+        +sp()
+          padding: 16px
+        .banner__link
+          display: block
+          width: auto
+          max-width: 640px
+          margin: 0 auto
+          transition: opacity .2s ease-out
+          &:hover
+            opacity: 0.8
+          .banner__img
+            width: 100%
+            height: auto
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

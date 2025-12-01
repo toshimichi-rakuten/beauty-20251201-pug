@@ -1,0 +1,67 @@
+extends ../../../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var meta = {
+      title: "タイトルタイトルタイトルタイトル",
+      description: "ディスクリプションディスクリプションディスクリプション",
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/xxxx/",
+      og_image: "https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png?202101",//- default (シェア画像があれば変更)
+    }
+  - var css = "css/main.css?v20yymmdd"
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  #Pagename
+
+
+    //- Campaign Detail
+    #Detail.detail
+      .detailBox
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead(style="width: 300px") 1軸検索：プルダウン
+              td.detail__tableBlockBody
+                a.detail__tableBlockTxt--link(href="./1column-select.html") 1column-select.html
+            tr.detail__tableBlock
+              th.detail__tableBlockHead(style="width: 300px") 1軸検索：ボタン
+              td.detail__tableBlockBody
+                a.detail__tableBlockTxt--link(href="./1column-button.html") 1column-button.html
+            tr.detail__tableBlock
+              th.detail__tableBlockHead(style="width: 300px") 2軸検索：プルダウン x 検索ボタン
+              td.detail__tableBlockBody
+                a.detail__tableBlockTxt--link(href="./2column-select.html") 2column-select.html
+            tr.detail__tableBlock
+              th.detail__tableBlockHead(style="width: 300px")
+                | 【番外編サンプル】
+                br
+                | 都道府県 x メニュー
+              td.detail__tableBlockBody
+                a.detail__tableBlockTxt--link(href="./extra-sample/menu/2column-select.html") /extra-sample/menu/2column-select.html
+                br
+                | ※ 使用しているJSは「2軸検索：プルダウン x 検索ボタン」と全く同じ
+
+
+block js

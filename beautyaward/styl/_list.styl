@@ -1,0 +1,422 @@
+.awardNav
+  position: sticky
+  top: 0
+  z-index: 10
+  display: block
+  margin-bottom: 60px
+  background-color: $color-main
+  text-align: center
+  font-weight: bold
+  font-size: 2rem
+  font-family: $font-lora
+
+  +sp()
+    display: flex
+    margin-bottom: 40px
+
+  &__item,
+  &__current
+    display: inline-block
+    margin: 0 10px
+    padding: 20px 0 16px
+    width: 200px
+    border-bottom: 4px solid $color-main
+    color: rgba($color-accent, .7)
+    text-decoration: none
+
+    +sp()
+      margin: 0
+      width: 50%
+
+  &__current
+    border-color: $color-accent
+    color: $color-accent
+
+  &__item
+    &:hover
+      color: $color-accent
+
+#bestsalon
+  padding-bottom: 10px
+
+#beststylist
+  padding-top: 30px
+  padding-bottom: 10px
+
+  +sp()
+    padding-top: 0
+    padding-bottom: 0
+
+  &.container
+    +pc()
+      width: ContainerWidth
+
+.bestSalon
+  display: block
+  margin-bottom: 60px
+
+  +sp()
+    margin-bottom: 40px
+    padding: 16px
+
+  &__headings
+    padding: 0 0 40px
+    text-align: center
+
+    +sp()
+      padding-bottom: 30px
+
+    &__image
+      +sp()
+        width: 100%
+        max-width: 300px
+
+.bestStylist
+  display: block
+
+  +sp()
+    padding: 24px
+
+.bestStylistList,
+.bestSalonList
+  width: 100%
+
+  // スクロールアニメーション用
+  .visible,
+  .invisible
+    opacity: 0
+    transition-timing-function: ease-out
+    transition-duration: .25s
+
+  .visible
+    opacity: 1
+
+  +pc()
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-around
+
+  &__item
+    position: relative
+    margin-bottom: 24px
+    background: #fff
+
+    +sp()
+      box-shadow: 0 1px 4px rgba(Colors.Black.color, .1), 0 2px 6px rgba(Colors.Black.color, .15)
+
+    &.invisible,
+    &.visible
+      transition-duration: .3s
+
+    &.invisible
+      transform: translate(0, 20px)
+
+    &.visible
+      transform: translate(0, 0)
+
+    .ignore-stretched-link:hover,
+    .stretched-link:hover
+      color: $color-accent
+
+    +pc()
+      &::after
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        // z-index: -1
+        background-color: rgba(0, 0, 0, 0)
+        box-shadow: 0 1px 4px rgba(Colors.Black.color, .1), 0 2px 6px rgba(Colors.Black.color, .15)
+        content: ''
+        transition: box-shadow easeInOutQuad .25s
+
+      .is-open&:hover::after
+        box-shadow: 0 3px 8px rgba(Colors.Black.color, .1), 0 8px 15px rgba(Colors.Black.color, .15)
+        transition-duration: .3s
+
+      .is-open&:hover &__coverItem
+        opacity: .7
+        transition-duration: .3s
+        transform: scale(1.03)
+
+    &__cover
+      &.visible,
+      &.invisible
+        transition-delay: .25s
+
+      &.invisible
+        transform: translate(0, 5px)
+
+      &.visible
+        transform: translate(0, 0)
+
+      +pc()
+        overflow: hidden
+        width: 100%
+
+        &Item
+          transition: .3s easeInOutQuad
+
+    &__outline
+      padding: 24px
+
+    &__name
+      padding: 4px 0 0
+      font-weight: bold
+      font-size: 2.2rem
+      line-height: 1.3
+
+    &__salon,
+    &__place
+      color: Colors.DarkGray.color
+      font-size: 1.2rem
+      line-height: 1.3
+
+    &__salon
+      &Link
+        color: Colors.DarkGray.color
+
+    &__comment
+      font-size: 1.5rem
+      line-height: 1.5
+
+      &Title
+        padding: 16px 0 4px
+        color: Colors.DarkGray.color
+        font-weight: bold
+        font-size: 1.2rem
+
+    &__rank
+      position: absolute
+      top: -48px
+      left: 10px
+      z-index: 2
+      color: $color-accent
+      font-weight: bold
+      font-size: 4rem
+      font-family: $font-lora
+
+      &Num
+        font-size: 7rem
+
+    &__interview
+      margin-top: 20px
+      padding: 12px 0
+      border: 2px solid $color-accent
+      background-color: rgba($color-accent, 0)
+      color: $color-accent
+      text-align: center
+      font-weight: bold
+      font-size: 1.6rem
+
+      &:hover
+        color: $color-accent
+
+      +pc()
+        transition: .25s easeInOutQuad
+
+        &:hover
+          background-color: rgba($color-accent, .2)
+          transition-duration: .15s
+
+      .icon-chevronRight
+        margin: -2px 0 0 6px
+        vertical-align: middle
+        font-size: 1.8rem
+
+.bestSalonList
+  &__item
+    +pc()
+      width: calc(50% - 12px)
+
+      &:nth-of-type(2n)
+        margin-left: 24px
+
+        &.visible,
+        &.invisible
+          transition-delay: .15s
+
+    &__cover
+      +pc()
+        height: 345px
+
+      +sp()
+        min-height: 200px
+
+.bestStylistList
+  +sp()
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+
+  +pc()
+    &:first-of-type
+      justify-content: center
+
+  &__item
+    self = '.bestStylistList__item'
+    $base-transition-delay = .15s
+
+    +pc()
+      margin-bottom: 70px
+
+      &.rank1
+        width: 360px
+
+        {self}__cover
+          height: 360px
+
+      &.rank2,
+      &.rank3,
+      &.rank4,
+      &.rank5
+        width: ((ContainerWidth - 24 * 3) / 4)
+
+        {self}__cover
+          height: ((ContainerWidth - 24 * 3) / 4)
+
+      &.rank6,
+      &.rank7,
+      &.rank8,
+      &.rank9,
+      &.rank10
+        width: ((ContainerWidth - 24 * 4) / 5)
+
+        {self}__cover
+          height: ((ContainerWidth - 24 * 4) / 5)
+
+      &.rank2,
+      &.rank6
+        &.visible,
+        &.invisible
+          transition-delay: $base-transition-delay
+
+      &.rank3,
+      &.rank7
+        &.visible,
+        &.invisible
+          transition-delay: $base-transition-delay * 2
+
+      &.rank4,
+      &.rank8
+        &.visible,
+        &.invisible
+          transition-delay: $base-transition-delay * 3
+
+      &.rank5,
+      &.rank9
+        &.visible,
+        &.invisible
+          transition-delay: $base-transition-delay * 4
+
+      &.rank10
+        &.visible,
+        &.invisible
+          transition-delay: $base-transition-delay * 5
+
+    +sp()
+      margin-bottom: 60px
+      width: 100%
+
+      &__cover
+        min-height: 130px
+
+      &.rank1,
+      &.rank2,
+      &.rank3,
+      &.rank4,
+      &.rank5
+        {self}__cover
+          min-height: 280px
+
+      &.rank7,
+      &.rank9
+        margin-left: 16px
+
+        &.visible,
+        &.invisible
+          transition-delay: $base-transition-delay
+
+      &.rank6,
+      &.rank7,
+      &.rank8,
+      &.rank9,
+      &.rank10
+        width: calc(50% - 8px)
+
+        {self}__rank
+          top: -40px
+          font-size: 3rem
+
+        {self}__rankNum
+          font-size: 6rem
+
+        {self}__outline
+          padding: 16px
+
+        {self}__salon
+          font-size: 1rem
+
+        {self}__name
+          font-size: 1.8rem
+
+.backBtn
+  width: auto
+  text-align: center
+  background: #fff
+  margin-bottom: 40px
+
+  +sp()
+    padding: 0 32px
+
+  .backBtn__link
+    display: flex
+    justify-content: center
+    //
+    background: $color-accent
+    margin: 0 auto
+    box-sizing: border-box
+    transition-duration: .3s
+
+    +pc()
+      width: 440px
+      padding: 40px
+
+    +sp()
+      width:auto
+      max-width: 400px
+      padding: 24px
+
+    &:hover
+      opacity: .8
+
+  .backBtn__txt
+    position: relative
+    color: $color-main
+    font-weight: bold
+    line-height: 1.3
+    margin-left: 24px
+
+    +pc()
+      font-size: 1.8rem
+
+    +sp()
+      display: block
+      text-align: left
+      font-size: 1.6rem
+
+    &::before
+      content:''
+      position: absolute
+      left:-24px
+
+      +pc()
+        // arrow line
+        arrowLine(left,1px,14px,$color-main)
+        top:calc((100% - 14px) / 2)
+
+      +sp()
+        // arrow line
+        arrowLine(left,1px,10px,$color-main)
+        top:calc((100% - 10px) / 2)

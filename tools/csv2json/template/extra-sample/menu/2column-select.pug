@@ -1,0 +1,159 @@
+extends ../../../../../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var meta = {
+      title: "タイトルタイトルタイトルタイトル",
+      description: "ディスクリプションディスクリプションディスクリプション",
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/xxxx/",
+      og_image: "https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png?202101",//- default (シェア画像があれば変更)
+    }
+  - var css = "../../css/main.css?v20yymmdd"
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  #Pagename
+
+    //- ID、class名は自由
+    #Main.main
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src="//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,w_1216,h_240/v1528248153/front/image/top/hair/pc_topslider_default.jpg", alt=meta.title)
+        img.main__titleImg.-sp(src="//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,w_960/v1528248107/front/image/top/hair/sp_mainvisual.jpg", alt=meta.title)
+
+
+    //- 絞り込み関連 ここから ------------------------------------ //
+    #salonFilterContainer
+      #salonFilterSection(ref="wrapper", class="is-loading")
+        .loader
+
+        #salonFilter
+          h2.filter-heading 対象店舗はこちら
+
+          .filter-select
+            select.filter-select__item(v-model="select1", ref="select1")
+              option(value="", selected) すべての都道府県
+              option(v-for="(item, index) in select1List", :value="item") {{ item }}
+          .filter-select
+            select.filter-select__item(v-model="select2", ref="select2", disabled)
+              option(value="", selected) すべてのサロン
+              option(v-for="(item, index) in select2List", :value="item") {{ item }}
+          button(class="filter-button", disabled, v-on:click="search", ref="button")
+            span 検索
+            span(v-if="count !== 0") （{{count}}件）
+
+        #salonList(ref="list")
+          .salonList
+            section(v-for="item, index in filteredSalonList", :key="index", class="salonList__item position-relative")
+              .salonList__content
+                .salonList__cover
+                  img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/v1/" + item.shop_id + "_01.jpg"', class="salonList__image", rel="preload", :alt="item.shop_name")
+                .salonList__outline
+                  span.salonList__target(v-if='item.select2 == "アイラッシュソムリエ在籍"') {{ item.select2 }}サロン
+                  span.salonList__target.is-all(v-if='item.select2 == "クリーンラッシュ取扱"') {{ item.select2 }}サロン
+
+                  h3.salonList__salonName
+                    a(:href='"/" + item.shop_id + "/?l-id=sample"', class="salonList__link stretched-link") {{ item.shop_name }}
+                  span.salonList__area
+                    i.icon.icon-location
+                    | {{ item.area }}
+                  span.salonList__station
+                    i.icon.icon-train
+                    | {{ item.station }}
+
+    //- 絞り込み関連 ここまで ------------------------------------ //
+
+    //- Campaign Detail
+    #Detail.detail
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle 【MAQUIA】限定クーポン
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 予約期間及び施術期間
+              td.detail__tableBlockBody 毎月1日 ～ 毎月月末まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント付与予定日
+              td.detail__tableBlockBody 施術完了月の翌月末頃
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 特典ポイントは、
+                  span.detail__tableBlockTxt--red
+                    | 通常ポイント
+                  | で付与されます。(期間限定ポイントではございません)
+                p.detail__tableBlockTxt 通常ポイントの有効期限については
+                  a.detail__tableBlockTxt--link(href="https://ichiba.faq.rakuten.net/detail/000006609")
+                    | こちら
+                  | をご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 楽天学割特典ポイントが付与されます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜例①＞
+                p.detail__tableBlockTxt 施術金額3,500円(税込)でネット予約後、毎月月末までに施術完了した場合の獲得できるポイント
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜計算方法＞
+                p.detail__tableBlockTxt--red 赤文字
+                p.detail__tableBlockTxt--bold 太文字
+                p.detail__tableBlockTxt 楽天学割特典分(1倍)＝35ポイント
+                p.detail__tableBlockTxt 合計獲得ポイント：70ポイント
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li ※のリスト
+                  li.detail__tableBlockList--li ※のリスト
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li discリスト
+                  li.detail__tableBlockList--li discリスト
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li 装飾なしリスト
+                  li.detail__tableBlockList--li 装飾なしリスト
+                ul.detail__tableBlockList--decimal
+                  li.detail__tableBlockList--li decimalリスト
+                  li.detail__tableBlockList--li decimalリスト
+                  li.detail__tableBlockList--li 現在実施中のキャンペーンとの併用が可能です(一部併用が出来ないキャンペーンもございます)。
+                    a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/')
+                      | キャンペーン一覧はこちら
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 一部ネット予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えなかったり、お断りする場合もございます。
+                  li.detail__tableBlockList--li 本企画は、予告無く変更・中止されることがございます。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+
+
+block js
+  //- 絞り込み関連 ここから ------------------------------------ //
+  //- デバック用
+  //- script(src="//cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js", deffer)
+
+  script(src="/cnt/common/js/vue/vue.min.js", deffer)
+  script(src="/cnt/common/js/vue/axios.min.js", deffer)
+
+  script(src="./js/filter-by-1column.js", deffer)
+  //- 絞り込み関連 ここまで ------------------------------------ //

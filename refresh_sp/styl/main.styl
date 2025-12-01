@@ -1,0 +1,749 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+
+// base - Override ECM
+*
+  min-width: auto
+
+a:link, a:visited
+  color: #333;
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+
+lavenderColor = #8FA3CD
+lightBlueColor = #83BFCE
+beigeColor = #D4BC7C
+navyColor = #325675
+
+pcWidth = 1216px
+couponWidth = 430px // 3つ並列にする場合は357px以内にする
+
+//------------------------------
+
+#RefreshSp
+
+  // common
+  // anchor
+  navHeightPc = 122px
+  navHeightSp = 60px
+
+  #PlanBody,
+  #PlanRefresh .plan__mv,
+  #PlanSleep .plan__mv,
+  #Coupon,
+  #Detail
+    display: block
+    +pc()
+      padding-top: (navHeightPc + 0)
+      margin-top: -(navHeightPc + 0)
+    +sp()
+      padding-top: (navHeightSp + 0)
+      margin-top: -(navHeightSp + 0)
+
+  // main
+  .main
+    +pc()
+      margin: 0 auto 80px
+    +sp()
+      margin-bottom: 40px
+    // main__title PC
+    +pc()
+      .main__title
+        display: block
+        position: relative
+        margin: 0 auto
+        line-height:1
+        font-size:1.4rem
+        text-align: center
+        background-repeat: no-repeat
+        width: pcWidth
+        height: 540px
+        background-image: url(../img/main.png)        
+        .main_sub,
+        .main_catch        
+          animation: 3.5s fadeDown
+          animation-fill-mode: forwards
+          opacity 0
+          position: absolute
+          left: 32px
+        .main_lead
+          position: absolute
+          animation: 3.5s fadeIn
+          animation-fill-mode: forwards
+          opacity 0
+          left: 32px
+        @keyframes fadeIn
+          from
+            opacity: 0
+          to
+            opacity: 1
+        @keyframes fadeDown
+          from
+            opacity: 0
+            transform: translateY(-20px);
+          to
+            opacity: 1
+            transform: translateY(0);
+        .main_sub
+          top: 32px;
+          animation-delay: 0.5s
+          animation-duration: 2s
+        .main_catch
+          top: 70px;
+          animation-delay: 0.5s
+          animation-duration: 2s
+        .main_lead
+          color: #FFF
+          text-align: left
+          line-height: 1.8
+          animation-delay: 0.5s
+          animation-duration: 7s
+        .main_lead_top
+          bottom: 96px
+        .main_lead_btm
+          bottom: 32px
+        &Img
+          width:100%
+        .main__title__anchor
+          position: absolute
+          z-index: 5
+          top: 140px
+          left: 584px
+          width: 156px
+          height: 176px
+    // main__title SP
+    +sp()     
+     .main__title
+        display: block
+        margin: 0 auto
+        line-height:1
+        font-size:1.4rem
+        text-align: center
+        padding-top: 20px
+        width:100%
+        margin: 0 auto
+        background-color: #142A43
+        .main__title__btm
+          margin-bottom: -80px
+          padding: 0 16px
+          position relative
+          z-index 100
+          display: flex
+          justify-content: space-between
+        .main_sub,
+        .main_catch        
+          animation: 3.5s fadeDown
+          animation-fill-mode: forwards
+          opacity 0
+          left: 0
+          right: 0
+          margin: auto
+        .main_lead
+          animation: 3.5s fadeIn
+          animation-fill-mode: forwards
+          opacity 0
+        @keyframes fadeIn
+          from
+            opacity: 0
+          to
+            opacity: 1
+        @keyframes fadeDown
+          from
+            opacity: 0
+            transform: translateY(-20px);
+          to
+            opacity: 1
+            transform: translateY(0);
+        .main_sub
+          animation-delay: 0.5s
+          animation-duration: 2s
+          width 80%
+          margin-bottom: 10px
+        .main_catch
+          top: 70px;
+          animation-delay: 0.5s
+          animation-duration: 2s
+          width 80%
+          margin-bottom: 20px
+        .main_lead
+          color: #FFF
+          text-align: left
+          line-height: 1.8
+          animation-delay: 0.5s
+          animation-duration: 7s
+          font-size: 1.1rem
+        .main_lead_top
+          width 100%
+          margin: auto
+          margin-bottom: 10px
+          padding: 0 16px
+          box-sizing: border-box
+        .main_lead_btm
+          width 70%
+        &Img
+          width:100%
+        .main__title__anchor
+          background-image: url(../img/main_coupon.png)
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center
+          z-index: 5
+          width: 27%
+          height: auto
+    .main__terms
+      text-align: center
+      //
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width: pcWidth
+        padding: 10px 40px
+      +sp()
+        padding: 10px
+        text-align: left
+      .main__termsBox
+        width: 100% //IE対応
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.2rem
+          &.-small
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+        .main__termsLink
+          color:secondColor
+          text-decoration: underline
+          &:hover
+            text-decoration: none
+
+
+
+
+  //- Navigation
+  .navigation-title__wrap
+    background: #325675
+    border-bottom: 1px solid white
+    +pc()
+      height: 90px
+    +sp()
+      height: 60px
+    .navigation-title
+      display: flex
+      align-items: center
+      box-sizing: border-box
+      margin: 0 auto
+      +pc()
+        width: 704px
+        padding: 24px 0
+      +sp()
+        width: 341px
+        padding: 16px 0
+  .navigation__wrap
+    position: relative
+    top: 0
+    z-index: 100
+    background: white
+    border-bottom: 1px solid grayLineColor
+    transition: 0.5s
+  .navigation-list
+    display: flex
+    justify-content: center
+    width: 100%
+    margin: 0 auto
+    .navigation-list-item
+      position: relative
+      width: 33.33%
+      background: #7793ab
+      box-sizing: border-box
+      border-right: 1px solid white
+      &:first-of-type
+        background: #cda04f
+      &:last-of-type
+        background: #0c2948
+        border-right: 0
+      .navigation-button
+        display: flex
+        flex-direction: column
+        position: relative
+        width: 100%
+        box-sizing: border-box
+        text-align: center
+        line-height: 1.5
+        +pc()
+          justify-content: center
+          align-items: center
+          padding: 16px 40px
+        +sp()
+          //- align-items: center
+          align-items: flex-start
+          padding: 10px 8px
+        &::after
+          content: ""
+          margin: 0 auto
+          left: 50%
+          border-top: solid 1px white
+          border-right: solid 1px white
+          transform: translateX(-50%) rotate(135deg)
+          +pc()
+            bottom: 18px
+            width: 14px
+            height: 14px
+          +sp()
+            bottom: 13px
+            width: 10px
+            height: 10px
+        &:hover
+          cursor: pointer
+          color: white
+          opacity: .6
+        .navigation-icon
+          display: block
+          margin: 0 auto
+          +pc()
+            height: 66px
+            padding-bottom: 12px
+          +sp()
+            height: 32px
+            padding-bottom: 8px
+        .navigation-text
+          display: block
+          flex-grow: 0
+          margin: 0 auto
+          color: white
+          line-height: 1.4
+          +pc()
+            padding: 0 0 12px
+            font-size: 2rem
+          +sp()
+            text-align: center
+            font-size: 1.4rem
+  .fixed__navigation__wrap
+    position: fixed
+    top: -100%;
+    width 100%;
+    z-index: 100
+    background: white
+    border-bottom: 1px solid grayLineColor
+    transition: top .8s, visibility .8s
+    visibility: hidden
+    .navigation-list
+      .navigation-list-item
+        .navigation-button
+          &::after
+            display: none
+          .navigation-icon
+            +sp()
+              display: none
+            +pc()
+              height: 50px
+          .navigation-text
+            +pc()
+              padding-bottom: 0
+              font-size: 1.6rem
+
+
+  //- 記事共通
+  .plan-all
+    width: 100%
+    box-sizing: border-box
+    +pc()
+      padding: 0 0 40px
+    +sp()
+      padding: 0 0 32px
+    .article__wrap
+      position: relative
+      background: white
+      box-sizing: border-box
+      +pc()
+        margin: 40px auto
+        width: 1088px
+        padding: 40px
+        border-radius: 16px
+      +sp()
+        width: calc(100% - 16px)
+        padding: 28px 8px
+        border-radius: 8px
+        margin: 32px 8px
+        box-sizing: border-box
+      .article
+        margin: 0 auto
+        +pc()
+          width: 800px
+        +sp()
+          width: 100%
+        .article__title
+          +pc()
+            margin-bottom: 40px
+          +sp()
+            height: 36px
+            margin-bottom: 24px
+        .article__category
+          +pc()
+            margin-bottom: 80px
+          +sp()
+            margin-bottom: 40px
+          .article_stitle
+            margin-bottom: 16px
+            +sp()
+              height: 38px
+          .article__text__opening
+            +pc()
+              margin-bottom: 40px
+            +sp()
+              margin-bottom: 32px            
+          .article__text
+            font-size: 1.4rem
+            line-height: 1.8
+          .item__title
+            background-color: rgba(205, 160, 79, 0.10)
+            text-align: center
+            padding: 12px
+          .item__box__wide .item__box
+            +pc()
+              display: flex
+              .item__image
+                margin-right: 18px
+                img
+                  width 391px
+          .item__box__row
+            +pc()
+              display: flex
+              justify-content: space-between
+              .item__box
+                width 380px
+                .item__image img  
+                  width 380px
+          .item__box
+            +pc()
+              margin-bottom: 24px
+            +sp()
+              margin-bottom: 16px
+              .item__image img
+                width 100%
+            .item__text
+              margin-top: 18px
+              margin-bottom: 16px
+           +sp()
+            .ri-item
+              display: flex
+              width 100%
+            .rl-2columnWrap__mainColumn .rl-columnPCMain3>*, .rl-column3>*, .rl-columnPC3>*          
+              width :100% !important
+              margin-right:0 !important
+              flex-direction: row
+              justify-content: space-between
+            .ri-item a.ri-item__imageLink
+              width: 30%
+              margin-right: 3%
+            .ri-item__textBox
+              width 67%
+          .ri-item__name
+            font-size: 1.2rem
+          .ri-item a.ri-item__priceLink
+            justify-content: end
+          .ri-item__price
+            font-size: 1.8rem
+        .search-link
+          justify-content: center;
+          align-items: center;
+          border-radius: 4px;
+          display: flex;
+          gap: 8px;
+          color: #fff
+          white-space: nowrap;
+          text-align: center;
+          padding: 16px 0;
+          font-size: 1.8rem
+          cursor: pointer;
+          text-decoration: none;
+          width: 100%;
+          margin: 0 auto 24px
+          transition: background-color 0.2s ease;
+          &:hover,
+          &:focus
+            opacity 0.8
+          &:focus-visible
+            opacity 0.8
+          +pc()
+            width: 380px
+        .search-icon
+          aspect-ratio: 1;
+          object-fit: contain;
+          object-position: center;
+          width: 24px;
+        .search-text
+          margin: auto 0;
+        .recommend__box
+          background-color: #F7F7F7
+          border-radius: 8px;
+          padding: 16px
+          margin-bottom: 32px
+          +pc()
+            display: grid
+            column-gap: 24px
+            row-gap: 14px
+            .recommend__img
+              grid-row: 1 / 3
+	            grid-column: 1 / 2
+            .recommend__title
+              grid-row: 1 / 2
+	            grid-column: 2 / 3
+            .recommend__text
+              grid-row: 2 / 3
+              grid-column: 2 / 3
+          +sp()
+            .recommend__img
+              text-align: center
+              margin-bottom: 24px
+            .recommend__title
+              margin-bottom: 12px
+          .recommend__title
+            font-weight: bold
+            font-size: 1.4rem    
+          .recommend__img img
+            width 125px
+    .article_btm_img
+      display: block;
+      margin: 0 auto;
+
+
+  //- カラダのケア
+  #PlanBody
+    background: linear-gradient(0deg, #675028 10%, #CDA04F 100%)
+    .article__wrap
+      background-image: url(../img/body_article_bg.png)
+      background-repeat: no-repeat
+      background-position-x: right
+      background-position-y: top
+      +pc()
+        background-size: 320px 320px
+      +sp()
+        background-size: 160px 160px
+    .article
+      .item__title
+        background-color: rgba(205, 160, 79, 0.10)
+      .search-link
+        background-color:#cda04f
+      .recommend__box
+        .recommend__title
+          color: #CDA04F
+    .article_btm_img
+      +pc()
+        width 260px
+      +sp()
+        width 200px
+
+  //- 気分転換
+  #PlanRefresh
+    background: linear-gradient(0deg, #577188 10%, #7793AB 100%)
+    .plan__mv
+      background: #675028
+    .article__wrap
+      background-image: url(../img/refresh_article_bg.png)
+      background-repeat: no-repeat
+      background-position-x: right
+      background-position-y: top
+      +pc()
+        background-size: 320px 320px
+      +sp()
+        background-size: 160px 160px
+      .article
+        .item__title
+          background-color: rgba(119, 147, 171, 0.10)
+        .search-link
+          background-color: #7793AB
+      .recommend__box
+        .recommend__title
+          color: #7793AB
+    .article_btm_img
+      +pc()
+        width 142px
+      +sp()
+        width 105px
+
+  //- 睡眠
+  #PlanSleep
+    background: linear-gradient(0deg, #0C2948 0%, #7793AB 100%)
+    +pc()
+      margin-bottom: 80px
+    +sp()
+      margin-bottom: 40px
+    .plan__mv
+      background: #577188
+    .article__wrap
+      background-image: url(../img/sleep_article_bg.png)
+      background-repeat: no-repeat
+      background-position-x: right
+      background-position-y: top
+      +pc()
+        background-size: 213px 250px
+      +sp()
+        background-size: 92px
+      .article
+        .item__title
+          background-color: rgba(12, 41, 72, 0.10)
+        .search-link
+          background-color: #0C2948
+      .recommend__box
+        .recommend__title
+          color: #0C2948
+    .article_btm_img
+      +pc()
+        width 229px
+      +sp()
+        width 176px
+
+
+
+  //- ラ・クーポン
+  .coupon
+    width:100%
+    // text-align: center
+
+    .coupon_title
+      background-color: #325675
+      color: #fff
+      padding: 20px 0
+      text-align: center
+      +pc()
+        font-size: 2rem
+      +sp()
+        font-size: 1.4rem
+
+    // 事前
+    .couponAdd
+      +pc()
+        margin-bottom:60px
+        //
+        display: flex
+        flex-direction: column
+        justify-content: center
+      +sp()
+        padding 0 10px 40px
+        box-sizing: border-box
+
+      // ボタンセット(bgColor,txtColor)
+      btnSet(navyColor,#fff)
+
+      .coupon__terms
+        +pc()
+          display: flex
+          flex-direction: column
+          //
+          width: auto
+          height:auto
+          margin: 16px auto
+          &:last-of-type
+            margin: 0 auto
+        +sp()
+          margin: 0 auto
+        .coupon__termsTxt
+          font-size: 1.4rem
+          line-height 1.5
+          color:grayTxtColor
+          +sp()
+            font-size: 1.2rem
+          .coupon__termsLink
+            color:secondColor
+
+    // 獲得
+    .couponGet
+      background: #f7f7f7;
+      +pc()
+        padding-top: 24px
+      +sp()
+        padding-top: 16px
+      .couponSetTitle
+        font-weight: bold
+        text-align: center
+        margin-bottom: 6px
+        line-height: 1.3
+        +pc()
+          font-size: 1.8rem
+        +sp()
+          font-size: 1.4rem
+        .txt_blue
+          color: #7793AB
+      // 非遷移クーポン
+      // couponOneClickSet(couponWidth,couponColor)
+      @import passStr + '_common/stylus/Module/Common/_couponOneClick'
+      couponOneClickSet(couponWidth,navyColor)
+
+      .couponOneClickSetWrap
+        margin-bottom: 0
+        .couponOneClickSet
+          max-width: none
+          .couponBox
+            max-width: 450px
+        .couponOneClickSetSummary .couponOneClickSetTitle
+          display: none
+      .couponOneClickSetBtm
+        margin-bottom: 0
+        width 100%
+        margin-bottom: 60px
+        background: #f7f7f7;
+        box-sizing: border-box
+        +sp()
+          padding: 0 16px 16px
+        +pc()
+          padding: 0 16px 40px
+        .couponSubTxt
+          background-color: #FFF
+          line-height: 1.3
+          box-sizing: border-box
+          +pc()
+            width: 600px
+            font-size: 1.4rem
+            padding: 20px
+            margin: 0 auto
+          +sp()
+            width: 100%
+            font-size: 1.2rem
+            padding: 8px
+          .-b
+            font-weight: bold
+          a
+            color: #45A9BC
+            text-decoration: underline
+            &:hover
+              text-decoration: none
+
+
+
+
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

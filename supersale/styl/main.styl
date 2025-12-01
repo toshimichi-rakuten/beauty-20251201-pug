@@ -1,0 +1,1345 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+
+jauneBrillantColor = #fff4d9
+springPink = #FF2E93
+springYellow = #FFDD0F
+
+pcWidth = 1216px
+couponWidth = 430px // 3つ並列にする場合は357px以内にする
+
+//------------------------------
+
+#SuperSale
+  // common
+  .textLink
+    color:secondColor
+    text-decoration: underline
+    &:hover
+      text-decoration: none
+
+  .textBold
+    font-weight: bold
+
+  // anchor
+  navHeightPc = 52px
+  navHeightSp = 58px
+
+  #EntryBox,
+  #Flow,
+  #ArticleSentin,
+  #Coupon,
+  #SearchArea,
+  #ServiceValue,
+  #Detail
+    display: block
+    +pc()
+      padding-top: (navHeightPc + 0)
+      margin-top: -(navHeightPc + 0)
+    +sp()
+      padding-top: (navHeightSp + 0)
+      margin-top: -(navHeightSp + 0)
+
+  .textLink
+    color:secondColor
+    &:hover
+      opacity: .8
+
+
+  // main
+  .main
+    margin: 0 auto
+    .main__title
+      display: block
+      width: 100%
+      margin: 0 auto
+      line-height: 1
+      font-size: 1.4rem
+      text-align: center
+      &Img
+        width:100%
+      .main__title_obi
+        width 100%
+        box-sizing: border-box
+        +pc()
+          border-top: 3px solid redColor
+          border-bottom: 3px solid redColor
+        +sp()
+          border-top: 2px solid redColor
+          border-bottom: 2px solid redColor
+        .main__title_obi_wrapper
+          position relative
+          +pc()
+            display: flex
+            max-width: 1216px
+            margin: 0 auto
+            padding: 8px 0
+          #timer-wrapper
+            right: 0
+            bottom: 0
+            background-color: redColor
+            color: white
+            vertical-align: middle
+            display: flex
+            align-items: center
+            +pc()
+              position: absolute
+              padding: 0 10px 1px
+              height: 100%
+            +sp()
+              bottom: -1px
+              height: auto
+              width: 100%
+              padding: 5px 0
+              line-height: 1.3
+              font-size: 1.2rem
+            .main__titleImg
+              width: 100%
+              +pc()
+                width: 937px !important
+            #timer
+              margin: 0 auto
+              +sp()
+                display: flex
+                align-items: flex-end
+                letter-spacing: 0.4vw
+              .timer_txt
+                margin: 0 0 6px 0
+                font-size: 1.6rem
+                +sp()
+                  margin: 0 4px 0 0
+                  font-size: 6vw
+                  font-weight: bold
+                  .timer_txt_min
+                    font-size: 5vw
+            .timer-day, .timer-hour , .timer-minute
+              display: inline-block
+              background-color: white
+              color: black
+              border-radius: 3px
+              font-weight: bold
+              line-height: 1
+              position relative
+              +pc()
+                font-size: 3.2rem
+                padding: 8px
+                margin-right: 2px
+                min-width: 37px
+                min-height: 32px
+              +sp()
+                font-size: 8vw
+                padding: 2px 4px
+                margin-right: 1vw
+                min-width: 26px
+                min-height: 16px
+              &:after
+                position absolute
+                display inline
+                content: ""
+                width: 100%
+                border-top: 1px solid #4D4D4D
+                top: 50%
+                right: 0
+                transform: translate(0, -50%)
+            .timer-day, .timer-hour
+              &-text
+                font-size: 110%
+                +pc()
+                  margin-right: 5px
+                +sp()
+                  margin-right: 4px
+            .timer_box
+              +sp()
+                font-size: 1.8rem
+                font-weight: bold
+          .main__titleImg.-head
+            +pc()
+              width: auto
+              height: 58px
+            +sp()
+              width: 98%
+              margin: 0 auto
+      .main_title_img__wrap
+        background: linear-gradient(90deg, springYellow 0%, springYellow 50%, springPink 50%, springPink 100%);
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100%
+        .main_title_img
+          position: relative
+          margin: 0 auto
+          +pc()
+            max-width: 1240px
+          .main__titleImg
+            +pc()
+              width: 100%
+              max-width: 1240px
+          .main_title_coupon
+            position: absolute
+            z-index: 5
+            +pc()
+              top: 105px
+              left: 74px
+              width: 126px
+              height: auto
+              animation: coupon-button 1.8s ease-in-out infinite alternate-reverse
+            +sp()
+              bottom: 2.1%
+              left: 7.2%
+              width: 20%
+              height: auto
+              animation: coupon-button-sp 1.8s ease-in-out infinite alternate-reverse
+          .main_title_entry
+            position: absolute
+            z-index: 5
+            +pc()
+              top: 105px
+              right: 74px
+              width: 126px
+              height: auto
+              animation: coupon-button 1.8s ease-in-out infinite alternate-reverse
+            +sp()
+              bottom: 2.1%
+              left: 42.3%
+              width: 20%
+              height: auto
+              animation: coupon-button-sp 1.8s ease-in-out infinite alternate-reverse
+          @keyframes coupon-button
+              0%
+                transform: translateY(-8px)
+              100% 
+                transform: translateY(8px)
+          @keyframes coupon-button-sp
+              0%
+                transform: translateY(-6px)
+              100% 
+                transform: translateY(6px)
+
+    .main__terms
+      text-align: center
+      //
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width: 100%
+        padding: 10px 40px
+      +sp()
+        padding: 10px
+      .main__termsBox
+        width: 100% //IE対応
+        .main__termsTxt
+          color:grayTxtColor
+          font-weight: bold
+          line-height 1.5
+          +pc()
+            font-size: 1.8rem
+          +sp()
+            font-size: 1.4rem
+          &.-small
+            +pc()
+              display: inline-block
+              font-size: 1.6rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+          .main__termsTxtIndent
+            +pc()
+              display: inline-block
+              padding-left: 2rem
+            +sp()
+              display: block
+
+  //- anchor link
+  .globalMenu
+    position: sticky
+    top: 0
+    z-index: 100
+    background: white
+    border-bottom: 1px solid grayLineColor
+    .globalMenu-inner
+      display: flex
+      justify-content: center
+      width: 100%
+      margin: 0 auto
+      .globalMenu-list
+        position: relative
+        width: 230px
+        box-sizing: border-box
+        color: #4d4d4d
+        font-size: 1.1rem
+        font-weight: bold
+        +sp()
+          font-size: 1.2rem
+        &:not(:last-child)::before
+          display: inline-block
+          position: absolute
+          height: 1px
+          transform: rotate(90deg)
+          background-color: grayLineColor
+          border-right: 1px solid grayLineColor
+          content: ''
+          +pc()
+            top: 26px
+            right: -16px
+            width: 32px
+          +sp()
+            top: 31px
+            right: -19px
+            width: 38px
+        .globalMenu-button
+          display: flex
+          justify-content: center
+          position: relative
+          width: 100%
+          text-align: center
+          line-height: 1.5
+          +pc()
+            align-items: center
+            height: 32px
+            padding: 10px 0
+          +sp()
+            //- align-items: center
+            align-items: flex-start
+            height: 38px
+            padding: 10px 0
+          &::before
+            content: ""
+            position: absolute
+            left: 50%
+            width: 8px
+            height: 8px
+            border-top: solid 1px #4d4d4d
+            border-right: solid 1px #4d4d4d
+            transform: translateX(-50%) rotate(135deg)
+            +pc()
+              bottom: 11px
+            +sp()
+              bottom: 9px
+          &:hover
+            cursor: pointer
+            .globalMenu-text
+              color: #45a9bc
+              transition-duration: 0.15s
+            color: #45a9bc
+          &:hover::before
+            border-top: solid 1px #45a9bc
+            border-right: solid 1px #45a9bc
+            transition-duration: 0.15s
+          .globalMenu-text
+            display: block
+            flex-grow: 0
+            color: grayLeadColor
+            font-size: 1.1rem
+            line-height: 1.2
+            +pc()
+              padding: 0 0 12px
+              font-size: 1.4rem
+              line-height: 1.3
+            +sp()
+              margin: 0 2px
+              font-size: 1.2rem
+              line-height: 1.1
+  .mainInfo__wrap
+    +pc()
+      margin: 20px auto 70px
+    +sp()
+      width: calc(100% - 32px)
+      margin: 16px auto 40px
+    .mainInfo
+      text-align: center
+      line-height: 1.5
+      +pc()
+        font-size: 1.4rem
+      +sp()
+        font-size: 1.2rem
+      .mainInfo--bold
+        font-weight: bold
+
+  // entry btn
+  .entryBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin: 0 16px 40px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+  //- flow
+  .flow
+    margin-bottom: 40px
+    // common
+    .titleWrap
+      +pc()
+        margin-bottom: 40px
+      .titleWrap--title
+        +sp()
+          margin-bottom: 24px
+    .flow__boxTitle
+      text-align: center
+      line-height: 1.5
+      font-weight: bold
+      color: grayTxtColor
+      +pc()
+        font-size: 2.4rem
+      +sp()
+        font-size: 1.6rem
+        margin-bottom: 8px
+    .flow__txt
+      text-align: center
+      line-height: 1.5
+      color: grayTxtColor
+      +pc()
+        font-size: 1.8rem
+        font-weight: bold
+      +sp()
+        font-size: 1.4rem
+      &.-small
+        margin-top: 8px
+        +pc()
+          font-size: 1.4rem
+        +sp()
+          font-size: 1.2rem
+    .flow__link
+      color: secondColor
+      &:hover
+        opacity: .8
+    .flow__boxImg
+      width: 100%
+      height: auto
+    // contents
+    .flow__wrapper
+      +pc()
+        margin-bottom: 24px
+      +sp()
+        background-color: grayBgColor
+        padding:24px 16px
+        box-sizing: border-box
+      .flow__caption
+        text-align: center
+        color: grayTxtColor
+        font-weight:bold
+        +pc()
+          font-size: 2rem
+          line-height: 1.5
+          margin-bottom: 40px
+        +sp()
+          font-size: 1.4rem
+          line-height: 1.5
+          margin-bottom: 16px
+      .flow__boxWrap
+        +pc()
+          display: flex
+          justify-content: space-between
+          //
+          width: 1170px
+          margin: 0 auto
+        .flow__box
+          display: flex
+          align-items: center
+          //
+          position: relative
+          background: grayBgColor
+          box-sizing: border-box
+          +pc()
+            flex-direction: column
+            //
+            width: 260px
+            padding: 16px
+            border-radius: 8px
+          +sp()
+            justify-content: center
+            // 
+            margin: 0 auto 16px
+          &::after
+            +pc()
+              content: ''
+              position: absolute
+              top: calc((100% - 20px * 2) / 2)
+              right: -32px
+              arrowFill(right,20px,grayTagColor)
+          &:last-of-type
+            margin-bottom: 0
+            &::after
+              display: none
+          .flow__box0
+            +pc()
+              margin-bottom: 16px
+          .flow__box1
+            +pc()
+              width: 200px
+              height: 200px
+              margin-bottom: 16px
+            +sp()
+              flex-shrink: 0
+              //
+              width: 100px
+              height: 100px
+              margin-left: 8px
+          &:last-of-type
+            .flow__box1
+              &::after
+                border:none
+          .flow__box2
+            position: relative
+            width: 100%
+            +pc()
+              display: flex
+              flex-direction: column
+              align-items: center
+              // 
+              height: 100%
+            +sp()
+              max-width: 200px
+              margin: 0 8px
+            // override
+            .flow__txt
+              &.-small
+                +sp()
+                  color: grayTagColor
+            &::after
+              +sp()
+                z-index:100
+                content: ""
+                position: absolute
+                left: calc((100% - 10px * 2) / 2)
+                bottom: -24px
+                arrowFill(bottom,10px,grayTagColor)
+          &:last-of-type
+            .flow__box2
+              &::after
+                border:none
+    .flow__attention
+      margin: 0 auto
+      +pc()
+        width: 1170px
+      +sp()
+        width: auto
+        margin: 16px 16px 0
+      // override
+      .flow__attention__txt
+        text-align: left
+        font-weight: normal
+        line-height: 1.8
+        &::before
+          display:inline-block
+          margin:0
+          content:'※'
+          text-indent: -1.8rem
+          +sp()
+            text-indent: -1.6rem
+        +pc()
+          margin-left: 1.8rem // text-indent分
+          font-size: 1.4rem
+        +sp()
+          margin-left: 1.6rem // text-indent分
+          font-size: 1.2rem
+
+  // article sentin
+  .articlesentin
+    background: jauneBrillantColor
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 24px
+    .articlesentin--title
+      background: springPink
+      color: white
+      font-weight: bold
+      text-align: center
+      font-weight: bold
+      +pc()
+        margin-bottom: 60px
+        padding: 10px 16px 16px
+        font-size: 3.2rem
+        line-height: 1
+      +sp()
+        margin-bottom: 24px
+        padding: 8px
+        font-size: 1.8rem
+        line-height: 1.3
+      .articlesentin--title--catch
+        display: inline-block
+        position: relative
+        +pc()
+          padding-bottom: 12px
+          font-size: 2.2rem
+        +sp()
+          font-size: 1.6rem
+        &::before
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(-45deg)
+          +pc()
+            left: -2rem
+          +sp()
+            left: -1.5rem
+        &::after
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(45deg)
+          +pc()
+            right: -2rem
+          +sp()
+            right: -1.5rem
+
+    //- ラ・クーポン
+    .coupon
+      margin: 0 auto
+      background: white
+      box-sizing: border-box
+      +pc()
+        width: 850px
+      +sp()
+        margin: 0 16px
+      .coupon__article
+        box-sizing: border-box
+        text-align: center
+        +pc()
+          padding: 32px 24px
+        +sp()
+          padding: 28px 16px 20px
+        .coupon__article__post
+          margin-bottom: 24px
+          background: grayBgColor
+          box-sizing: border-box
+          +pc()
+            width: 802px
+            padding: 16px
+          +sp()
+            width: 100%
+            padding: 8px
+          .coupon__article__post__period
+            display: flex
+            justify-content: center
+            align-items: center
+            +sp()
+              flex-direction: column
+            .coupon__article__post__period--text
+              font-weight: bold
+              line-height: 1.5
+              +pc()
+                font-size: 1.7rem
+              +sp()
+                font-size: 1.4rem
+              &:nth-of-type(n+2)
+                +pc()
+                  padding-left: 1.75rem
+          .coupon__article__post__info
+            font-size: 1.2rem
+            line-height: 1.5
+        .coupon__article__coupon
+          margin-bottom: 24px
+          padding: 24px 16px
+          background: grayBgColor
+          box-sizing: border-box
+          +pc()
+            width: 802px
+          +sp()
+            width: 100%
+          &:last-of-type
+            margin-bottom: 0
+
+          
+          .coupon__article__coupon--title
+            font-weight: bold
+            line-height: 1.4
+            +pc()
+              font-size: 2rem
+            +sp()
+              font-size: 1.4rem
+
+        .coupon__info__wrap
+          width: 100%
+          margin: 0 auto
+          .coupon__info
+            text-align: left
+            line-height: 1.4
+            +pc()
+              font-size: 1.4rem
+            +sp()
+              font-size: 1.2rem
+            .coupon__info--bold
+              font-weight: bold
+            .coupon__info--link
+              color: secondColor
+              text-decoration: underline
+              &:hover
+                text-decoration: none
+
+  //- ラ・クーポン
+  .coupon
+    +pc()
+      width:100%
+    // text-align: center
+
+    // 事前
+    .couponAdd
+      +pc()
+        margin-bottom:60px
+        //
+        display: flex
+        flex-direction: column
+        justify-content: center
+      +sp()
+        padding 0 10px 40px
+        box-sizing: border-box
+
+      // ボタンセット(bgColor,txtColor)
+      btnSet(Colors.CrimsonRed.color,#fff)
+
+      .coupon__terms
+        +pc()
+          display: flex
+          flex-direction: column
+          //
+          width: auto
+          height:auto
+          margin: 16px auto
+          &:last-of-type
+            margin: 0 auto
+        +sp()
+          margin: 0 auto
+        .coupon__termsTxt
+          font-size: 1.4rem
+          line-height 1.5
+          color:grayTxtColor
+          +sp()
+            font-size: 1.2rem
+          .coupon__termsLink
+            color:secondColor
+
+    // 獲得
+    .couponGet
+
+      // 非遷移クーポン
+      // couponOneClickSet(couponWidth,couponColor)
+      @import passStr + '_common/stylus/Module/Common/_couponOneClick'
+      couponOneClickSet(couponWidth,redColor)
+
+      .couponOneClickSetWrap
+        width: 100%
+        margin: 0 auto
+        padding: 24px 0 0
+        .couponBox
+          +pc()
+            width: 363px !important
+          +sp()
+            width: 100% !important
+            margin-bottom: 24px !important
+          &:nth-of-type(2n)
+            +pc()
+              margin-left: 28px !important
+            +sp()
+              margin-left: 0 !important
+          &:last-of-type
+            +pc()
+              margin-top: 24px !important
+            +sp()
+              margin-bottom: 0 !important
+        .coupon__info__wrap
+          margin: 0 auto
+          background: grayBgColor
+          box-sizing: border-box
+          +pc()
+            width: 600px
+            padding: 16px
+          +sp()
+            width: calc(100% - 32px)
+            padding: 8px
+          .coupon__info
+            line-height: 1.4
+            +pc()
+              text-align: center
+              font-size: 1.4rem
+            +sp()
+              text-align: left
+              font-size: 1.2rem
+            .coupon__info--bold
+              font-weight: bold
+            .coupon__info--link
+              color: secondColor
+              &:hover
+                opacity: .8
+
+  // PITARI_area_cpnlist
+  //- Rb Cpm
+  .rbcpm
+    width: 100%
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      padding-bottom: 8px
+    .rbcpm--title
+      background: springPink
+      box-sizing: border-box
+      color: white
+      text-align: center
+      font-weight: bold
+      +pc()
+        margin-bottom: 24px
+        padding: 10px 16px 16px
+        font-size: 3.2rem
+        line-height: 1.3
+      +sp()
+        margin-bottom: 10px
+        padding: 8px
+        font-size: 1.6rem
+        line-height: 1.3
+      .rbcpm--title--catch
+        display: inline-block
+        position: relative
+        font-weight: normal
+        +pc()
+          font-size: 2.2rem
+        +sp()
+          font-size: 1.4rem
+        &::before
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(-45deg)
+          +pc()
+            left: -1.6rem
+          +sp()
+            left: -1.2rem
+        &::after
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(45deg)
+          +pc()
+            right: -1.6rem
+          +sp()
+            right: -1.2rem
+    .rbcpm__article__wrap
+      background: white
+      +sp()
+        width: calc(100% - 24px)
+        margin: 0 auto
+      .rbcpm__article--title
+        text-align: center
+        font-weight: bold
+        line-height: 1.3
+        +pc()
+          border-bottom: 4px dotted
+          padding-bottom: 24px
+          font-size: 2.4rem
+        +sp()
+          padding: 20px 0
+          border-bottom: 2px dotted
+          font-size: 1.6rem
+
+  .ssBannerPitari
+    +sp()
+      background: jauneBrillantColor
+    .cpnList
+      +pc()
+        margin-top: 32px
+      +sp()
+        width: calc(100% - 24px)
+        margin: 0 auto
+
+      // campaign list
+      @import '../../../../../_common/stylus/Module/Common/_campaignList'
+
+      // ()の中にPCのwidthを入れる。SPは何もしなくてもwidth:autoになる
+      campaignList(pcWidth)
+
+      // override
+      .campaignListSendai
+      .campaignListKobe
+      .campaignListFukuoka
+      .campaignListSaitama
+      .campaignListSapporo
+      .campaignListHiroshima
+      .campaignListTokyo
+        // バナーが1つだけの時は真ん中寄せ(手動)
+        .campaignListWrap
+          +pc()
+            justify-content: center
+      
+      .-loaded
+        +sp()
+          padding: 8px !important
+
+        // 一部非表示（タイトル、特集）
+        .area__title3
+        .tokushuSendai
+        .tokushuKobe
+        .tokushuFukuoka
+        .tokushuSaitama
+        .tokushuSapporo
+        .tokushuHiroshima
+        .tokushuTokyo
+          display: none
+
+
+
+
+
+
+
+
+
+
+
+  //- searc hArea
+  .searchArea
+    background grayBgColor
+    box-sizing: border-box
+    +pc()
+      // padding: 32px
+    +sp()
+      // padding: 20px 16px
+    .searchArea--title
+      background: springPink
+      box-sizing: border-box
+      color: white
+      font-weight: bold
+      text-align: center
+      font-weight: bold
+      line-height: 1.4
+      +pc()
+        margin-bottom: 32px
+        padding: 16px
+        font-size: 3.4rem
+      +sp()
+        margin-bottom: 20px
+        padding: 8px
+        font-size: 1.8rem
+      .searchArea--title--catch
+        display: block
+        font-weight: normal
+        font-size: 12px
+        +sp()
+          padding-top: 6px
+
+    // Search Area Component / ()内に色を入れる
+    @import passStr + '_common/stylus/Module/Common/_searchArea'
+    searchArea(mainColor)
+
+    // Search Area
+    .feature-search__form
+      +pc()
+        width: 850px !important
+        padding-bottom: 52px
+      +sp()
+        padding: 0 16px 40px !important
+      .genreForm.rb-select__default
+        border: 2px solid springPink !important
+        +pc()
+          width: 310px !important
+          margin-right: 12px !important
+      .prefecturesForm.feature-search__select
+        border: 2px solid springPink !important
+        +pc()
+          width: 130px !important
+          margin-right: 12px !important
+      .areaForm.rb-select__default
+        border: 2px solid springPink !important
+        +pc()
+          width: 260px !important
+          margin-right: 12px !important
+      .formButton.feature-search__buttonItem
+        background: springYellow !important
+        .feature-search__button
+          color: black !important
+        +pc()
+          width 100%
+
+  .searchArea__content__category__wrap
+    margin: 0 auto
+    background: grayBgColor
+    box-sizing: border-box
+    +pc()
+      width: 960px
+      padding: 0 32px 52px
+    +sp()
+      width: 100%
+      padding: 0 16px 36px
+    .searchArea__content__category--title
+      text-align: center
+      font-weight: bold
+      +pc()
+        margin-bottom: 24px
+        font-size: 1.6rem
+        line-height: 1.4
+      +sp()
+        margin-bottom: 16px
+        font-size: 1.2rem
+        line-height: 1.8
+      .searchArea__content__category--title-catch
+        line-height: 1.4
+        +pc()
+          font-size: 2.2rem
+        +sp()
+          font-size: 1.6rem
+    .ssStep__article__content__category
+      display: flex
+      align-items: top
+      flex-wrap: wrap
+      background: white
+      box-sizing: border-box
+      justify-content: space-between
+      +pc()
+        width: 850px
+        padding: 32px 32px 0
+        margin: 0 auto
+      +sp()
+        width: 100%
+        padding: 24px
+      .ssStep__article__content__category__list
+        text-align: center
+        +pc()
+          width: calc(20% - 26px)
+          margin-bottom: 24px
+        +sp()
+          width: calc(50% - 24px)
+          margin-bottom: 24px
+        .ssStep__article__content__category__link
+          font-size: 1.4rem
+          line-height: 1.2
+          &:hover
+            text-decoration: underline
+            opacity 0.8
+            transition-duration: 0.2s
+          .ssStep__article__content__category__link--icon
+            display: block
+            width: 100%
+            +pc()
+              margin-bottom: 8px
+            +sp()
+              margin-bottom: 6px
+
+  //- ポイントアップのコツ
+  .serviceValue
+    background: jauneBrillantColor
+    width: 100%
+    text-align: center
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 24px
+    .serviceValue--title
+      background: springPink
+      box-sizing: border-box
+      color: white
+      text-align: center
+      font-weight: bold
+      +pc()
+        margin-bottom: 60px
+        padding: 10px 16px 16px
+        font-size: 3.2rem
+        line-height: 1
+      +sp()
+        margin-bottom: 24px
+        padding: 10px
+        font-size: 1.8rem
+        line-height: 1.3
+      .serviceValue--title--catch
+        display: inline-block
+        position: relative
+        +pc()
+          padding-bottom: 12px
+          font-size: 2.2rem
+        +sp()
+          font-size: 1.6rem
+        &::before
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(-45deg)
+          +pc()
+            left: -2rem
+          +sp()
+            left: -1.5rem
+        &::after
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(45deg)
+          +pc()
+            right: -2rem
+          +sp()
+            right: -1.5rem
+    .serviceValue__content__wrap
+      margin: 0 auto
+      background: white
+      +pc()
+        width: 850px
+        padding-bottom: 40px
+      +sp()
+        width: calc(100% - 32px)
+        padding-bottom: 20px
+      .serviceValue__content
+        text-align: center
+        +pc()
+          padding: 40px 0 30px
+        +sp()
+          width: calc(100% - 32px)
+          margin: 0 auto
+          padding: 20px 0 8px
+        .serviceValue__content--desc-title
+          display: inline-block
+          position: relative
+          margin-bottom: 6px
+          font-weight: bold
+          +pc()
+            font-size: 2.7rem
+            line-height: 1.5
+          +sp()
+            font-size: 1.6rem
+            line-height: 1.2
+          &::before
+            content: "|"
+            position: absolute
+            top: 0
+            font-weight: normal
+            transform: rotate(-45deg)
+            +pc()
+              left: -2.5rem
+            +sp()
+              left: -1.25rem
+          &::after
+            content: "|"
+            position: absolute
+            top: 0
+            font-weight: normal
+            transform: rotate(45deg)
+            +pc()
+              right: -2.5rem
+            +sp()
+              right: -1.25rem
+        .serviceValue__content--catch-title
+          margin-bottom: 6px
+          font-weight: bold
+          +pc()
+            font-size: 2.2rem
+            line-height: 1.5
+          +sp()
+            font-size: 1.6rem
+            line-height: 1.2
+        .serviceValue__content--desc-title--lead
+          line-height: 1.3
+          +pc()
+            margin-bottom: 30px
+            font-size: 1.4rem
+          +sp()
+            margin-bottom: 8px
+            font-size: 1.2rem
+          .ssStep__textLink
+            color: secondColor
+            &:hover
+              opacity: .8
+       .serviceValue__content__bnr__wrap
+          +pc()
+            width: 640px
+            margin: 0 auto
+          .serviceValue__content__bnr
+            +pc()
+              width: 100%
+            img:hover
+             opacity 0.8
+             transition-duration: 0.2s;
+        .serviceValue__content__app__wrap
+          display: flex
+          justify-content: center
+          align-items:flex-end
+          +pc()
+            margin: 40px auto 0
+          +sp()
+            margin: 24px auto 12px
+          .serviceValue__content__app__device
+            +pc()
+              width: 200px
+              margin-right: 28px
+            +sp()
+              width: 49.4%
+              margin-right: 8px
+          .serviceValue__content__app__qr__wrap
+            +pc()
+              width: 300px
+            +sp()
+              width: 66.2%
+            .serviceValue__content__app__qr--catch
+              width: 100%
+              background: #fff7c9
+              border-radius: 5px
+              box-sizing: border-box
+              +pc()
+                margin-bottom: 18px
+                padding: 15px
+                font-size: 1.6rem
+                line-height: 1.4
+              +sp()
+                margin-bottom: 11px
+                padding: 8px
+                font-size: 1.2rem
+                line-height: 1.3
+            .serviceValue__content__app__qr
+              display: flex
+              .serviceValue__content__app__qr__icon
+                +pc()
+                  width: 160px
+                  margin-right: 8px
+                .serviceValue__content__app__qr__icon--catch
+                  +pc()
+                    position: relative
+                    display: inline-block
+                    margin-bottom: 4px
+                    font-size: 1.4rem
+                    line-height: 1.4
+                    &::before
+                      content: "|"
+                      position: absolute
+                      top: 0
+                      left: -1rem
+                      font-weight: normal
+                      transform: rotate(-45deg)
+                    &::after
+                      content: "|"
+                      position: absolute
+                      top: 0
+                      right: -1rem
+                      font-weight: normal
+                      transform: rotate(45deg)
+                .serviceValue__content__app__qr__icon--img
+                  +pc()
+                    width: 120px
+              .serviceValue__content__app__qr__catch
+                +pc()
+                  width: 125px
+                +sp()
+                  width: 52%
+                  margin: 0 auto
+        .serviceValue__content__app__btn__wrap
+          +sp()
+            width: 100%
+          .serviceValue__content__app__btn
+            .serviceValue__content__app__btnImg
+              &.-iphone
+                +sp()
+                  width: 169px
+              &.-android
+                +sp()
+                  width: 210px
+
+  // banner
+  .banner-container
+    +pc()
+      margin: 40px auto
+    +sp()
+      margin: 20px auto
+    .banner-wrap
+      margin: 0 auto
+      text-align: center
+      background: grayBgColor
+      box-sizing: border-box
+      +pc()
+        width: 890px
+        padding: 24px
+      +sp()
+        width: calc(100% - 32px)
+        padding: 10px 16px 16px
+      .banner-title
+        font-weight: bold
+        +pc()
+          padding-bottom: 24px
+          font-size 2.6rem
+          line-height: 1.3
+        +sp()
+          font-size 1.6rem
+          padding-bottom: 8px
+          line-height: 1.4
+        .banner-title--catch
+          display: inline-block
+          position: relative
+          &::before
+            content: "|"
+            position: absolute
+            top: 0
+            font-weight: normal
+            transform: rotate(-45deg)
+            +pc()
+              left: -2.25rem
+            +sp()
+              left: -1.5rem
+          &::after
+            content: "|"
+            position: absolute
+            top: 0
+            font-weight: normal
+            transform: rotate(45deg)
+            +pc()
+              right: -2.25rem
+            +sp()
+              right: -1.5rem
+      .banner-inner
+        background-color: #fff
+        box-sizing: border-box
+        +pc()
+          width: 842px
+          margin: 0 auto
+          padding: 24px
+        +sp()
+          padding: 16px
+        .banner-img
+          display: block
+          width: auto
+          max-width: 640px
+          margin: 0 auto
+          transition: opacity .2s ease-out
+          &:hover
+            opacity: 0.8
+          img
+            width: 100%
+            height: auto
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

@@ -1,0 +1,218 @@
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  include ./_data.pug
+  -
+    var meta = {
+      title: "楽天ビューティアワード 2025",
+      description: common.description,
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/beautyaward/",
+      og_image: "https://beauty.rakuten.co.jp/cnt/topics/campaign/beautyaward/images/share.png?v" + parameter,//- default (シェア画像があれば変更)
+    }
+  - var css = "css/main.css?v" + parameter
+
+
+block addHead
+  link(rel="preconnect", href="//fonts.gstatic.com")
+  link(rel="stylesheet", href="//fonts.googleapis.com/css2?family=Lora:wght@700&display=swap&text=BESTALONYI0123456789")
+
+
+block js
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js')
+  script(src='/cnt/common/js/vue/axios.min.js')
+
+  //- json読み込み (vue)
+  script(src='./js/readjson.js?v' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    sendaisalons = true;
+    sendaistylists = true;
+    //- js用パラメータ
+    const param = '!{parameter}';
+
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+
+block content
+  #award
+    #mainVisual
+      .mainVisual
+        h1.mainVisual__logo.is-top
+          picture
+            source(media="(max-width: 900px)", srcset="images/logo_award_small.png?v" + parameter)
+            source(media="(min-width: 901px)", srcset="images/logo_award.png?v" + parameter)
+            img(src="images/logo_award.png?v" + parameter, width="707", height="auto", alt="楽天ビューティアワード 2025", class="mainVisual__logo__img")
+
+    #award-content
+      section.awardCatchcopy.container
+        .awardCatchcopy__image
+          img(class="awardCatchcopy__image__img", src="images/img_map2025.png?v" + parameter, width='500', height='auto', alt='日本地図：札幌市・仙台市・さいたま市・東京都・神戸市・広島市・福岡市')
+        .awardCatchcopy__description
+          p.awardCatchcopy__descriptionTxt
+            | 楽天ビューティアワード 2025は、ユーザーに支持されたサロンとスタイリストを表彰する年間アワードです。
+          p.awardCatchcopy__descriptionTxt
+            | 第5回目となる今年度は、札幌市・仙台市・さいたま市・東京都・神戸市・広島市・福岡市の計7都市で高い評価を得たサロンとスタイリストを選出しています。
+
+      #award-top.container
+        section.awardOutline
+          .awardOutline__content
+            .awardOutline__content__jumbotron
+              span.awardOutline__content__subTitle BEST SALON
+              h2.awardOutline__content__title ベストサロン
+              p.awardOutline__content__description
+                | 各エリアの楽天ビューティ掲載サロンを、サロンの規模（席数）を基に4分類し
+                br.-pc
+                | ユーザーに支持されたサロンを選出。
+              .awardOutline__content__more
+                a(href="./sapporo/salon/", class="awardOutline__content__link")
+                  | 札幌市
+                  i.icon-chevronRight
+                a(href="./sendai/salon/", class="awardOutline__content__link")
+                  | 仙台市
+                  i.icon-chevronRight
+                a(href="./saitama/salon/", class="awardOutline__content__link")
+                  | さいたま市
+                  i.icon-chevronRight
+                a(href="./tokyo/salon/", class="awardOutline__content__link")
+                  | 東京都
+                  i.icon-chevronRight
+                a(href="./kobe/salon/", class="awardOutline__content__link")
+                  | 神戸市
+                  i.icon-chevronRight
+                a(href="./hiroshima/salon/", class="awardOutline__content__link")
+                  | 広島市
+                  i.icon-chevronRight
+                a(href="./fukuoka/salon/", class="awardOutline__content__link")
+                  | 福岡市
+                  i.icon-chevronRight
+            #bestsalonsendai.awardOutline__content__cover.is-bestsalon(v-cloak)
+              .awardOutline__content__cover__column
+                //- pc
+
+
+                img(v-if="results[0] && results[0].noimage === 'off'" :src="['images/bg_bestsalon_pc.png' + '?v' + param]", width="auto", height="100%" class="-pc")
+                //- sp
+                img(v-if="results[0] && results[0].noimage === 'off'" :src="['images/bg_bestsalon_sp.png' + '?v' + param]", width="auto", height="100%" class="-sp")
+                //- noimage
+                img(v-else src="images/noimage.png", width="auto", height="100%")
+              //- .awardOutline__content__cover__column
+                //- //- pc
+                //- img(v-if="results[1] && results[1].noimage === 'off'" :src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,e_art:incognito,w_500,h_217/v' + param + '/' + results[1].salonId + '_01.jpg']", width="100%", height="auto" class="-pc")
+                //- //- sp
+                //- img(v-if="results[1] && results[1].noimage === 'off'" :src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,e_art:incognito,w_250,h_400/v' + param + '/' + results[1].salonId + '_01.jpg']", width="50%", height="auto" class="-sp")
+                //- //- noimage
+                //- img(v-else src="images/noimage.png", width="100%", height="auto")
+                //- //- pc
+                //- img(v-if="results[2] && results[2].noimage === 'off'" :src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,e_art:incognito,g_auto,w_500,h_217/v' + param + '/' + results[2].salonId + '_01.jpg']", width="100%", height="auto" class="-pc")
+                //- //- sp
+                //- img(v-if="results[2] && results[2].noimage === 'off'" :src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,e_art:incognito,g_auto,w_250,h_400/v' + param + '/' + results[2].salonId + '_01.jpg']", width="50%", height="auto" class="-sp")
+                //- //- noimage
+                //- img(v-else src="images/noimage.png", width="100%", height="auto")
+          .awardOutline__about
+            .awardOutline__about__label
+              p.awardOutline__about__labelTitle 受賞マーク
+              p.awardOutline__about__labelNote ※3/3以降、順次各受賞サロンのページに表示されます。
+              .awardOutline__about__labelList
+                span.awardOutline__about__labelItem
+                  img(src="images/label_bestsalon_gold.png?v" + parameter, alt="楽天ビューティアワード 2025 ベストサロン ゴールド", class="")
+                span.awardOutline__about__labelItem
+                  img(src="images/label_bestsalon_silver.png?v" + parameter, alt="楽天ビューティアワード 2025 ベストサロン シルバー", class="")
+                span.awardOutline__about__labelItem
+                  img(src="images/label_bestsalon_bronze.png?v" + parameter, alt="楽天ビューティアワード 2025 ベストサロン ブロンズ", class="")
+                span.awardOutline__about__labelItem
+                  img(src="images/label_bestsalon_rookie.png?v" + parameter, alt="楽天ビューティアワード 2025 ベストサロン 新人賞", class="")
+              //- a(href="", class="awardOutline__about__interview") ベストサロン受賞店インタビュー
+
+        section.awardOutline
+          .awardOutline__content
+            .awardOutline__content__jumbotron
+              span.awardOutline__content__subTitle BEST STYLIST
+              h2.awardOutline__content__title ベストスタイリスト
+              p.awardOutline__content__description
+                | 各エリアの楽天ビューティ掲載スタイリストの中から、
+                br.-pc
+                | ユーザーに支持された人気スタイリストを選出。
+              .awardOutline__content__more
+                a(href="./sapporo/stylist/", class="awardOutline__content__link")
+                  | 札幌市
+                  i.icon-chevronRight
+                a(href="./sendai/stylist/", class="awardOutline__content__link")
+                  | 仙台市
+                  i.icon-chevronRight
+                a(href="./saitama/stylist/", class="awardOutline__content__link")
+                  | さいたま市
+                  i.icon-chevronRight
+                a(href="./tokyo/stylist/", class="awardOutline__content__link")
+                  | 東京都
+                  i.icon-chevronRight
+                a(href="./kobe/stylist/", class="awardOutline__content__link")
+                  | 神戸市
+                  i.icon-chevronRight
+                a(href="./hiroshima/stylist/", class="awardOutline__content__link")
+                  | 広島市
+                  i.icon-chevronRight
+                a(href="./fukuoka/stylist/", class="awardOutline__content__link")
+                  | 福岡市
+                  i.icon-chevronRight
+
+            #beststylistsendai.awardOutline__content__cover.is-beststylist(v-cloak)
+              .awardOutline__content__cover__column
+                //- pc
+                img(src="images/bg_beststylist_pc.png" + "?v" + parameter, width="auto", height="100%" class="-pc")
+                //- sp
+                img(src="images/bg_beststylist_sp.png" + "?v" + parameter, width="auto", height="100%" class="-sp")
+                //- noimage
+                img(v-else src="images/noimage.png", width="auto", height="100%")
+                //- //- pc
+                //- img(v-if="results[0] && results[0].noimage === 'off'" :src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,e_art:incognito,g_face,w_500,h_434/v' + param + '/' + results[0].id + '_01.jpg']", width="100%", height="auto" class="-pc")
+                //- //- sp
+                //- img(v-if="results[0] && results[0].noimage === 'off'" :src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,e_art:incognito,g_face,w_500,h_350/v' + param + '/' + results[0].id + '_01.jpg']", width="100%", height="auto" class="-sp")
+                //- //- noimage
+                //- img(v-else src="images/noimage.png", width="100%", height="auto")
+              //- .awardOutline__content__cover__column
+              //-   //- pc
+              //-   img(v-if="results[1] && results[1].noimage === 'off'" :src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,e_art:incognito,g_face,w_500,h_217/v' + param + '/' + results[1].id + '_01.jpg']", width="100%", height="auto" class="-pc")
+              //-   //- sp
+              //-   img(v-if="results[1] && results[1].noimage === 'off'" :src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,e_art:incognito,g_face,w_250,h_400/v' + param + '/' + results[1].id + '_01.jpg']", width="50%", height="auto" class="-sp")
+              //-   //- noimage
+              //-   img(v-else src="images/noimage.png", width="100%", height="auto")
+              //-   //- pc
+              //-   img(v-if="results[2] && results[2].noimage === 'off'" :src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,e_art:incognito,g_face,w_500,h_217/v' + param + '/' + results[2].id + '_01.jpg']", width="100%", height="auto" class="-pc")
+              //-   //- sp
+              //-   img(v-if="results[2] && results[2].noimage === 'off'" :src="['//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,e_art:incognito,g_face,w_250,h_400/v' + param + '/' + results[2].id + '_01.jpg']", width="50%", height="auto" class="-sp")
+              //-   //- noimage
+              //-   img(v-else src="images/noimage.png", width="100%", height="auto")
+          .awardOutline__about
+            .awardOutline__about__label
+              p.awardOutline__about__labelTitle 受賞マーク
+              p.awardOutline__about__labelNote ※3/3以降、順次各受賞スタイリストのページに表示されます。
+              .awardOutline__about__labelList
+                span.awardOutline__about__labelItem.single
+                  img(src="images/label_beststylist.png?v" + parameter, alt="楽天ビューティアワード 2025 ベストスタイリスト", class="")
+              //- a(href="", class="awardOutline__about__interview")
+              //-   | ベストスタイリスト受賞者インタビュー
+              //-   i.icon-chevronRight
+  //- #otherContent
+    ul.banner
+      each item, index in bartterbanners
+        li.banner__item
+          a(href=item.url, class="banner__item__link")
+            img(src=item.image, alt=item.name, target=item.target, width="100%", height="auto", class="banner__item__image")

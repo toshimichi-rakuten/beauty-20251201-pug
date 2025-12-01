@@ -1,0 +1,70 @@
+//- テンプレートは最新のものをフォルダごと複製して使用してください
+//- 外注用テンプレートにも反映：https://rak.app.box.com/folder/94629540317?s=wt6ydhlrtv2zc1bhbfpqc9x80dsztsmx
+//- ver 2.9.2 / 更新日時：2023.10.10 / 1click js update
+
+-
+  //- 不要な項目は、特に記載がなければ削除せず入力欄を空欄''にしてください
+  //- jsonの書き方Sample: https://rak.box.com/s/2l6ls1e7nmy3q7m1iu91flh6xefwd8tb
+  //- 起案者用csvSample: https://rak.box.com/s/w0kjri0mic2mcgkmdg6yyg5y9xqmvpy3
+
+  //- meta
+  var parameter = '?v20240507'//- 更新日（キャッシュクリア用のパラメータとして使用）
+  var meta = {
+    directory: 'tokyo-pay', //- ディレクトリ名 for Click Tag（例：/xxxx/→'xxxx'）
+    title: '渋谷区・世田谷区の対象ヘアサロンのネット予約＆楽天ペイ決済で500ポイント！',
+    description: 'エントリー＆渋谷区・世田谷区の対象ヘアサロンのネット予約＆楽天ペイ決済で500ポイントプレゼントキャンペーン', //- Dezieの「クーポン説明」
+    url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/tokyo-pay/',
+    og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/tokyo-pay/img/share.png' + parameter,//- default (シェア画像があれば変更)
+  }
+
+  //- Campaign Tag
+  //- 下記コンフルを参照して記入
+  //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+  //- ''ごと増やすとタグが増えます
+  var taglist = {
+    tag: [
+      'エントリー必要', //- エントリー不要は自動的に青色になります
+      '対象サロン限定',
+      'ネット予約・施術完了',
+      '楽天ペイアプリでお支払い',
+    ],
+  }
+
+  
+
+  //- shop list
+  var shoplist = {
+    //- 検索UI 1カラム(1column) or 2カラム(2column) or 1カラムボタン(btn)
+    select: '1column',
+    //- メニュークーポン表示ON(true) or OFF(false)
+    menu: false,
+    //- 2カラム時 & 最初から絞り込みが必要な場合下記も変更
+    //- 1カラム目のデフォルト文言
+    //- 例：すべての都道府県
+    firstTxt1: 'すべてのエリア',
+    //- 初期絞り込み設定（デフォルトは空欄）
+    //- 例：東京都（jsonのselect1から1つ選ぶ）
+    firstSelect1: '恵比寿・代官山・中目黒',
+    //- 2カラム目のデフォルト文言
+    //- 例：すべてのエリア
+    firstTxt2: 'すべてのエリア',
+    //- 初期絞り込み設定（デフォルトは空欄）
+    //- 例：新宿（jsonのselect2から1つ選ぶ）
+    firstSelect2: '',
+
+    title: [
+      '渋谷区・世田谷区で楽天ペイアプリが使える',
+      'ヘアサロンはこちら！',
+    ],
+    //- 例：l-id=rb_app2x_SPU
+    lid: 'l-id=rb_tokyo-pay_shopdetail',
+  }
+
+  //- もっと探すボタン
+  var morebtn = {
+    //- 出し分け(true/false)
+    visible: true,
+    url: '/',
+    title: '全国のヘアサロンを探す',
+    subtxt: '※キャンペーン対象外',
+  }

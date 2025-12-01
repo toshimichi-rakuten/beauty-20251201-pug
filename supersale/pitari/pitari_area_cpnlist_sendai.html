@@ -1,0 +1,45 @@
+
+<div id="CampaignSendai">
+  <section class="rbcpm" id="RbCpm">
+    <h3 class="rbcpm--title"><span class="rbcpm--title--catch">このほかにも！</span><br/>楽天ビューティには<br class="-sp"/>おトクキャンペーンがいっぱい！</h3>
+    <div class="rbcpm__article__wrap">
+      <p class="rbcpm__article--title">仙台市対象！<br/>お得なキャンペーン開催中</p>
+    </div>
+    <div class="cpnList">
+            <div class="campaignListSendai" id="CampaignListSendai">
+              <h3 class="area__title3">仙台市対象キャンペーン</h3>
+              <div class="campaignListWrap">
+                <template v-for="res in results.campaign"><a class="campaignListBox" v-bind:href="res.url" v-if="res.directory">
+                    <div class="campaignListBanner"><img class="campaignListBannerImg" v-bind:src="res.banner" v-bind:alt="res.alt"/></div>
+                    <div class="campaignListTxts">
+                      <ul class="campaignListMain">
+                        <li class="campaignListTagBox">
+                          <template v-for="tag in res.tag">
+                            <p class="campaignListTag -pink" v-if="tag.name == 'エントリー必要' || tag.name == 'ラ・クーポン'">{{ tag.name }}</p>
+                            <p class="campaignListTag -disable" v-else-if="tag.name == 'エントリー不要'">{{ tag.name }}</p>
+                            <p class="campaignListTag" v-else="v-else">{{ tag.name }}</p>
+                          </template>
+                        </li>
+                        <li class="campaignListTxtBox">
+                          <template v-for="terms in res.terms">
+                            <p class="campaignListTxt">{{ terms.txt }}</p>
+                          </template>
+                        </li>
+                      </ul>
+                      <ul class="campaignListDetail">
+                        <p class="campaignListTxt -small">詳細はこちら<i class="icon-chevronRight"></i></p>
+                      </ul>
+                    </div></a></template>
+              </div>
+              <div class="tokushuSendai" id="TokushuSendai" v-if="results.tokushu &amp;&amp; results.tokushu.length &gt; 0">
+                <h3 class="tokushu__title">仙台市のサロン特集</h3>
+                <div class="tokushuBox"><a class="tokushuBannerBox" v-for="tok in results.tokushu" v-bind:href="tok.url">
+                    <div class="tokushuBanner"><img class="tokushuBanner__img" v-bind:src="tok.banner" v-bind:alt="tok.alt"/></div>
+                    <div class="tokushuBox__title">{{ tok.title }}</div>
+                    <div class="tokushuBox__txt">{{ tok.txt }}</div></a></div>
+              </div>
+            </div>
+    </div>
+  </section>
+</div>
+<script>readJsonSendai();</script>

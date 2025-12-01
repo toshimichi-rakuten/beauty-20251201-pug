@@ -1,0 +1,55 @@
+//- テンプレートは最新のものをフォルダごと複製して使用してください
+//- 外注用テンプレートにも反映：https://rak.app.box.com/folder/94629540317?s=wt6ydhlrtv2zc1bhbfpqc9x80dsztsmx
+//- ver 2.8.3 / 更新日時：2023.5.2 / appearタグの書き方修正
+
+-
+  //- 不要な項目は、特に記載がなければ削除せず入力欄を空欄''にしてください
+  //- jsonの書き方Sample: https://rak.box.com/s/2l6ls1e7nmy3q7m1iu91flh6xefwd8tb
+  //- 起案者用csvSample: https://rak.box.com/s/w0kjri0mic2mcgkmdg6yyg5y9xqmvpy3
+
+  //- meta
+  var parameter = '?v20250109'//- 更新日（キャッシュクリア用のパラメータとして使用）
+  var meta = {
+    directory: 'sendai-tokushu-man', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+    title: '【仙台市】メンズ必見！オススメの男性歓迎サロン特集',
+    description: '楽天ビューティ厳選！仙台市内の男性歓迎サロンを集めました。',
+    url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/sendai-tokushu/man/',
+    og_image: 'https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png' + parameter,//- default (シェア画像があれば変更)
+  }
+
+  //- shop list
+  var shoplist = {
+    //- 検索UI 1カラム(1column) or 2カラム(2column) or 1カラムボタン(btn)
+    select: '1column',
+    //- メニュークーポン表示ON(true) or OFF(false)
+    menu: false,
+    //- 2カラム時 & 最初から絞り込みが必要な場合下記も変更
+    //- 1カラム目のデフォルト文言
+    //- 例：すべての都道府県
+    firstTxt1: 'すべてのエリア',
+    //- 初期絞り込み設定（デフォルトは空欄）
+    //- 例：東京都（jsonのselect1から1つ選ぶ）
+    firstSelect1: '',
+    //- 2カラム目のデフォルト文言
+    //- 例：すべてのエリア
+    firstTxt2: '',
+    //- 初期絞り込み設定（デフォルトは空欄）
+    //- 例：新宿（jsonのselect2から1つ選ぶ）
+    firstSelect2: '',
+
+    title: [
+      '【仙台市内】',
+      'オススメの男性歓迎サロン',
+    ],
+    //- 例：l-id=rb_app2x_SPU
+    lid: 'l-id=rb_sendai-tokushu-man_shopdetail',
+  }
+
+  //- もっと探すボタン
+  var morebtn = {
+    //- 出し分け(true/false)
+    visible: true,
+    url: '/cnt/topics/campaign/sendai/?l-id=rb_sendai-tokushu-man_sendai',
+    title: '仙台市のヘアサロンを探す',
+    subtxt: '',
+  }

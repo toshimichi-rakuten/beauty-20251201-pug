@@ -1,0 +1,283 @@
+//- テンプレートは最新のものをフォルダごと複製して使用してください
+//- 外注用テンプレートにも反映：https://rak.app.box.com/folder/94629540317?s=wt6ydhlrtv2zc1bhbfpqc9x80dsztsmx
+//- ver 2.8.3 / 更新日時：2023.5.2 / appearタグの書き方修正
+
+extends ../../../../../_common/pug/Base/_layout.pug
+
+block init
+  include _data
+  - var css = `${'css/main.css' + parameter}`
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  #SendaiMan
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このラ・クーポンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'ラ・クーポンは終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter alt=meta.title)
+
+    //- 対象サロンで使えるクーポン
+    section#Coupon.coupon(data-ratid='cpn_' + meta.directory + '_Coupon' data-ratevent='appear' data-ratparam='all')
+
+      //- 終了対応
+      if endflag == true
+        //- ボタンセット(url,txt,endflag)
+        +btnSet('', btnTxt, true)
+      else
+        //- ボタンセット(url,txt)
+        -
+          var btnUrl = '/cnt/topics/campaign/sendai/?l-id=rb_sendai-tokushu-man_sendai'
+          var btnTxt = '対象サロンで使えるクーポン'
+        +btnSet(btnUrl, btnTxt)
+
+      //- 条件
+      .coupon__terms
+        p.coupon__termsTxt
+          | ※クーポン専用のページに移動します
+        p.coupon__termsTxt
+          | ※対象サロンとは、下記の一覧に掲載しているサロンを指します
+
+    //- anchor link
+    #Shoplist(data-ratid='cpn_' + meta.directory + '_Shoplist' data-ratevent='appear' data-ratparam='all')
+
+    //- shoplist
+    section#salonFilterContainer
+      #salonFilterSection(ref="wrapper", class="is-loading")
+        .loader
+
+        //- mixin card
+        mixin card()
+          if shoplist.select == '1column' || shoplist.select == 'btn'
+            - var type = 'filterList'
+          else if shoplist.select == '2column'
+            - var type = 'filteredSalonList'
+          #salonList(ref="list")
+            .salonList
+              section(v-for="item, index in " + type, :key="index", class="salonList__item position-relative")
+                .salonList__content
+                  .salonList__cover
+                    img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/" + item.shop_id + "_01.jpg" + param', class="salonList__image", rel="preload", :alt="item.shop_name")
+                  .salonList__outline
+                    h3.salonList__salonName
+                      a(:href='"/" + item.shop_id + "/?" + lid', class="salonList__link stretched-link") {{ item.shop_name }}
+                    span.salonList__area
+                      i.icon.icon-location
+                      | {{ item.area }}
+                    span.salonList__station
+                      i.icon.icon-train
+                      | {{ item.station }}
+        //- mixin menuCard
+        mixin menuCard()
+          #salonList(ref="list")
+            if shoplist.select == '1column' || shoplist.select == 'btn'
+              - var type = 'filterList'
+            else if shoplist.select == '2column'
+              - var type = 'filteredSalonList'
+            .salonList
+              section(v-for="item, index in " + type, :key="index", class="salonList__item has-divide")
+                .salonList__content.position-relative
+                  .salonList__cover
+                    img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/" + item.shop_id + "_01.jpg" + param', class="salonList__image", rel="preload", :alt="item.shop_name")
+                  .salonList__outline
+                    h3.salonList__salonName
+                      a(:href='"/" + item.shop_id + "/?" + lid', class="salonList__link stretched-link") {{ item.shop_name }}
+                    span.salonList__area
+                      i.icon.icon-location
+                      | {{ item.area }}
+                    span.salonList__station
+                      i.icon.icon-train
+                      | {{ item.station }}
+                .salonList__divide.position-relative
+                  .salonList__outline
+                    .salonList__detail
+                      .salonList__menuIcon
+                        span.salonList__genre.-no1(v-if='item.genreNo_1 == 1') {{ item.genre_1 }}
+                        span.salonList__genre.-no2(v-if='item.genreNo_1 == 2') {{ item.genre_1 }}
+                        span.salonList__genre.-no3(v-if='item.genreNo_1 == 3') {{ item.genre_1 }}
+                      .salonList__menuDetail
+                        h4.salonList__menuName
+                          span.salonList__target(v-if='item.target_1 == "初回"') {{ item.target_1 }}
+                          span.salonList__target.is-all(v-if='item.target_1 == "全員"') {{ item.target_1 }}
+                          | {{ item.menu_name_1 }}
+                    p.salonList__description {{ item.menu_detail_1 }}
+                  .salonList__buttonArea
+                    .salonList__menuPriceArea
+                      span.salonList__menuTime 約{{ item.menu_time_1 }}分
+                      span.salonList__menuPrice ￥{{ item.menu_price_1.toLocaleString() }}
+                    .salonList__menuTermsArea
+                      span.salonList__menuTerm {{ item.condition_1 }}
+                    a(:href='"/reserve/?shop_ex_id=" + item.shop_id + "&menu_id=" + item.menu_id_1 + "&" + lid', class="stretched-link salonList__button") このメニューで予約する
+                .salonList__divide.position-relative(v-if='item.menu_id_2')
+                  .salonList__outline
+                    .salonList__detail
+                      .salonList__menuIcon
+                        span.salonList__genre.-no1(v-if='item.genreNo_2 == 1') {{ item.genre_2 }}
+                        span.salonList__genre.-no2(v-if='item.genreNo_2 == 2') {{ item.genre_2 }}
+                        span.salonList__genre.-no3(v-if='item.genreNo_2 == 3') {{ item.genre_2 }}
+                      .salonList__menuDetail
+                        h4.salonList__menuName
+                          span.salonList__target(v-if='item.target_2 == "初回"') {{ item.target_2 }}
+                          span.salonList__target.is-all(v-if='item.target_2 == "全員"') {{ item.target_2 }}
+                          | {{ item.menu_name_2 }}
+                    p.salonList__description {{ item.menu_detail_2 }}
+                  .salonList__buttonArea
+                    .salonList__menuPriceArea
+                      span.salonList__menuTime 約{{ item.menu_time_2 }}分
+                      span.salonList__menuPrice ￥{{ item.menu_price_2.toLocaleString() }}
+                    .salonList__menuTermsArea
+                      span.salonList__menuTerm {{ item.condition_2 }}
+                    a(:href='"/reserve/?shop_ex_id=" + item.shop_id + "&menu_id=" + item.menu_id_2 + "&" + lid', class="stretched-link salonList__button") このメニューで予約する
+
+        //- 1column
+        if shoplist.select == '1column'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            .filter-select
+              select.filter-select__item(v-model="select1")
+                option(value="") !{shoplist.firstTxt1}
+                option(v-for="(item, index) in select1List", :value="item.name") {{ item.name }} ({{ item.count }}件)
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+        //- 2column
+        else if shoplist.select == '2column'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            .filter-select
+              select.filter-select__item(v-model="select1", ref="select1")
+                option(value="", selected) !{shoplist.firstTxt1}
+                option(v-for="(item, index) in select1List", :value="item") {{ item }}
+            .filter-select
+              select.filter-select__item(v-model="select2", ref="select2", disabled)
+                option(value="", selected) !{shoplist.firstTxt2}
+                option(v-for="(item, index) in select2List", :value="item") {{ item }}
+            button(class="filter-button", disabled, v-on:click="search", ref="button")
+              span 検索
+              span(v-if="count !== 0 && !firstFlag") （{{count}}件）
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+        //- btn
+        else if shoplist.select == 'btn'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            ul.filter-button-list
+              li.filter-button-list-item
+                button.filter-list-button(@click="select1 = ''", :class="{'is-selected': select1 == ''}") すべて
+              li.filter-button-list-item(v-for="(item, index) in select1List")
+                button.filter-list-button(@click="select1 = item.name", :class="{'is-selected': select1 == item.name}") {{ item.name }} ({{ item.count }}件)
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+    //- more search
+    if morebtn.visible == true
+      section#couponMore.couponMore(data-ratid='cpn_' + meta.directory + '_couponMore' data-ratevent='appear' data-ratparam='all')
+        .couponSalon__moreBtn
+          a.couponSalon__link(href=morebtn.url)
+            | !{morebtn.title}
+            if morebtn.subtxt
+              span.couponMore__txtSmall
+                | !{morebtn.subtxt}
+
+    //- app DL
+    section#App.app.-excludeApp(data-ratid='cpn_' + meta.directory + '_App' data-ratevent='appear' data-ratparam='all')
+
+      //- app DL parts(app2x)
+      //- appInfoFlag 注意文の表示/非表示 trueで表示、falseで非表示
+      - var appInfoFlag = false
+      +appDL('app2x')
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  //- script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- ボタン+checkbox（vue）
+  //- script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //- 1click coupon
+  //- script(src='//r.r10s.jp/com/js/d/Rmodules/Rmodules.min.js?v=1.4.0', defer)
+  //- script(src='//r.r10s.jp/com/js/d/coupon/one_click_acquisition/1.2/one_click_acquisition-1.2.0.min.js', defer)
+
+  //------------------------------- Shoplist 絞り込み (vue) -------------------------------//
+
+  //- js用パラメータ
+  script.
+    const param = '!{parameter}';
+    const lid = '!{shoplist.lid}';
+    const firstSelect1 = '!{shoplist.firstSelect1}';
+    const firstSelect2 = '!{shoplist.firstSelect2}';
+
+  //- pugで読み込みjsのurl（パラメータつき）を生成 = キャッシュ対策
+  -
+    var jsUrl1column = `${'js/filter-by-1column.js' + parameter}`
+    var jsUrl2column = `${'js/filter-by-2column.js' + parameter}`
+
+  //- js読み込み
+  if shoplist.select == '1column' || shoplist.select == 'btn'
+    script(src=jsUrl1column, defer)
+  else if shoplist.select == '2column'
+    script(src=jsUrl2column, defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く

@@ -1,0 +1,646 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- クーポンがあるLPは_template_coupon/を複製→このテンプレートから必要なものを移植して作成したほうが簡単です
+//- template / ver 3.0.1 / 更新日時：2024.4.8 / 90日予約対応, Detailに中止注意文言追加
+
+extends ../../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20241224'
+    var meta = {
+      title: '楽天Beauty × 楽天証券 サロン予約＆施術完了＋NISA口座での積立で100万ポイント山分け！',
+      description: '楽天Beauty × 楽天証券 サロン予約＆施術完了＋NISA口座での積立で100万ポイント山分け！',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/other/security/',
+      directory: 'security', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/other/security/img/share.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+  link(rel='stylesheet', href="css/splide.min.css")
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #Security
+
+    //- 終了対応
+    #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー必要', //- エントリー不要は自動的に青色になります
+            //- '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+            //- 'アプリ限定',
+            'ネット予約・施術完了',
+            '条件達成',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+      .main__terms
+        .main__termsBox
+          p.main__termsTxt
+            | キャンペーン期間：5月20日 10:00 〜 6月21日 9:59
+            span.main__termsTxt.-secondary
+              | 条件達成期間：5月20日 10:00 〜 7月31日 23:59
+      .main__stepWrap
+        .main__step__primary-container
+          img.main__step__title(src='img/img_main_title_step1.png' + parameter, alt='Step1' width='' height='')
+          .main__step__time 6/21 9:59まで
+          .main__step__lead
+            p.main__step__lead__text
+              | エントリー＆
+              br.-sp
+              | 楽天ビューティ
+              br.-sp
+              | からサロン予約
+              br.-sp
+              | ※1
+            img.main__step__lead__icon(src='img/img_main_icon_step1.png' + parameter, alt='icon1' width='' height='')
+        .main__step__primary-container.-lightblue
+          img.main__step__title(src='img/img_main_title_step2.png' + parameter, alt='Step2' width='' height='')
+          .main__step__time 7/31 23:59まで
+          .main__step__lead
+            p.main__step__lead__text
+              | サロンにて施術完了＆
+              br.-pc
+              | NISA口座
+              br.-sp
+              | での投信積立※2
+            img.main__step__lead__icon.-lightblue(src='img/img_main_icon_step2.png' + parameter, alt='icon2' width='' height='')
+        .main__step__secondary-container
+          img.main__step__title(src='img/img_main_title_step3.png' + parameter, alt='Step3' width='' height='')
+          .main__step__secondary-lead
+            p.main__step__secondary-lead__text
+              | 条件達成
+              br.-sp
+              | された方で
+              br
+              span.main__step__secondary-lead__point 100万ポイント
+              br
+              | 山分け！
+            img.main__step__secondary-lead__icon(src='img/img_main_icon_step3.png' + parameter, alt='icon3' width='' height='')
+      .main__step__info
+        p.main__step__info__text ※1. 3,000円(税込)以上のネット予約が対象
+        p.main__step__info__text ※2. 5,000円以上の積立が対象
+        br.-pc
+        p.main__step__info__text ※本キャンペーンは予告なく変更・中止される可能性があります。
+        p.main__step__info__text ※条件の達成順序は順不同です。
+        br.-pc
+        p.main__step__info__text
+          | ※進呈するポイント（期間限定ポイントを含む）には上限や条件があります。キャンペーン詳細は
+          a.main__termsLink(href='#Detail')
+            | こちら
+
+    section#Navigation.navigation(data-ratid='cpn_' + meta.directory + '_Navigation' data-ratevent='appear' data-ratparam='all')
+      ul.global-nav
+        li.global-nav__list
+          a.global-nav__link(href='#Step1')
+            | エントリー
+        li.global-nav__list
+          a.global-nav__link(href='#Step2')
+            | 達成条件
+        li.global-nav__list
+          a.global-nav__link.-nav__position(href='#Beauty')
+            | 楽天ビューティ
+            br.-sp
+            | のメリット
+        li.global-nav__list
+          a.global-nav__link.-nav__position(href='#Securities')
+            | 楽天証券
+            br.-sp
+            | のメリット
+
+    //- Entry Btn
+    #Step1
+    section#EntryBox.entryBox(data-ratid='cpn_' + meta.directory + '_EntryBox' data-ratevent='appear' data-ratparam='all')
+      h2.contentStep--title
+        img(src='img/img_title_step1.png' + parameter, alt='Step1' width='100%' height='')
+
+      //- 終了対応
+      if endflag == true
+        //- ボタンセット(url,txt,endflag)
+        +btnSet('',btnTxt,true)
+      else
+
+        //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+        //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+        // ReX Campaign Entry Button: Mounting points
+        // mounting point for button 1
+        #rex-ceb-01
+        // ReX Campaign Entry Button: Configuration
+        script
+          | var rexButtons = {language: 'ja', buttons: [{"code":"/security2405","theme":"red","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","below":{"isCheckboxMandatory":true,"isChecked":true,"checkboxText":"エントリーしてメルマガを購読する","html":""},"ids":["rex-ceb-01"]}]}
+        // ReX Campaign Entry Button: Script
+        script(src='https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js' defer='')
+
+        //- メルマガパーミッション
+        include ../../../../../_common/pug/Module/Common/_mailPermissionTxt
+        +mailPermissionTxt()
+
+    //- Step2 条件達成
+    #Step2
+    section#ConditionsBox.conditionsBox(data-ratid='cpn_' + meta.directory + '_ConditionsBox' data-ratevent='appear' data-ratparam='all')
+      h2.contentStep--title
+        img(src='img/img_title_step2.png' + parameter, alt='Step2' width='100%' height='')
+      h3.conditionsBox--title
+        a.title-beauty(href='#ConditionsBeauty')
+          | 楽天ビューティ
+        | と
+        a.title-certificate(href='#ConditionsCertificate')
+          | 楽天証券
+        | の
+        br.-sp
+        | 条件をどちらも達成
+
+      //- Step2 楽天ビューティー
+      #ConditionsBeauty
+      article.conditionsBox__section
+        .conditionsBox--title
+          img.conditionsBox__title__icon(src='img/img_beauty_icon_left.png' + parameter, alt='' width='100%' height='')
+          h4.conditionsBox__title__text 楽天ビューティ
+          img.conditionsBox__title__icon(src='img/img_beauty_icon_right.png' + parameter, alt='' width='100%' height='')
+        .conditionsBox__section__wrap
+          p.conditionsBox__section__lead
+            | 6月21日9:59までに
+            br.-sp
+            | 3,000円(税込)以上のサロン予約
+            br.-sp
+            | ＆7月31日23:59までに施術完了
+
+          //-  pc用 リスト
+          ul.conditionsBeauty__menu.-pc
+            li.conditionsBeauty__menu--list
+              .conditionsBeauty__menu--list--icon
+                | 1
+              p.conditionsBeauty__menu--list--lead
+                | ご希望の条件に
+                br
+                | 合うサロンを検索
+              img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list1.png' + parameter, alt='ご希望の条件に合うサロンを検索' width='' height='100%')
+            li.conditionsBeauty__menu--list
+              .conditionsBeauty__menu--list--icon
+                | 2
+              p.conditionsBeauty__menu--list--lead
+                | 日時やメニューを選択
+                br
+                | して予約
+              img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list2.png' + parameter, alt='日時やメニューを選択して予約' width='' height='100%')
+            li.conditionsBeauty__menu--list
+              .conditionsBeauty__menu--list--icon
+                | 3
+              p.conditionsBeauty__menu--list--lead
+                | 施術完了
+              img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list3.png' + parameter, alt='施術完了' width='' height='100%')
+
+          //-  sp用 リスト スライダー
+          .splide.-sp
+            .splide__track
+              ul.splide__list.conditionsBeauty__menu.-sp
+                li.splide__slide.conditionsBeauty__menu--list
+                  .conditionsBeauty__menu--list--icon
+                    | 1
+                  p.conditionsBeauty__menu--list--lead
+                    | ご希望の条件に
+                    br
+                    | 合うサロンを検索
+                  img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list1.png' + parameter, alt='ご希望の条件に合うサロンを検索' width='' height='100%')
+                li.splide__slide.conditionsBeauty__menu--list
+                  .conditionsBeauty__menu--list--icon
+                    | 2
+                  p.conditionsBeauty__menu--list--lead
+                    | 日時やメニューを選択
+                    br
+                    | して予約
+                  img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list2.png' + parameter, alt='日時やメニューを選択して予約' width='' height='100%')
+                li.splide__slide.conditionsBeauty__menu--list
+                  .conditionsBeauty__menu--list--icon
+                    | 3
+                  p.conditionsBeauty__menu--list--lead
+                    | 施術完了
+                  img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list3.png' + parameter, alt='施術完了' width='' height='100%')
+          .conditionsBox__search
+            a.conditionsBox__search--button(href='https://beauty.rakuten.co.jp/?l-id=rb_security_search')
+              | 対象サロンの検索はこちら
+            p.conditionsBox__search--button--info
+              | ※ネット予約できるサロンが対象です。
+
+      //- Step2 楽天証券
+      #ConditionsCertificate
+      article.conditionsBox__section.-certificate
+        .conditionsBox--title
+          img.conditionsBox__title__icon(src='img/img_certificate_icon_left.png' + parameter, alt='' width='100%' height='')
+          h4.conditionsBox__title__text 楽天証券
+          img.conditionsBox__title__icon(src='img/img_certificate_icon_right.png' + parameter, alt='' width='100%' height='')
+        .conditionsBox__section__wrap
+          p.conditionsBox__section__lead
+            | 7月31日23:59までに
+            br.-sp
+            | NISA口座で投信積立
+          p.conditionsBox__section__info
+            | ※ NISA 口座の「つみたて投資枠」「成長投資枠」の
+            br.-sp
+            | 区分は問いません。
+            br
+            | ※楽天ポイントコースの設定方法は
+            a.info__link(href='https://faq.rakuten-sec.co.jp/10002121' target="_blank" rel="noopener noreferrer")
+              | こちら
+
+          //-  pc用 リスト
+          ul.conditionsCertificate__menu.-pc
+            li.conditionsCertificate__menu--list
+              .conditionsCertificate__menu--list--icon
+                | 1
+              p.conditionsCertificate__menu--list--lead
+                | NISA口座で合計5,000円以上の
+                br
+                | 投信積立約定
+              img.conditionsCertificate__menu--list__img(src='img/img_step2_certificate_list1.png' + parameter, alt='NISA口座で合計5,000円以上の投信積立約定' width='' height='100%')
+            li.conditionsCertificate__menu--list
+              .conditionsCertificate__menu--list--icon
+                | 2
+              p.conditionsCertificate__menu--list--lead
+                | 楽天ポイントコースを
+                br
+                | 設定
+              img.conditionsCertificate__menu--list__img(src='img/img_step2_certificate_list2.png' + parameter, alt='楽天ポイントコースを設定' width='' height='100%')
+
+          //-  sp用 リスト スライダー
+          .splide.-sp
+            .splide__track
+              ul.splide__list.conditionsCertificate__menu.-sp
+                li.splide__slide.conditionsCertificate__menu--list
+                  .conditionsCertificate__menu--list--icon
+                    | 1
+                  p.conditionsCertificate__menu--list--lead
+                    | NISA口座で合計5,000円以上の
+                    br
+                    | 投信積立約定
+                  img.conditionsCertificate__menu--list__img(src='img/img_step2_certificate_list1.png' + parameter, alt='NISA口座で合計5,000円以上の投信積立約定' width='' height='100%')
+                li.splide__slide.conditionsCertificate__menu--list
+                  .conditionsCertificate__menu--list--icon
+                    | 2
+                  p.conditionsCertificate__menu--list--lead
+                    | 楽天ポイントコースを
+                    br
+                    | 設定
+                  img.conditionsCertificate__menu--list__img(src='img/img_step2_certificate_list2.png' + parameter, alt='楽天ポイントコースを設定' width='' height='100%')
+          p.conditionsCertificate__menu--info
+            | ※①②の達成順序は順不同です。
+          .conditionsBox__search
+            p.conditionsBox__search--title
+              | 楽天証券がはじめてのお客様
+            a.conditionsBox__search--button.-first-button(href='https://account.rakuten-sec.co.jp/cgi-bin/btracking?bname=beauty&accInputRoute=2&URL=https://www.rakuten-sec.co.jp/web/account/?scid%3Dwi_beauty' target="_blank" rel="noopener noreferrer")
+              | 総合口座とNISA口座をまとめて開設
+            p.conditionsBox__search--title
+              | 総合口座をお持ちのお客様
+            a.conditionsBox__search--button.-secondary-button(href='https://r10.to/hUI0km' target="_blank" rel="noopener noreferrer")
+              | NISA口座を追加で開設
+
+    //- Step3
+    #Step3
+    section#AchievementBox.achievementBox(data-ratid='cpn_' + meta.directory + '_AchievementBox' data-ratevent='appear' data-ratparam='all')
+      h2.contentStep--title
+        img(src='img/img_title_step3.png' + parameter, alt='Step3' width='100%' height='')
+      h3.conditionsBox--title.-achievementBox
+        | 条件達成された方で
+        br.-sp
+        span.title-achievement
+          span.title-achievement-point 100
+          | 万ポイント
+        | 山分け！
+      .achievementBox__point
+        img(src='img/img_step3_coin.png' + parameter, alt='条件達成された方で100万ポイント山分け！' width='100%' height='')
+      .achievementBox--info
+        | ※進呈するポイント(期間限定ポイント含)には上限や条件があります。詳細は
+        a.info__link(href='#Detail')
+          | こちら
+
+    //- 楽天ビューティーのメリット
+    #Beauty
+    section#Beautyintro.beautyintro(data-ratid='cpn_' + meta.directory + '_Beautyintro' data-ratevent='appear' data-ratparam='all')
+      article.conditionsBox__section
+        .conditionsBox--title
+          h4.conditionsBox__title__text 楽天ビューティのメリット
+        .beautyintro__wrap
+          .beautyintro__container
+            .beautyintro__title メリット1
+            .beautyintro__lead__wrap
+              .beautyintro__lead__icon__point
+                img(src='img/img_beauty_value1.png' + parameter, alt='ポイント' width='100%' height='')
+              .beautyintro__lead--lead
+                | お持ちの楽天ポイントで
+                br.-sp
+                | おトクにサロン体験
+                .beautyintro__lead--lead--text.-pc 
+                  | おトクに、キレイに。楽天ビューティ。
+            .beautyintro__lead--lead--text.-sp 
+              | おトクに、キレイに。楽天ビューティ。
+            ul.beautyintro__menu
+              li.beautyintro__menu__list
+                img(src='img/img_beauty_hair.png' + parameter, alt='ヘア' width='100%' height='')
+              li.beautyintro__menu__list
+                img(src='img/img_beauty_nail.png' + parameter, alt='ネイル' width='100%' height='')
+              li.beautyintro__menu__list
+                img(src='img/img_beauty_esthe.png' + parameter, alt='エステ' width='100%' height='')
+              li.beautyintro__menu__list
+                img(src='img/img_beauty_relax.png' + parameter, alt='リラックス' width='100%' height='')
+              li.beautyintro__menu__list
+                img(src='img/img_beauty_eyelash.png' + parameter, alt='まつげ' width='100%' height='')
+            .beautyintro__menu--info
+              | ヘア・ネイル・まつげ・エステ・リラク・
+              br.-sp
+              | マッサージサロンの検索・予約が可能！
+          .beautyintro__container
+            .beautyintro__title メリット2
+            .beautyintro__lead__wrap
+              .beautyintro__lead__icon__deal
+                img(src='img/img_beauty_value2.png' + parameter, alt='ポイント' width='100%' height='')
+              .beautyintro__lead--lead
+                | ポイント高還元
+                br.-sp
+                | メニューも豊富！
+                .beautyintro__lead--lead--text.-pc 
+                  | スーパーDEALメニューでさらにおトクにサロンを予約！
+            .beautyintro__lead--lead--text.-sp 
+              | スーパーDEALメニューでさらに
+              br.-sp
+              | おトクにサロンを予約！
+            .beautyintro__menu__img
+              img.-pc(src='img/img_beauty_deal_pc.png' + parameter, alt='スーパーDEAL メニュー' width='100%' height='')
+              img.-sp(src='img/img_beauty_deal_sp.png' + parameter, alt='スーパーDEAL メニュー' width='100%' height='')
+            .beautyintro__menu__button__wrap
+              a.beautyintro__menu__button(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/superdeal/?l-id=rb_security_deal')
+                | スーパーDEALメニューをみる
+          .beautyintro__container
+            .beautyintro__title メリット3
+            .beautyintro__lead__wrap
+              .beautyintro__lead__icon__appicon
+                img(src='img/img_beauty_value3.png' + parameter, alt='' width='100%' height='')
+              .beautyintro__lead--lead
+                | アプリから予約で
+                br.-sp
+                | 次回もポイントアップ
+            .beautyintro__lead--lead--info
+              | ※本キャンペーンとは併用不可となりますのでご注意ください。
+              br
+              | ※下記のキャンペーンはエントリーが必要です。
+              br
+              | ※詳細はキャンペーンページをご確認ください。
+            .beautyintro__menu__app__wrap
+              a.beautyintro__menu__app__banner(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/app2x/?l-id=rb_security_app2x')
+                img(src='../../../../common/banner/campaign/bnr_common_640x160.png' + parameter, alt='アプリから予約でポイント最大3倍' width='100%' height='')
+            .beautyintro__menu__app__link__wrap.-excludeApp
+              ul.beautyintro__menu__app__article.-pc
+                li.beautyintro__menu__app__img
+                  img(src='img/img_app2x_info.png' + parameter, width='100%' height='')
+                li.beautyintro__menu__app__qr
+                  p.beautyintro__menu__app__qr--text
+                    | ダウンロードはこちら
+                  img.beautyintro__menu__app__qr__img(src='img/img_app2x_qr.png' + parameter, alt='qrコード' width='100%' height='')
+              a.beautyintro__menu__app__button.-excludeApp.-sp.-iphone(href='https://app.adjust.com/1a5i18tu' target="_blank" rel="noopener noreferrer")
+                img(src='img/img_appstore_button.png' + parameter, alt='App Storeからダウンロード' width='100%' height='')
+              a.beautyintro__menu__app__button.-excludeApp.-sp.-android(href='https://app.adjust.com/1a5i18tu' target="_blank" rel="noopener noreferrer")
+                img(src='img/img_googleplay_button.png' + parameter, alt='Google Playからダウンロード' width='100%' height='')
+
+    //- 楽天証券のメリット
+    #Securities
+    section#Securitiesintro.securitiesintro(data-ratid='cpn_' + meta.directory + '_Securitiesintro' data-ratevent='appear' data-ratparam='all')
+      article.conditionsBox__section.-certificate
+        .conditionsBox--title
+          h4.conditionsBox__title__text 楽天証券のメリット
+        .securitiesintro__wrap
+          .securitiesintro__container
+            .securitiesintro__container--title.-sp
+              img.-sp(src='img/img_container_title.png' + parameter, alt='みんなが選ぶ！楽天証券' width='100%' height='')
+            img.-pc(src='img/img_securities_info1_pc.png' + parameter, alt='みんなが選ぶ！楽天証券 楽天証券は第1位*1 新規口座開設数過去5年累計第1位*2 投資未経験者の方もゾクゾクと始めています！ 投資未経験の方の割合78%*3 充実したサポートで初心者の方にも安心してご利用いただいています' width='840px' height='')
+            img.-sp(src='img/img_securities_info1_sp.png' + parameter, alt='楽天証券は第1位*1 新規口座開設数過去5年累計第1位*2 投資未経験者の方もゾクゾクと始めています！ 投資未経験の方の割合78%*3 充実したサポートで初心者の方にも安心してご利用いただいています' width='100%' height='')
+            p.securitiesintro__container--info
+              | ※1. 日本証券業協会「NISA及びジュニアNISA口座開設・利用状況調査結果（全証券会社）」および各社公表資料より算出（2023年9月末時点）
+              br
+              | ※2. 口座数上位5社(auカブコム証券、SBI証券、松井証券、マネックス証券、楽天証券（かな順））で2018年から2022年の5年間で開設された新規口座の合計数で比較。2023年3月30日現在、楽天証券調べ
+              br
+              | ※3. 楽天証券での口座開設時（2023年1月～6月）のアンケートより
+          .securitiesintro__container
+            img.-pc(src='img/img_securities_info2_pc.png' + parameter, alt='例) 資産運用で２０万円の利益が出た場合' width='760px' height='')
+            img.-sp(src='img/img_securities_info2_sp.png' + parameter, alt='例) 資産運用で２０万円の利益が出た場合' width='100%' height='')
+          .conditionsBox__search
+            p.conditionsBox__search--title
+              | 楽天証券がはじめてのお客様
+            a.conditionsBox__search--button.-first-button(href='https://account.rakuten-sec.co.jp/cgi-bin/btracking?bname=beauty&accInputRoute=2&URL=https://www.rakuten-sec.co.jp/web/account/?scid%3Dwi_beauty' target="_blank" rel="noopener noreferrer")
+              | 総合口座とNISA口座をまとめて開設
+            p.conditionsBox__search--title
+              | 総合口座をお持ちのお客様
+            a.conditionsBox__search--button.-secondary-button(href='https://r10.to/hUI0km' target="_blank" rel="noopener noreferrer")
+              | NISA口座を追加で開設
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle 【MAQUIA】限定ラ・クーポン
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead エントリー・キャンペーン期間
+              td.detail__tableBlockBody 2024年5月20日(月) 10:00 ～ 2024年6月21日(金) 9:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 条件達成期間
+              td.detail__tableBlockBody 2024年5月20日(月) 10:00 ～ 2024年7月31日(水) 23:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                p.detail__tableBlockTxt 条件達成順序は順不同です。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li エントリーをされた方
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li エントリーには楽天会員登録が必要です。楽天会員でない方は、エントリーと同時に楽天会員登録(無料)ができます。
+                  li.detail__tableBlockList--li エントリー履歴は
+                    a.detail__tableBlockTxt--link(href="https://oubo.rakuten.co.jp/list?spk=f1636b" target="_blank" rel="noopener noreferrer")
+                      | こちら
+                    | から確認できます。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 下記の楽天ビューティと楽天証券の条件をどちらも達成された方
+                p.detail__tableBlockTxt.detail__headline 楽天ビューティ条件
+                ul.detail__tableBlockList--disc.detail__indent
+                  li.detail__tableBlockList--li キャンペーン期間中に楽天ビューティで3,000円以上(税込)ネット予約
+                  li.detail__tableBlockList--li 条件達成期間中に施術完了
+                ul.detail__tableBlockList.detail__indent
+                  li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、
+                    span.detail__tableBlockTxt--red クーポン割引後
+                    | の価格が3,000 円(税込)以上の場合に対象となります。
+                  li.detail__tableBlockList--li 電話予約や直接来店での施術は対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約や直接来店で施術完了された場合は、ポイント進呈の対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の来店期間内で施術完了された場合は、ポイント進呈の対象となります。
+                  li.detail__tableBlockList--li 期間内の予約・施術完了であればエントリーと予約・施術完了どちらが先でも対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt.detail__headline 楽天証券条件
+                ul.detail__tableBlockList--disc.detail__indent
+                  li.detail__tableBlockList--li 条件達成期間中に NISA 口座で合計 5,000 円以上の投信積立約定
+                  li.detail__tableBlockList--li 楽天ポイントコースを設定
+                ul.detail__tableBlockList.detail__indent
+                  li.detail__tableBlockList--li NISA口座の「つみたて投資枠」「成長投資枠」の区分は問いません。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 対象条件を満たした方で、楽天ポイント100万ポイントを山分けして進呈いたします。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 100万ポイントを条件達成された方の人数で割り、小数点以下を切り捨てたポイント数を進呈いたします。
+                  li.detail__tableBlockList--li 条件を満たした方が100万名より多い場合は、お一人様あたり1ポイントを進呈いたします。
+                  li.detail__tableBlockList--li 条件を満たした方へのポイントは、500ポイントを上限といたします。そのため、ご参加いただいた人数によっては、100万ポイントの山分けにならない場合がございます。
+                  li.detail__tableBlockList--li 楽天ビューティのその他のキャンペーンとの併用はできません。キャンペーン期間中にその他のキャンペーンの条件を達成された場合、本キャンペーンのポイント進呈の対象外となります。
+                    br
+                    a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/')
+                      | 楽天ビューティのキャンペーン一覧はこちら
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント進呈予定日
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 2024年8月末頃
+                p.detail__tableBlockTxt 獲得した特典ポイントは、
+                  a.detail__tableBlockTxt--link(href='https://point.rakuten.co.jp/history/' target="_blank" rel="noopener noreferrer")
+                    | 楽天PointClubのポイント実績
+                  | でご確認いただけます。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li ポイント進呈日から6ヶ月間有効な期間限定ポイントとして進呈されます。
+                  li.detail__tableBlockList--li 期間限定ポイントの詳細は
+                    a.detail__tableBlockTxt--link(href='https://ichiba.faq.rakuten.net/detail/000006532?scid=su_2312' target="_blank" rel="noopener noreferrer")
+                      | こちら
+                    | をご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt ■ 楽天ビューティ条件についてのご注意事項
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 楽天ビューティにて一部ネット予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ■ 楽天証券条件についてのご注意事項
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 未成年口座、IFA 口座、法人口座は対象外です。
+                  li.detail__tableBlockList--li 特典付与作業中に証券総合取引口座を解約・NISA口座を閉鎖または他社のNISA口座へ金融機関変更をされている方は対象外です。
+                  li.detail__tableBlockList--li 楽天証券ラップサービス、IFAラップサービスによる投資信託の買付は対象外となります。
+                  li.detail__tableBlockList--li 個人型確定拠出年金（iDeCo）による投資信託の買付は対象外となります。
+                  li.detail__tableBlockList--li 外貨建てMMF、ETF、上場REITは対象外となります。
+                  li.detail__tableBlockList--li 本キャンペーンにエントリーする際の楽天IDと楽天証券のポイントコースに紐付けられている楽天IDが異なる場合、ポイント進呈対象外となります。
+                  li.detail__tableBlockList--li 特典進呈作業時点で証券ポイントコースに設定を変更されたお客様は対象外となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ■ その他
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 楽天ビューティにて一部ネット予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/' target="_blank" rel="noopener noreferrer")
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 楽天ビューティの掲載店舗、あるいは弊社及び楽天証券株式会社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li キャンペーンのエントリー及び条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li 「QR コード」は、株式会社デンソーウェーブの登録商標です。
+                  li.detail__tableBlockList--li その他ご不明な点は下記よりお問い合わせください。
+                    br
+                    a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/' target="_blank" rel="noopener noreferrer")
+                      | 本キャンペーン及び楽天ビューティについて
+                    br
+                    a.detail__tableBlockTxt--link(href='https://www.rakuten-sec.co.jp/web/support/' target="_blank" rel="noopener noreferrer")
+                      | 楽天証券での取引に関するお問い合わせについて
+                    br
+                    ul.detail__tableBlockList
+                      li.detail__tableBlockList--li 本企画に関して楽天証券にお問い合わせの際は、「2405mk0301」のキャンペーンコードをお伝えください。
+
+
+
+
+
+
+    //- Other Campaign
+    section#Campaign.campaign(data-ratid='cpn_' + meta.directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title その他のキャンペーン
+
+      include ../../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  //- script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  //- script(src="/cnt/common/js/area-search/build.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  //- script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+  //- splide
+  script(src="js/splide.min.js", defer)
+  script.
+    document.addEventListener( 'DOMContentLoaded', function() {
+      var elms = document.getElementsByClassName( 'splide' );
+      for ( var i = 0; i < elms.length; i++ ) {
+        new Splide( elms[ i ] ).mount();
+      }
+    } );

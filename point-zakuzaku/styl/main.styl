@@ -1,0 +1,180 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+@import '_modules'
+
+//------------------------------
+
+#Zakuzaku　// #Zakuzakuはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // main
+  .main
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto 8px
+      &Img
+        width:100%
+    // navigation
+    .mainNav
+      +sp()
+        margin: 0 16px 16px
+      .zakusaku__title3
+        //
+      // btn set (bgColor,txtColor)
+      btnSet(redColor, #fff)
+    // terms
+    .main__terms
+    .main__termsBg
+      text-align: center
+      margin: 0 auto
+      box-sizing: border-box
+      +pc()
+        padding: 8px 10px
+      +sp()
+        padding: 16px
+      .main__termsBox
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.4rem
+          &.-small
+            color:grayTxtColor
+            font-size: 1.4rem
+        .main__termsLink
+          color: darkBlueColor
+          font-weight: bold
+          &:hover
+            color: secondColor
+    .main__terms
+      +pc()
+        margin-bottom:8px
+      +sp()
+        padding-top: 0
+    .main__termsBg
+      background: grayBgColor
+
+  // contents
+  .contents
+    background: orangeColor
+    +pc()
+      padding: 48px 0 80px
+      margin-bottom: 60px
+    +sp()
+      padding: 24px 16px
+      margin-bottom: 40px
+    .zakusaku__title2
+      // override
+      color: whiteColor
+    .zakusaku__txt
+      // override
+      color: whiteColor
+      text-align: center
+      //
+      +pc()
+        padding-bottom: 24px
+      +sp()
+        padding-bottom: 16px
+    .contents__Box
+      background: whiteColor
+      margin: 0 auto
+      +pc()
+        width: 1000px
+      &:first-of-type
+        +pc()
+          margin-bottom: 24px
+        +sp()
+          margin-bottom: 16px
+      .contents__BoxTop
+        background: orangeColor
+        .zakusaku__img
+          //
+      .contents__BoxTitle
+        +pc()
+          background: url('../img/bg_waku_middle.png') center / contain
+        +sp()
+          background: url('../img/bg_waku_middle_sp.png') center / contain
+        .zakusaku__title2
+          // override
+          color: grayTxtColor
+          margin-bottom: 0
+          +pc()
+            padding: 32px 0
+          +sp()
+            padding: 16px
+      .contents__BoxNav
+        // btn set (bgColor,txtColor)
+        btnSet(redColor, #fff)
+        //
+        position: relative
+        +pc()
+          padding-bottom: 40px
+          background: url('../img/bg_waku_middle.png') center / contain
+        +sp()
+          padding: 0 16px 40px
+          background: url('../img/bg_waku_middle_sp.png') center / contain
+          // override (btn set)
+          .btnSet__link
+            margin: 0
+        &::after
+          content:''
+          position: absolute
+          +pc()
+            arrowFill(bottom,20px,pinkColor)
+            top:100px + 32px
+            right:calc((100% - 20px * 2) / 2)
+          +sp()
+            arrowFill(bottom,12px,pinkColor)
+            top:calc(2.8vw + 70%)
+            // top: 67px + 18px
+            right:calc((100% - 12px * 2) / 2)
+      .contents__BoxBottom
+        .zakusaku__img
+          //
+      .contents__BoxBanner
+        +pc()
+          padding: 40px 0 24px
+          background: url('../img/bg_waku_middle.png') center / contain
+        +sp()
+          padding: 16px
+          background: url('../img/bg_waku_middle_sp.png') center / contain
+        .contents__BoxLink
+          display: block
+          margin: 0 auto
+          +pc()
+            width: 640px
+          +sp()
+            max-width: 640px
+          &:hover
+            opacity: .8
+          .zakusaku__img
+            //
+      .contents__BoxTxts
+        +pc()
+          padding-bottom: 24px
+          background: url('../img/bg_waku_middle.png') center / contain
+        +sp()
+          padding: 0 16px 8px
+          background: url('../img/bg_waku_middle_sp.png') center / contain
+        .zakusaku__txt
+          // override
+          color: grayTxtColor
+          padding-bottom: 0
+
+  // Campaign Deatail
+  .detail
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)

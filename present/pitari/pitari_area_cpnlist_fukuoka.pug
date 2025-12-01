@@ -1,0 +1,12 @@
+#CampaignFukuoka
+  .titleWrap
+    h2.titleWrap--title 福岡市対象のお得なキャンペーン
+  .cpnList
+    //- Campaign List AreaAll (PITARI用)
+    //- 自己バナー非表示をなくしたPITARI特化ver
+    //- jsonが空orエラーの時非表示にしたい親要素に#Campaign[Areaname]をつけておく
+    include ../../../../../_common/pug/Module/Common/_campaignList
+    +campaignListAreaAllPitari('Fukuoka','福岡')
+
+script.
+  readJsonFukuoka();

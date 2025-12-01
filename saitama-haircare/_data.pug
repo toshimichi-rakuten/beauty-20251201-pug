@@ -1,0 +1,174 @@
+//- テンプレートは最新のものをフォルダごと複製して使用してください
+//- 外注用テンプレートにも反映：https://rak.app.box.com/folder/94629540317?s=wt6ydhlrtv2zc1bhbfpqc9x80dsztsmx
+//- ver 2.9.0 / 更新日時：2023.7.4 / パーツ追加（ラ・クーポンの使い方）etc
+
+-
+  //- 不要な項目は、特に記載がなければ削除せず入力欄を空欄''にしてください
+  //- jsonの書き方Sample: https://rak.box.com/s/2l6ls1e7nmy3q7m1iu91flh6xefwd8tb
+  //- 起案者用csvSample: https://rak.box.com/s/w0kjri0mic2mcgkmdg6yyg5y9xqmvpy3
+
+  //- meta
+  var parameter = '?v20241203'//- 更新日（キャッシュクリア用のパラメータとして使用）
+  var meta = {
+    directory: 'saitama-haircare', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+    title: '【さいたま市対象】初秋のヘアケアメニュークーポン',
+    description: '楽天ビューティに掲載されている、さいたま市の一部対象ヘアサロンのネット予約で利用可能な割引クーポンです。過去に楽天ビューティで対象サロンにネット予約をしたことがない方のみご利用可能です', //- Dezieの「クーポン説明」
+    url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/saitama-haircare/',
+    og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/saitama-haircare/img/share.png' + parameter,//- default (シェア画像があれば変更)
+  }
+
+  //- Campaign Tag
+  //- 下記コンフルを参照して記入
+  //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+  //- ''ごと増やすとタグが増えます
+  var taglist = {
+    tag: [
+      'ラ・クーポン', //- エントリー不要は自動的に青色になります
+      //- '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+      '対象サロンの初回利用限定',
+    ],
+  }
+
+  //- クーポンの種類（獲得 or 事前付与）
+  var couponkind = {
+    //- 獲得(get) or 事前付与(add)
+    type: 'get',
+    //- アプリ予約のみ対象(true) or 全デバイス対象(false)
+    app: false,
+  }
+
+  //- 毎月開催
+  var always = {
+    //- 毎月開催(true) or 単発(false) ※次回まで一ヶ月以上空いていれば単発
+    hold: false,
+    //- 毎月開催時のクーポン金額
+    //- 毎月変わらない(true) or 変わる(false)
+    price: false,
+  }
+
+  //- 事前付与(add)用設定
+  var add = {
+    //- ボタンテキスト（例：マイクーポンをみる）
+    btn_txt: 'マイクーポンをみる',
+    //- ボタンリンク（例：/user/coupon.php）
+    btn_url: '/user/coupon.php',
+    coupon : {
+      //- クーポン使用期間
+      //- 予約期限（例：2023年11月31日 23:59）
+      reserve_end: '20yy年mm月dd日 23:59',
+      //- 施術期限（例：2023年12月5日 23:59）
+      visit_end: '20yy年mm月dd日 23:59',
+      //- 対象条件:
+      //- 例：初回利用者様のみ／先着利用100回／対象サロンのネット予約／ネット予約時の施術料金が3,000円(税込)以上
+      term: '初回利用者様のみ／先着利用000回／対象サロンのネット予約／ネット予約時の施術料金が0,000円(税込)以上',
+    },
+  }
+
+  //- 獲得(get)用設定
+  //- クーポンを増やしたい時は{}内丸ごと増やすと、{}の数だけ自動で増えます
+  //- クーポンの幅は main.styl の couponWidth を変更すると変わります
+  var coupon = [
+    {
+      //- 新規(new) or 全員(all) or サロン新規(salon)
+      flag: 'salon',
+      //- タイトル・何に使えるクーポンかを記載（例：12月の仙台市ヘアサロン予約 or 12月1日からのネット予約 etc.）
+      title: '9月のさいたま市ヘアサロン予約',
+      //- 対象（例：初回利用者様のみ or 全員対象 or 対象サロン初回利用者様のみ）
+      tag: '対象サロン初回利用者様のみ',
+      //- クーポン金額（例：1,000）
+      price: '1,500',
+      //- 最低利用金額（例：3,000円(税込)）
+      minimum_price: '4,000円(税込)',
+      //- 利用上限枚数（例：2,000）
+      num: '150',
+      //- 獲得のラ・クーポンURL
+      url: 'https://coupon.rakuten.co.jp/getCoupon?getkey=TzA5Ry04VU8zLU1SU1EtRVpGTg--',
+      //- 画像（不要な時は空欄''）
+      img: '/cnt/common/images/area/saitama_logo.svg',
+      alt: 'さいたまプロジェクト',
+
+      //- 条件
+      //- クーポン対象（例：[都市名]のヘアサロン限定 or 対象メニュー限定 or 対象サロン限定 etc.）
+      terms_title: 'さいたま市のヘアサロン限定',
+      //- ''ごと増やすと行が増えます（基本変更なし）
+      terms_txt: [
+        'ネット予約のみ',
+        '併用不可',
+      ],
+      //- クーポン使用期間
+      date :{
+        //- 予約期限（例：2023年11月31日 23:59）
+        reserve_end: '2023年9月30日 23:59',
+        //- 施術期限（例：2023年12月5日 23:59）
+        visit_end: '2023年10月5日 23:59',
+      },
+
+      //- Coupon Statusごとのテキスト（基本変更なし）
+      //- 獲得前（例：ラ・クーポンを獲得する）
+      default: 'ラ・クーポンを獲得する',
+      //- 獲得時（例：ラ・クーポン獲得済み）
+      acquired: 'ラ・クーポン獲得済み',
+      //- 獲得済み or ラ・クーポンを使う or 対象サロンを見る（shoplistUrl必須）
+      having: 'ラ・クーポンを使う',
+      //- 期限切れ（例：利用期間が終了しました）
+      expired: '利用期間が終了しました',
+      //- 枚数終了（例：ご好評につき終了しました）
+      finished: 'ご好評につき終了しました',
+
+      //- 対象サロン遷移ボタンあり(true) or なし(false)
+      btnFlag: true,
+      btn: [
+        //- {}ごと増やすとボタンが増えます
+        {
+          //- 対象サロンリンク（例：/addr04101/?l-id=rb_sendaiLP-1click_addr04101）
+          //- ボタンがfalseの時でも必須。同じurlが獲得後クーポンのリンク先にもなります
+          shoplistUrl: '#Shoplist',
+          //- 対象サロンボタン（例：対象サロンはこちら）
+          shoplistTxt: '対象ヘアサロンはこちら',
+        },
+        //- {
+        //-   //- 対象サロンボタン（例：安芸郡府中町の対象ヘアサロンを見る）
+        //-   shoplistTxt: '安芸郡府中町の対象ヘアサロンを見る',
+        //-   //- 対象サロンリンク（例：/addr34302/?l-id=rb_hiroshimaLP-1click_addr34302）
+        //-   shoplistUrl: '/addr34302/?l-id=rb_hiroshimaLP-1click_addr34302',
+        //- },
+      ]
+    },
+  ]
+
+  //- shop list
+  var shoplist = {
+    //- 検索UI 1カラム(1column) or 2カラム(2column) or 1カラムボタン(btn)
+    select: '2column',
+    //- メニュークーポン表示ON(true) or OFF(false)
+    menu: true,
+    //- 2カラム時 & 最初から絞り込みが必要な場合下記も変更
+    //- 1カラム目のデフォルト文言
+    //- 例：すべての都道府県
+    firstTxt1: 'すべてのエリア',
+    //- 初期絞り込み設定（デフォルトは空欄）
+    //- 例：東京都（jsonのselect1から1つ選ぶ）
+    firstSelect1: '',
+    //- 2カラム目のデフォルト文言
+    //- 例：すべてのエリア
+    firstTxt2: 'すべてのカテゴリー',
+    //- 初期絞り込み設定（デフォルトは空欄）
+    //- 例：新宿（jsonのselect2から1つ選ぶ）
+    firstSelect2: '',
+
+    title: [
+      '【さいたま市対象】',
+      '対象店舗＆メニューはこちら！',
+    ],
+    //- 例：l-id=rb_app2x_SPU
+    lid: 'l-id=rb_saitama-haircare_shopdetail',
+  }
+
+  //- もっと探すボタン
+  var morebtn = {
+    //- 出し分け(true/false)
+    visible: true,
+    url: '/addr11101/?l-id=rb_saitama-haircare_addr01101',
+    title: 'さいたま市のサロンを探す',
+    subtxt: '※本企画のラ・クーポン対象外',
+  }

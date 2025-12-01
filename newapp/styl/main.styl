@@ -1,0 +1,794 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+whiteColor = #ffffff
+blueColor = #0087E5
+pinkColor = #FF41BE
+
+pcWidth = 1216px
+
+//------------------------------
+
+#Pagename　// #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // 汎用テキストリンク
+  .textLink
+    color: secondColor
+    text-decoration: underline
+    &:hover
+      text-decoration: none
+
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+      border-left: 4px solid blueColor
+    +sp()
+      margin-bottom: 24px
+    .titleWrap--title
+      +sp()
+        border-left: 6px solid blueColor
+    
+      
+  // content
+  .article__wrap
+    +pc()
+      width: 950px
+      margin: 40px auto 0
+    +sp()
+      width: calc(100% - 32px)
+      margin: 24px auto 0
+    .article--title
+      text-align: center
+      font-weight: bold
+      +pc()
+        font-size: 2rem
+        line-height: 1.4
+      +sp()
+        font-size: 1.4rem
+        line-height: 1.5
+      img
+        padding-bottom:32px
+
+  // main
+  .main
+    margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +pc()
+        position: relative
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+      .main__title__link
+        +pc()
+          display: block
+          position: absolute
+          top: 154px
+          left: 322px
+          width: 66px
+          height: 66px
+      .main__title__btn__wrap
+        +sp()
+          padding: 16px
+          background: blueColor
+          box-sizing: border-box
+        .main__title__btn
+          .main__title__btnImg
+            &.-iphone
+              +sp()
+                width: 169px
+            &.-android
+              +sp()
+                width: 210px
+    .main__terms
+      text-align: center
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          font-weight: bold
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+    .main__terms_img
+      max-width: 100%
+      height: auto
+      text-align: center
+      +sp()
+        background: grayBgColor
+      img
+        +pc()
+          margin: 40px auto
+        +sp()
+          padding: 24px 8px
+          max-width: calc(100% - 16px)
+          height: auto
+    .main__terms_small
+      display: block
+      margin: 0 auto
+      text-align: left
+      width: fit-content
+      .terms_red 
+        color: redColor
+      +pc()
+        font-size: 1.4rem
+        line-height: 1.2
+        max-width: 960px       
+      +sp()
+        padding:16px
+        font-size: 1.2rem
+        line-height: 1.3
+      .main__termsLink
+        color: secondColor
+        text-decoration: underline
+        &:hover
+          text-decoration: none
+
+  // entry btn
+  .entryBox
+    +pc()
+      margin: 60px auto
+    .article__wrap
+      +sp()
+        margin: 0 16px 40px
+
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    // ボタンエントリー(bgColor,txtColor)
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+    .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem
+      background-color: pinkColor
+      border-color: pinkColor
+      &:hover
+        opacity: .8
+    .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem.disabled
+      background-color: #dfdfdf
+      border-color: #dfdfdf
+    ..CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem.disabled.CampaignEntryButton_loading__lYu0i
+      background-color: pinkColor
+      border-color: pinkColor
+    .CampaignEntryButton_success__GLKNB
+      background: #ebf7ec !important
+      border-color: #ebf7ec !important
+      color: #047205
+    .Permission_checkbox__2N5q8:checked+.Permission_icon__uXZyD.Permission_red__wstq2
+      background-color: pinkColor
+      border-color: pinkColor
+
+
+  // アプリをダウンロード
+  .downloadapp
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .downloadapp__container
+      display: flex
+      justify-content: center
+      border-radius: 16px
+      box-sizing: border-box
+      +pc()
+        margin-top: 40px
+        background: grayBgColor
+      +sp()
+        flex-direction: column
+        margin-top: 24px
+      .downloadapp__app-device
+        +pc()
+          margin-right: 60px
+          padding: 32px 0 24px
+          text-align: right
+        +sp()
+          width: 194px
+          margin: auto
+        .downloadapp__app-device--img
+          +pc()
+            width: 280px
+      .downloadapp__app-link
+        +pc()
+          width: 250px
+        +sp()
+          margin: 16px auto 0
+        .downloadapp__app-link--title
+          +pc()
+            display: inline-block
+            position: relative
+            margin: 44px 0 0 24px
+            font-size: 2rem
+            color: blueColor
+            font-weight: bold
+            line-height: 1.4
+            &::before
+              content: "|"
+              position: absolute
+              top: 0
+              left: -1.75rem
+              font-weight: normal
+              transform: rotate(-45deg)
+            &::after
+              content: "|"
+              position: absolute
+              top: 0
+              right: -1.75rem
+              font-weight: normal
+              transform: rotate(45deg)
+        .downloadapp__app-link--button
+          +pc()
+            width: 188px
+            margin: 16px auto 0
+          +sp()
+            text-align: center
+          img
+            &.-desktop
+              width: 180px
+              margin: auto
+            &.-iphone
+              width: 164px
+              margin: auto
+            &.-android
+              width: 203px
+              margin: auto
+        .downloadapp__app-link--serch
+          +pc()
+            margin-top: 16px
+
+
+  // アプリからサロン予約
+  .reservationapp
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .article__wrap
+      &.-app
+        width: auto
+        margin: 24px auto 0
+      // Search Area
+      .searchArea
+        +sp()
+          margin: 24px auto 0
+
+        //- Search Area Component / ()内に色を入れる
+        @import passStr + '_common/stylus/Module/Common/_searchArea'
+        searchArea(pinkColor)
+      .reservationapp__menu__wrap
+        +sp()
+          overflow: hidden
+        .reservationapp__menu
+          display: flex
+          +pc()
+            width: 950px
+            margin: 40px auto 0
+          +sp()
+            width: 280px
+          .reservationapp__list
+            position: relative
+            width: 280px
+            background: grayBgColor
+            box-sizing: border-box
+            text-align: center
+            +pc()
+              position: relative
+              margin-right: 55px
+              padding: 16px 16px 0
+              border-radius: 16px
+              &:nth-of-type(-n+2)::after
+                +pc()
+                  position: absolute
+                  top: 50%
+                  right: -36px
+                  width: 0
+                  height: 0
+                  border-top: 13px solid transparent
+                  border-left: 13px solid grayTagColor
+                  border-bottom: 13px solid transparent
+                  transform: translateY(-50%)
+                  content: ''
+              &:last-of-type
+                +pc()
+                  margin-right: 0
+                +sp()
+                  margin-right: 0
+            +sp()
+              margin-right: 32px
+              padding: 16px 16px 0
+              border-radius: 14px
+            .conditionsBeauty__menu--list__img
+              height: 160px
+            .reservationapp__list--title
+              display: flex
+              align-items: center
+              justify-content: center
+              +pc()
+                font-size: 1.6rem
+                line-height: 1
+              +sp()
+                font-size: 1.4rem
+                line-height: 1.5
+              .reservationapp__list--title-icon
+                display: flex
+                align-items: center
+                justify-content: center
+                margin-right: 8px
+                background: #495273
+                border-radius: 16px
+                box-sizing: border-box
+                color: whiteColor
+                font-weight: bold
+                line-height: 1
+                +pc()
+                  width: 27px
+                  height: 27px
+                  font-size: 1.4rem
+                +sp()
+                  width: 18px
+                  height: 18px
+                  font-size: 1rem
+            .reservationapp__list__caption
+              +pc()
+                width: 152px
+                margin: 24px auto 0
+              +sp()
+                width: 126px
+                margin: 26px auto 0
+            .reservationapp__list__caption-min
+              +pc()
+                width: 152px
+                margin: 19px auto 0
+              +sp()
+                width: 126px
+                margin: 5px auto 0
+        .reservationapp--info
+          text-align: center
+          +pc()
+            padding-top: 40px
+            font-size: 1.2rem
+            line-height: 1.5
+          +sp()
+            padding-top: 24px
+            font-size: 1rem
+            line-height: 1.8
+
+        //- SP用 splide スライダー
+        .splide
+          +sp()
+            width: 280px
+            margin: 24px auto
+        .splide__track
+          +sp()
+            overflow: hidden
+        .splide__arrow.splide__arrow--next:disabled
+          display: none !important
+        .splide__pagination
+          display: none
+          bottom: -26px
+        .splide__arrow:disabled
+          display: none !important
+        // .splide__arrow--prev 
+        //   display: none !important;
+        .splide__pagination__page
+          width: 6px
+          height: 6px
+          background #ccc
+        .splide__pagination__page.is-active
+          width: 6px
+          height: 6px
+          background grayTagColor
+          transform: scale(1)
+        .splide__arrow
+          display: block
+          position: absolute !important
+          top: 50% !important
+          width: 0 !important
+          height: 0 !important
+          background: transparent !important
+          border-radius: 0 !important
+          transform: translateY(-50%) !important
+          content: '' !important
+          &.splide__arrow--next
+            right: -25px !important
+            border-top: 15px solid transparent !important
+            border-left: 15px solid grayTagColor !important
+            border-bottom: 15px solid transparent !important
+          &.splide__arrow--prev
+            left: -25px !important
+            border-top: 15px solid transparent !important
+            border-right: 15px solid grayTagColor !important
+            border-bottom: 15px solid transparent !important
+          svg
+            display: none
+
+  //- 施術完了
+  .resultapp
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .resultapp__wrap
+      text-align: center 
+      +pc()
+        width: 1013px
+        margin: 40px auto 0
+      +sp()
+        margin: 24px auto 0
+        width: calc(100% - 32px)
+      .resultapp__img
+        margin: auto
+        +pc()
+          width: 950px
+          margin-bottom: 40px
+        +sp()
+          max-width: 345px
+          margin-bottom: 20px
+      .resultapp--info
+        display: inline-block
+        &--text
+          +pc()
+            font-size: 1.2rem
+            line-height: 1.8
+          +sp()
+            font-size: 1rem
+            line-height: 1.8           
+        .flow__link
+          color: secondColor
+          &:hover
+            opacity: .8
+
+
+  // - aboutRB
+  .aboutRB
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .aboutRB__box
+      box-sizing: border-box
+      border: 3px solid #f7f7f7 
+      text-align: center
+      position: relative
+      +pc()
+        width: 950px
+        margin: 40px auto 0
+        border-radius: 14px
+      +sp()
+        width: calc(100% - 32px)
+        margin: 24px auto 0
+        border-radius: 8px
+      .aboutRB__meritHeader
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        padding: 12px 16px
+        background-color: #f7f7f7
+        color: #333
+        font-size: 1.8rem
+        font-weight: bold
+        padding: 8px 16px
+        text-align: center
+        box-sizing: border-box
+        border-top-left-radius: 14px 
+        border-top-right-radius: 14px
+        +sp()
+          font-size: 1.4rem
+          padding: 6px 12px
+          border-top-left-radius: 8px 
+          border-top-right-radius: 8px
+      .aboutRB__contents
+        box-sizing: border-box
+        +pc()
+          padding: 60px 0 40px
+        +sp()
+          padding: 24px 16px
+          margin-top: 44px //追加 
+        .aboutRB__subtitles
+          display: flex
+          justify-content: center
+          align-items: center
+          +pc()
+            margin-bottom: 32px
+          +sp()
+            margin-bottom: 24px
+          .aboutRB__subtitleIcon
+            +pc()
+              width: auto
+              margin-right: 24px
+            +sp()
+              width: auto
+              margin-right: 16px
+          .aboutRB__subtitleTxts
+            .aboutRB__subtitle
+              font-weight: bold
+              text-align: center
+              line-height: 1.4
+              +pc()
+                margin-bottom: 8px
+                font-size: 2.4rem
+              +sp()
+                font-size: 1.8rem
+            .aboutRB__caption
+              text-align: center
+              line-height: 1.4
+              +pc()
+                font-size: 1.8rem
+              +sp()
+                font-size: 1.4rem
+        .aboutRB__attention
+          text-align: center
+          line-height: 1.4
+          +pc()
+            font-size: 1.4rem
+          +sp()
+            font-size: 1.2rem
+          &_app
+            +pc()
+              font-size: 1.4rem
+              margin-top:40px
+            +sp()
+              font-size: 1.2rem
+              margin-top:16px
+
+        .aboutRB__link
+          color: secondColor
+          text-decoration: underline
+          &:hover
+            text-decoration: none
+        .aboutRB__pictBox
+          display: flex
+          justify-content: center
+          align-items: center
+          +pc()
+            margin-bottom: 32px
+          +sp()
+            flex-wrap: wrap
+            margin-bottom: 24px
+          .aboutRB__img
+            +pc()
+              width: 110px
+              margin-right: 16px
+              &:last-of-type
+                margin-right: 0
+            +sp()
+              width: 30.3%
+              height: auto
+              margin-right: 8px
+              &:nth-of-type(-n+3)
+                margin-bottom: 8px
+              &:nth-of-type(3),
+              &:nth-of-type(5)
+                margin-right: 0
+        .aboutRB__bottom
+          .aboutRB__txt
+            text-align: center
+            +pc()
+              font-size: 1.6rem
+              line-height: 1.8
+            +sp()
+              font-size: 1.4rem
+              line-height: 1.6
+              margin-bottom: 8px
+              &:last-of-type
+                margin-bottom: 0
+            .aboutRB__txt.-bold
+              font-weight: bold
+          // ボタンセット(bgColor,txtColor)
+          btnSet(redColor, #fff)
+        .aboutRB__dealBox
+          +pc()
+            width: 600px
+            margin: 0 auto 32px
+          +sp()
+            width: 100%
+            margin: 0 auto 24px
+        .aboutRB__picts
+          +pc()
+            margin-bottom: 32px
+          +sp()
+            margin-bottom: 24px
+        .aboutRB__banner
+          +pc()
+            margin-bottom: 32px
+          +sp()
+            margin-bottom: 24px          
+          .aboutRB__img
+            +sp()
+              width: 100%
+              height: auto
+
+        .aboutRB__dl
+          display: flex
+          justify-content: center
+          +sp()
+            flex-direction: column
+          .aboutRB__dlPicbox
+            +pc()
+              width: 286px
+              margin-right: 40px
+            .aboutRB__dlPic
+              +sp()
+                margin-bottom: 16px
+          .aboutRB__dlbtnbox
+            +pc()
+              display: flex
+              justify-content: center
+              flex-direction: column
+            .aboutRB__dlTitle
+              +pc()
+                position: relative
+                display: inline-block
+                margin-bottom: 16px
+                text-align: center
+                font-size: 2rem
+                font-weight: bold
+                line-height: 1.4
+                &::before
+                  content: "|"
+                  position: absolute
+                  top: 0
+                  left: -2rem
+                  font-weight: normal
+                  transform: rotate(-45deg)
+                &::after
+                  content: "|"
+                  position: absolute
+                  top: 0
+                  right: -2rem
+                  font-weight: normal
+                  transform: rotate(45deg)
+            .aboutRB__link
+              +sp()
+                display: block
+                margin: 0 auto
+                max-width: 200px
+                .aboutRB__img
+                  width: 100%
+            .aboutRB__article__app__qr
+              +pc()
+                display: block
+                width: 160px
+                margin: 0 auto 16px
+      .aboutRB__group
+        .aboutRB__bottom
+          .aboutRB__txt 
+            margin-bottom: 10px
+            font-weight: bold                
+      +sp()
+        .aboutRB__point, .aboutRB__app
+          .aboutRB__subtitleIcon
+            .aboutRB__img
+              width 50px
+              height: auto
+        .aboutRB__deal
+          .aboutRB__subtitleIcon
+            .aboutRB__img
+              width 84px
+              height: auto
+
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFE8E8)
+
+  // // banner
+  // .banner
+  //   margin: 0 auto 60px
+  //   +sp()
+  //     margin-bottom: 40px
+  //   .banner__box
+  //     text-align: center
+  //     background-color: grayBgColor
+  //     box-sizing: border-box
+  //     +pc()
+  //       width: 890px
+  //       margin: 0 auto
+  //       padding: 24px
+  //     +sp()
+  //       width: auto
+  //       margin: 0 8px
+  //       padding: 10px 16px 16px
+  //     .banner__txt
+  //       font-weight: bold
+  //       line-height: 1.5
+  //       +pc()
+  //         font-size 2rem
+  //         padding-bottom: 24px
+  //       +sp()
+  //         font-size 1.4rem
+  //         padding-bottom: 8px
+  //     .banner__boxInner
+  //       background-color: #fff
+  //       box-sizing: border-box
+  //       +pc()
+  //         padding: 24px
+  //       +sp()
+  //         padding: 16px
+  //       .banner__link
+  //         display: block
+  //         width: auto
+  //         max-width: 640px
+  //         margin: 0 auto
+  //         transition: opacity .2s ease-out
+  //         &:hover
+  //           opacity: 0.8
+  //         .banner__img
+  //           width: 100%
+  //           height: auto
+
+
+  // // Search Area
+  // .searchArea
+  //   background: grayBgColor
+  //   +pc()
+  //     display: block
+  //     padding: 32px 0
+  //     margin-bottom: 60px
+  //   +sp()
+  //     margin-bottom: 40px
+
+  //   // Search Area Component / ()内に色を入れる
+  //   @import passStr + '_common/stylus/Module/Common/_searchArea'
+  //   searchArea(mainColor)
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)
+

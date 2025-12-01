@@ -1,0 +1,795 @@
+//- エリアLP専用テンプレート。毎回最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- Area Targeting Template / ver 4.3.0 / 更新日時：2025.5.9 / CPNタグデザイン変更＆クーポン周り文言・デザイン変更
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+
+block init
+
+  //- Kintone情報読み込み
+  include _kintone
+
+  //- 各種設定（変更したい場合は=より右を''で括った文字に差し替え）
+  -
+    var css = 'css/main.css' + parameter
+
+  //- エリア設定
+  case directory
+    when 'sendai'
+      -
+        var areaLowercase = directory
+        var areaUppercase = 'Sendai'
+        var areaJapanese = '仙台'
+        var urlList = [
+          {
+            url:'addr04101',
+            name: areaJapanese + '市'
+          }
+        ]
+      script.
+        const campaignlistsendai = true;
+    when 'kobe'
+      -
+        var areaLowercase = directory
+        var areaUppercase = 'Kobe'
+        var areaJapanese = '神戸'
+        var urlList = [
+          {
+            url:'addr28101',
+            name: areaJapanese + '市'
+          }
+        ]
+      script.
+        const campaignlistkobe = true;
+    when 'fukuoka'
+      -
+        var areaLowercase = directory
+        var areaUppercase = 'Fukuoka'
+        var areaJapanese = '福岡'
+        var urlList = [
+          {
+            url:'addr40131',
+            name: areaJapanese + '市'
+          }
+        ]
+      script.
+        const campaignlistfukuoka = true;
+    when 'saitama'
+      -
+        var areaLowercase = directory
+        var areaUppercase = 'Saitama'
+        var areaJapanese = 'さいたま'
+        var urlList = [
+          {
+            url:'addr11101',
+            name: areaJapanese + '市'
+          }
+        ]
+      script.
+        const campaignlistsaitama = true;
+    when 'sapporo'
+      -
+        var areaLowercase = directory
+        var areaUppercase = 'Sapporo'
+        var areaJapanese = '札幌'
+        var urlList = [
+          {
+            url:'addr01101',
+            name: areaJapanese + '市'
+          }
+        ]
+      script.
+        const campaignlistsapporo = true;
+    when 'hiroshima'
+      -
+        var areaLowercase = directory
+        var areaUppercase = 'Hiroshima'
+        var areaJapanese = '広島'
+        var urlList = [
+          {
+            url:'addr34101',
+            name: areaJapanese + '市'
+          },
+          {
+            url:'addr34302',
+            name:'安芸郡府中町'
+          },
+        ]
+      script.
+        const campaignlisthiroshima = true;
+    when 'tokyo'
+      -
+        var areaLowercase = directory
+        var areaUppercase = 'Tokyo'
+        var areaJapanese = '東京'
+        var urlList = [
+          {
+            url:'pre13',
+            name: areaJapanese + '都'
+          }
+        ]
+      script.
+        const campaignlisttokyo = true;
+    default
+      - break
+
+  //- 都内 or 市内 設定
+  if directory == 'tokyo'
+    - var couponTargetPref = areaJapanese + '都'
+  else
+    - var couponTargetPref = areaJapanese + '市'
+
+  //- サロンジャンル設定
+  -
+    var genreList = [
+      {
+        param: 'hair',
+        name: '美容室',
+        url: '/'
+      },
+      {
+        param: 'nail',
+        name: 'ネイル・まつげ',
+        url: '/nail/'
+      },
+      {
+        param: 'esthe',
+        name: 'エステサロン',
+        url: '/esthe/'
+      },
+      {
+        param: 'relax',
+        name: 'リラクサロン',
+        url: '/relax/'
+      }
+    ]
+
+  //- 美容室 or サロン判定
+  if genre == 'hair'
+    - var targetGenre = '美容室'
+    - var targetGenreStr = targetGenre
+  else if genre == 'all'
+    - var targetGenre = 'サロン'
+    - var targetGenreStr = 'ヘア・ネイル・まつげ・エステ・リラクサロン'
+    
+  //- Kintone情報からdescriptionを設定
+  - for(var i = 0; i < coupon.length; i++)
+
+    //- description（全員対象優先、全員対象がなければ一番最後のクーポンのdescriptionが入ります）
+    - var loopflag = true;
+    if loopflag == true && coupon[i].対象条件 == 'セグメントなし'
+      - var descStr = coupon[i].クーポン説明
+      - var loopflag = false //- break
+    else if loopflag == true
+      - var descStr = coupon[i].クーポン説明
+
+    //- ページタイトルとパンくずリスト
+    //- クーポンが複数枚の場合、最大表記に一番最初の値段をつけて表示
+    if coupon.length > 1 
+      - var titleStr = '【' + couponTargetPref + 'の' + targetGenreStr + '】最大' + addComma(coupon[0].割引額) + '円OFFクーポン'
+    else
+      - var titleStr = '【' + couponTargetPref + 'の' + targetGenreStr + '】' + addComma(coupon[0].割引額) + '円OFFクーポン'
+
+  //- 利用開始、終了月日などを生成
+  -
+    const startMonth = monthStartEnd(coupon[0].利用開始日時); //- 利用開始月
+    const endMonth = monthStartEnd(coupon[0].利用終了日時); //- 利用終了月
+    const middleMonth = Number(startMonth) + 1; //- 利用中間月
+    const useEndMDH = dateEnd(coupon[0].利用終了日時); //- 利用終了月日時
+    const visitEndMDH = dateEnd(coupon[0].来店終了日時); //- 施術期限月日時
+
+  //- クーポンタイトル生成
+  if startMonth == endMonth
+    //- 利用開始月と終了月が同じだった場合
+    - var couponTitle = startMonth + '月の' + targetGenre + 'ネット予約'
+  else if middleMonth == endMonth
+    //- 利用開始月と終了月が違う、かつ利用可能月が2ヶ月の場合
+    - var couponTitle = startMonth + '月,' + endMonth + '月の' + targetGenre + 'ネット予約'
+  else if Number(startMonth) + 1 < endMonth
+    //- 利用開始月と終了月が違う、かつ利用可能月が3ヶ月の場合
+    - var couponTitle = startMonth + '月,' + middleMonth + '月,' + endMonth + '月の' + targetGenre + 'ネット予約'
+  //- 手動で書く場合は上を全てコメントアウトしてこれだけ使用
+  //- - var couponTitle = '手動でクーポンタイトルを入れてください'
+
+  //- 画像パス（share画像にも使っているため変更する際は注意）
+  - var imgPath = '//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,q_auto:good/v1/sendai/LP/'
+
+  //- metaタグ等に反映（変更したい場合は:より右を''で括った文字に差し替え）
+  -
+    var meta = {
+      title: titleStr, //- ページタイトルとパンくずリスト
+      description: descStr, //- ページの説明。Googleなどの検索結果でタイトルの下に表示される文章
+      url: coupon[0].ページURL,
+      og_image: 'https:' + imgPath + areaUppercase + '/share.png' + parameter, //- シェア画像（必ず絶対パスで記述）
+      directory: directory, //- ディレクトリ名, meta.directoryもCpnlistパーツ内で使用中のためここで作成
+    }
+
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: '地域別キャンペーン・特集一覧',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/area-all/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+
+block content
+
+  #Area
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このラ・クーポンは終了しました' //- ページ上部の文言
+      - var btnTxt = '終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+
+    //- このLP全体の対象判定
+    - for (var i = 0; i < coupon.length; i++)
+      //- 対象ジャンル判定
+      if genre == 'hair'
+        - var genreflag = true;
+      //- 全員対象判定（1つでもあれば全員対象）
+      if coupon[i].対象条件 == 'セグメントなし'
+        - var tag_target = []
+        if coupon[i].対象店舗予約有無 == 'なし'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            - var tag_target = ['対象サロン限定']
+          if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = []
+        else if coupon[i]['対象店舗予約有無'] == '0:サロン新規' || '1:サロンリピーター促進(2回目)' || '2:サロンリピーター促進(3回目)'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            - var tag_target = ['対象サロン限定', '対象者限定']
+          else if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+              - var tag_target = ['対象者限定']
+      //- 新規判定
+      else if coupon[i].対象条件 == '新規限定'
+        if coupon[i].対象店舗予約有無 == 'なし'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            - var tag_target = ['対象サロン限定', '初回利用限定']
+          else if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = ['初回利用限定']
+      //- 毎月開催判定
+      if coupon[i].毎月開催 == '毎月'
+        - var alwaysflag = true;
+
+    //- tagリスト作り
+    -
+      var tags = ['ラ・クーポン']
+    if genreflag
+      - tags.push('美容室限定')
+    -
+      for (var j = 0; j < tag_target.length; j++)
+      tags.push(tag_target[j])
+    if alwaysflag
+      - tags.push('毎月開催')
+
+    //- 手動のtaglistがなければKintoneを反映
+    if !taglist
+      -
+        var taglist = {
+          tag: tags,
+        }
+
+    section#CpnTags
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src=imgPath + areaUppercase + '/main.png' + parameter, alt=coupon[0].クーポン名, width='1216' height='240')
+        img.main__titleImg.-sp(src=imgPath + areaUppercase + '/main_sp.png' + parameter, alt=coupon[0].クーポン名, width='750' height='798')
+      //- 条件
+      .main__terms
+        .main__termsBox
+          span.main__termsTxt.-small
+            | ※一部ラ・クーポンがご利用できない店舗がございます。ご利用できる店舗では、獲得済みのラ・クーポンが表示されます。
+            | ※ネット予約のみ、他ラ・クーポンとの併用不可。
+            //- 常時開催
+            if coupon[0].毎月開催 == '毎月'
+              br.-pc
+              //- if always.price == false（要Kintone追加）
+              | ※ラ・クーポンの額は月により増減します。
+            | ※本企画は予告無く変更・中止されることがございます。
+            | ※ラ・クーポン注意事項は
+            a.main__termsLink(href='#Detail')
+              | こちら
+
+
+    //- ラ・クーポン
+    section#Coupon.coupon(data-ratid='cpn_' + directory + '_Coupon' data-ratevent='appear' data-ratparam='all')
+      .couponGet
+        //- 非遷移クーポン
+        include ../../../../_common/pug/Module/Common/_couponOneClickArea
+        //- 「対象サロンはこちら」ボタンの表示/非表示 salonBtnFlagの設定がtrueで表示、falseで非表示
+        - var salonBtnFlag = true
+        +couponOneClickSet()
+
+    //- navgation
+    nav#Navigation.navigation(data-ratid='cpn_' + directory + '_Navigation' data-ratevent='appear' data-ratparam='all')
+      .navigation__line.-pc
+      a.navigation__block(href="#Shoplist")
+        .navigation__box
+          p.navigation__txt
+            | !{targetGenre}
+            br.-sp
+            | を探す
+      .navigation__line
+      a.navigation__block(href="#Flow")
+        .navigation__box
+          p.navigation__txt
+            | 予約する
+      .navigation__line
+      a.navigation__block(href="#QA")
+        .navigation__box
+          p.navigation__txt
+            | よくある
+            br.-sp
+            | ご質問
+      .navigation__line
+      a.navigation__block(href="#Detail")
+        .navigation__box
+          p.navigation__txt
+            | 注意事項
+      .navigation__line.-pc
+
+    //- anchor link
+    #Shoplist(data-ratid='cpn_' + directory + '_Shoplist' data-ratevent='appear' data-ratparam='all')
+
+    //- Shoplist
+    section#ShoplistMenu.shoplist(data-ratid='cpn_' + directory + '_ShoplistMenu' data-ratevent='appear' data-ratparam='all')
+      //- 対象の美容室 or サロンを探す
+      h2.section--title.-min 対象の!{targetGenre}を探す
+      .shoplist__search
+        p.shoplist__search--info
+          | ※!{couponTargetPref}内でネット予約ができる!{targetGenreStr}が対象となります
+        if directory == 'fukuoka'
+          p.shoplist__search--info--red
+            | ※「全員対象のラ・クーポン」は福岡市の一部の美容室が対象です。見分け方は
+            a.shoplist__search--info--link(href='#How') こちら
+
+        .shoplist__search--wrap
+
+          //- 東京の場合
+          if directory == 'tokyo'
+
+            //- Area Search
+            //- プロパティをつけると検索内容をカスタマイズできます
+            //- https://git.rakuten-it.com/projects/RBEAUT/repos/rbeautyuicomponent/browse/src/components/ShopSearch/readme.md
+            #shopSearch(default-genre-id="", default-prefectures-id="13", search-style="hide_genre", search-type="")
+              include ../../../../_common/pug/Module/Common/_shopSearchList
+
+          //- 広島の場合（全ジャンル化する時には改修が必要です）
+          else if directory == 'hiroshima'
+
+            //- エリア数分ボタン生成
+            - for(var n = 0; n < urlList.length; n++)
+              - var btnUrl = genreList[0].url + urlList[n].url + '/?l-id=rb_' + areaLowercase + 'LP_' + genreList[0].param + '-' + urlList[n].url
+              - var btnTxt = urlList[n].name + 'の対象' + genreList[0].name
+              +btnSet(btnUrl,btnTxt,false)
+
+          //- その他の都市の場合
+          else
+            
+            //- ジャンル数分ボタン生成
+            - for(var m = 0; m < genreList.length; m++)
+              //- 美容室のみ
+              if targetGenre == '美容室'
+                if m == 0
+                  - var btnUrl = genreList[m].url + urlList[0].url + '/?l-id=rb_' + areaLowercase + 'LP_' + genreList[m].param + '-' + urlList[0].url
+                  - var btnTxt = urlList[0].name + 'の対象' + genreList[m].name
+                  .shoplist__search--wrapBox
+                    +btnSet(btnUrl,btnTxt,false)
+              //- 全ジャンル
+              if targetGenre == 'サロン'
+                - var btnUrl = genreList[m].url + urlList[0].url + '/?l-id=rb_' + areaLowercase + 'LP_' + genreList[m].param + '-' + urlList[0].url
+                - var btnTxt = urlList[0].name + 'の対象' + genreList[m].name
+                +btnSet(btnUrl,btnTxt,false)      
+
+      //- ヘアカタログから探す
+      h3.section--sub-title ヘアカタログから探す
+      ul.catalog__search
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/women/menu3/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_01.png' + parameter, alt='パーマ' width='60' height='60')
+            p.catalog__search__list__item--type パーマ
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/women/menu8/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_02.png' + parameter, alt='ヘアアレンジ' width='60' height='60')
+            p.catalog__search__list__item--type ヘアアレンジ
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/women/image2/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_03.png' + parameter, alt='キュート' width='60' height='60')
+            p.catalog__search__list__item--type キュート
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/women/style6/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_04.png' + parameter, alt='ボブ' width='60' height='60')
+            p.catalog__search__list__item--type ボブ
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/women/style15/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_05.png' + parameter, alt='ポニーテール' width='60' height='60')
+            p.catalog__search__list__item--type ポニーテール
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/women/length1/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_06.png' + parameter, alt='ベリーショート' width='60' height='60')
+            p.catalog__search__list__item--type ベリーショート
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/women/length2/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_07.png' + parameter, alt='ショート' width='60' height='60')
+            p.catalog__search__list__item--type ショート
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/women/length3/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_08.png' + parameter, alt='ミディアム' width='60' height='60')
+            p.catalog__search__list__item--type ミディアム
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/women/length4/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_09.png' + parameter, alt='セミロング' width='60' height='60')
+            p.catalog__search__list__item--type セミロング
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/women/length5/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_10.png' + parameter, alt='ロング' width='60' height='60')
+            p.catalog__search__list__item--type ロング
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/men/menu3/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_11.png' + parameter, alt='メンズ パーマ' width='60' height='60')
+            p.catalog__search__list__item--type メンズ パーマ
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/men/style17/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_12.png' + parameter, alt='メンズ ツーブロック' width='60' height='60')
+            p.catalog__search__list__item--type メンズ ツーブロック
+        li.catalog__search__list
+          a.catalog__search__list__item(href='https://beauty.rakuten.co.jp/style/men/length1/?l-id=rb_' + areaLowercase + '_style')
+            img(src=imgPath + 'common/catalog/catalog_13.png' + parameter, alt='メンズ ベリーショート' width='60' height='60')
+            p.catalog__search__list__item--type メンズ ベリーショート
+
+      //- 全ジャンル対象の時のみネイルカタログボタンを表示
+      if targetGenre == 'サロン'
+        .catalog__more
+          //- ボタンセット Small (url,txt)
+          +btnSetSmall('/naildesign/?l-id=rb_' + areaLowercase +'','ネイルカタログはこちら')
+
+    //- anchor link
+    #How(data-ratid='cpn_' + directory + '_How' data-ratevent='appear' data-ratparam='all')
+
+    //- how
+    if directory == 'fukuoka'
+      section.how
+        .how__wrapper
+          h2.section--title 全員対象クーポンが
+            br.-sp
+            | 使えるサロンの見分け方
+          ul.how__boxWrap
+            li.how__box.-pc
+              p.how__title パソコンで見分ける方法
+              img.how__img(src=imgPath + 'common/how_img_pc.png' + parameter, alt='この店舗で使える！ラ・クーポン表示' width='300')
+              p.how__txt 福岡市の美容室で、
+                br
+                | 右下の「ラ・クーポン表示」から確認！
+            li.how__box
+              p.how__title.-pc スマホ・アプリで見分ける方法
+              img.how__img(src=imgPath + 'common/how_img_sp.png' + parameter, alt='この店舗で使える！ラ・クーポン表示' width='300')
+              p.how__txt 福岡市の美容室で、右下の「クーポン」または
+                br
+                | 右上の「マイクーポン」から確認！
+          .txt__attention
+            | ※サロンが対象でない、またはクーポンを獲得していない場合は表示されません。
+            br
+            | ※対象のクーポンの数が多い場合は表示されない場合もございます。
+
+    //- anchor link
+    #Flow(data-ratid='cpn_' + directory + '_Flow' data-ratevent='appear' data-ratparam='all')
+
+    //- flow
+    section.flow
+      h2.section--title 楽天ビューティで予約する
+      .flow__wrapper
+        ul.flow__boxWrap
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 1
+            .flow__box1
+              img.flow__boxImg(src=imgPath + 'common/step_01_' + coupon[0].割引額 + '.png' + parameter, alt='Step1' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 1
+              p.flow__txt
+                a.flow__link(href='#Coupon')
+                  | ラ・クーポンを獲得
+                | する
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 2
+            .flow__box1
+              img.flow__boxImg(src=imgPath + 'common/step_02.png' + parameter, alt='Step2' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 2
+              p.flow__txt
+                | !{useEndMDH}までに
+                br
+                a.flow__link(href='#Shoplist')
+                  | 対象の!{targetGenre}
+                | をネット予約
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 3
+            .flow__box1
+              img.flow__boxImg(src=imgPath + 'common/step_03.png' + parameter, alt='Step3' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 3
+              p.flow__txt
+                | 予約確認画面で
+                br
+                | ラ・クーポン選択&予約
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 4
+            .flow__box1
+              img.flow__boxImg(src=imgPath + 'common/step_04.png' + parameter, alt='Step4' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 4
+              p.flow__txt
+                | !{visitEndMDH}までに施術
+                br
+                | 楽天ポイントも貯まる！
+
+    //- presentation of RB
+    section#RB.presentRB(data-ratid='cpn_' + directory + '_RB' data-ratevent='appear' data-ratparam='all')
+      h2.section--title 楽天ビューティは
+        br.-sp
+        | こんなにおトク♪
+      .presentRB__introductionBox
+        .rbset
+          a.rbset__link(href='https://beauty.rakuten.co.jp/cnt/topics/guide/?l-id=rb_' + areaLowercase + '-rb_guide')
+            dl.rbset__box
+              dt.rbset__txt
+                | ネット予約で毎回ポイントが
+                span.rbset__txt.-big
+                  | 貯まる・使える！
+              dd.rbset__imgbox
+                img.rbset__img(src=imgPath + 'common/rb_01.png' + parameter alt='ネット予約で毎回ポイントが貯まる・使える！')
+          a.rbset__link(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/superdeal/?l-id=rb_' + areaLowercase + '-rb_superdeal')
+            dl.rbset__box
+              dt.rbset__txt
+                | スーパーDEALメニューなら
+                span.rbset__txt.-big
+                  | ポイント高還元！
+              dd.rbset__imgbox 
+                img.rbset__img(src=imgPath + 'common/rb_02.png' + parameter alt='スーパーDEALメニューならポイント高還元！')
+          a.rbset__link(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/app2x/?l-id=rb_' + areaLowercase + '-rb_app2x')
+            dl.rbset__box
+              dt.rbset__txt
+                | アプリで予約＆条件達成で
+                span.rbset__txt.-big
+                  | ポイントアップ！
+              dd.rbset__imgbox
+                img.rbset__img(src=imgPath + 'common/rb_03.png' + parameter alt='アプリで予約＆条件達成でポイントアップ！')
+          a.rbset__link(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/spu/?l-id=rb_' + areaLowercase + '-rb_spu')
+            dl.rbset__box
+              dt.rbset__txt
+                | 楽天市場連動キャンペーンで
+                span.rbset__txt.-big
+                  | ポイント＋0.5倍！
+              dd.rbset__imgbox.-rbset__wrap
+                img.rbset__img(src=imgPath + 'common/rb_04.png' + parameter alt='楽天市場連動キャンペーンでポイント＋0.5倍！')
+
+    //- app DL
+    section#App.app.-excludeApp(data-ratid='cpn_' + directory + '_App' data-ratevent='appear' data-ratparam='all')
+
+      //- appInfoFlag 注意文の表示/非表示 trueで表示、falseで非表示
+      - var appInfoFlag = false
+      //- 狭域追加設定：app2xを表示
+      +appDL('app2x')
+
+
+
+
+    //- Area Campaign
+    section.campaign(id=areaUppercase + 'Campaign', data-ratid='cpn_' + directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+
+      h2.section--title
+        | !{couponTargetPref}対象キャンペーン
+
+      include ../../../../_common/pug/Module/Common/_campaignList
+      +campaignListAreaAll(areaUppercase,areaJapanese)
+    
+    //- anchor link
+    #QA(data-ratid='cpn_' + directory + '_QA' data-ratevent='appear' data-ratparam='all')
+
+    //- QA
+    section.qa
+      h2.area__title2
+        | ラ・クーポンについて
+        br.-sp
+        | よくあるご質問
+      .qa__listBox
+
+        //-
+          QA内容（質問の数だけ自動で増えます）
+          リッチリザルトの中ではHTMLタグ <h1>～<h6> <br> <ol> <ul> <li> <a> <p> <div> <b> <strong> <i> <em> が利用できます。
+        -
+          QAList = [
+            {
+              click_name: areaUppercase + ' - 予約をキャンセルした場合',
+              question: '予約をキャンセルした場合、利用していたラ・クーポンはどうなりますか',
+              answer: '<p>ラ・クーポンを利用した予約をキャンセルした場合、利用条件を満たしていればご予約キャンセル時点で「<a href="https://beauty.rakuten.co.jp/user/coupon.php">マイクーポン</a>」に返還されます。</p><p>なお有効期限切れや利用上限回数を超えた場合、再度利用が出来ないことがありますので予めご了承ください。</p>',
+            },
+            {
+              click_name: areaUppercase + ' - 予約時のポイント利用取り消し',
+              question: '予約時のポイント利用を取り消したい',
+              answer: '<p><strong>■即時予約の場合</strong><br>ご予約時に指定したポイント利用の有無、および利用ポイント数は、後から変更、訂正できません。<br>ポイント利用を変更する場合には、予約自体を一旦キャンセルし、再度ご予約いただく必要がございます。</p><p>※キャンセルの際には、以下の点をご了承頂ますようお願い致します。</p><ul><li>同じ時間帯に同じ予約を入れることができない可能性がございます。</li><li>期間限定ポイントで現在期限が切れているポイントをお使いの場合、キャンセルすると期限切れのポイントは戻りません。</li><li>元々ご利用されていたラ・クーポンは、ご予約のキャンセル時点で有効期限切れ等の場合は、再度利用が出来ないことがあります。</li></ul><p>※現地での施術内容およびお支払い金額の変更により利用ポイント数が変動する場合がございますが、お客様ご自身での利用ポイント数の変更は行なえません。ご了承ください。</p><p><strong>■電話予約の場合</strong><br>電話予約ではポイント利用はできません。</p>',
+            },
+            {
+              click_name: areaUppercase + ' - 獲得したラ・クーポンの確認',
+              question: '獲得したラ・クーポンはどこで確認できますか',
+              answer: '<p>獲得済みのラ・クーポン(プレゼントされたラ・クーポンも含む)は、マイページの「<a href="https://beauty.rakuten.co.jp/user/coupon.php">マイクーポン</a>」でご確認いただけます。</p><p>※楽天ビューティアプリをご利用の方は、アプリ画面右上の「三」をタップし「マイクーポン」からご確認ください。</p>',
+            },
+            {
+              click_name: areaUppercase + ' - 来店時の金額変更はSPU対象になるか',
+              question: '3,000円（税込）以下のメニューでネット予約し、サロン来店時に3,000円（税込）以上のメニューに変更した場合、SPUのポイントアップ対象となりますか？',
+              answer: '<p>SPUのポイントアップ対象とはなりません。SPUの条件を満たすには、ネット予約の時点で3,000円（税込）以上で予約の上、来店が必要です。</p><p>※楽天ビューティ発行ラ・クーポンをご利用の場合は、合計金額からラ・クーポンを差し引いた金額が、3,000円以上である必要があります。</p>',
+            },
+          ]
+          QAListBtn = {
+            btnTxt: 'よくあるご質問一覧を見る',
+            btnUrl: 'https://beauty.faq.rakuten.net/user/s/',
+          }
+
+        //- よくあるご質問セット
+        +QAset()
+
+    //- anchor link
+    #Detail(data-ratid='cpn_' + directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+
+    //- Coupon Detail
+    section.detail
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title ラ・クーポン注意事項
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 獲得したラ・クーポンの利用回数には上限があります。
+                  li.detail__tableBlockList--li 他のラ・クーポンとの併用はできません。
+                  li.detail__tableBlockList--li ラ・クーポンには利用上限回数（予約成立順）が設定されています。ラ・クーポン獲得済みであっても利用上限に達した場合はご利用いただけません。
+                  li.detail__tableBlockList--li 獲得したラ・クーポンは、マイページの
+                    a.detail__tableBlockTxt--link(href="/user/coupon.php")
+                      | マイクーポン
+                    | からご確認いただけます。
+                  li.detail__tableBlockList--li ラ・クーポンの利用条件に合致したクーポンのみが、ネット予約STEP中に表示されます。獲得していても、ラ・クーポンが表示されない場合、ラ・クーポンの利用条件等をご確認ください。（予約条件が一致しない、有効期限を過ぎている、利用回数を超えた場合等）
+                  li.detail__tableBlockList--li ネット予約確定の前に、他のネット予約が成立し利用上限回数に達した場合には、ネット予約がエラーとなり、ラ・クーポンをご利用になれません。
+                  li.detail__tableBlockList--li ラ・クーポンは、楽天ビューティ（サイト/アプリ）での予約時にのみご利用いただけます。予約成立後など後から利用することはできません。
+                  li.detail__tableBlockList--li ラ・クーポンを印刷して来店時にお持ちいただいても割引することはできません。
+                  li.detail__tableBlockList--li ラ・クーポンは、電話予約でご利用できません。
+                  li.detail__tableBlockList--li 一部、ラ・クーポンを利用できない店舗がございます。
+                    //- 福岡の場合
+                    if directory == 'fukuoka'
+                      | クーポン利用可否については店舗ページ（※）にてご確認ください。
+                      br
+                      | ※スマホ・アプリ画面からは「マイクーポン」または「クーポン」、パソコンからは「ラ・クーポン表示」をご確認ください。
+                  li.detail__tableBlockList--li 発行されているラ・クーポンによって来店期日は異なりますので、ご注意ください。
+                  li.detail__tableBlockList--li サロンの予約状況によっては、ご希望に添えなかったり、お断りする場合もございます。
+                  li.detail__tableBlockList--li ラ・クーポンを利用した予約をキャンセルした場合、利用条件を満たしていれば、マイクーポンに返還されます。
+                    a.detail__tableBlockTxt--link(href="https://beauty.faq.rakuten.net/user/s/detail/000005759")
+                      | 詳しくはこちら
+                  li.detail__tableBlockList--li 本企画は予告無く変更・中止されることがございます。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                  li.detail__tableBlockList--li ご来店いただける期間はサロンの営業時間によって異なります。
+                  li.detail__tableBlockList--li ラ・クーポンの使用方法についてご不明点があった場合は、楽天ビューティにお問い合わせください。
+
+    //- Other Campaign
+    section#Campaign.campaign(data-ratid='cpn_' + directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title その他のキャンペーン
+
+      include ../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js')
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索（東京のみ）
+  if directory == 'tokyo'
+    script(src="/cnt/common/js/area-search/shopSearch.js", defer)
+
+  //- 1click coupon
+  script(src='//r.r10s.jp/com/js/d/Rmodules/Rmodules.min.js?v=1.4.0', defer)
+  script(src='//r.r10s.jp/com/js/d/coupon/one_click_acquisition/1.2/one_click_acquisition-1.2.0.min.js', defer)
+
+  //- よくあるご質問（jQuery）
+  script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    const campaignlist = true;
+
+  //------------------------------- Kintoneの数字変換用js -------------------------------//
+  
+  -
+    //- 数字にカンマをつける（Kintoneの数字変換用js）
+    function addComma(no){
+      return no.toLocaleString();
+    }
+    //- 日付置換（_couponOneClickAreaで使用）
+    function dateChange(date){
+      let dateArray = date.split(/[/ ]/);
+      dateArray.splice( 0, 1, removeLeadingZeros(dateArray[0]) + '年');
+      dateArray.splice( 1, 1, removeLeadingZeros(dateArray[1]) + '月');
+      //- 日付と時刻の間に半角スペースも挿入
+      dateArray.splice( 2, 1, removeLeadingZeros(dateArray[2]) + '日 ');
+      return dateArray.join('');
+    }
+    //- 利用開始 & 終了月を取得
+    function monthStartEnd(date){
+      let dateArray = date.split(/[/ ]/);
+      dateArray.splice( 1, 1, dateArray[1]);
+      let month = removeLeadingZeros(dateArray[1]);
+      return month;
+    }
+    //- 利用終了日時を取得
+    function dateEnd(date){
+      let dateArray = date.split(/[/ ]/);
+      dateArray.splice( 0, 1, removeLeadingZeros(dateArray[0]) + '年');
+      dateArray.splice( 1, 1, removeLeadingZeros(dateArray[1]) + '月');
+      //- 日付と時刻の間に半角スペースも挿入
+      dateArray.splice( 2, 1, removeLeadingZeros(dateArray[2]) + '日 ');
+      dateArray.shift();
+      return dateArray.join('');
+    }
+    //- 日付から先頭の0を削除
+    function removeLeadingZeros(dateString) {
+      return dateString.replace(/^0/, '');
+    }
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+

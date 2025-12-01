@@ -1,0 +1,97 @@
+//- 看板更新時ToDo:
+//- 1.配布htmlを(https://html2jade.org/)でpug化してこのファイルに貼り付け
+//- 2.breakpointをRB用に(As-Is)700px/701px->(To-Be)940px/941pxに変更
+//- 3.アプリで開かないことがあるため、楽天証券のURLをShortURL->直打ちURLに変更
+//- 4.'spuCommonHeader__service--active'クラスをビューティに移動
+
+link(rel='stylesheet' type='text/css' href='https://r.r10s.jp/evt/event/campaign/point-up/everyday/point/_cmn/css/spu_common_header_sp_20250401_v2.css' media='all and (min-width: 0px) and (max-width: 940px)')
+link(rel='stylesheet' type='text/css' href='https://r.r10s.jp/evt/event/campaign/point-up/everyday/point/_cmn/css/spu_common_header_pc_20250401.css' media='all and (min-width: 941px)')
+.spuCommonHeader
+  h1.spuCommonHeader__kanban
+    a.spuCommonHeader__kanbanLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fevent.rakuten.co.jp%2Fcampaign%2Fpoint-up%2Feveryday%2Fpoint%2F&D2=1.53089.255283.910529.32323402&C3=55158ec1ebb3455e2756c67775435377ba7b4d9c')
+      img.spuCommonHeader__kanbanImage.spuCommonHeader__kanbanImage--pc(src='https://r.r10s.jp/evt/event/campaign/point-up/everyday/point/_cmn/img/20250401under_spu/pc_kasou_kanban_20250401.png' alt width='100%')
+      img.spuCommonHeader__kanbanImage.spuCommonHeader__kanbanImage--sp(src='https://r.r10s.jp/evt/event/campaign/point-up/everyday/point/_cmn/img/20250401under_spu/sp_kasou_kanban_20250401.png' alt)
+  // /.spuCommonHeader__kanban
+  // /.spuCommonHeader__kanban
+  .spuCommonHeader__serviceContainer
+    .spuCommonHeader__serviceScroller
+      ul.spuCommonHeader__services
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutenmobile
+          a.spuCommonHeader__serviceLink(href='https://network.mobile.rakuten.co.jp/campaign/spu/?scid=wi_ich_spu_subpage_pc')
+            | 楽天モバイル
+            br
+            | ＋エントリー
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutencareer
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fnetwork.mobile.rakuten.co.jp%2Fcampaign%2Fspu%2Fpayment%2F%3Fscid%3Dwi_ich_spu_subpage_payment&D2=1.53089.255283.910529.32388468&C3=c5ef26d0b5775fcdfe5c78eb6cef9b5230a714f9')
+            | 楽天モバイル
+            br
+            | キャリア決済
+            br
+            | ＋エントリー
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutenhikari
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fnetwork.mobile.rakuten.co.jp%2Finternet%2Fturbo%2Fcampaign%2Fspu%2F%3Fscid%3Dwi_ich_subpage_spu_turbo-hikari_sp&D2=1.53089.255283.910478.32392028&C3=1ac4114f9d3c4cb223277a8bc9cb54a4866e50ba')
+            | Rakuten Turbo／
+            br
+            | 楽天ひかり
+            br
+            | ＋エントリー
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutencard
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fwww.rakuten-card.co.jp%2Fcampaign%2Frakuten-card%2Fpoint-up%2F&D2=1.53089.255283.910529.32297795&C3=789ae2144b46021470370ea0fae2573602f61238')
+            | 楽天カード
+            br
+            | 通常分
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutencard
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fwww.rakuten-card.co.jp%2Fcampaign%2Frakuten-card%2Fpoint-up%2F&D2=1.53089.255283.910529.32297795&C3=789ae2144b46021470370ea0fae2573602f61238')
+            | 楽天カード
+            br
+            | 特典分
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutenbank
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fwww.rakuten-bank.co.jp%2Fcampaign%2Fspu%2F%3Fscid%3Dwi_ich_spu_spusubtab&D2=1.53089.255283.910529.32307748&C3=f80cb13037f111e38586c2833ce92eaae8ef8392')
+            | 楽天銀行
+            br
+            | ＋楽天カード
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutensecurities
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fr10.to%2Fhv65fA&D2=1.53089.255283.910529.32313410&C3=67fbec01f06a4192a25f0b52deb89fb4048bf757')
+            | 楽天証券
+            br
+            | 投資信託
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutensecurities_us
+          a.spuCommonHeader__serviceLink(href='https://www.rakuten-sec.co.jp/web/campaign/spu_us/?scid=wi_ich_spu_sputop_sp')
+            | 楽天証券
+            br
+            | 米国株式
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutenwallet
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/c/?R2=https%3A%2F%2Fwww.rakuten-wallet.co.jp%2Flp%2Fspu%2F%3Fscid%3Dwi_ich_spu_sp&D2=1.0.255283.910530.32390078&C3=a55b58a237e8914fe16ef6ce879f641db2de4bdb') 楽天ウォレット
+        li.spuCommonHeader__service.spuCommonHeader__service--energy
+          a.spuCommonHeader__serviceLink(href='https://energy.rakuten.co.jp/campaign/lp/spu/?scid=wi_ich_energy_spulink_gbanner_sp') 楽天でんき
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutentravel
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Ftravel.rakuten.co.jp%2Fcamp%2Fspu%2F%3Fscid%3Dwi_trv_spu_tlb_pc&D2=1.53089.255283.910529.32297793&C3=ecbd7eae35d072f1d7148ddb24e5e41fb0b2bb9e') 楽天トラベル
+        li.spuCommonHeader__service.spuCommonHeader__service--books
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fcampaign%2Fpointup-program%2F%3Fscid%3Dwi_ich_special_all_spu_link01a&D2=1.53089.255283.910529.32297801&C3=a5d39c594f8bb0e6c2a474b1174faf27ba142ca3') 楽天ブックス
+        li.spuCommonHeader__service.spuCommonHeader__service--kobo
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fbooks.rakuten.co.jp%2Fevent%2Fe-book%2Fspu%2F%3Fscid%3Dwi_ich_special_kobo_spu_02&D2=1.53089.255283.910529.32333857&C3=dc2c224daa6b7f17f458f21f194a2ace3b82fcd8') 楽天Kobo
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutenrakuma.spuCommonHeader__service--new
+          a.spuCommonHeader__serviceLink(href='https://rakuma.rakuten.co.jp/info/campaign/spu/?scid=wi_ich_spu_top_pc') 楽天ラクマ
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutenrba
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fbrandavenue.rakuten.co.jp%2Fguide%2Fspu%2F%3Fscid%3Dbrn_spu_main&D2=1.53089.255283.910529.32333864&C3=f2cc92a8d543f9ba89c36ef41839708ef7af76e2')
+            | Rakuten
+            br
+            | Fashionアプリ
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutenbeauty.spuCommonHeader__service--active
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/s/?R2=https%3A%2F%2Fbeauty.rakuten.co.jp%2Fcnt%2Ftopics%2Fcampaign%2Fspu%2F%3Fscid%3Dwi_ich_spu_tab_pc&D2=1.53089.255283.910529.32333863&C3=66bfe6fb42a7e346ac03e45a0098ed2bf46553c2') 楽天ビューティ
+        li.spuCommonHeader__service.spuCommonHeader__service--pasha
+          a.spuCommonHeader__serviceLink(href='https://rd.rakuten.co.jp/c/?R2=https%3A%2F%2Fpasha.rakuten.co.jp%2Fspecial%2Fcampaign%2Fspu%2F%3Fref%3Dspugadget_pasha_sp&D2=1.0.255283.910530.32390079&C3=d176e3b5e721aa7796ab71d95b53511f9329c88e')
+            | Rakuten
+            br
+            | Pasha
+        li.spuCommonHeader__service.spuCommonHeader__service--rakutenkdreams
+          a.spuCommonHeader__serviceLink(href='https://keirin.kdreams.jp/special/spu/?scid=wi_kdr_spu_sp') 楽天Kドリームス
+  // /.spuCommonHeader__serviceContainer
+  .spuCommonHeader__slideshowContainer
+    .spuCommonHeader__slideshowFrame
+      .spuCommonHeader__slideshowPrev
+      .spuCommonHeader__slideshowBody
+      .spuCommonHeader__slideshowNext
+  // /.spuCommonHeader__slideshowContainer
+// /.spuCommonHeader
+script(type='text/javascript' src='https://r.r10s.jp/evt/event/campaign/point-up/everyday/point/_cmn/js/spu_common_header-1.1.0.min.js?v=01')

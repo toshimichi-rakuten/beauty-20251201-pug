@@ -1,0 +1,277 @@
+passStr = '../../../../../../'
+
+@import passStr + '_common/stylus/Base/_init'
+
+//---------------------------------
+redColor = #bf0000
+redColorDark = #720000
+grayColor = #eeeeee
+grayTxtColor = #444444
+yellowColor = #f9e938
+//---------------------------------
+
+#DealForm
+
+  a
+    &:hover
+      opacity:0.6
+  +pc()
+    .-sp
+      display: none
+  +sp()
+    img
+      width:100%
+    .-pc
+      display: none
+
+  .dealFormOuter
+    .dealFormWrapper
+      text-align:center
+      width:100%
+      .dealvideo
+        width: 50%
+        height: 50%
+        aspect-ratio:16 / 9
+        margin-bottom: 30px
+        +sp()
+          width: 80%
+          height: 80%
+
+      //---------------------------------// Common
+
+      .dealContentBtn
+        display:block
+        width:600px
+        margin:0 auto
+        +sp()
+          width:100%
+      .dealContentBtnBox
+        margin: 20px auto 40px
+        //
+        font-size: 1.8rem
+        line-height: 1.8
+        font-weight: bold
+        color:grayTxtColor
+        +sp()
+          margin: 0 10px 24px
+          //
+          font-size: 1.8rem
+          line-height: 1.5
+        &Txt
+          +sp()
+            font-size: 1.4rem
+          &--small
+            font-size: 1.4rem
+            font-weight:normal
+            +sp()
+              font-size: 1.2rem
+              line-height: 2
+
+      //---------------------------------// layout
+
+      .dealContent
+
+        &Ttl
+          background:redColor
+          line-height: 1.5
+          +pc()
+            width:100%
+            padding:40px 0
+          +sp()
+            width:auto
+          padding:38px 10px
+          &Wrapper
+            +pc()
+              display: flex
+              justify-content: center
+            +sp()
+              display: flex
+              justify-content: space-between
+              align-items: center
+          &Img
+            +pc()
+              width:180px
+              margin-right:16px
+            +sp()
+              width: 100px
+              margin-right:8px
+              flex-shrink:0
+            &Icon
+              width:100%
+          &Txt
+            &--white
+              color:#fff
+              font-size:3.6rem
+              font-weight: bold
+              line-height: 1
+              +sp()
+                width:100%
+                margin-bottom:8px
+                box-sizing: border-box
+                font-size: calc(4vw + 40%)
+                line-height: 1.2
+            &--yellow
+              color:yellowColor
+              font-size:5.6rem
+              font-weight: bold
+              +sp()
+                margin-bottom:8px
+                //
+                font-size: calc(7.5vw + 30%)
+                line-height: 1.2
+                text-align: left
+            &Due
+              color:#fff
+              font-size:2.4rem
+              +sp()
+                font-size: calc(3.6vw + 30%)
+                font-weight: bold
+                line-height: 1.4
+                text-align: left
+              &--small
+                display: block
+                color:#fff
+                font-size:1.6rem
+                +sp()
+                  margin-top: 4px
+                  //
+                  font-size: calc(2vw + 30%)
+                  font-weight: normal
+                  line-height: 1.5
+
+        &Intro1
+          width:100%
+          margin:0 auto
+          background:grayColor
+          &ImgBox
+            padding:40px 0
+            &Link
+              display: block
+            +sp()
+              padding: 0
+
+        &Intro2
+          margin:0 auto
+          &ImgBox
+            &Link
+              display: block
+            &--1
+              padding: 20px 0 40px
+              +sp()
+                padding: 0
+            &--2
+              //
+
+        &Data
+          margin:0 auto
+          &ImgBox
+            &Link
+              display: block
+            &--1
+              padding: 20px 0 40px
+              +sp()
+                padding: 0
+              //
+
+        &About
+          margin:0 auto
+          &Title
+            padding:40px 0
+            background:redColor
+            +sp()
+              padding: 0
+          &ImgBox
+            &--1
+              padding:40px 0
+              +sp()
+                padding: 0
+            &--2
+              //
+
+        &PR
+          margin:0 auto
+          &Title
+            padding:0
+            background:redColorDark
+            +sp()
+              padding: 0
+          &ImgBox
+            padding:40px 0
+            +sp()
+              padding: 0
+
+        &Terms
+          margin:40px auto
+          +sp()
+            margin:16px
+          &Title
+            padding:40px 0
+            background:redColor
+            +sp()
+              padding: 0
+          &Box
+            width:700px
+            margin:0 auto 16px
+            font-size:2rem
+            text-align: left
+            line-height: 1.5
+            +sp()
+              width:auto
+              font-size:1.4rem
+            &Ttl
+              font-weight:bold
+              margin-bottom:4px
+            &Txt
+              &--red
+                color:redColor
+                font-weight: bold
+                &.-arrow
+                  display: inline-block
+                  position: relative
+                  margin-left:24px
+                  &::after
+                    content:''
+                    position: absolute
+                    arrowFill(right,8px,grayTxtColor)
+                    top:calc((100% - 16px)/2)
+                    left:-16px
+              &List
+                &--li
+                  list-style:disc
+                  margin-left: 3rem
+                  +sp()
+                    margin-left: 2rem
+                &--liAttention
+                  list-style:none
+                  margin-left: 3rem
+                  +sp()
+                    margin-left: 2rem
+                  &::before
+                    content:'※'
+                    display:inline-block
+                    text-indent: -3rem
+                    +sp()
+                      text-indent: -2rem
+              &--strikethrough
+                text-decoration: line-through
+        &Cm
+          text-align: left
+          width: 900px
+          margin: 0 auto
+          padding: 30px 40px
+          background:grayColor
+          font-size: 1.6rem
+          line-height: 1.5
+          +sp()
+            width: auto
+            margin: 0 auto 20px
+            padding: 20px
+            font-size: 1.2rem
+          &Txt
+            &--bold
+              font-weight: bold
+            &--link
+              color:redColor
+              text-decoration: underline
+              &:hover
+                text-decoration: none

@@ -1,0 +1,419 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- クーポンがあるLPは_template_coupon/を複製→このテンプレートから必要なものを移植して作成したほうが簡単です
+//- template / ver 3.0.3 / 更新日時：2024.6.13 / APP DLパーツの第二引数にAdjust URL追加
+
+extends ../../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20250109'
+    var meta = {
+      title: 'Rakuten OPTIMISM ガラポンに参加して豪華賞品を当てよう！',
+      description: 'Rakuten OPTIMISM ガラポンに参加して豪華賞品を当てよう！',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/other/optimism/',
+      directory: 'optimism', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #Optimism
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            //- 'エントリー必要', //- エントリー不要は自動的に青色になります
+            //- '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+            //- 'ネット予約・施術完了',
+            //- '毎月開催',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+      .main__terms
+        .main__termsBox
+          img(src='img/img_main_step.png' + parameter, alt='STEP1 エントリー STEP2 クイズに回答 STEP3 アプリをダウンロード' width='100%' height='')
+        p.main__termsTxt ※ 本企画は予告なく変更・中止される可能性がございます。
+        p.main__termsTxt ※ Rakuten OPTIMISM 2024 会場限定の企画となります。
+
+    //- Entry Btn
+    section#EntryBox.entryBox(data-ratid='cpn_' + meta.directory + '_EntryBox' data-ratevent='appear' data-ratparam='all')
+      .entryBox__wrap
+        h2.title--text
+          | step 1
+        p.title--text--caption
+          | まずは
+          br
+          span.title--text--caption--decoration
+            | こちらからエントリー
+      .entryBox__container
+        //- 終了対応
+        if endflag == true
+          //- ボタンセット(url,txt,endflag)
+          +btnSet('',btnTxt,true)
+        else
+
+          //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+          //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+          // ReX Campaign Entry Button: Mounting points
+          // mounting point for button 1
+          #rex-ceb-01
+          // ReX Campaign Entry Button: Configuration
+          script
+            | var rexButtons = {language: 'ja', buttons: [{"code":"/rbeauty/rakutenoptimism2024/rbeautyquizday4","theme":"pink","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","below":{"isCheckboxMandatory":true,"isChecked":true,"checkboxText":"エントリーしてメルマガを購読する","html":""},"ids":["rex-ceb-01"]}]}
+          // ReX Campaign Entry Button: Script
+          script(src='https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js' defer='')
+
+          //- メルマガパーミッション
+          include ../../../../../_common/pug/Module/Common/_mailPermissionTxt
+          +mailPermissionTxt()
+
+
+    //- main content
+    section#MainContent.mainContent(data-ratid='cpn_' + meta.directory + '_MainContent' data-ratevent='appear' data-ratparam='all')
+      .mainContent__wrap
+        h2.title--text
+          | step 2
+        //- Q1
+        ul.mainContent__container
+          li.mainContent__question
+            h4.mainContent__question--title
+              span.mainContent__question--title--icon
+                | Q1
+              | 楽天ビューティで予約ができるサロンは？
+            ul.mainContent__question__item
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button(href='#AnswerQ1')
+                  span.mainContent__question__item--button__icon
+                    | A
+                  | 美容院・ヘアサロン
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button.js-accordionbtn(href='#AnswerQ1')
+                  span.mainContent__question__item--button__icon
+                    | B
+                  | ネイル、まつ毛
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button(href='#AnswerQ1')
+                  span.mainContent__question__item--button__icon
+                    | C
+                  | リラク、エステ
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button(href='#AnswerQ1')
+                  span.mainContent__question__item--button__icon
+                    | D
+                  | 上記全て
+          li#AnswerQ1.mainContent__answer
+            .mainContent__answer__wrap
+              p.mainContent__answer--title
+                | 答え
+              .mainContent__answer--lead
+                | D.上記全て
+              p.mainContent__answer--summary
+                | 楽天ビューティでは上記
+                span.mainContent__answer--summary-emphasis
+                  | 全て
+                | の予約ができちゃいます！
+                br
+                | 行きたいサロンジャンルをクリックして、サロンを検索してみよう！
+                br
+                | 暑い夏はヘッドスパやヘアカット
+                br
+                | 夏っぽい鱗ネイル、ブルーやパープルをあしらった
+                br
+                | 涼しげマグネットネイルなどがおすすめ。
+              .mainContent__answer__img-q1
+                img.-pc(src='img/img_answer_q1.png' + parameter, alt='' width='100%' height='')
+                img.-sp(src='img/img_answer_q1_sp.png' + parameter, alt='' width='100%' height='')
+              ul.mainContent__answer__button__wrap
+                li
+                  a.mainContent__answer__button(href='https://beauty.rakuten.co.jp/style/')
+                    | お気に入りの
+                    br.-sp
+                    | ヘアスタイルを探す
+                li
+                  a.mainContent__answer__button(href='https://beauty.rakuten.co.jp/naildesign/')
+                    | お気に入りの
+                    br.-sp
+                    | ネイルを探す
+        //- Q2
+        ul.mainContent__container
+          li.mainContent__question
+            h4.mainContent__question--title
+              span.mainContent__question--title--icon
+                | Q2
+              | 楽天ビューティで現在行われ
+              br.-sp
+              | ているお得なキャンペーンは？
+            ul.mainContent__question__item
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button.-small(href='#AnswerQ2')
+                  span.mainContent__question__item--button__icon
+                    | A
+                  | 【楽天モバイルご契約者様限定】
+                  br
+                  | 楽天ビューティアプリのサロン
+                  br.-sp
+                  | 予約で
+                  br.-pc
+                  | ポイント4倍キャンペーン
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button.-small(href='#AnswerQ2')
+                  span.mainContent__question__item--button__icon
+                    | B
+                  | サロン予約で10％～最大35％還元
+                  br.-sp
+                  | の
+                  br.-pc
+                  | 楽天スーパーDEAL
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button.-small(href='#AnswerQ2')
+                  span.mainContent__question__item--button__icon
+                    | C
+                  | 楽天ビューティご利用で
+                  br.-pc
+                  | 楽天市場
+                  br.-sp
+                  | お買い物がポイント＋0.5倍
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button.-small(href='#AnswerQ2')
+                  span.mainContent__question__item--button__icon
+                    | D
+                  | 上記全て
+          li#AnswerQ2.mainContent__answer
+            .mainContent__answer__wrap
+              p.mainContent__answer--title
+                | 答え
+              .mainContent__answer--lead
+                | D.上記全て
+              p.mainContent__answer--summary
+                | 楽天ビューティでは様々な
+                span.mainContent__answer--summary-emphasis
+                  | お得なキャンペーン
+                | を実施中！
+                br
+                | 気になる人は以下のページをチェックして、
+                br
+                span.mainContent__answer--summary-emphasis
+                  | いつもよりお得にサロン予約
+                | をしてみよう！
+              .mainContent__answer__img-q2
+                img(src='img/img_answer_q2.png' + parameter, alt='もっとおトクに！楽天ポイントが貯まるキャンペーン＆特集' width='100%' height='')
+              ul.mainContent__answer__button__wrap
+                li
+                  a.mainContent__answer__button(href='https://beauty.rakuten.co.jp/cnt/topics/')
+                    | おトクなキャンペーンを
+                    br.-sp
+                    | チェックする
+        //- Q3
+        ul.mainContent__container
+          li.mainContent__question
+            h4.mainContent__question--title
+              span.mainContent__question--title--icon
+                | Q3
+              | 楽天ビューティ「みんなのサロンプロジェクト」は、
+              br
+              | ◯◯◯◯◯◯◯＆インクルージョンに関する取り組み。
+              br
+              | ◯の中に入る言葉は？
+            ul.mainContent__question__item
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button(href='#AnswerQ3')
+                  span.mainContent__question__item--button__icon
+                    | A
+                  | ダイバーシティ
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button.js-accordionbtn(href='#AnswerQ3')
+                  span.mainContent__question__item--button__icon
+                    | B
+                  | サステナビリティ
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button(href='#AnswerQ3')
+                  span.mainContent__question__item--button__icon
+                    | C
+                  | ハイパーシティ
+              li.mainContent__question__item__list
+                a.mainContent__question__item--button(href='#AnswerQ3')
+                  span.mainContent__question__item--button__icon
+                    | D
+                  | トキワシティ
+          li#AnswerQ3.mainContent__answer
+            .mainContent__answer__wrap
+              p.mainContent__answer--title
+                | 答え
+              .mainContent__answer--lead
+                | A.ダイバーシティ
+              p.mainContent__answer--summary
+                | 楽天ビューティではダイバーシティ＆インクルージョンの
+                br.-pc
+                | 取り組みとして「みんなのサロンプロジェクト」を推進しています。
+                br
+                |あらゆる性自認・性的指向の人が安心してサロン体験していただくために、
+                br
+                span.mainContent__answer--summary-emphasis
+                  | サロン様向けの接客知識動画
+                | の作成や、
+                br.-pc
+                span.mainContent__answer--summary-emphasis
+                  | サロン様を招致して東京レインボープライド
+                | へ参加しています。
+              .mainContent__answer__img-q3
+                img(src='img/img_answer_q3.png' + parameter, alt='' width='100%' height='')
+              ul.mainContent__answer__button__wrap
+                li
+                  a.mainContent__answer__button(href='https://r10.to/hN0el4')
+                    | 詳しくはこちら
+
+    //- result
+    section#ResultContent.resultContent(data-ratid='cpn_' + meta.directory + '_ResultContent' data-ratevent='appear' data-ratparam='all')
+      .resultContent__dec
+        .resultContent__dec-left
+        .resultContent__dec-right
+      .resultContent__wrap
+        h2.title--text
+          | step 3
+        p.title--text--caption.-excludeApp
+          | クイズ回答ありがとうございました！
+          br
+          | ガラポンまでもう少し、
+          br
+          span.title--text--caption--decoration
+            | アプリをダウンロード
+        p.title--text--caption.-app
+          | クイズ回答ありがとうございました！
+          br
+          | ガラポンまでもう少し！
+        .resultContent__dl__wrap.-excludeApp
+          .resultContent__dl
+            .resultContent__dl__device
+              img(src='img/img_device.png' + parameter, alt='' width='100%' height='')
+            .resultContent__dl__button
+              img.-pc(src='img/img_qr.png' + parameter, alt='' width='100%' height='')
+              a(href='https://app.adjust.com/1doros5x' target="_blank" rel="noreferrer")
+                img.resultContent__dl__button-iphone.-iphone(src='img/img_button_app.png' + parameter, alt='' width='100%' height='')
+                img.resultContent__dl__button-android.-android(src='img/img_button_googleplay.png' + parameter, alt='' width='100%' height='')
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle 【MAQUIA】限定ラ・クーポン
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead エントリー・予約期間
+              td.detail__tableBlockBody 2024年8月1日10:00(木) ～ 2024年8月4日(日)17:30まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ガラポン参加条件
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の条件を全て満たした方が、ガラポン参加の対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜参加条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 当ページにてエントリー・楽天ビューティアプリをダウンロード後、楽天ビューティブースのガラポン担当者にご提示された方
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li エントリーには楽天会員登録が必要です。楽天会員でない方は、エントリーと同時に楽天会員登録(無料)ができます。
+                  li.detail__tableBlockList--li エントリー履歴は
+                    a.detail__tableBlockTxt--link(href="https://oubo.rakuten.co.jp/list?spk=f1636b")
+                      | こちら
+                    | から確認できます。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt Rakuten OPTIMISM 2024
+                p.detail__tableBlockTxt 楽天ビューティブース ガラポン参加権
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li エントリーには楽天会員へのログインが必要です。楽天会員でない方は、
+                    a.detail__tableBlockTxt--link(href="https://my.rakuten.co.jp/")
+                      | こちら
+                    | からご登録をお願いいたします。
+                  li.detail__tableBlockList--li 当企画は Rakuten OPTIMISM 2024 会場限定のキャンペーンとなります。期間後、または現地以外での参加は不可となりますのでご了承ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li クイズ回答＆エントリーはおひとり様1日1回となっております。2回ガラポンへ参加したい方はSNS投稿をお願いしております。詳細は楽天ビューティフォトブース担当にお尋ねください。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                  li.detail__tableBlockList--li 本企画において不正行為とみなされた場合は参加対象外とさせて頂きます。
+                  li.detail__tableBlockList--li 本企画は天災地変などの影響により実施が困難になった場合、予告なく中止する場合がございます。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li その他ご不明な点はブース担当員にお尋ねください。
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  //- script(src="/cnt/common/js/area-search/build.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  //- script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  //- script.
+  //-   campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  //- script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+  script(src="js/accordion.js", defer)

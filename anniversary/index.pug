@@ -1,0 +1,816 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- template / ver 3.2.1 / 更新日時：2025.1.7 / jqueryのバージョンを3.4.1から3.7.1に変更
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20250220'
+    var meta = {
+      title: '楽天ビューティ10周年記念',
+      description: '楽天ビューティ10周年記念',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/anniversary/',
+      directory: 'anniversary', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/anniversary/img/share.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+  link(rel="stylesheet", href="css/particle.css")
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #anniversary
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    //- #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー必要', //- エントリー不要は自動的に青色になります
+            '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+            'ネット予約・施術完了',
+            '毎月開催',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    //- section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+    section#Main.main
+
+      .main__background
+        .particle-container
+          //- particle test
+          - for (i = 1; i <= 100; i++)
+            .circle-container
+              .circle
+          //- Use h1
+          h1.main__title
+            img.main__titleImg.fade-in.-pc(src='img/main.png' + parameter, alt=meta.title)
+            img.main__titleImg.fade-in.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+      
+        //- message
+        .main__message
+          .main__messageBox.slideInContent
+            h2.main__messageTitle
+              | ありがとう
+              br
+              | Rakuten BEAUTYでつなぐ未来へ
+            p.main__messageTxt
+              | 「楽天サロン」から「楽天ビューティ」に
+              br.-sp
+              | リニューアルしてから早10年。
+            p.main__messageTxt
+              | 私たちとの繋がりを築いてくれたユーザのみなさま、サロンのみなさまには感謝の気持ちでいっぱいです。
+            p.main__messageTxt
+              | 次の10年はどんな方でも垣根なく美容を享受できる「誰でも安心して楽しめるサロン体験」の提供と
+            p.main__messageTxt
+              | サロン側の負担を削減する「サロン業界の民主化」の実現により一層励んでいきます！
+      
+      //- comment
+      .main__comment
+        .main__commentBgImg.slideInContent
+          p.main__captionTxt
+            | ＼あたたかいお言葉をありがとう／
+          h2.main__titleTxt
+            | みなさまからのお祝いメッセージ
+          .main__titleLine
+          .main__commentBox
+            .main__cardBox.carousel
+              .main__card.carousel-item
+                p.cardTxt
+                  | 10周年おめでとうございます︎💕︎  最近はもっぱら楽天ビューティでサロン予約しています(*^^*)🎶  掲載店舗数も充実してきましたし、コスパ◎なサロンも見付かる❤  DEAL対象のサロンまであるから、楽天経済圏の私にとって楽天ビューティは神😇✨💕
+              .main__card.carousel-item
+                p.cardTxt
+                  | 楽天ビューティのおかげで大好きな美容師さんに出会えて、自分史上最高に可愛---い自分になれました☺️♥️これからもずっと利用します
+              .main__card.carousel-item
+                p.cardTxt
+                  | 🎉10周年おめでとうございます💐 楽天ビューティ使ってヘアサロン予約したらめちゃくちゃお得にできました❣️ 
+                  br
+                  | 新規開拓にとっても便利なので掲載店舗増えたら嬉しいです。 いつもありがとうございます✨
+              .main__card.carousel-item
+                p.cardTxt
+                  | 10周年おめでとうございます！ ちょうど2年前に初めて楽天ビューティを利用して、オープンして半年の美容院に行きました  そのとき担当してくださった美容師さんに今もお世話になってます♪  素敵な出会いに感謝です！  これからもよろしくお願いします🎉
+            #sp-commentPagination.-sp
+              span.paginationBullet.active
+              span.paginationBullet
+              span.paginationBullet
+              span.paginationBullet
+            p.main__commentTxt 
+              | ※2024年12月2日～2025年1月6日に開催していたX(旧Twitter)フォロー＆リポストキャンペーンを通して引用リポストでいただいた応援・お祝いメッセージです。
+            
+
+      //- timeline
+      .main__timeline
+        .slideInContent
+          p.main__captionTxt
+            | ＼2014年からこれまで／
+          h2.main__titleTxt
+            | みなさまとつながった10年のあゆみ
+          .main__titleLine
+          .main__timelineBox
+            #sp-accordion.main__timelineWrapper
+              ul#pc-slider.main__cardContainer
+                li.main__timelineCard.-small
+                  h3.titleTxtYear
+                    | 2014
+                  .cardContent
+                    .imageBox
+                      img(src='img/RB_logo-2014.png' + parameter, alt='旧楽天ビューティロゴ' width='110px' height='81px')
+                    .timeConnect
+                      span.timeCircle
+                        span.-sp.lineSp.timeDot-1
+                    .textBox
+                      h4.titlTxtMonth
+                        | 12月
+                      .timelineTxtBox
+                        p.timelineTxt
+                          | 2014年12月16日に「楽天サロン」と「美美美コム（ビビビコム）」が統合して「楽天ビューティ」が誕生
+                li.main__timelineCard.-large
+                  h3.titleTxtYear
+                    | 2015
+                  .largeCardContent
+                    .cardContent
+                      .imageBox
+                        img(src='img/timeline-201507.png' + parameter, alt='取り扱いジャンル拡大')
+                      .timeConnect
+                        span.timeCircle
+                          span.-sp.lineSp.timeDot-2
+                      .textBox
+                        h4.titlTxtMonth
+                          | 7月
+                        .timelineTxtBox
+                          p.timelineTxt
+                            | ヘアサロンの取り扱いのみからネイル、エステ、まつげ、リラクにもジャンルを拡大！
+                    .cardContent
+                      .imageBox
+                        img(src='img/timeline-201512.png' + parameter, alt='店舗')
+                      .timeConnect
+                        span.timeCircle
+                          span.-sp.lineSp.timeDot-3
+                      .textBox
+                        h4.titlTxtMonth
+                          | 12月
+                        .timelineTxtBox
+                          p.timelineTxt
+                            | 12月に掲載店舗数10,000店舗達成！
+                li.main__timelineCard.-large
+                  h3.titleTxtYear
+                    | 2016
+                  .largeCardContent
+                    .cardContent
+                      .imageBox
+                        img(src='img/timeline-201609.png' + parameter, alt='ポイントマーク')
+                      .timeConnect
+                        span.timeCircle
+                          span.-sp.lineSp.timeDot-4
+                      .textBox
+                        h4.titlTxtMonth
+                          | 9月
+                        .timelineTxtBox
+                          p.timelineTxt
+                            | 即時予約機能をリリース！ポイントが貯まって、使えるサイトになり、より便利に♪
+                    .cardContent
+                      .imageBox
+                        img(src='img/GirlsAward_logo.png' + parameter, alt='Girls Awardロゴ')
+                      .timeConnect
+                        span.timeCircle
+                          span.-sp.lineSp.timeDot-5
+                      .textBox
+                        h4.titlTxtMonth
+                          | 12月
+                        .timelineTxtBox
+                          p.timelineTxt
+                            | Girls Awardに初出展！
+                li.main__timelineCard.-small
+                  h3.titleTxtYear
+                    | 2017
+                  .cardContent
+                    .imageBox
+                      img(src='img/RB_logo-2017.png' + parameter, alt='楽天ビューティロゴ')
+                    .timeConnect
+                      span.timeCircle
+                        span.-sp.lineSp.timeDot-6
+                    .textBox
+                      h4.titlTxtMonth
+                        | 7月
+                      .timelineTxtBox
+                        p.timelineTxt
+                          | 楽天全社のロゴ一新に伴い、楽天ビューティもロゴが現在のものに変更
+                li.main__timelineCard.-large
+                  h3.titleTxtYear
+                    | 2018
+                  .largeCardContent
+                    .cardContent
+                      .imageBox
+                        img(src='img/RSPU_logo-2018.png' + parameter, alt='楽天SPUロゴ')
+                      .timeConnect
+                        span.timeCircle
+                          span.-sp.lineSp.timeDot-7
+                      .textBox
+                        h4.titlTxtMonth
+                          | 5月
+                        .timelineTxtBox
+                          p.timelineTxt
+                            | 楽天ビューティがSPUに参画。楽天経済圏でのお買い物・サロン予約がよりおトクに♪
+                    .cardContent
+                      .imageBox
+                        img(src='img/timeline-201812.png' + parameter, alt='ラ・クーポン')
+                      .timeConnect
+                        span.timeCircle
+                          span.-sp.lineSp.timeDot-8
+                      .textBox
+                        h4.titlTxtMonth
+                          | 12月
+                        .timelineTxtBox
+                          p.timelineTxt
+                            | ラ・クーポン導入開始
+                li.main__timelineCard.-small
+                  h3.titleTxtYear
+                    | 2020
+                  .cardContent
+                    .imageBox
+                      img(src='img/timeline-202003.png' + parameter, alt='マップ検索')
+                    .timeConnect
+                      span.timeCircle
+                        span.-sp.lineSp.timeDot-9
+                    .textBox
+                      h4.titlTxtMonth
+                        | 3月
+                      .timelineTxtBox
+                        p.timelineTxt
+                          | アプリでの地図検索機能をリリース！より使いやすいサービスを目指して日々頑張っています♪
+                li.main__timelineCard.-small
+                  h3.titleTxtYear
+                    | 2022
+                  .cardContent
+                    .imageBox
+                      img(src='img/RSalon_logo-2022.png' + parameter, alt='楽天サロン')
+                    .timeConnect
+                      span.timeCircle
+                        span.-sp.lineSp.timeDot-10
+                    .textBox
+                      h4.titlTxtMonth
+                        | 6月
+                      .timelineTxtBox
+                        p.timelineTxt
+                          | 2022年6月25日に「楽天サロン」リリースから10周を迎えました！
+                li.main__timelineCard.-large
+                  h3.titleTxtYear
+                    | 2024
+                  .largeCardContent
+                    .cardContent
+                      .imageBox
+                        img(src='img/timeline-202403.png' + parameter, alt='LGBTQ')
+                      .timeConnect
+                        span.timeCircle.-short
+                          span.-sp.lineSp.timeDot-11
+                      .textBox
+                        h4.titlTxtMonth
+                          | 3月
+                        .timelineTxtBox
+                          p.timelineTxt
+                            | LGBTQ＋フレンドリーを推進する「みんなのサロンプロジェクト」始動！すべてのお客さまとサロンさまが多様な性を尊重できる環境作りに取り組んでいます。
+                    .cardContent
+                      .imageBox
+                        img(src='img/timeline-202412.png' + parameter, alt='サロン掲載数グラフ')
+                      .timeConnect
+                        span.timeCircle.-last
+                          span.-sp.lineSp.timeDot-12
+                      .textBox
+                        h4.titlTxtMonth
+                          | 12月
+                        .timelineTxtBox
+                          p.timelineTxt
+                            | 10周年の現在ではサロン掲載数は開始時の2.7倍、予約数は12倍に！今後もみなさまのキレイを繋ぐためによりよいサービスの提供に頑張ります。
+            #pc-timelinePagination.-pc
+              .paginationBullet.active
+              .paginationBullet
+              .paginationBullet
+              .paginationBullet
+              .paginationBullet
+            .timelineButton.-sp
+              button#openButton
+                | もっと見る
+              .chevron-down
+
+      //- numbers
+      .main__numbers
+        .main__numbersWrapper.slideInContent
+          p.main__captionTxt
+            | ＼数字で見る／
+          h2.main__titleTxt
+            | 10年分のつながり
+          .main__titleLine
+          .main__numbersBox
+            .main__cardContainer
+              .main__cardBoxLarge.slideInContent
+                .fukidashi
+                  p.titleBox
+                    | 楽天ビューティと縁深い
+                    br
+                    | ユーザさま発見！
+                .main__cardWrapper
+                  .main__card
+                    .textBox
+                      p.numbersTxt
+                        | 予約回数No.1ユーザ
+                        br
+                        | 10年間で
+                      p.numbersDetail
+                        span.gradTxt.-large
+                          | 497
+                        | 予約
+                      p.numbersInfo.user
+                        | ※2016年8月9日～2024年11月30日までの累計
+                    img(src='img/user.png' + parameter, alt='ユーザ')
+                  .main__card
+                    .textBox
+                      p.numbersTxt
+                        | 総ポイント利用数No.1ユーザ
+                        br
+                        | 10年間で
+                      p.numbersDetail
+                        span.gradTxt.-point
+                          | 2,500,560
+                        br
+                        | ポイント
+                      p.numbersInfo
+                        | ※2016年8月9日～2024年11月30日までの累計
+                    img(src='img/point.png' + parameter, alt='ポイント')
+              .main__cardBoxSmall.slideInContent
+                .fukidashi
+                  p.titleBox
+                    | お客様とサロンの
+                    br
+                    | 出会い発見！
+                .main__card
+                  .textBox
+                    p.numbersTxt
+                      | 10年間のみんなの
+                      br
+                      | お気に入り回数
+                    p.numbersDetail
+                      span.gradTxt
+                        | 1,559,157
+                      br.-pc
+                      | 回
+                    p.numbersInfo
+                      | ※2016年8月9日～2024年11月30日までの累計
+                  img(src='img/heart.png' + parameter, alt='ハート')
+              .main__cardBoxSmall.slideInContent
+                .fukidashi
+                  p.titleBox
+                    | お客様から
+                    br
+                    | サロンへの感謝の想い
+                .main__card
+                  .textBox
+                    p.numbersTxt
+                      | 10年間の口コミに込められた
+                      br
+                      span.pinkTxt 
+                        | ありがとう
+                      | の回数
+                    p.numbersDetail
+                      span.gradTxt.-thanx
+                        | 152,425
+                      br.-pc
+                      | 回
+                    p.numbersInfo
+                      | ※2017年10月19日～2024年12月09日までの累計
+                  img(src='img/comment.png' + parameter, alt='コメント')
+  
+      //- ranking
+      .main__ranking
+        .slideInContent
+          p.main__captionTxt
+            | ＼ランキングでみる！／
+          h2.main__titleTxt
+            | 10年分の注目サロンTOP3
+          .main__titleLine
+          .main__rankingBox
+            .main__rankingCardWrapper
+              .main__rankingCardBox.slideInContent
+                .fukidashi
+                  p.titleBox
+                    | 予約数が多いサロン
+                .main__cardWrapper
+                  a(href='https://beauty.rakuten.co.jp/s3010011694/?l-id=rb_anniversary_rank_reservation1')
+                    .main__card
+                      .textWrapper
+                        .ribbon
+                          .ribbon-top
+                            img(src='img/crown.png' + parameter, alt='王冠')
+                            | No.1
+                          .ribbon-bottom
+                        .textBox
+                          .titleTxt.-uppercase
+                            | Rowen
+                          .descTxt
+                            | 圧倒的差をつけての王者降臨！
+                      img(src='img/ranking-rowen.png' + parameter, alt='Rowen')
+                  a(href='https://beauty.rakuten.co.jp/s8000034919/?l-id=rb_anniversary_rank_reservation1')
+                    .main__card
+                      .textWrapper
+                        .ribbon
+                          .ribbon-top
+                            | No.2
+                          .ribbon-bottom
+                        .textBox
+                          .titleTxt
+                            | savon hair＆treatment
+                            br.-sp
+                            | by tocca
+                          .descTxt
+                            | 完全個室サロンにリニューアル
+                      img(src='img/ranking-tocca.png' + parameter, alt='savon hair＆treatment by tocca')
+                  a(href='https://beauty.rakuten.co.jp/s5010014825/?l-id=rb_anniversary_rank_reservation3')
+                    .main__card
+                      .textWrapper
+                        .ribbon
+                          .ribbon-top
+                            | No.3
+                          .ribbon-bottom
+                        .textBox
+                          .titleTxt
+                            | little 池袋
+                          .descTxt
+                            | 高級薬剤×プチプライスが叶うサロン
+                      img(src='img/ranking-little.png' + parameter, alt='little 池袋')
+              .main__rankingCardBox.slideInContent
+                .fukidashi
+                  p.titleBox
+                    | 口コミ数が多いサロン
+                .main__cardWrapper
+                  a(href='https://beauty.rakuten.co.jp/s3010011694/?l-id=rb_anniversary_rank_reservation1')
+                    .main__card
+                      .textWrapper
+                        .ribbon
+                          .ribbon-top
+                            img(src='img/crown.png' + parameter, alt='王冠')
+                            | No.1
+                          .ribbon-bottom
+                        .textBox
+                          .titleTxt.-uppercase
+                            | Rowen
+                          .descTxt
+                            | 予約数に続いてTOPの座に！
+                      img(src='img/ranking-rowen.png' + parameter, alt='Rowen')
+                  a(href='https://beauty.rakuten.co.jp/s0000045393/?l-id=rb_anniversary_rank_kutikomi2')
+                    .main__card
+                      .textWrapper
+                        .ribbon
+                          .ribbon-top
+                            | No.2
+                          .ribbon-bottom
+                        .textBox
+                          .titleTxt
+                            | Natural 仙台西口店
+                          .descTxt
+                            | 特徴的な全席半個室空間で安心
+                      img(src='img/ranking-natural.png' + parameter, alt='Natural')
+                  a(href='https://beauty.rakuten.co.jp/s7000032771/?l-id=rb_anniversary_rank_kutikomi3') 
+                    .main__card
+                      .textWrapper
+                        .ribbon
+                          .ribbon-top
+                            | No.3
+                          .ribbon-bottom
+                        .textBox
+                          .titleTxt
+                            | Hair Salon
+                            br
+                            | AYATA野田店
+                          .descTxt
+                            | メンズ専用理髪店唯一のランクイン
+                      img(src='img/ranking-ayata.png' + parameter, alt='Ayata')
+              .main__rankingCardBox.slideInContent
+                .fukidashi
+                  p.titleBox
+                    | 2024年人気だった注目サロン
+                .main__cardWrapper
+                  a(href='https://beauty.rakuten.co.jp/s1000047108/?l-id=rb_anniversary_rank_2024_1') 
+                    .main__card
+                      .textWrapper
+                        .textBox
+                          .titleTxt
+                            | Smile hair 武蔵浦和店
+                          .descTxt
+                            | 人気のメンズ専門店
+                            br
+                            | 2024年の予約数上位にランクイン！
+                      img(src='img/ranking-smilehair.png' + parameter, alt='Smile hair')
+                  a(href='https://beauty.rakuten.co.jp/s1000047511/?l-id=rb_anniversary_rank_2024_2') 
+                    .main__card
+                      .textWrapper
+                        .textBox
+                          .titleTxt
+                            | L.E.M 泉中央店
+                          .descTxt
+                            | 2024年の口コミ数No.1！
+                            br.-sp
+                            | リーズナブルかつハイクオリティな施術が人気☆
+                      img(src='img/ranking-LEM.png' + parameter, alt='L.E.M')
+                  a(href='https://beauty.rakuten.co.jp/s9000044994/?l-id=rb_anniversary_rank_2024_3') 
+                    .main__card
+                      .textWrapper
+                        .textBox
+                          .titleTxt
+                            | Luana 浦和
+                          .descTxt
+                            | 2024年の口コミ数上位にランクイン！
+                            br
+                            | 楽天BEAUTY AWARDも2年連続受賞！
+                      img(src='img/ranking-luana.png' + parameter, alt='Luana')
+            p.main__rankingTxt 
+              | ※集計期間：2017年10月19日～2024年11月30日のデータ            
+      
+      
+      //- salon comment
+      .main__saloncomment
+        .main__saloncommentWrapper.slideInContent
+          p.main__captionTxt
+            | ＼ともにあゆんだ10年…／
+          h2.main__titleTxt
+            | サロンさまからお祝いのお言葉を
+            br.-sp
+            | いただきました
+          .main__titleLine
+          .main__saloncommentBox
+            .saloncommentContainer
+              .main__card
+                .textBox 
+                  p.captionTxt 
+                    | 楽天ビューティで最多予約数を誇るサロン
+                  p.titleTxt
+                    span.pinkTxt.-uppercase 
+                      | Rowen
+                    | さま
+                .textBox 
+                  p.descTxt
+                    | 10周年おめでとうございます！多くのお客様に出会えたことに感謝し、これからのさらなる発展に貢献できるよう、一緒に盛り上げていければ幸いです。
+              .main__card
+                .textBox 
+                  p.captionTxt 
+                    | 楽天ビューティのお誕生日と同じ
+                    br.-sp
+                    |2014年12月16日に掲載開始
+                  p.titleTxt
+                    span.pinkTxt
+                      | Ash
+                    | さま
+                .textBox 
+                  p.descTxt
+                    | 10周年おめでとうございます！これからも魅力的なサロン情報を美容室と一緒に発信し、多くの人々に愛されるサービスであり続けてください！
+              
+      
+      //- salon comment
+      .main__logo
+        .slideInContent
+          p.main__captionTxt
+            | ＼こんなふうに作りました！／
+          h2.main__titleTxt
+            | 10周年記念ロゴができるまで
+          .main__titleLine
+          .main__logoBox
+            .main__logoContent
+              p.descTxt
+                | 10周年プロジェクトメンバーで
+                br.-sp
+                | 伝えたい気持ちやメインとなるキーワードを
+                br
+                | ピックアップしながら
+                br.-sp
+                | AIにも案を出してもらいコンセプトを選定。
+                br
+                | ユーザさまとサロンさまへ感謝の気持ちを伝えたい！
+                br
+                | ユーザさまとサロンさまを繋いで
+                br.-sp
+                | これからもその輪を繋げていきたい！
+                br
+                | そんな想いでコンセプトは決定しました。
+              .cardBox
+                .main__card
+                  p.titleTxt.-uppercase
+                    | Concept
+                  p.conceptTxt
+                    | ありがとう、
+                    br
+                    | Rakuten BEAUTYで
+                    br
+                    | つなぐ未来へ
+              .triangle
+              p.descTxt
+                | 社内でコンセプトに沿ったロゴ案を募集
+                br.-sp
+                | いろいろな案が集まりました！
+              .triangle
+              .imageBox
+                img(src='img/logo_rough-1.png' + parameter, alt='ロゴ案1')
+                img(src='img/logo_rough-2.png' + parameter, alt='ロゴ案2')
+                img(src='img/logo_rough-3.png' + parameter, alt='ロゴ案3')
+                img(src='img/logo_rough-4.png' + parameter, alt='ロゴ案4')
+                img(src='img/logo_rough-5.png' + parameter, alt='ロゴ案5')
+                img(src='img/logo_rough-6.png' + parameter, alt='ロゴ案6')
+              .triangle
+              p.descTxt
+                | 集まった案から
+                br.-sp
+                | 「さまざまなサロンさまとユーザさまのおかげで
+                br.-sp
+                | 10周年を迎えられた！」
+                br
+                | という想いを表現したこちらの案をベースに
+                br.-sp
+                | ロゴが完成！
+              .imageBox.-large
+                img(src='img/logo_rough-7.png' + parameter, alt='ロゴ案7')
+                .triangle.-right
+                img(src='img/10thAnnivLogo.png' + parameter, alt='10周年ロゴ')
+              p.descTxt
+                | AIで曲10周年記念ソングも作成しました
+                br
+                span.captionTxt 
+                  | ※楽天ビューティ公式ソングではありません。完全非公式となります。
+              .videoBox
+                video(src='video/10th-annivSong.mp4' + parameter, controls)
+
+
+      //- RB introduction
+      .main__RBintroduction
+        .slideInContent
+          p.main__captionTxt
+            | ＼楽天ビューティを知ろう！／
+          h2.main__titleTxt
+            | 楽天ビューティを使う理由
+          .main__titleLine
+          .main__RBintroductionBox
+            .main__introductionContent
+              .main__card.slideInContent
+                .titleBox 
+                  img(src='img/coin.png' + parameter, alt='ポイントコイン')
+                  .textBox 
+                    h3.titleTxt
+                      | ポイントが貯まる！使える！
+                      br.-sp
+                      | 楽天のサロン予約
+                    p.captionTxt.-pc
+                      | おトクに、キレイに。楽天ビューティ。
+                p.captionTxt.-sp
+                  | おトクに、キレイに。楽天ビューティ。
+                .imageBox
+                  .imageColumn
+                    img(src='img/rb_merit_hair.png' + parameter, alt='メリット1 ヘアー')
+                    img(src='img/rb_merit_nail.png' + parameter, alt='メリット2 ネイル')
+                    img(src='img/rb_merit_eyelash.png' + parameter, alt='メリット3 アイラッシュ')
+                  .imageColumn
+                    img(src='img/rb_merit_esthe.png' + parameter, alt='メリット4 エステ')
+                    img(src='img/rb_merit_relax.png' + parameter, alt='メリット5 リラクゼーション')
+                .textBox 
+                  p.descTxt 
+                    | ヘア・ネイル・まつげ・エステ・リラク・マッサージサロンの検索・予約が可能
+                  p.descTxt
+                    | ネット予約・施術完了するたびに
+                    span.-bold
+                      |100円につき1ポイント
+                    | が貯まる！
+            .main__introductionContent
+              .main__card.slideInContent
+                h3.titleTxt
+                  | 楽天のサービスを横断で
+                  br.-sp
+                  | キャンペーン実施中！
+                .imageBox
+                  img(src='img/rb_merit_graph.png' + parameter, alt='楽天ビューティのメリットのグラフ図')
+                .textBox 
+                  p.descTxt.-small 
+                    | 併用するといつものサロン予約が
+                    br.-sp
+                    | よりおトクに！
+                  p.notationTxt 
+                    | ※各キャンペーンにはエントリーなどの条件がございます。
+                    br
+                    | ※各キャンペーンは予告なく変更・中止される可能性がございます。
+            .main__introductionContent
+              .main__card.slideInContent
+                .titleBox 
+                  img(src='img/app_icon.png' + parameter, alt='アプリのアイコン')
+                  .textBox 
+                    h3.titleTxt
+                      | アプリから予約で
+                      br.-sp
+                      | ポイントアップ！
+                    p.captionTxt.-small.-pc
+                      | ※本キャンペーンは予告なく変更・中止される可能性がございます。
+                p.captionTxt.-small.-sp
+                  | ※本キャンペーンは予告なく変更・中止される可能性がございます。
+                .imageBox.appBnr
+                  a(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/app2x/?l-id=wi_bty_appappeal_App2x')
+                    img(src='img/bnr_app_640x160.png' + parameter, alt='アプリから予約')
+                .imageBox.-pc
+                  img(src='img/device.png' + parameter, alt='スマートフォン')
+                  .qrcodeBox
+                    p.titleTxt
+                      | ＼
+                      span.-bold
+                        | ダウンロードはこちら
+                      | ／
+                    a(href='https://app.adjust.com/1ifdl1tv' target="_blank" rel="noopener")
+                      img(src='img/qrcode.png' + parameter, alt='QRコード')
+                .imageBox.appLink.-sp
+                  a(href='https://app.adjust.com/1ifdl1tv' target="_blank" rel="noopener").-iphone
+                    img(src='img/img_app_button.png' + parameter, alt='App Storeからダウンロード' width="100%" height='auto')
+                  a.android-button(href='https://app.adjust.com/1ifdl1tv' target="_blank" rel="noopener").-android
+                    img(src='img/img_googleplay_button.png' + parameter, alt='Google Playで手に入れよう' width="100%" height='auto')
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+
+      //- app DL parts(app2x, adjustUrl, QRCodeURL)
+      //- 
+        1.狭域追加設定：app2xを表示
+        2.DL用のAdjust URLとQRコードは基本変えずに運用でマーケと合意済み。変更したい場合は第2引数にadjustUrl、第3引数にQRCodeの画像URLを入れると変更可能
+        3.例：+appDL('app2x','https://app.adjust.com/1ifdl1tv','/cnt/common/images/cpn-parts/btn_dl_qr.svg')
+
+      //- appInfoFlag 注意文の表示/非表示 trueで表示、falseで非表示
+    //-  - var appInfoFlag = true
+      +appDL('app2x')
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  //- script(src='/cnt/common/js/vue/vue.min.js', defer)
+  //- script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  script(src="/cnt/common/js/area-search/shopSearch.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+  
+  //- あればここに書く
+  script(src="js/accordion.js", defer)
+

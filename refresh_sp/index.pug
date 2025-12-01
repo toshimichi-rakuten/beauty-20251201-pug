@@ -1,0 +1,692 @@
+//- 新クーポンLP専用テンプレート。毎回最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- CSV Coupon Template / ver 1.3.1 / 更新日時：2025.1.7 / jqueryのバージョンを3.4.1から3.7.1に変更
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  //- Kintone情報読み込み
+  include _kintone
+  - var css = `${'css/main.css' + parameter}`
+  //- シェア画像切り替え 
+  if coupon[0].種別 == '事前登録'
+    - var shareImg = 'https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png' + parameter //- default
+  if coupon[0].種別 == '獲得'
+    - var shareImg = coupon[0].ページURL + 'img/share.png' + parameter //- default (シェア画像があれば変更)
+  //- metaタグ等に反映
+  include _setting
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  meta(name='robots', content='noindex,nofollow')
+  //- Module CSS/JS
+  //- ECM CSS Version:20231012
+  link(rel='preconnect' href='https://gateway-api.global.rakuten.com/' crossorigin='use-credentials')
+  link(rel='dns-prefetch' href='https://gateway-api.global.rakuten.com/')
+  link(rel='preconnect' href='https://grp10.ias.rakuten.co.jp/' crossorigin='anonymous')
+  link(rel='dns-prefetch' href='https://grp10.ias.rakuten.co.jp/')
+  link(rel='preconnect' href='https://ias.r10s.jp/' crossorigin='anonymous')
+  link(rel='dns-prefetch' href='https://ias.r10s.jp/')
+  link(rel='preload' href='https://r.r10s.jp/com/js/c/ecm/ecm_20231012_pc_foundation.min.css?v=202310121200' as='stylesheet')
+  link(rel='preload' href='https://r.r10s.jp/com/js/c/ecm/ecm_20231012_pc.min.css?v=202310121200' as='stylesheet')
+  link(rel='preload' href='https://r.r10s.jp/com/js/c/ecm/ecm_20231012_pc.min.js?v=202405201200' as='script')
+  link(rel='preload' href='https://r.r10s.jp/com/js/c/pc/module/module_set_20170901.min.js' as='script')
+  link(rel='preload' href='https://r.r10s.jp/com/js/d/rad_liquid_table/1.12/rad_liquid_table-1.12.0.min.js' as='script')
+  link(rel='preload' href='https://r.r10s.jp/com/js/d/smart/rad_table/1.11/smt_rad_table-1.11.0.min.js' as='script')
+  meta(name='server_time' content='2025-02-06T16:52:09')
+  link(rel='stylesheet' href='https://r.r10s.jp/com/js/c/ecm/ecm_20231012_pc_foundation.min.css?v=202310121200')
+  link(rel='stylesheet' href='https://r.r10s.jp/com/js/c/ecm/ecm_20231012_pc.min.css?v=202310121200')
+  script(type='text/javascript' src='https://r.r10s.jp/com/js/d/common/jquery-2.2.4.min.js')
+  script(type='text/javascript' src='https://r.r10s.jp/com/js/d/common/jquery-migrate-1.4.1.min.js')
+  script#closeNoticeScript(type='text/javascript' src='https://r.r10s.jp/com/js/c/event/close_notice/close_notice-1.1.0.min.ni.js' data-banner-url='/com/js/c/event/close_notice/pc_close_notice.html' data-insert-target='.rl-headerWrap' data-insert-method='append' async defer)
+  script(type='text/javascript' src='https://r.r10s.jp/com/js/d/merged/rjs-h110s112.min.js')
+  //- /ECM CSS
+  //- /Module CSS/JS
+  link(href=`${css}`, rel="stylesheet", type="text/css")
+
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  #RefreshSp
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このラ・クーポンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'ラ・クーポンは終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+
+    //- このLP全体の対象判定
+    //- 全員対象が1つでもあったら全員対象（全員対象＞対象サロン新規限定＞新規限定=対象サロン限定）
+    - for (var i = 0; i < coupon.length; i++)
+      //- 全員対象判定（1つでもあれば全員対象）
+      if coupon[i].対象条件 == 'セグメントなし'
+        - var tag_target = []
+        - var allflag = true;
+        if coupon[i].対象店舗予約有無 == 'なし'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            - var tag_target = ['対象サロン限定']
+            - var allflag = true;
+        else if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+          if coupon[i]['対象店舗予約有無'] == '0:サロン新規' || '1:サロンリピーター促進(2回目)' || '2:サロンリピーター促進(3回目)'
+            - var tag_target = ['対象サロン限定', '対象者限定']
+            - var allflag = true;
+        else if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+          if coupon[i]['対象店舗予約有無'] == '0:サロン新規' || '1:サロンリピーター促進(2回目)' || '2:サロンリピーター促進(3回目)'
+            - var tag_target = ['対象者限定']
+            - var allflag = true;
+      else if coupon[i].対象条件 == '新規限定'
+        if coupon[i].対象店舗予約有無 == 'なし'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            - var tag_target = ['対象サロン限定', '初回利用限定']
+            - var allflag = true;
+          else if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = ['初回利用限定']
+            - var allflag = true;
+      //- 毎月開催判定
+      if coupon[i].毎月開催 == '毎月'
+        - var alwaysflag = true;
+    //- tagリスト作り
+    -
+      var tags = ['ラ・クーポン']
+      for (var j = 0; j < tag_target.length; j++)
+        tags.push(tag_target[j])
+    if alwaysflag
+      - tags.push('毎月開催')
+
+    //- 手動のtaglistがなければKintoneを反映
+    if !taglist
+      -
+        var taglist = {
+          tag: tags,
+        }
+
+    section#CpnTags
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main_sub.-sp(src='img/main_sub_sp.png' + parameter alt='〜自分へのご褒美〜 サロン・お家で至福のひとときを')
+        img.main_catch.-sp(src='img/main_catch_sp.png' + parameter alt='リフレッシュ＆リラックス特集')
+        img.main_sub.-pc(src='img/main_sub_pc.png' + parameter alt='〜自分へのご褒美〜 サロン・お家で至福のひとときを')
+        img.main_catch.-pc(src='img/main_catch_pc.png' + parameter alt='リフレッシュ＆リラックス特集')
+        .main_lead.main_lead_top
+          | お家で癒されるグッズから、サロンのプロによる本格ケアまで
+          br.-pc
+          | 仕事や家事など日頃の疲れを癒すリカバリーグッズやサービスをご紹介！
+        .main__title__btm
+          .main_lead.main_lead_btm
+            | 特別な日には、自分へのご褒美としてサロンでしか味わえないスペシャルなケアで癒されてみませんか？
+            br
+            | 楽天ビューティでサロンを予約すれば、ポイントも貯まってちょこっとご褒美感がアップするかもしれません。
+          a.main__title__anchor(href="#Coupon")
+        .main__title__img.-sp
+          img(src='img/main_sp_img.png' + parameter width='100%' height='auto')
+
+      //- 条件
+      //- 事前登録
+      if coupon[0].種別 == '事前登録'
+        .main__terms
+          .main__termsBox
+
+            - var term2 = '先着利用' + addComma(coupon[0].利用上限枚数) + '回'
+            - var term3 = '対象サロンのネット予約'
+            - var term4 = 'ネット予約時の施術料金が' + addComma(coupon[0].利用最低金額) + '円(税込)以上'
+            //- 初回利用の場合term1表示
+            if coupon[0].対象条件 == '新規限定'
+              - var term1 = '初回利用者様のみ'
+              - var termslist = term1 + '／' + term2 + '／' + term3 + '／' + term4
+            //- 全員対象の場合term1なし
+            else if coupon[0].対象条件 == 'セグメントなし'
+              - var termslist = term2 + '／' + term3 + '／' + term4
+            //- サロン新規の場合term1表示
+            if coupon[0].対象店舗予約有無 == '0:サロン新規'
+              - var term1 = '対象サロンの初回利用者様のみ'
+              - var termslist = term1 + '／' + term2 + '／' + term3 + '／' + term4
+
+            p.main__termsTxt 対象条件：!{termslist}
+            p.main__termsTxt
+              | 予約期限：!{dateChange(coupon[0].利用終了日時)}
+              span
+                | ／
+              | 施術期限：!{dateChange(coupon[0].来店終了日時)}
+            //- 常時開催
+            if coupon[0].毎月開催 == '毎月'
+              p.main__termsTxt.-small ※本企画は予告無く変更・中止されることがございます。
+            //- 初回利用
+            if coupon[0].対象条件 == '新規限定'
+              p.main__termsTxt.-small ※初回利用者様とは、楽天ビューティからネット予約・施術したことのない方になります。
+            p.main__termsTxt.-small
+              | ※ラ・クーポン注意事項は
+              a.main__termsLink(href='#Detail')
+                | こちら
+      //- 獲得
+      if coupon[0].種別 == '獲得'
+        .main__terms
+          .main__termsBox
+            span.main__termsTxt.-small
+              | ※データ集計時点で対象のサロンジャンル/商品を紹介しております。最新情報はリンク先のページからご確認ください。（対象エリア・ポイント還元率・価格・売り切れなど）
+
+    //- Navigation
+    section#NavigationTitle.navigation-title__wrap(data-ratid='cpn_' + directory + '_NavigationTitle' data-ratevent='appear' data-ratparam='all')
+      .navigation-title
+        img.-pc(src='img/navigation_title_pc.png' + parameter alt="あなたはどれで癒されたい？" width='100%' height='auto')
+        img.-sp(src='img/navigation_title_sp.png' + parameter alt="あなたはどれで癒されたい？" width='100%' height='auto')
+    section#Navigation.navigation__wrap(data-ratid='cpn_' + directory + '_Navigation' data-ratevent='appear' data-ratparam='all' aria-hidden='false' aria-label='メニュー')
+      ul.navigation-list
+        li.navigation-list-item
+          a.navigation-button(href='#PlanBody', data-ratid='cpn_' + directory + '_navigation_PlanBody', data-ratevent='click', data-ratparam='all')
+            span.navigation-icon
+              img(src='img/navigation_icon1.png' + parameter width='auto' height='100%')
+            span.navigation-text カラダを
+              br.-sp
+              | 本格ケアしたい
+        li.navigation-list-item
+          a.navigation-button(href='#PlanRefresh', data-ratid='cpn_' + directory + '_navigation_PlanRefresh', data-ratevent='click', data-ratparam='all')
+            span.navigation-icon
+              img(src='img/navigation_icon2.png' + parameter width='auto' height='100%')
+            span.navigation-text 気分転換
+              br.-sp
+              | したい
+        li.navigation-list-item
+          a.navigation-button(href='#PlanSleep', data-ratid='cpn_' + directory + '_navigation_PlanSleep', data-ratevent='click', data-ratparam='all')
+            span.navigation-icon
+              img(src='img/navigation_icon3.png' + parameter width='auto' height='100%')
+            span.navigation-text 睡眠の質を
+              br.-sp
+              | 高めたい
+    //- FixedNavigation
+    section#FixedNavigation.fixed__navigation__wrap( aria-hidden='true' aria-label='追従メニュー')
+      ul.navigation-list
+        li.navigation-list-item
+          a.navigation-button(href='#PlanBody', data-ratid='cpn_' + directory + '_navigation_PlanBody', data-ratevent='click', data-ratparam='all')
+            span.navigation-icon
+              img(src='img/navigation_icon1.png' + parameter width='auto' height='100%')
+            span.navigation-text カラダを
+              br.-sp
+              | 本格ケアしたい
+        li.navigation-list-item
+          a.navigation-button(href='#PlanRefresh', data-ratid='cpn_' + directory + '_navigation_PlanRefresh', data-ratevent='click', data-ratparam='all')
+            span.navigation-icon
+              img(src='img/navigation_icon2.png' + parameter width='auto' height='100%')
+            span.navigation-text 気分転換
+              br.-sp
+              | したい
+        li.navigation-list-item
+          a.navigation-button(href='#PlanSleep', data-ratid='cpn_' + directory + '_navigation_PlanSleep', data-ratevent='click', data-ratparam='all')
+            span.navigation-icon
+              img(src='img/navigation_icon3.png' + parameter width='auto' height='100%')
+            span.navigation-text 睡眠の質を
+              br.-sp
+              | 高めたい
+
+
+    //- カラダのケア
+    section#PlanBody.plan-all(data-ratid='cpn_' + directory + '_PlanBody' data-ratevent='appear' data-ratparam='all')
+      img.-pc(src='img/plan_body_main_pc.jpg' + parameter alt="コリや疲れを改善 至福の本格ケア" width='100%' height='auto')
+      img.-sp(src='img/plan_body_main_sp.jpg' + parameter alt="コリや疲れを改善 至福の本格ケア" width='100%' height='auto')
+      .article__wrap
+        .article
+          h2.article__title
+            img.-pc(src='img/body_title_pc.png' + parameter alt="カラダや頭皮のケア" width='auto' height='100%')
+            img.-sp(src='img/body_title_sp.png' + parameter alt="カラダや頭皮のケア" width='auto' height='100%')          
+          .article__category(data-ratid='cpn_' + directory + '_PlanBody_salon' data-ratevent='appear' data-ratparam='all')
+            h3.article_stitle
+              img(src='img/article_salon_body.png' + parameter alt="〜サロンで〜" width='auto' height='100%')
+            .article__text__opening.article__text
+              | カラダや頭皮のコリや疲れをほぐすサロンでのスペシャルケアをご紹介します。
+              br
+              | 頭部や首などのマッサージで血流を改善しリラックス効果を高めるヘッドスパ。筋肉の緊張をほぐしたり、骨格のゆがみを矯正したりして姿勢を改善する整体。香りとマッサージで深いリラクゼーションをもたらすアロマオイルマッサージ。それぞれの特徴を知ることであなたのカラダの状態にピッタリな施術が見つかるかも。疲れを感じている時こそプロによる至福のひとときを体験してみてはいかがでしょう。
+            .item__box__wide
+              h4.item__title
+                img(src='img/title_headspa.png' + parameter alt="ヘッドスパ" width='auto' height='100%')
+              .item__box
+                .item__image
+                  img(src='img/img_headspa.png' + parameter alt="ヘッドスパ" width='auto' height='100%')
+                .item__text.article__text
+                  | 頭部や首まわりをマッサージして、血液やリンパの流れを改善します。デスクワークやスマートフォンの使用で疲れた目や首のリフレッシュにも役に立ちます。心身の緊張をほぐすためリラックス効果の高い施術で、アロマオイルを用いたヘッドスパでは香りの作用も加わって、さらなるリラックス効果が期待できます。
+            a.search-link(href='/?l-id=rb_refresh_sp_lp_search_hair')
+              img.search-icon(src='img/icon_search.png')
+              span.search-text ヘアサロンを探す
+            .recommend__box(data-ratid='cpn_' + directory + '_PlanBody_recommend' data-ratevent='appear' data-ratparam='all')
+              .recommend__img
+                img(src='img/recommend_img_body.png' + parameter alt="Recommend" width='100%' height='auto')
+              .recommend__title
+                | ヘッドスパ最高！
+              .recommend__text.article__text
+                | 普段デスクワークなので、肩こりや眼精疲労をケアするために定期的にヘッドスパに行っています。寝つきが悪い時期や新しいアイディアが浮かびにくい時の気分転換にも。
+                br
+                | 雰囲気・香り・コンセプト・メニューなどサロンによって特徴が違うので気分に合わせて選んだり、暑い季節には炭酸スパもつけて頭皮のケアも一緒にしたり…組み合わせ豊富なので飽きずに通えるのも嬉しいです。
+                br
+                | 今はプラネタリウム空間のヘッドスパが気になっていて、楽天ビューティでも掲載があるので今度行ってみようかなと思っています！
+            .item__box__row
+              .item__box
+                h4.item__title
+                  img(src='img/title_chiro.png' + parameter alt="整体" width='auto' height='100%')            
+                .item__image
+                  img(src='img/img_chiro.png' + parameter alt="整体" width='auto' height='100%')
+                .item__text.article__text
+                  | マッサージやストレッチにより、筋肉の緊張やコリをほぐしたり血流を改善したりすることで、疲労回復やむくみの解消が期待できます。また、骨格のゆがみや関節のずれを正し位置に戻し、姿勢を矯正したりカラダの痛みを軽減したりします。
+                a.search-link(href='/relax/?l-id=rb_refresh_sp_lp_search_relax')
+                  img.search-icon(src='img/icon_search.png')
+                  span.search-text リラクサロンを探す
+              .item__box
+                h4.item__title
+                  img(src='img/title_aroma.png' + parameter alt="アロマオイルマッサージ" width='auto' height='100%')                
+                .item__image
+                  img(src='img/img_aroma.png' + parameter alt="アロマオイルマッサージ" width='auto' height='100%')
+                .item__text.article__text
+                  | 心地よいアロマオイルの香りと、筋肉の緊張やコリをほぐすマッサージの組み合わせにより、深いリラクゼーション効果をもたらします。血液やリンパの流れを良くしたり、ラベンダーやカモミールといった精油のリラックス効果によって緊張をほぐしたりします。気分のリフレッシュや疲労回復効果が期待できます。
+                a.search-link(href='/esthe/?l-id=rb_refresh_sp_lp_search_esthe')
+                  img.search-icon(src='img/icon_search.png')
+                  span.search-text エステサロンを探す         
+          .article__category
+            h3.article_stitle(data-ratid='cpn_' + directory + '_PlanBody_home' data-ratevent='appear' data-ratparam='all')
+              img(src='img/article_home_body.png' + parameter alt="〜お家で〜" width='auto' height='100%')
+            .article__text__opening.article__text
+              | リラクゼーショングッズは、自宅で好きな時に使え、“ながらケア”ができるのも魅力です。頭皮、顔、首、肩、腰、脚を部分的にケアできるものから全身に使えるものまで様々。振動や温熱、カラダ深層部のインナーマッスルを電流で刺激するEMSなどの作用で、日頃のカラダの疲れやコリのリフレッシュに役立ちます。大切な人にプロさながらのマッサージをプレゼントするのもステキな贈り物になるはず！
+            // .rc-itemCPA--PC704x3 20231012
+            .rad-table-existItemDisplay.rc-itemCPA(style='display:none')
+              script.rad-table-proto(type='text/template')
+                li.ri-item
+                  a.ri-item__imageLink(href='#TEXTURL1#')
+                    .ri-item__imageBox.ri-item__imageBox--1x1
+                      img.ri-item__image(data-lazy-loading='#IMAGESRC1#?fitin=301:301' src='https://r.r10s.jp/com/img/home/t.gif' alt='#IMAGEALT1#')
+                  .ri-item__textBox
+                    a.ri-item__nameLink(href='#TEXTURL1#')
+                      p.ri-item__name.ri-item__name--2lines #TEXT1L1#
+                    a.ri-item__priceLink.-wrap(href='#TEXTURL1#')
+                      p.ri-item__price #TEXT2L1##TILDE#
+              .rad-table-config(event_target='body' event_name='rastaloadcomplete' url='https://grp301.api.ias.rakuten.co.jp/acpa/?total=0&nw=jp&site=Ichiba&charset=UTF-8&ssl=0&loc=1738891353406408294' textnum='4' imagenum='3' iconnum='0' shopnum='0' textlinenum='1')
+              .rad-table-frame
+                ul.rad-table-body.rl-column3
+            .recommend__box
+              .recommend__img
+                img(src='img/recommend_img_body.png' + parameter alt="Recommend" width='100%' height='auto')
+              .recommend__title
+                | ネックマッサージグッズでリフレッシュしています♪
+              .recommend__text.article__text
+                | EMSモードのあるネックマッサージは特にオススメ！PC作業をしながら、本を読みながら、料理をしながら色々な場面で「ながらケア」ができます。優しい電気刺激が心地良く、しかもしっかり効いてくれるので嬉しい。
+                br
+                | 温熱があるものも最高で、首元を温めると効率よく身体全体が温まるので、冬はホッカイロとしても利用できて良いですよ。（併用不可機器があるので商品詳細は必読）
+      img.article_btm_img(src='img/body_article_btm.png' + parameter alt="Care for your body" width='100%' height='auto')
+  
+    //- 気分転換
+    section#PlanRefresh.plan-all(data-ratid='cpn_' + directory + '_PlanRefresh' data-ratevent='appear' data-ratparam='all')
+      .plan__mv
+        img.-pc(src='img/plan_refresh_main_pc.jpg' + parameter alt="気分をアゲてリフレッシュ スッキリ気分転換" width='100%' height='auto')
+        img.-sp(src='img/plan_refresh_main_sp.jpg' + parameter alt="気分をアゲてリフレッシュ スッキリ気分転換" width='100%' height='auto')
+      .article__wrap
+        .article
+          h2.article__title
+            img.-pc(src='img/refresh_title_pc.png' + parameter alt="自分磨きで気分をアゲる" width='auto' height='100%')
+            img.-sp(src='img/refresh_title_sp.png' + parameter alt="自分磨きで気分をアゲる" width='auto' height='100%')          
+          .article__category(data-ratid='cpn_' + directory + '_PlanRefresh_salon' data-ratevent='appear' data-ratparam='all')
+            h3.article_stitle
+              img(src='img/article_salon_refresh.png' + parameter alt="〜サロンで〜" width='auto' height='100%')
+            .article__text__opening.article__text
+              | ネイルやヘアカラーは、自分磨きの一環として気分を一新するのにピッタリ。鮮やかなネイルアートや新しいヘアカラーは、見た目の変化だけでなく心も明るくリフレッシュさせてくれます。サロンでのスペシャルケアを、日頃のご褒美として自分自身にプレゼントして日常のストレスを解消しましょう。
+            .item__box__row
+              .item__box
+                h4.item__title
+                  img(src='img/title_nail.png' + parameter alt="ネイル" width='auto' height='100%')            
+                .item__image
+                  img(src='img/img_nail.jpg' + parameter alt="ネイル" width='auto' height='100%')
+                .item__text.article__text
+                  | 季節やトレンドにあわせたり、好きな色や気分にあわせたり……、指先のオシャレは、デザインを選ぶだけでも楽しめますが、日常生活や仕事の中でふと目にするたびに気分をあげてくれるのも嬉しいですよね！ネイリストによる丁寧なケアは、指先の美しさを引き出すだけでなく、リラクゼーション効果も期待できます。
+                a.search-link(href='/nail/?l-id=rb_refresh_sp_lp_search_nail')
+                  img.search-icon(src='img/icon_search.png')
+                  span.search-text ネイルサロンを探す
+              .item__box
+                h4.item__title
+                  img(src='img/title_haircolor.png' + parameter alt="ヘアカラー" width='auto' height='100%')                
+                .item__image
+                  img(src='img/img_haircolor.jpg' + parameter alt="ヘアカラー" width='auto' height='100%')
+                .item__text.article__text
+                  | ネイルと同じようにカラー選びを楽しめるのヘアカラー。自己表現の幅が広がって個性を際立たせることもできます。新しいヘアカラーに挑戦すると気分転換にもなるはず。プロの技術や高品質なカラー剤を使用する美容室での施術は、鮮やかで色持ちも良く、気分転換に最適です。新しい自分に出会うことで、モチベーションも上がり毎日がより楽しくなるでしょう。
+                a.search-link(href='/?l-id=rb_refresh_sp_lp_search_hair2')
+                  img.search-icon(src='img/icon_search.png')
+                  span.search-text ヘアサロンを探す      
+          .article__category(data-ratid='cpn_' + directory + '_PlanRefresh_home' data-ratevent='appear' data-ratparam='all')
+            h3.article_stitle
+              img(src='img/article_home_refresh.png' + parameter alt="〜お家で〜" width='auto' height='100%')
+            .article__text__opening.article__text
+             | ちょっとした隙間時間で気軽に気分をリフレッシュできるグッズをご紹介します。アロマオイル、お香、観葉植物、ガーデニング、塗り絵、水彩画、粘土、パズル……、心安らぐものを直感でチョイスするのもいいですし、普段触れないようなジャンルにトライしてみるのも新たな刺激や癒しになるかもしれません。ご家族やご友人へのプチギフトのヒントにしてみてはいかがでしょうか。
+            // .rc-itemCPA--PC704x3 20231012
+            .rad-table-existItemDisplay.rc-itemCPA(style='display:none')
+              script.rad-table-proto(type='text/template')
+                li.ri-item
+                  a.ri-item__imageLink(href='#TEXTURL1#')
+                    .ri-item__imageBox.ri-item__imageBox--1x1
+                      img.ri-item__image(data-lazy-loading='#IMAGESRC1#?fitin=301:301' src='https://r.r10s.jp/com/img/home/t.gif' alt='#IMAGEALT1#')
+                  .ri-item__textBox
+                    a.ri-item__nameLink(href='#TEXTURL1#')
+                      p.ri-item__name.ri-item__name--2lines #TEXT1L1#
+                    a.ri-item__priceLink.-wrap(href='#TEXTURL1#')
+                      p.ri-item__price #TEXT2L1##TILDE#
+              .rad-table-config(event_target='body' event_name='rastaloadcomplete' url='https://grp301.api.ias.rakuten.co.jp/acpa/?total=0&nw=jp&site=Ichiba&charset=UTF-8&ssl=0&loc=1738891355149302629' textnum='4' imagenum='3' iconnum='0' shopnum='0' textlinenum='1')
+              .rad-table-frame
+                ul.rad-table-body.rl-column3
+            // .rc-itemCPA--PC704x3 20231012
+            .rad-table-existItemDisplay.rc-itemCPA(style='display:none')
+              script.rad-table-proto(type='text/template')
+                li.ri-item
+                  a.ri-item__imageLink(href='#TEXTURL1#')
+                    .ri-item__imageBox.ri-item__imageBox--1x1
+                      img.ri-item__image(data-lazy-loading='#IMAGESRC1#?fitin=301:301' src='https://r.r10s.jp/com/img/home/t.gif' alt='#IMAGEALT1#')
+                  .ri-item__textBox
+                    a.ri-item__nameLink(href='#TEXTURL1#')
+                      p.ri-item__name.ri-item__name--2lines #TEXT1L1#
+                    a.ri-item__priceLink.-wrap(href='#TEXTURL1#')
+                      p.ri-item__price #TEXT2L1##TILDE#
+              .rad-table-config(event_target='body' event_name='rastaloadcomplete' url='https://grp301.api.ias.rakuten.co.jp/acpa/?total=0&nw=jp&site=Ichiba&charset=UTF-8&ssl=0&loc=173889135602542984' textnum='4' imagenum='3' iconnum='0' shopnum='0' textlinenum='1')
+              .rad-table-frame
+                ul.rad-table-body.rl-column3
+            .recommend__box(data-ratid='cpn_' + directory + '_PlanRefresh_recommend' data-ratevent='appear' data-ratparam='all')
+              .recommend__img
+                img(src='img/recommend_img_refresh.png' + parameter alt="Recommend" width='100%' height='auto')
+              .recommend__title
+                | リラックスと自分磨きを叶える時間を楽しんでいます♪
+              .recommend__text.article__text
+                | 水彩画、ストレッチ、ネイルケア、香木を炊く等々...趣味とは言えない頻度でも、お家でゆる〜く続けています。
+                br
+                | リラックスして仕事や悩み事以外のことに集中する時間を意図的に作ると、結果的にリフレッシュや外見・内面の自分磨きにも繋がって良いですよね。お友達と水彩画セッションとかもやってみたいです！
+      img.article_btm_img(src='img/refresh_article_btm.png' + parameter alt="Refresh" width='100%' height='auto')
+
+    //- 睡眠
+    section#PlanSleep.plan-all(data-ratid='cpn_' + directory + '_PlanSleep' data-ratevent='appear' data-ratparam='all')
+      .plan__mv
+        img.-pc(src='img/plan_sleep_main_pc.jpg' + parameter alt="上質な睡眠でリカバリ ぐっすり眠る" width='100%' height='auto')
+        img.-sp(src='img/plan_sleep_main_sp.jpg' + parameter alt="上質な睡眠でリカバリ ぐっすり眠る" width='100%' height='auto')
+      .article__wrap
+        .article
+          h2.article__title
+            img.-pc(src='img/sleep_title_pc.png' + parameter alt="質の良い眠りを手に入れる" width='auto' height='100%')
+            img.-sp(src='img/sleep_title_sp.png' + parameter alt="質の良い眠りを手に入れる" width='auto' height='100%')          
+          .article__category(data-ratid='cpn_' + directory + '_PlanSleep_salon' data-ratevent='appear' data-ratparam='all')
+            h3.article_stitle
+              img(src='img/article_salon_sleep.png' + parameter alt="〜サロンで〜" width='auto' height='100%')
+            .article__text__opening.article__text
+              | 疲れたカラダをリカバリーするのに必要不可欠なのが睡眠。上質な睡眠を手に入れるためのスペシャルケアとしてご紹介するのが、全身を整えることで心地よい眠りのリズムを取り戻すボディケアや、自然素材を用いて体を深部から温めるよもぎ蒸しです。体内の老廃物や毒素を排出するデトックス効果により、むくみやコリを改善するなどして自然な眠りへと誘導し、質の良い眠りを手にいれる手助けをしてくれます。
+            .item__box__row
+              .item__box
+                h4.item__title
+                  img(src='img/title_bodycare.png' + parameter alt="ボディケア" width='auto' height='100%')            
+                .item__image
+                  img(src='img/img_bodycare.jpg' + parameter alt="ボディケア" width='auto' height='100%')
+                .item__text.article__text
+                  | 全身の緊張を丁寧にほぐし、自律神経を整えるボディケア。心身を深いリラックス状態へと導き、自然と眠りに入りやすくする施術です。忙しい日々で眠りが浅い方は、ぐっすり眠れる贅沢なひとときを体験してみてはいかがでしょう。
+              .item__box
+                h4.item__title
+                  img(src='img/title_yomogi.png' + parameter alt="よもぎ蒸し" width='auto' height='100%')                
+                .item__image
+                  img(src='img/img_yomogi.jpg' + parameter alt="よもぎ蒸し" width='auto' height='100%')
+                .item__text.article__text
+                  | よもぎを中心としたハーブの蒸気を用いた韓国発祥の伝統的な温熱療法です。体を芯から温めて発汗することで体内の老廃物や毒素を排出するデトックス効果が期待できます。リラックス効果もあるため、深い睡眠を得られやすくなります。
+            a.search-link(href='/relax//?l-id=rb_refresh_sp_lp_search_relax2')
+              img.search-icon(src='img/icon_search.png')
+              span.search-text リラクサロンを探す    
+            .recommend__box(data-ratid='cpn_' + directory + '_PlanSleep_recommend' data-ratevent='appear' data-ratparam='all')
+              .recommend__img
+                img(src='img/recommend_img_sleep.png' + parameter alt="Recommend" width='100%' height='auto')
+              .recommend__title
+                | ボディケアで全身リラックス
+              .recommend__text.article__text
+                | 腰痛きっかけに整体やマッサージに通うように。今では新年度、長期休み、年末など、節目には必ずボディケアに。中でもアロマオイルマッサージが大好きで、オイルを選べるサロンでは気分や状態によって好みのオイルを選んでいます。
+                br
+                | 肩は一般的ですが、背中やお尻は思ったよりも凝っていることが多く、マッサージの後は身体が軽くなり、可動域も広がったりとハッピーな気持ちに。
+                br
+                | マッサージ後にいただけるお茶やハーブティーもサロンによって色々な種類があり、毎回楽しみにしています。
+          .article__category(data-ratid='cpn_' + directory + '_PlanSleep_home' data-ratevent='appear' data-ratparam='all')
+            h3.article_stitle
+              img(src='img/article_home_sleep.png' + parameter alt="〜お家で〜" width='auto' height='100%')
+            .article__text__opening.article__text
+             | お家で寝ている間にカラダをリカバリしたり、自然にぐっすりと眠ることができると良いですよね。枕やアイマスクといった寝具や、パジャマや下着、靴下といった身近なウェアなどから、睡眠中の疲労回復が期待できると注目を集めているリカバリウェアまで。贈り物にピッタリなグッズをご紹介します。
+            // .rc-itemCPA--PC704x3 20231012
+            .rad-table-existItemDisplay.rc-itemCPA(style='display:none')
+              script.rad-table-proto(type='text/template')
+                li.ri-item
+                  a.ri-item__imageLink(href='#TEXTURL1#')
+                    .ri-item__imageBox.ri-item__imageBox--1x1
+                      img.ri-item__image(data-lazy-loading='#IMAGESRC1#?fitin=301:301' src='https://r.r10s.jp/com/img/home/t.gif' alt='#IMAGEALT1#')
+                  .ri-item__textBox
+                    a.ri-item__nameLink(href='#TEXTURL1#')
+                      p.ri-item__name.ri-item__name--2lines #TEXT1L1#
+                    a.ri-item__priceLink.-wrap(href='#TEXTURL1#')
+                      p.ri-item__price #TEXT2L1##TILDE#
+              .rad-table-config(event_target='body' event_name='rastaloadcomplete' url='https://grp301.api.ias.rakuten.co.jp/acpa/?total=0&nw=jp&site=Ichiba&charset=UTF-8&ssl=0&loc=1738891354268119893' textnum='4' imagenum='3' iconnum='0' shopnum='0' textlinenum='1')
+              .rad-table-frame
+                ul.rad-table-body.rl-column3
+      img.article_btm_img(src='img/sleep_article_btm.png' + parameter alt="Good Night..." width='100%' height='auto')
+
+
+
+    //- ラ・クーポン
+    section#Coupon.coupon(data-ratid='cpn_' + directory + '_Coupon' data-ratevent='appear' data-ratparam='all')
+      h2.coupon_title
+        | ▼ ▼　楽天ビューティのサロンで使えるクーポン　▼ ▼
+      //- 事前登録
+      if coupon[0].種別 == '事前登録'
+        .couponAdd
+          //- 終了対応
+          if endflag == true
+            //- ボタンセット(url,txt,endflag)
+            +btnSet('', btnTxt, true)
+          else
+            //- ボタンセット(url,txt)
+            +btnSet('/user/coupon.php','マイクーポンをみる')
+            //- 条件
+            .coupon__terms
+              p.coupon__termsTxt
+                | ※利用回数が上限に達した場合はご利用いただけません。
+      //- 獲得
+      if coupon[0].種別 == '獲得'
+        .couponGet
+          .couponSetTitle
+            span.txt_blue
+              | ヘア
+            |・
+            span.txt_blue
+              |ネイル
+            |・
+            span.txt_blue
+              |まつげ
+            |・
+            span.txt_blue
+              |エステ
+            |・
+            br.-sp
+            span.txt_blue
+              |エステリラクサロン
+            |で使える！
+          //- 非遷移クーポン
+          include ../../../../_common/pug/Module/Common/_couponOneClick
+          //- 「対象サロンはこちら」ボタンの表示/非表示 salonBtnFlagの設定がtrueで表示、falseで非表示
+          - var salonBtnFlag = false
+          +couponOneClickSet()
+
+          .couponOneClickSetBtm
+            .couponSubTxt
+              | ※
+              span.-b
+                | 先着利用（予約成立順）!{addComma(coupon[0].利用上限枚数)}名限定のラ・クーポンです。
+              | 獲得済みであっても利用上限に達した場合はご利用いただけません。※一部ラ・クーポンがご利用できない店舗がございます。※ラ・クーポン注意事項は
+              a(href="#Detail") 
+                | こちら
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 本特集について
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 本特集は予告なく変更・中止される可能性がございます。
+                  li.detail__tableBlockList--li 掲載中のサロンジャンル/商品についても予告なく変更・削除される可能性がございます。
+                  li.detail__tableBlockList--li 商品について：データ集計時点で対象の商品を紹介しております。詳細はリンク先のページからご確認ください。
+                  li.detail__tableBlockList--li サロンジャンルについて：予約枠やメニュー詳細等については、エリアや店舗によって異なります。リンク先のページから希望エリアを選択し、ご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead クーポンについて
+              td.detail__tableBlockBody 予約期限：!{dateChange(coupon[0].利用終了日時)}
+                br
+                | 施術期限：!{dateChange(coupon[0].来店終了日時)}
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 次回のクーポンは2025年6月2日10:00に更新されます。
+                p.detail__tableBlockTxt--space
+                | 注意事項
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 獲得したラ・クーポンは、それぞれお1人様1回まで、ネット予約にてご利用いただけます。
+                  li.detail__tableBlockList--li 他のラ・クーポンとの併用はできません。
+                  li.detail__tableBlockList--li ラ・クーポンには利用上限回数（予約成立順）が設定されています。ラ・クーポン獲得済みであっても利用上限に達した場合はご利用いただけません。
+                  li.detail__tableBlockList--li 獲得したラ・クーポンは、マイページの
+                    a.detail__tableBlockTxt--link(href="/user/coupon.php")
+                      | マイクーポン
+                    | からご確認いただけます。
+                  li.detail__tableBlockList--li ラ・クーポンの利用条件に合致したクーポンのみが、ネット予約STEP中に表示されます。獲得していても、ラ・クーポンが表示されない場合、ラ・クーポンの利用条件等をご確認ください。（予約条件が一致しない、有効期限を過ぎている、利用回数を超えた場合等）
+                  li.detail__tableBlockList--li ネット予約確定の前に、他のネット予約が成立し利用上限回数に達した場合には、ネット予約がエラーとなり、ラ・クーポンをご利用になれません。
+                  li.detail__tableBlockList--li 発行されているラ・クーポンによって来店期日は異なりますので、ご注意ください。
+                  li.detail__tableBlockList--li サロンの予約状況によっては、ご希望に添えなかったり、お断りする場合もございます。
+                  li.detail__tableBlockList--li ラ・クーポンを利用した予約をキャンセルした場合、利用条件を満たしていれば、マイクーポンに返還されます。
+                    a.detail__tableBlockTxt--link(href="https://beauty.faq.rakuten.net/user/s/detail/000005759")
+                      | 詳しくはこちら
+                  li.detail__tableBlockList--li ご来店いただける期間はサロンの営業時間によって異なります。
+                  li.detail__tableBlockList--li ラ・クーポンは、楽天ビューティ（サイト/アプリ）での予約時にのみご利用いただけます。予約成立後など後から利用することはできません。
+                  li.detail__tableBlockList--li ラ・クーポンを印刷して来店時にお持ちいただいても割引することはできません。
+                  li.detail__tableBlockList--li ラ・クーポンは、電話予約でご利用できません。
+                  li.detail__tableBlockList--li 一部、ラ・クーポンを利用できない店舗がございます。
+
+
+    //- Other Campaign
+    section#Campaign.campaign(data-ratid='cpn_' + meta.directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title その他のキャンペーン
+
+      include ../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  //- script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- 1click coupon
+  script(src='//r.r10s.jp/com/js/d/Rmodules/Rmodules.min.js?v=1.4.0', defer)
+  script(src='//r.r10s.jp/com/js/d/coupon/one_click_acquisition/1.2/one_click_acquisition-1.2.0.min.js', defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //------------------------------- Kintoneの数字変換用js -------------------------------//
+
+  -
+    //- 数字にカンマをつける（Kintoneの数字変換用js）
+    function addComma(no){
+      return no.toLocaleString();
+    }
+    //- 日付置換（_couponOneClickで使用）
+    function dateChange(date){
+      let dateArray = date.split(/[/ ]/);
+      dateArray.splice( 0, 1, removeLeadingZeros(dateArray[0]) + '年');
+      dateArray.splice( 1, 1, removeLeadingZeros(dateArray[1]) + '月');
+      //- 日付と時刻の間に半角スペースも挿入
+      dateArray.splice( 2, 1, removeLeadingZeros(dateArray[2]) + '日 ');
+      return dateArray.join('');
+    }
+    //- 日付から先頭の0を削除
+    function removeLeadingZeros(dateString) {
+      return dateString.replace(/^0/, '');
+    }
+    
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+  script.
+    // 追従メニューの関数
+    const FixedNav = () => {
+    const scroll = window.pageYOffset; // 現在のスクロール位置
+    const header = document.querySelector('.navigation__wrap'); // ヘッダー要素
+    const fixed = document.querySelector('.fixed__navigation__wrap'); // 固定ナビゲーション要素
+    // 要素が存在しない場合は処理を終了
+    if (!header || !fixed) return;
+    const baseFixPoint = header.offsetTop - 50; // 固定ナビゲーションの基準位置
+    const isHeaderVisible = scroll < baseFixPoint + header.offsetHeight; // ヘッダーが表示されているかどうか
+    // ヘッダーの表示・非表示を切り替え
+    header.style.visibility = isHeaderVisible ? 'visible' : 'hidden';
+    header.setAttribute('aria-hidden', !isHeaderVisible);
+    // 固定ナビゲーションの表示・非表示を切り替え
+    fixed.style.top = isHeaderVisible ? '-100%' : '0';
+    fixed.style.visibility = isHeaderVisible ? 'hidden' : 'visible';
+    fixed.setAttribute('aria-hidden', isHeaderVisible);
+    };
+    // 初期化処理（ページ読み込み時に一度実行）
+    window.addEventListener('load', FixedNav);
+    // 画面をスクロールしたら発火
+    window.addEventListener('scroll', FixedNav);
+
+  //- Module JS
+  //- ECM JS Version:20231012
+  script(type='text/javascript').
+    (function ($) {
+    const rastaAds = document.querySelectorAll('.rad-table-existItemDisplay');
+    const $body = $('body');
+    [].forEach.call(rastaAds, function (ads) {
+    const config = ads.querySelector('.rad-table-config');
+    const eventName = config.getAttribute('event_name');
+    $body.one(eventName, function () {
+    const lazyImages = ads.querySelectorAll('img[data-original]');
+    [].forEach.call(lazyImages, function (image) {
+    image.setAttribute('src', image.getAttribute('data-original'));
+    image.removeAttribute('data-original');
+    });
+    });
+    });
+    })(window.jQuery);
+  script(charset='UTF-8' type='text/javascript' src='https://r.r10s.jp/com/js/c/ecm/ecm_20231012_pc.min.js?v=202405201200')
+  script(charset='euc-jp' type='text/javascript' src='https://r.r10s.jp/com/js/c/pc/module/module_set_20170901.min.js')
+  script(charset='UTF-8' type='text/javascript' src='https://r.r10s.jp/com/js/d/rad_liquid_table/1.12/rad_liquid_table-1.12.0.min.js' async)
+  script(charset='UTF-8' type='text/javascript' src='https://r.r10s.jp/com/js/d/smart/rad_table/1.11/smt_rad_table-1.11.0.min.js' async)
+
+
+
+
+

@@ -1,0 +1,14 @@
+#CampaignSendai
+  .rbSPU-content-pitari_inner
+    h2.ttl
+      span
+        | 仙台市対象！
+        span お得なキャンペーン開催中
+  .cpnList
+    //- Campaign List AreaAll
+    //- jsonが空orエラーの時非表示にしたい親要素に#Campaign[Areaname]をつけておく
+    include ../../../../../_common/pug/Module/Common/_campaignList
+    +campaignListAreaAllPitari('Sendai','仙台')
+
+script.
+  readJsonSendai();

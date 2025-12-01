@@ -1,0 +1,879 @@
+//- 新クーポンLP専用テンプレート。毎回最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- CSV Coupon Template / ver 1.4.0 / 更新日時：2025.3.4 / CPNタグ表記ルール変更
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  //- Kintone情報読み込み
+  include _kintone
+  - var css = `${'css/main.css' + parameter}`
+  //- シェア画像切り替え
+  if coupon[0].種別 == '事前登録'
+    - var shareImg = 'https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png' + parameter //- default
+  if coupon[0].種別 == '獲得'
+    - var shareImg = coupon[0].ページURL + 'img/share.png' + parameter //- default (シェア画像があれば変更)
+  //- description（全員対象優先、全員対象がなければ一番最後のクーポンのdescriptionが入ります）
+  - var loopflag = true;
+  - for(var i = 0; i < coupon.length; i++)
+    if loopflag == true && coupon[i].対象条件 == 'セグメントなし'
+      - var descStr = coupon[i].クーポン説明
+      - var loopflag = false //- break
+    else if loopflag == true
+      - var descStr = coupon[i].クーポン説明
+  //- metaタグ等に反映
+  include _setting
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  #CouponTemplate
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このラ・クーポンは終了しました' //- ページ上部の文言
+      - var btnTxt = '終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+
+    //- このLP全体の対象判定    
+    - var tag_target = []
+    - var hasNoReservation = false
+    //- 対象店舗予約有無が「なし」の要素があるかをチェック
+    - for (var i = 0; i < coupon.length; i++)
+      if coupon[i].対象店舗予約有無 == 'なし'
+        - hasNoReservation = true
+        - break // 1つでも見つかればループを終了
+    - for (var i = 0; i < coupon.length; i++)
+      //- 全員対象判定（1つでもあれば全員対象）
+      if coupon[i].対象条件 == 'セグメントなし'
+        if coupon[i].対象店舗予約有無 == 'なし'
+          if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = []
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            if genre == 'hair'
+              - var tag_target = ['美容室限定']
+            else if genre == 'all' || genre == ''
+              - var tag_target = ['対象サロン限定']
+        else if coupon[i].対象店舗予約有無 == '0:サロン新規' || coupon[i].対象店舗予約有無 == '1:サロンリピーター促進(2回目)' || coupon[i].対象店舗予約有無 == '2:サロンリピーター促進(3回目)'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            if genre == 'hair'
+              - var tag_target = ['美容室限定', '対象者限定']
+            else if genre == 'all' || genre == ''
+              - var tag_target = ['対象サロン限定', '対象者限定']
+          else if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = ['対象者限定']
+      //- 新規限定判定
+      else if coupon[i].対象条件 == '新規限定'
+        if coupon[i]['対象店舗予約有無'] == 'なし'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            if genre == 'hair'
+              - var tag_target = ['美容室限定', '初回利用限定']
+            else if genre == 'all' || genre == ''
+              - var tag_target = ['対象サロン限定', '初回利用限定']
+          else if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = ['初回利用限定']
+
+      //- 「対象者限定」を削除する処理
+      if hasNoReservation
+        - tag_target = tag_target.filter(tag => tag !== '対象者限定')    
+
+      //- 毎月開催判定
+      if coupon[i].毎月開催 == '毎月'
+        - var alwaysflag = true;
+    //- tagリスト作り
+    -
+      var tags = ['ラ・クーポン']
+      for (var j = 0; j < tag_target.length; j++)
+        tags.push(tag_target[j])
+    if alwaysflag
+      - tags.push('毎月開催')
+
+    //- 手動のtaglistがなければKintoneを反映
+    if !taglist
+      -
+        var taglist = {
+          tag: tags,
+        }
+
+    section#CpnTags
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter alt=coupon[0].クーポン名)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter alt=coupon[0].クーポン名)
+      //- 獲得
+      if coupon[0].種別 == '獲得'
+        .main__terms
+          .main__termsBox
+            span.main__termsTxt
+              | 対象条件：ラ・クーポン利用／対象サロンの対象メニュー施術完了／3,000円（税込）以上のネット予約
+              br
+              | 予約期間：2025年3月24日 11:00 ～ 2025年4月30日 9:59／施術期間：2025年3月24日 11:00 ～ 2025年5月30日 23:59
+            span.main__termsTxt.-small
+              | ※本キャンペーンは予告なく変更・中止される可能性があります。※クーポンには利用条件があります。キャンペーン詳細は
+              a.main__termsLink(href='#Detail')
+                | こちら
+
+    //- ラ・クーポン
+    section.prize(data-ratid='cpn_' + directory + '_Prize' data-ratevent='appear' data-ratparam='all')
+      h4.contents__subtitle
+        |  楽天市場対象店舗にてケラスターゼ
+        br.-sp
+        | 製品をご購入いただいたお客様限定で
+        br
+        | 対象サロンで使えるクーポンをプレゼント！
+      h4.contents__subtitle
+        | さらにクーポンで
+        a(href="#Shoplist")  予約・施術
+        | された方に抽選で
+        br.-sp
+        | 素敵な賞品をプレゼント！
+
+      .prize__content
+        //- クーポン
+        .coupon.prize__box.slideInContent(data-ratid='cpn_' + directory + '_Coupon' data-ratevent='appear' data-ratparam='all')
+          .contents__title
+            .title__icon
+              .title__icon--text
+                | 特典
+                br
+                span.title__icon--number 1
+            h2.title--text 特別クーポンプレゼント
+          .couponGet
+            .couponOneClickSetWrap
+              .couponOneClickSet
+                .couponBox
+                  .couponBoxUpper
+                    .couponOneClick(data-coupon-authkey='0srG3FtweAmC22f1hagus6h2wAQQNynY' data-coupon-processed='1')
+                      .couponOneClick-default
+                        .couponComponent
+                          .couponDetail
+                            span.overlay-content
+                              img.overlay-contentImg(src='/cnt/common/images/area/icon-checked.svg' alt='クーポン獲得')
+                            .couponDetailBottom
+                              .couponDetailBottomR
+                                p.couponDetailBottomRTitle
+                                  | ケラスターゼメニューで使える
+                                p.couponDetailBottomRPrice
+                                  span.couponDetailBottomRPrice.-num 2,000
+                                  | 円OFF
+            .coupon__info
+              | ※先着100名様限定
+              br
+              | ※対象の店舗にてケラスターゼ製品ご購入後、後日メールにてクーポンをお渡し。
+        //- プレゼント
+        #Present.present.prize__box.slideInContent(data-ratid='cpn_' + directory + '_Present' data-ratevent='appear' data-ratparam='all')
+          .contents__title
+            .title__icon
+              .title__icon--text
+                | 特典
+                br
+                span.title__icon--number 2
+            h2.title--text 抽選で合計13名様に当たる!
+          .present__wrap
+            .present__item
+              img(src='img/img_present1.png' + parameter alt="ケラスターゼ  ジュエリーボックス＆クロノロジスト トラベルセット*")
+            p.present__detail ケラスターゼ  ジュエリーボックス＆
+              br
+              | クロノロジスト トラベルセット*
+          p.present__info
+            | *バン クロノロジスト R 80mL、マスク クロノロジスト R 75mL
+            br
+            | ※当選発表は発送にて代えさせていただきます。詳しくは
+            a.contents__termsLink(href='#CpnDetail')
+              | こちら
+            | 。
+
+    //- ナビゲーション
+    ul.nav__container
+      li.nav__list
+        a.nav__link(href='#Chronologiste')
+          span.nav__text--sub.-pc ケラスターゼ最高峰ライン
+          br.-pc
+          | CHRONOLOGISTE 
+      li.nav__list
+        a.nav__link(href='#Fusiodose')
+          span.nav__text--sub.-pc パーソナライズ・トリートメント
+          br.-pc
+          | FUSIO-DOSE 
+      li.nav__list
+        a.nav__link(href='#Shoplist')
+          span.nav__text--sub.-pc クーポン対象メニュー
+          br.-pc
+          | 取扱いサロン
+
+    .introduction
+      h3.introduction__title
+        | 贅沢なサロントリートメントこそ、
+        br.-sp
+        | ケラスターゼの醍醐味
+      p.introduction__info
+        | 「2,000円OFFクーポン」対象メニューから、
+        br
+        | おすすめのケラスターゼトリートメントを
+        br.-sp
+        | ご紹介いたします
+
+    //-  クロノロジスト紹介
+    #Chronologiste
+    section.chronologiste(data-ratid='cpn_' + directory + '_Chronologiste' data-ratevent='appear' data-ratparam='all')
+      h3.chronologiste__title
+        img.chronologiste__title__img(src='img/img_chronologiste_title.png' + parameter alt="ケラスターゼ最高峰ライン CHRONOLOGISTE クロノロジスト")
+      articl.chronologiste__explanation
+        img.chronologiste__item__img(src='img/img_chronologiste_item.png' + parameter alt="CHRONOLOGISTE クロノロジスト")
+        h5.chronologiste__item__title
+          | LIVE BEYOND TIME
+        p.chronologiste__item__title__label
+          | 時を超えた美しさ
+        .chronologiste__item__info
+          p.chronologiste__item__info__text 先進のテクノロジーを総結集させ、時とともに感じる変化をあらゆる方向からケア
+          p.chronologiste__item__info__text 包括的で最高峰*の贅沢を極めたヘアケアは未来への投資です
+          p.chronologiste__item__info__secondary *ケラスターゼにおいて
+      articl.chronologiste__article
+        h3.chronologiste__article__title
+          | ケラスターゼの美髪ケアに着目した
+          br.-sp
+          | 先進テクノロジー
+        ul.chronologiste__technology__list.slideInContent
+          li.chronologiste__technology__item
+            .chronologiste__technology__item__img
+              img(src='img/img_technology2.png' + parameter alt="アビジン")
+            .chronologiste__technology__item__right
+              p.chronologiste__technology__item__title アビシン
+                span.chronologiste__technology__item__label アルテロモナス発酵エキス
+              p.chronologiste__technology__item__secondary （健やか成分）
+              p.chronologiste__technology__item__text 一般的に、アビシンは紫外線等の外的要因から肌を守ることが知られている。
+          li.chronologiste__technology__item
+            .chronologiste__technology__item__img
+              img(src='img/img_technology3.png' + parameter alt="ヒアルロン酸")
+            .chronologiste__technology__item__right
+              p.chronologiste__technology__item__title ヒアルロン酸
+                span.chronologiste__technology__item__label ヒアルロン酸Na
+              p.chronologiste__technology__item__secondary （うるおい・保湿）
+              p.chronologiste__technology__item__text 角質層に溜まりたっぷり水分を含んだ膜で肌内部、髪内側の水分が蒸発しないように蓋をする。
+          li.chronologiste__technology__item
+            .chronologiste__technology__item__img
+              img(src='img/img_technology4.png' + parameter alt="ビタミンE")
+            .chronologiste__technology__item__right
+              p.chronologiste__technology__item__title ビタミンE
+                span.chronologiste__technology__item__label トコフェロール
+              p.chronologiste__technology__item__secondary （コンディショニング成分）
+              p.chronologiste__technology__item__text 肌を健やかに保つことで知られる。
+      articl.chronologiste__article
+        h3.chronologiste__article__title
+          | ケラスターゼ最高峰 サロン限定トリートメント
+          br
+          | キャビア リチュアルで、ハイクラスな美髪体験を
+        .chronologiste__approach__img.slideInContent
+          img.-sp(src='img/img_approach_sp.png' + parameter alt="複数の髪悩みに包括的にアプローチ")
+          img.-pc(src='img/img_approach_pc.png' + parameter alt="複数の髪悩みに包括的にアプローチ")
+      articl.chronologiste__article
+        h3.chronologiste__article__title
+          | 仕上がりイメージ
+        //- slide in用wrapper追加
+        .slideInContent
+          p.chronologiste__make__img
+            img(src='img/img_make.png' + parameter alt="仕上がりイメージ")
+          p.chronologiste__make__info
+            | ※仕上がりイメージ。個人差があります。
+
+    //-  フュジオドーズ紹介
+    #Fusiodose
+    section.fusiodose(data-ratid='cpn_' + directory + '_Fusiodose' data-ratevent='appear' data-ratparam='all')
+      .fusiodose__main
+        h3.fusiodose__main__title
+          img(src='img/img_fusiodose_title.png' + parameter alt="パーソナライズ・トリートメント FUSIO-DOSE フュジオドーズ")
+        .fusiodose__main__container
+          .fusiodose__main__img
+            img(src='img/img_fusiodose_main.png' + parameter alt="ケラスターゼサロントリートメント売上No.1※ プロがカウンセリングを基にあなたに最適な組み合わせを")
+          .fusiodose__main__summary
+            p ケラスターゼサロントリートメント売上No.1
+              span.fusiodose__main__small ※
+              br
+              | プロがカウンセリングを基にあなたに最適な組み合わせを
+            p 髪悩み×なりたい髪で見つける
+              br
+              | パーソナライズ・トリートメント
+            p.fusiodose__main__summary__info ※ケラスターゼ調べ。2023年1月～12月までのサロントリートメントカテゴリーにおけるケラスターゼ取扱いサロン向け出荷金額に基づく
+      .fusiodose__product
+        h3.fusiodose__product__title
+          | 20通りの組み合わせから、
+          br.-sp
+          | あなたのための1滴を
+        .concentres.fusiodose__product__menu
+          h4.product__menu__title
+            img(src='img/concentres_title.png' + parameter alt="髪悩みから選ぶ THE CONCENTRÉS コンサントレ")
+          #concentres__swiper.fusiodose__product__wrap
+            ul.concentres__list.fusiodose__product__list
+              li.concentres__item.fusiodose__product__item
+                img(src='img/con_01.png' + parameter alt="オレオフュージョンコンサントレ")
+              li.concentres__item.fusiodose__product__item
+                img(src='img/con_02.png' + parameter alt="レジスタンスコンサントレ")
+              li.concentres__item.fusiodose__product__item
+                img(src='img/con_03.png' + parameter alt="ブロンドアブソリュコンサントレ")
+              li.concentres__item.fusiodose__product__item
+                img(src='img/con_04.png' + parameter alt="ジェネシスコンサントレ")
+              li.concentres__item.fusiodose__product__item
+                img(src='img/con_05.png' + parameter alt="クロマアブソリュコンサントレ")
+          #concentres__pagination.RBpagination.-sp
+            span.RBpagination_bullet.active
+            span.RBpagination_bullet
+            span.RBpagination_bullet
+        .fusiodose__product__x
+          img(src='img/x.png' + parameter)
+        .boosters.fusiodose__product__menu
+          h4.product__menu__title
+            img(src='img/boosters_title.png' + parameter alt="なりたい髪から選ぶ THE BOOSTERS ブースター")
+          #boosters__swiper.fusiodose__product__wrap
+            ul.boosters__list.fusiodose__product__list
+              li.boosters__item.fusiodose__product__item
+                img(src='img/boosters_01.png' + parameter alt="オレオフュージョンブースター")
+              li.boosters__item.fusiodose__product__item
+                img(src='img/boosters_02.png' + parameter alt="レジスタンスブースター")
+              li.boosters__item.fusiodose__product__item
+                img(src='img/boosters_03.png' + parameter alt="ブロンドアブソリュブースター")
+              li.boosters__item.fusiodose__product__item
+                img(src='img/boosters_04.png' + parameter alt="クロマアブソリュブースター")
+          #boosters__pagination.RBpagination.-sp
+            span.RBpagination_bullet.active
+            span.RBpagination_bullet
+            span.RBpagination_bullet
+
+
+    //- Flow
+    #Flow
+    section.howto(data-ratid='cpn_' + directory + '_Flow' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title キャンペーンの流れ
+      
+      .howto__container
+        h3.howto__lead
+          | キャンペーン期間中に、
+          | 対象のクーポンを使って
+          a.contents__termsLink(href='#Shoplist') ケラスターゼメニュー
+          | を予約・施術された方を対象に、
+          br
+          | 抽選で合計13名様に
+          a.contents__termsLink(href='#Present') 素敵な賞品
+          | をプレゼント！
+
+        //- キャンペーンの流れ
+        .howto__wrapper
+          ul.howto__boxWrap
+            li.howto__box
+              .howto__box0.-pc
+                p.howto__boxTitle
+                  | Step 1
+              .howto__box1
+                img.howto__boxImg(src='img/img_flow1.png' + parameter alt="Step1")
+              .howto__box2
+                p.howto__boxTitle.-sp
+                  | Step 1
+                p.howto__boxTxt
+                  | ケラスターゼ製品を
+                  br
+                  | 購入し、クーポンをGET
+            li.howto__box
+              .howto__box0.-pc
+                p.howto__boxTitle
+                  | Step 2
+              .howto__box1
+                img.howto__boxImg(src='img/img_flow2.png' + parameter alt="Step2")
+              .howto__box2
+                p.howto__boxTitle.-sp
+                  | Step 2
+                p.howto__boxTxt
+                  a.contents__termsLink(href='#Shoplist') この画像のメニュー
+                  | で
+                  br
+                  | ネット予約
+                p.howto__boxTxt.-small
+                  | ※対象メニューの目印はこの画像
+            li.howto__box
+              .howto__box0.-pc
+                p.howto__boxTitle
+                  | Step 3
+              .howto__box1
+                img.howto__boxImg(src='img/img_flow3.png' + parameter alt="Step3")
+              .howto__box2
+                p.howto__boxTitle.-sp
+                  | Step 3
+                p.howto__boxTxt
+                  | 2025年5月30日までに
+                  br
+                  | 来店して施術完了
+            li.howto__box
+              .howto__box0.-pc
+                p.howto__boxTitle
+                  | Step 4
+              .howto__box1
+                img.howto__boxImg(src='img/img_flow4.png' + parameter alt="Step4")
+              .howto__box2
+                p.howto__boxTitle.-sp
+                  | Step 4
+                p.howto__boxTxt
+                  | 2025年6月末以降
+                  br
+                  | 抽選でプレゼント
+                p.howto__boxTxt.-small
+                  | ※賞品や発送に関する詳細は
+                  a.contents__termsLink(href='#Detail') こちら
+      p.howto__info
+        | ※キャンペーン期間内であれば、ネット予約・施術の順番は問いません。※当選発表は発送にて代えさせていただきます。詳しくは
+        a.contents__termsLink(href='#Detail') こちら
+        | 。
+        br
+        | ※当選した賞品は、楽天会員情報にご登録の住所宛てに発送いたします。ご登録の情報に誤りや変更がないか、必ずご確認ください。楽天会員情報の確認・変更は
+        a.contents__termsLink(href='https://my.rakuten.co.jp/') こちら
+        | 。
+
+    //- anchor link
+    #Shoplist(data-ratid='cpn_' + directory + '_Shoplist' data-ratevent='appear' data-ratparam='all')
+
+    //- shoplist
+    section#salonFilterContainer
+      #salonFilterSection(ref="wrapper", class="is-loading")
+        .loader
+
+        //- mixin card
+        mixin card()
+          if shoplist.select == '1column' || shoplist.select == 'btn'
+            - var type = 'filterList'
+          else if shoplist.select == '2column'
+            - var type = 'filteredSalonList'
+          #salonList(ref="list")
+            .salonList
+              section(v-for="item, index in " + type, :key="index", class="salonList__item position-relative")
+                .salonList__content
+                  .salonList__cover
+                    img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/" + item.shop_id + "_01.jpg" + param', class="salonList__image", rel="preload", :alt="item.shop_name")
+                  .salonList__outline
+                    h3.salonList__salonName
+                      a(:href='"/" + item.shop_id + "/?" + lid', class="salonList__link stretched-link") {{ item.shop_name }}
+                    span.salonList__area
+                      i.icon.icon-location
+                      | {{ item.area }}
+                    span.salonList__station
+                      i.icon.icon-train
+                      | {{ item.station }}
+        //- mixin menuCard
+        mixin menuCard()
+          #salonList(ref="list")
+            if shoplist.select == '1column' || shoplist.select == 'btn'
+              - var type = 'filterList'
+            else if shoplist.select == '2column'
+              - var type = 'filteredSalonList'
+            .salonList
+              section(v-for="item, index in " + type, :key="index", class="salonList__item has-divide")
+                .salonList__content.position-relative
+                  .salonList__cover
+                    img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/" + item.shop_id + "_01.jpg" + param', class="salonList__image", rel="preload", :alt="item.shop_name")
+                  .salonList__outline
+                    h3.salonList__salonName
+                      a(:href='"/" + item.shop_id + "/?" + lid', class="salonList__link stretched-link") {{ item.shop_name }}
+                    span.salonList__area
+                      i.icon.icon-location
+                      | {{ item.area }}
+                    span.salonList__station
+                      i.icon.icon-train
+                      | {{ item.station }}
+                .salonList__divide.position-relative
+                  .salonList__outline
+                    .salonList__detail
+                      .salonList__menuIcon
+                        span.salonList__genre.-no1(v-if='item.genreNo_1 == 1') {{ item.genre_1 }}
+                        span.salonList__genre.-no2(v-if='item.genreNo_1 == 2') {{ item.genre_1 }}
+                        span.salonList__genre.-no3(v-if='item.genreNo_1 == 3') {{ item.genre_1 }}
+                      .salonList__menuDetail
+                        h4.salonList__menuName
+                          span.salonList__target(v-if='item.target_1 == "初回"') {{ item.target_1 }}
+                          span.salonList__target.is-all(v-if='item.target_1 == "全員"') {{ item.target_1 }}
+                          | {{ item.menu_name_1 }}
+                    p.salonList__description {{ item.menu_detail_1 }}
+                  .salonList__buttonArea
+                    .salonList__menuPriceArea
+                      span.salonList__menuTime 約{{ item.menu_time_1 }}分
+                      span.salonList__menuPrice ￥{{ item.menu_price_1.toLocaleString() }}
+                    .salonList__menuTermsArea
+                      span.salonList__menuTerm {{ item.condition_1 }}
+                    a(:href='"/reserve/?shop_ex_id=" + item.shop_id + "&menu_id=" + item.menu_id_1 + "&" + lid', class="stretched-link salonList__button") このメニューで予約する
+                .salonList__divide.position-relative(v-if='item.menu_id_2')
+                  .salonList__outline
+                    .salonList__detail
+                      .salonList__menuIcon
+                        span.salonList__genre.-no1(v-if='item.genreNo_2 == 1') {{ item.genre_2 }}
+                        span.salonList__genre.-no2(v-if='item.genreNo_2 == 2') {{ item.genre_2 }}
+                        span.salonList__genre.-no3(v-if='item.genreNo_2 == 3') {{ item.genre_2 }}
+                      .salonList__menuDetail
+                        h4.salonList__menuName
+                          span.salonList__target(v-if='item.target_2 == "初回"') {{ item.target_2 }}
+                          span.salonList__target.is-all(v-if='item.target_2 == "全員"') {{ item.target_2 }}
+                          | {{ item.menu_name_2 }}
+                    p.salonList__description {{ item.menu_detail_2 }}
+                  .salonList__buttonArea
+                    .salonList__menuPriceArea
+                      span.salonList__menuTime 約{{ item.menu_time_2 }}分
+                      span.salonList__menuPrice ￥{{ item.menu_price_2.toLocaleString() }}
+                    .salonList__menuTermsArea
+                      span.salonList__menuTerm {{ item.condition_2 }}
+                    a(:href='"/reserve/?shop_ex_id=" + item.shop_id + "&menu_id=" + item.menu_id_2 + "&" + lid', class="stretched-link salonList__button") このメニューで予約する
+
+        //- 1column
+        if shoplist.select == '1column'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            .filter-select
+              select.filter-select__item(v-model="select1")
+                option(value="") !{shoplist.firstTxt1}
+                option(v-for="(item, index) in select1List", :value="item.name") {{ item.name }} ({{ item.count }}件)
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+        //- 2column
+        else if shoplist.select == '2column'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              span.-pc
+                | 、
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            .filter-lead
+              .filter-lead-img
+                img(src='img/img_coupon.png' + parameter alt="期間限定 2,000円OFF クーポン対象メニュー KERASTASE")
+              p.filter-lead-text
+                | この画像のメニューで使える！
+                span.filter-lead-text-xlarge 2,000
+                  span.filter-lead-text-large 円OFF
+                  span.filter-lead-text-middle ラ・クーポン
+                | 対象メニュー取扱いサロン
+            .filter-select
+              select.filter-select__item(v-model="select1", ref="select1")
+                option(value="", selected) !{shoplist.firstTxt1}
+                option(v-for="(item, index) in select1List", :value="item") {{ item }}
+            .filter-select
+              select.filter-select__item(v-model="select2", ref="select2", disabled)
+                option(value="", selected) !{shoplist.firstTxt2}
+                option(v-for="(item, index) in select2List", :value="item") {{ item }}
+            button(class="filter-button", disabled, v-on:click="search", ref="button")
+              span 検索
+              span(v-if="count !== 0 && !firstFlag") （{{count}}件）
+          .salon__info
+            | ※一部ラ・クーポンがご利用できない店舗がございます。ご利用できる店舗では、獲得済みのラ・クーポンが表示されます。
+            br
+            | ※ラ・クーポン注意事項は
+            a(href='#Detail') こちら
+            | 。
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+        //- btn
+        else if shoplist.select == 'btn'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            ul.filter-button-list
+              li.filter-button-list-item
+                button.filter-list-button(@click="select1 = ''", :class="{'is-selected': select1 == ''}") すべて
+              li.filter-button-list-item(v-for="(item, index) in select1List")
+                button.filter-list-button(@click="select1 = item.name", :class="{'is-selected': select1 == item.name}") {{ item.name }} ({{ item.count }}件)
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+    //- Coupon Detail
+    section#Detail.detail(data-ratid='cpn_' + directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title 特典1：ラ・クーポン注意事項
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        //- 事前付与
+        if coupon[0].種別 == '事前登録'
+          table.detail__table
+            tbody
+              tr.detail__tableBlock
+                th.detail__tableBlockHead 予約期限
+                td.detail__tableBlockBody !{dateChange(coupon[0].利用終了日時)}
+              tr.detail__tableBlock
+                th.detail__tableBlockHead 施術期限
+                td.detail__tableBlockBody !{dateChange(coupon[0].来店終了日時)}
+              tr.detail__tableBlock
+                th.detail__tableBlockHead 対象条件
+                td.detail__tableBlockBody !{termslist}
+              tr.detail__tableBlock
+                th.detail__tableBlockHead 注意事項
+                td.detail__tableBlockBody
+                  ul.detail__tableBlockList
+                    li.detail__tableBlockList--li ラ・クーポンの利用回数には上限があります。
+                    li.detail__tableBlockList--li 他のラ・クーポンとの併用はできません。
+                    li.detail__tableBlockList--li ラ・クーポンには利用上限回数（予約成立順）が設定されています。ラ・クーポン獲得済みであっても利用上限に達した場合はご利用いただけません。
+                    li.detail__tableBlockList--li ラ・クーポンは、マイページの
+                      a.detail__tableBlockTxt--link(href="https://beauty.rakuten.co.jp/user/coupon.php")
+                        | マイクーポン
+                      | からご確認いただけます。
+                    li.detail__tableBlockList--li ラ・クーポンの利用条件に合致したクーポンのみが、ネット予約STEP中に表示されます。獲得していても、ラ・クーポンが表示されない場合、ラ・クーポンの利用条件等をご確認ください。（予約条件が一致しない、有効期限を過ぎている、利用回数を超えた場合等）
+                    li.detail__tableBlockList--li ネット予約確定の前に、他のネット予約が成立し利用上限回数に達した場合には、ネット予約がエラーとなり、ラ・クーポンをご利用になれません。
+                    li.detail__tableBlockList--li ラ・クーポンは、楽天ビューティ（サイト/アプリ）での予約時にのみご利用いただけます。予約成立後など後から利用することはできません。
+                    li.detail__tableBlockList--li ラ・クーポンを印刷して来店時にお持ちいただいても割引することはできません。
+                    li.detail__tableBlockList--li ラ・クーポンは、電話予約でご利用できません。
+                    li.detail__tableBlockList--li 一部、ラ・クーポンを利用できない店舗がございます。
+                    li.detail__tableBlockList--li 発行されているラ・クーポンによって来店期日は異なりますので、ご注意ください。
+                    li.detail__tableBlockList--li サロンの予約状況によっては、ご希望に添えなかったり、お断りする場合もございます。
+                    li.detail__tableBlockList--li ラ・クーポンを利用した予約をキャンセルした場合、利用条件を満たしていれば、マイクーポンに返還されます。詳しくは
+                      a.detail__tableBlockTxt--link(href="https://beauty.faq.rakuten.net/user/s/detail/000005759")
+                        | こちら
+                    li.detail__tableBlockList--li 本企画は予告無く変更・中止されることがございます。
+                    li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                    li.detail__tableBlockList--li ご来店いただける期間はサロンの営業時間によって異なります。
+                    li.detail__tableBlockList--li ラ・クーポンの使用方法についてご不明点があった場合は、楽天ビューティにお問い合わせください。
+        //- 獲得
+        if coupon[0].種別 == '獲得'
+          if coupon[0].対象デバイス == 'セグメントなし'
+            table.detail__table
+              tbody
+                tr.detail__tableBlock
+                tr.detail__tableBlock
+                  th.detail__tableBlockHead 注意事項
+                  td.detail__tableBlockBody
+                    ul.detail__tableBlockList
+                      li.detail__tableBlockList--li 獲得したラ・クーポンの利用回数には上限があります。
+                      li.detail__tableBlockList--li 他のラ・クーポンとの併用はできません。
+                      li.detail__tableBlockList--li ラ・クーポンには利用上限回数（予約成立順）が設定されています。ラ・クーポン獲得済みであっても利用上限に達した場合はご利用いただけません。
+                      li.detail__tableBlockList--li 獲得したラ・クーポンは、マイページの
+                        a.detail__tableBlockTxt--link(href="/user/coupon.php")
+                          | マイクーポン
+                        | からご確認いただけます。
+                      li.detail__tableBlockList--li ラ・クーポンの利用条件に合致したクーポンのみが、ネット予約STEP中に表示されます。獲得していても、ラ・クーポンが表示されない場合、ラ・クーポンの利用条件等をご確認ください。（予約条件が一致しない、有効期限を過ぎている、利用回数を超えた場合等）
+                      li.detail__tableBlockList--li ネット予約確定の前に、他のネット予約が成立し利用上限回数に達した場合には、ネット予約がエラーとなり、ラ・クーポンをご利用になれません。
+                      li.detail__tableBlockList--li ラ・クーポンは、楽天ビューティ（サイト/アプリ）での予約時にのみご利用いただけます。予約成立後など後から利用することはできません。
+                      li.detail__tableBlockList--li ラ・クーポンを印刷して来店時にお持ちいただいても割引することはできません。
+                      li.detail__tableBlockList--li ラ・クーポンは、電話予約でご利用できません。
+                      li.detail__tableBlockList--li 一部、ラ・クーポンを利用できない店舗がございます。
+                      li.detail__tableBlockList--li 発行されているラ・クーポンによって来店期日は異なりますので、ご注意ください。
+                      li.detail__tableBlockList--li サロンの予約状況によっては、ご希望に添えなかったり、お断りする場合もございます。
+                      li.detail__tableBlockList--li ラ・クーポンを利用した予約をキャンセルした場合、利用条件を満たしていれば、マイクーポンに返還されます。
+                        a.detail__tableBlockTxt--link(href="https://beauty.faq.rakuten.net/user/s/detail/000005759")
+                          | 詳しくはこちら
+                      li.detail__tableBlockList--li 本企画は予告無く変更・中止されることがございます。
+                      li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                      li.detail__tableBlockList--li ご来店いただける期間はサロンの営業時間によって異なります。
+                      li.detail__tableBlockList--li ラ・クーポンの使用方法についてご不明点があった場合は、楽天ビューティにお問い合わせください。
+          //- 獲得＋アプリ予約のみ対象
+          if coupon[0].対象デバイス == 'アプリ限定'
+            table.detail__table
+              tbody
+                tr.detail__tableBlock
+                tr.detail__tableBlock
+                  th.detail__tableBlockHead 注意事項
+                  td.detail__tableBlockBody
+                    ul.detail__tableBlockList
+                      li.detail__tableBlockList--li 獲得したラ・クーポンの利用回数には上限があります。
+                      li.detail__tableBlockList--li 他のラ・クーポンとの併用はできません。
+                      li.detail__tableBlockList--li ラ・クーポンには利用上限回数（予約成立順）が設定されています。ラ・クーポン獲得済みであっても利用上限に達した場合はご利用いただけません。
+                      li.detail__tableBlockList--li 獲得したラ・クーポンは、マイページの
+                        a.detail__tableBlockTxt--link(href="/user/coupon.php")
+                          | マイクーポン
+                        | からご確認いただけます。
+                      li.detail__tableBlockList--li ラ・クーポンの利用条件に合致したクーポンのみが、ネット予約STEP中に表示されます。獲得していても、ラ・クーポンが表示されない場合、ラ・クーポンの利用条件等をご確認ください。（予約条件が一致しない、有効期限を過ぎている、利用回数を超えた場合等）
+                      li.detail__tableBlockList--li ネット予約確定の前に、他のネット予約が成立し利用上限回数に達した場合には、ネット予約がエラーとなり、ラ・クーポンをご利用になれません。
+                      li.detail__tableBlockList--li ラ・クーポンは、楽天ビューティのアプリでの予約時にのみご利用いただけます。予約成立後など後から利用することはできません。
+                      li.detail__tableBlockList--li ラ・クーポンを印刷して来店時にお持ちいただいても割引することはできません。
+                      li.detail__tableBlockList--li ラ・クーポンは、電話予約でご利用できません。
+                      li.detail__tableBlockList--li 一部、ラ・クーポンを利用できない店舗がございます。
+                      li.detail__tableBlockList--li 発行されているラ・クーポンによって来店期日は異なりますので、ご注意ください。
+                      li.detail__tableBlockList--li サロンの予約状況によっては、ご希望に添えなかったり、お断りする場合もございます。
+                      li.detail__tableBlockList--li ラ・クーポンを利用した予約をキャンセルした場合、利用条件を満たしていれば、マイクーポンに返還されます。
+                        a.detail__tableBlockTxt--link(href="https://beauty.faq.rakuten.net/user/s/detail/000005759")
+                          | 詳しくはこちら
+                      li.detail__tableBlockList--li 本企画は予告無く変更・中止されることがございます。
+                      li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                      li.detail__tableBlockList--li ご来店いただける期間はサロンの営業時間によって異なります。
+                      li.detail__tableBlockList--li ラ・クーポンの使用方法についてご不明点があった場合は、楽天ビューティにお問い合わせください。
+
+    section#CpnDetail.detail(data-ratid='cpn_' + directory + '_cpnDetail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title 特典2：プレゼントキャンペーン詳細
+        //- キャンペーン詳細
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead エントリー・予約期間
+              td.detail__tableBlockBody 2025年3月24日(月)11:00～2025年4月30日(水)9:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 施術期間
+              td.detail__tableBlockBody 2025年3月24日(月)11:00～2025年5月30日(金)23:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 楽天ビューティで 3,000円以上(税込)ネット予約
+                  li.detail__tableBlockList--li 施術期間中に施術を完了された方
+                  li.detail__tableBlockList--li 「ケラスターゼメニュー2,000 円 OFF 限定割引クーポン★ 」を利用して対象メニューを予約された方
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li 電話予約や直接来店は対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約や直接来店で施術完了された場合は、ポイント進呈の対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の来店期間内で施術完了された場合は、ポイント進呈の対象となります。
+                  li.detail__tableBlockList--li 楽天グループの役職員及び関係者は応募できません。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 抽選で13名様に下記が進呈されます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt 【ケラスターゼ クロノロジスト オリジナルセット】
+                p.detail__tableBlockTxt ・ケラスターゼジュエリーボックス
+                p.detail__tableBlockTxt ・バンクロノロジスト R80mL
+                p.detail__tableBlockTxt ・マスククロノロジスト R75mL
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 特典は楽天会員情報にご登録の住所宛てに発送いたします。ご登録の情報に誤りや変更がないか、必ずご確認ください。楽天会員情報の確認・変更は
+                    a.detail__tableBlockTxt--link(href="https://my.rakuten.co.jp/")
+                      | こちら
+                    |。
+                  li.detail__tableBlockList--li 配送先は、日本国内に限らせていただきます。
+                  li.detail__tableBlockList--li 楽天会員情報の登録不備や宛先不明などで連絡がとれない場合、当選は無効とさせていただき、特典の再送及び繰り上げ当選は行いませんので、ご注意ください。
+                  li.detail__tableBlockList--li 特典の転売は禁止とさせていただきます。
+                  li.detail__tableBlockList--li 特典獲得の権利は譲渡できません。
+                  li.detail__tableBlockList--li 楽天ビューティで同時期に行われている他のキャンペーンの条件を達成された場合 、本キャンペーンの進呈対象から除外される場合があります。あらかじめご了承ください。
+                  li.detail__tableBlockList--li 楽天ビューティで実施しているケラスターゼキャンペーン（1,000 円オフクーポン配布分）と本キャンペーンの両方に参加される場合、抽選への参加はお一人様 1回限りとなります。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典発送予定日
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 2025年6月末頃
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 特典の発送をもって、当選の発表にかえさせていただきます。
+                  li.detail__tableBlockList--li 当選に関わる個別のお問い合わせについては、対応しておりません。
+                  li.detail__tableBlockList--li 都合により特典の発送が遅れる場合もございます。予めご了承ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 一部ネット予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li キャンペーンのエントリー及び条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li その他ご不明な点は
+                    a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/')
+                      | こちら
+                    | よりお問い合わせください。
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- slide in用のJS（JQuery使用）
+  script(src="js/rb-slide-in.js", defer)
+
+  //- SP slider用のJS（JQuery使用）
+  script(src="js/rb-swipe-slider-sp.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- 1click coupon
+  script(src='//r.r10s.jp/com/js/d/Rmodules/Rmodules.min.js?v=1.4.0', defer)
+  script(src='//r.r10s.jp/com/js/d/coupon/one_click_acquisition/1.2/one_click_acquisition-1.2.0.min.js', defer)
+
+  //------------------------------- Shoplist 絞り込み (vue) -------------------------------//
+
+  //- js用パラメータ生成
+  script.
+    const param = '!{parameter}';
+    const firstSelect1 = '!{shoplist.firstSelect1}';
+    const firstSelect2 = '!{shoplist.firstSelect2}';
+    const dir = '!{directory}';
+    const lid = 'l-id=rb_' + dir + '_shopdetail';
+
+  //- pugで読み込むjsのurl（パラメータつき）を生成 = キャッシュ対策
+  -
+    var jsUrl1column = `${'js/filter-by-1column.js' + parameter}`
+    var jsUrl2column = `${'js/filter-by-2column.js' + parameter}`
+
+  //- json読み込み & 絞り込み (vue)
+  if shoplist.select == '1column' || shoplist.select == 'btn'
+    script(src=jsUrl1column, defer)
+  else if shoplist.select == '2column'
+    script(src=jsUrl2column, defer)
+
+  //------------------------------- Kintoneの数字変換用js -------------------------------//
+
+  -
+    //- 数字にカンマをつける（Kintoneの数字変換用js）
+    function addComma(no){
+      return no.toLocaleString();
+    }
+    //- 日付置換（_couponOneClickで使用）
+    function dateChange(date){
+      let dateArray = date.split(/[/ ]/);
+      dateArray.splice( 0, 1, removeLeadingZeros(dateArray[0]) + '年');
+      dateArray.splice( 1, 1, removeLeadingZeros(dateArray[1]) + '月');
+      //- 日付と時刻の間に半角スペースも挿入
+      dateArray.splice( 2, 1, removeLeadingZeros(dateArray[2]) + '日 ');
+      return dateArray.join('');
+    }
+    //- 日付から先頭の0を削除
+    function removeLeadingZeros(dateString) {
+      return dateString.replace(/^0/, '');
+    }
+    
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+

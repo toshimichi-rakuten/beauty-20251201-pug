@@ -1,0 +1,281 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- クーポンがあるLPは_template_coupon/を複製→このテンプレートから必要なものを移植して作成したほうが簡単です
+//- ver 3.0.0 / 更新日時：2024.3.6 / キャンペーン詳細サンプル更新
+
+extends ../../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20240530'
+    var meta = {
+      title: 'Instagramキャンペーンで見事1,000ポイント当選！',
+      description: '楽天ビューティのInstagramフォロー＆いいねなどのアクションありがとうございました！厳正なる抽選の結果、見事1,000ポイント当選しました！',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/instagram/entry/',
+      directory: 'instagram_entry', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/instagram/entry/img/share.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #Instagram
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー必要', //- エントリー不要は自動的に青色になります
+            //- '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+            //- '条件達成',
+            //- 'ネット予約・施術完了',
+            //- '毎月開催',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.jpg' + parameter, alt=meta.title)
+      .main__terms
+        .main__termsBox
+          p.main__termsTxt.-bold
+            | 当選者エントリー期間：
+            br.-sp
+            | 当選通知のDM受け取り 〜 5月23日 9:59
+          p.main__termsTxt.-small
+            | ※進呈するポイント（期間限定ポイントを含む）には条件があります。
+          p.main__termsTxt.-small
+            | キャンペーン詳細は
+            a.main__termsLink(href='#Detail')
+              | こちら
+
+    //- Step1
+    section#Step1.stepContent(data-ratid='cpn_' + meta.directory + '_Step1' data-ratevent='appear' data-ratparam='all')
+      h2.stepContent--title
+        img(src='img/img_title_complete.png' + parameter, alt='Step1' width='100%' height='')
+      p.stepContent--lead
+        | Instagramフォロー＆いいねなどの
+        br.-sp
+        | アクションありがとうございました！
+        br
+        | ポイント受け取りのため
+        br.-sp
+        | 下記よりエントリーください。
+
+    //- Entry Btn
+    section#EntryBox.entryBox(data-ratid='cpn_' + meta.directory + '_EntryBox' data-ratevent='appear' data-ratparam='all')
+
+      //- 終了対応
+      if endflag == true
+        //- ボタンセット(url,txt,endflag)
+        +btnSet('',btnTxt,true)
+      else
+
+        //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+        //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+        // ReX Campaign Entry Button: Mounting points
+        // mounting point for button 1
+        //- #114615
+        #rex-ceb-01
+        // ReX Campaign Entry Button: Configuration
+        script
+          | var rexButtons = {language: 'ja', buttons: [{"code":"/instagram2404","theme":"pink","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","ids":["rex-ceb-01"]}]}
+        // ReX Campaign Entry Button: Script
+        script(src="https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js" defer='')
+
+        //- メルマガパーミッション
+        //- include ../../../../../_common/pug/Module/Common/_mailPermissionTxt
+        //- +mailPermissionTxt()
+
+      p.entryBox--info ※5月23日 9:59までに
+        br.-sp
+        | エントリーいただけなかった場合は、
+        br
+        | 当選を無効とさせていただきます。
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead キャンペーン期間
+              td.detail__tableBlockBody 2024年4月8日(月)10:00 ～ 2024年4月22日(月)9:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 楽天ビューティのInstagramアカウントをフォローされた方
+                    br
+                    | Instagramアカウントは
+                    a.detail__tableBlockTxt--link(href="https://www.instagram.com/rakutenbeauty/?hl=ja" target="_blank")
+                      | こちら
+                  li.detail__tableBlockList--li 4月8日(月)に楽天ビューティのアカウントから投稿されている対象ポストに対して、下記いずれかの条件を達成された方
+                    br
+                    | （達成された条件によって当選確率が変動します）
+                    br
+                    | A) 当選確率1倍
+                    br
+                    | いいねの♡をタップ
+                    br
+                    | B) 当選確率2倍
+                    br
+                    | 今気になっているヘアスタイルやヘアカラー、トリートメントなどの種類、美容情報をコメント
+                    br
+                    | C) 当選確率3倍
+                    br
+                    | ストーリーズ機能を用いて楽天ビューティのアカウントのメンション及び #楽天ビューティ のハッシュタグを付けてシェア
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 応募期間以前から
+                    a.detail__tableBlockTxt--link(href="https://www.instagram.com/rakutenbeauty/?hl=ja" target="_blank")
+                      | 楽天ビューティの公式アカウント「@rakutenbeauty」
+                    | をフォローいただいている方も、その他条件を満たせば応募可能です。
+                  li.detail__tableBlockList--li Cの条件に関して、Instagram のストーリーズ以外へのシェアは対象外となります。
+                  li.detail__tableBlockList--li C の条件に関して、メンションかハッシュタグどちらか片方のみのシェアは対象外となります。
+
+                  li.detail__tableBlockList--li B～C の条件に関して、対象となるのはお1人様1アクションとなります。複数回のシェアまたはコメントをいただいても当選確率は上がりませんのでご了承ください。
+                  li.detail__tableBlockList--li A～Cの条件に関して、本キャンペーンに関する投稿に対するアクションのみが対象となります。通常のヘアカラー特集などの投稿にアクションされても対象外となりますので、ご注意ください。
+                  li.detail__tableBlockList--li A～C の条件に関して、複数達成された場合の当選確率は合算となります。
+                    br
+                    | 例）BとCの条件を達成された場合、当選確率は5倍
+                  li.detail__tableBlockList--li ご自身のアカウントを非公開設定にしている場合は対象外となります。
+                  li.detail__tableBlockList--li 楽天グループの役職員及び関係者は応募できません。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 抽選で250名様に楽天ポイント1,000ポイントが進呈されます。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 現在実施中のキャンペーンとの併用が可能です(一部併用が出来ないキャンペーンもございます)。
+                    a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/')
+                      | キャンペーン一覧はこちら
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント進呈予定日
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li 2024年5月末頃
+                    br
+                    | 当選者の方には2024年5月15日（水）頃に、Instagramのダイレクトメッセージにて「@rakutenbeauty」より当選通知とその後のご案内をさせていただきます。ダイレクトメッセージを受け取れる設定をされていない場合や、メッセージをお送りしてから一週間以内にご返信をいただけなかった場合は、当選を無効とさせていただきますのでご了承ください。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li ポイントの進呈には、楽天IDが必要になります。まだお持ちでない方は
+                    a.detail__tableBlockTxt--link(href="https://www.rakuten.co.jp/myrakuten/help/")
+                      | こちらから楽天会員登録
+                    | (無料)をお願いいたします。
+                  li.detail__tableBlockList--li 獲得した特典ポイントは、
+                    a.detail__tableBlockTxt--link(href="https://point.rakuten.co.jp/history/")
+                      | 楽天PointClubのポイント実績
+                    | でご確認いただけます。
+                  li.detail__tableBlockList--li 当選発表は当選者の方のみにご連絡いたします。当選に関わる個別のお問い合わせについては、対応しておりません。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li ポイント進呈日から6ヶ月間有効な期間限定ポイントとして進呈されます。
+                  li.detail__tableBlockList--li 期間限定ポイントの詳細は
+                    a.detail__tableBlockTxt--link(href="https://ichiba.faq.rakuten.net/detail/000006532?scid=su_2312")
+                      | こちら
+                    | をご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 抽選時に楽天ビューティのアカウントのフォロー及び該当投稿へのアクションが確認できない場合には対象外となります。
+                  li.detail__tableBlockList--li 本キャンペーンのためにアカウントを開設し、応募したと当社が合理的に判断した場合、当選権利を無効とさせていただく場合がございます。
+                  li.detail__tableBlockList--li Instagramの利用規約・法令に違反する行為は当選を無効とさせていただきます
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、またシステム等の不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象につきましては、楽天グループ株式会社の責めに帰すべき場合を除き責任を負いかねます。
+                  li.detail__tableBlockList--li 本キャンペーン参加にかかる費用(通信費等含む)は、ユーザ様のご負担となりますので、あらかじめご了承ください。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li 「キャンペーンの条件達成状況及び抽選に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li 「QR コード」は、株式会社デンソーウェーブの登録商標です。
+                  li.detail__tableBlockList--li その他ご不明な点は
+                    a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/')
+                      | こちら
+                    | よりお問い合わせください。
+
+    //- Other Campaign
+    section#Campaign.campaign(data-ratid='cpn_' + meta.directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title その他のキャンペーン
+
+      include ../../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.4.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  //- script(src="/cnt/common/js/area-search/build.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  //- script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  //- script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く

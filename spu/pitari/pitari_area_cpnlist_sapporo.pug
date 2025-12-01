@@ -1,0 +1,14 @@
+#CampaignSapporo
+  .rbSPU-content-pitari_inner
+    h2.ttl
+      span
+        | 札幌市対象！
+        span お得なキャンペーン開催中
+  .cpnList
+    //- Campaign List AreaAll
+    //- jsonが空orエラーの時非表示にしたい親要素に#Campaign[Areaname]をつけておく
+    include ../../../../../_common/pug/Module/Common/_campaignList
+    +campaignListAreaAllPitari('Sapporo','札幌')
+
+script.
+  readJsonSapporo();

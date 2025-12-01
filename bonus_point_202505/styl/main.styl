@@ -1,0 +1,264 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+
+couponMainColor = #E83223
+couponSubColor = #ADE5F9
+
+pcWidth = 1216px
+
+//------------------------------
+
+#Pagename　// #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // 汎用テキストリンク
+  .textLink
+    color: secondColor
+    text-decoration: underline
+    &:hover
+      text-decoration: none
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  // main
+  .main
+    margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+        margin-bottom: 60px
+      +sp()
+        margin-bottom: 32px
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          font-weight: bold
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+    // Step
+    .step__flow
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      text-align: center
+      +pc()
+        width:pcWidth
+        padding: 16px 24px
+        margin-bottom: 16px
+      +sp()
+        padding: 16px 8px 26px 8px;
+        margin-bottom: 8px
+        img
+          width 100%
+    .step__terms
+      line-height: 1.5
+      +pc()
+        width:pcWidth
+        font-size: 1.4rem
+        margin: 0 auto
+      +sp()
+        font-size: 1.2rem
+        padding: 0 16px
+      .main__termsLink
+        color: secondColor
+        text-decoration: underline
+        &:hover
+          text-decoration: none
+  .titleWrap
+    +pc()
+      border-left: 6px solid couponSubColor;
+    .titleWrap--title
+      +sp()
+        border-left: 6px solid couponSubColor;
+  
+  // entry btn
+  .entryBox
+    .entry__area
+      +pc()
+        margin-bottom: 60px
+      +sp()
+        margin: 0 16px 40px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    .CampaignEntryButton_campaignButton__n6hK5 .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem
+      background-color: couponMainColor
+      border-color: couponMainColor
+      &:hover
+        opacity: .8
+
+    .CampaignEntryButton_campaignButton__n6hK5 .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem.disabled
+      background-color: #dfdfdf
+      border-color: #dfdfdf
+      color: #898989
+      cursor: not-allowed
+      &:hover
+        opacity: 1
+
+    .CampaignEntryButton_campaignButton__n6hK5 .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_success__GLKNB
+      background: #ebf7ec;
+      border-color: #ebf7ec;
+      color: #047205;
+      cursor: not-allowed;
+      transition: background-color .2s ease-out;
+      &:hover
+        opacity: 1
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    .Permission_checkbox__2N5q8:checked+.Permission_icon__uXZyD.Permission_red__wstq2
+      background-color: couponMainColor
+      border-color: couponMainColor
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+  .salonsearch
+    +pc()
+      margin-bottom: 60px
+    +sp() 
+      margin-bottom: 32px
+    .titleWrap
+      +pc()
+        margin-bottom: 40px
+      .titleWrap--title
+        +sp()
+          margin-bottom: 24px
+    .salonsearch_content
+      +sp()
+        padding:0 16px
+      .btn_uppertxt_wrapper
+        text-align: center
+        &::before
+          content: '＼'
+          margin-right: 5px
+          font-size: 2.4rem
+        &::after
+          content: '／'
+          margin-left: 5px
+          font-size: 2.4rem
+        .btn_uppertxt
+          display: inline-block 
+          font-weight: bold
+          margin-bottom: 16px
+          +pc()
+            font-size: 2rem
+          +sp()
+            font-size: 1.6rem
+            line-height: 1.3
+      btnSet(couponMainColor,#fff)
+      .btnSet__link
+        margin-bottom: 24px
+  .pointGet
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 32px
+    .pointGet__content
+      +sp()
+        padding: 0 16px 
+      .pointGet__img 
+        text-align: center
+        +pc()
+          margin-bottom: 40px
+        +sp()
+          margin-bottom: 24px
+          img
+            width: 100%
+      .pointGet__annotation
+        line-height: 1.5
+        +pc()
+          font-size: 1.4rem
+          width 800px
+          margin: 0 auto
+        +sp()
+          font-size: 1.2rem
+        .pointGet__annotationLink
+          color: secondColor
+          text-decoration: underline
+          &:hover
+            text-decoration: none
+
+
+  // app DL
+  .app
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFF7D5)
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

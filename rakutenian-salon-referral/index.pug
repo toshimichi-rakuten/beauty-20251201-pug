@@ -1,0 +1,286 @@
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var meta = {
+      title: "【楽天ビューティ】楽天社員限定！ヘアサロン紹介で最大30,000ポイントキャンペーン 紹介申請フォーム",
+      description: "【楽天ビューティ】楽天社員限定！ヘアサロン紹介で最大30,000ポイントキャンペーン 紹介申請フォーム",
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/rakutenian-salon-referral/",
+      og_image: "https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png?202101",//- default (It can change if you need)
+    }
+  - var css = "css/main.css?v20250213"
+
+block addHead
+  meta(name='robots', content='noindex,nofollow')
+
+  //- enen js
+  script(type="text/javascript").
+    <!--
+    function isChecked(el) {
+    if (el.length) {
+    for (var i = 0; i < el.length; i++) {
+    if (el[i].checked) {
+    return true;
+    }
+    }
+    } else {
+    if (el.checked) {
+    return true;
+    }
+    }
+    return false;
+    }
+    
+    function checkForm() {
+    var el;
+    var obj = document.enenForm;
+
+    el = obj.elements['answers[41752_283013]'];
+    doTrim(el);
+    zen2han(el);
+    
+    if (!isInput(el)) {
+      alert("「所属組織（L2）の正式名称」を入力してください。");
+      return false;
+    }
+
+    if (!isLength(el, 256)) {
+      alert("「所属組織（L2）の正式名称」は256文字以内で入力してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[41752_283014]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+      alert("「社員番号」を入力してください。");
+      return false;
+    }
+
+    if (!isLength(el, 256)) {
+      alert("「社員番号」は256文字以内で入力してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[41752_283015]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+      alert("「申請者名」を入力してください。");
+      return false;
+    }
+
+    if (!isLength(el, 256)) {
+      alert("「申請者名」は256文字以内で入力してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[41752_283016]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isLength(el, 256)) {
+      alert("「ヘアサロンに通じる氏名(旧姓新姓等)」は256文字以内で入力してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[41752_283017]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+      alert("「社用メールアドレス」を入力してください。");
+      return false;
+    }
+
+    if (!isLength(el, 256)) {
+      alert("「社用メールアドレス」は256文字以内で入力してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[41752_283018]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+      alert("「ヘアサロン名」を入力してください。");
+      return false;
+    }
+
+    if (!isLength(el, 256)) {
+      alert("「ヘアサロン名」は256文字以内で入力してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[41752_283019]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+      alert("「電話番号」を入力してください。");
+      return false;
+    }
+
+    if (!isLength(el, 256)) {
+      alert("「電話番号」は256文字以内で入力してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[41752_283020]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+      alert("「Webサイト・Hot Pepper Beauty・SNSなどのURL」を入力してください。");
+      return false;
+    }
+
+    if (!isLength(el, 256)) {
+      alert("「Webサイト・Hot Pepper Beauty・SNSなどのURL」は256文字以内で入力してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[41752_283021]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+      alert("「本件のヘアサロンのご担当者名」を入力してください。");
+      return false;
+    }
+
+    if (!isLength(el, 256)) {
+      alert("「本件のヘアサロンのご担当者名」は256文字以内で入力してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[41752_283022]'];
+    doTrim(el);
+    zen2han(el);
+    if (!isInput(el)) {
+      alert("「ヘアサロンとお話した内容」を入力してください。");
+      return false;
+    }
+
+    if (!isLength(el, 1000)) {
+      alert("「ヘアサロンとお話した内容」は1000文字以内で入力してください。");
+      return false;
+    }
+
+    el = obj.elements['answers[41752_283023]'];
+    if (!isChecked(el)) {
+      alert("「楽天ビューティへの掲載意思・ご興味の有無」を選択してください。");
+      return false;
+    }
+    
+    }
+    // -->
+
+block nav
+  //- grobalNav
+  +grobalNav()
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: '楽天社員限定！ヘアサロン紹介申請フォーム',
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+
+  #rakutenian_salon_referral
+
+    #mainArea
+      .main_image.pc
+        img(src="img/pc_main.png" width="1100px" height="auto")
+      .main_image.sp
+        img(src="img/sp_main.png" width="100%")
+      .request_area
+        form(action='https://form.rakuten.co.jp/ans/apply/41752', name='enenForm', method='POST', onsubmit='return checkForm()')
+          .readme
+            ol
+              li 
+                a(href="https://r10.to/h5ZbAT",target="_blank") キャンペーン条件
+                | をご確認の上でエントリーください。
+              li Please check the 
+                a(href="https://r10.to/h5ZbAT",target="_blank") campaign conditions
+                |  before entering.
+          table(border='0')
+            tr
+              td.question
+                span.mandatory *
+                | 所属組織（L2）／ Organization（L2）
+                br
+                span.annotation 正式名称で入力ください ／ Please enter the official name.
+              td
+                input(type="text", name="answers[41752_283013]" placeholder="Rakuten Beauty Department")
+            tr
+              td.question
+                span.mandatory *
+                | 社員番号 ／ Employee No.
+              td
+                input(type="text", name="answers[41752_283014]")
+            tr
+              td.question
+                span.mandatory *
+                | 申請者名 ／ Applicant name
+              td
+                input(type="text", name="answers[41752_283015]" placeholder="Rakuten Taro")
+            tr
+              td.question
+                span.mandatory *
+                | ヘアサロンに通じる氏名(ご本人のお名前・ご家族のお名前など) ／ Name that can be recognized by the hair salon.
+              td
+                input(type="text", name="answers[41752_283016]" placeholder="Rakuten Taro")
+            tr
+              td.question
+                span.mandatory *
+                | 社用メールアドレス ／ Email address
+              td
+                input(type="text", name="answers[41752_283017]" placeholder="taro.rakuten@rakuten.com")
+            tr
+              td.question
+                span.mandatory *
+                | 紹介いただけるヘアサロン名 ／ The hair salon name you introduce.
+              td
+                input(type="text", name="answers[41752_283018]" placeholder="ビューティヘアサロン二子玉川店")
+            tr
+              td.question
+                span.mandatory *
+                | ヘアサロンの電話番号 ／ The hair salon's phone no.
+              td
+                input(type="text", name="answers[41752_283019]")
+            tr
+              td.question
+                span.mandatory *
+                | Webサイト・Hot Pepper Beauty・SNSなどのURL ／ A URL of the hair salon's website or SNS.
+              td
+                input(type="text", name="answers[41752_283020]" placeholder="https://")
+            tr
+              td.question
+                span.mandatory *
+                | 本件のヘアサロンのご担当者名 ／ The name of the contact person at the hair salon for your introduce.
+              td
+                input(type="text", name="answers[41752_283021]" placeholder="山田花子")
+            tr
+              td.question
+                span.mandatory *
+                | ヘアサロンとお話した内容を教えてください ／ Please tell us what you discussed with the hair salon.
+              td
+                textarea(name="answers[41752_283022]", rows="5", cols="60" placeholder="まずは話が聞きたいとのことでした etc...")
+            tr
+              td.question
+                span.mandatory *
+                | 楽天ビューティへの掲載意思・ご興味の有無 ／ Their interest or willingness to be featured on Rakuten BEAUTY.
+              td
+                label(for="a786748")
+                  input#a786748(type="radio", name="answers[41752_283023]", value="786748")
+                  | 掲載意思あり ／ Willing to be featured.
+                label(for="a786749")
+                  input#a786749(type="radio", name="answers[41752_283023]", value="786749")
+                  | 興味あり ／ Interested.
+                label(for="a786750")
+                  input#a786750(type="radio", name="answers[41752_283023]", value="786750")
+                  | 掲載意思・興味なし ／ No interest.
+          .rakutenian_salon_referral__submitBox
+            input(type='hidden', name='c', value='楽天')
+            input(type='hidden', name='l', value='ja')
+            input#button.rakutenian_salon_referral__submitBtn(type='submit', value='Entry')

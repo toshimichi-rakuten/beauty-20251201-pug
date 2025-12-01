@@ -1,3 +1,26 @@
-node_modules/
+# システムファイル
 .DS_Store
+Thumbs.db
+
+# 依存関係
+node_modules/
+vendor/
+
+# ビルド出力
+dist/
+build/
+*.local
+
+# ログファイル
 *.log
+
+# 環境変数
+.env
+.env.local
+
+# エディタ設定
+.vscode/
+.idea/
+
+# キャッシュ
+.cache/

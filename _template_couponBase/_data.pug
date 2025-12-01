@@ -1,0 +1,228 @@
+//- 旧クーポンLP専用テンプレート。毎回最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- Coupon Template Base / ver 3.4.0 / 更新日時：2025.5.9 / CPNタグデザイン変更＆注記変更
+
+-
+  //- 不要な項目は、特に記載がなければ削除せず入力欄を空欄''にしてください
+  //- jsonの書き方Sample: https://rak.box.com/s/2l6ls1e7nmy3q7m1iu91flh6xefwd8tb
+  //- 起案者用csvSample: https://rak.box.com/s/w0kjri0mic2mcgkmdg6yyg5y9xqmvpy3
+
+  //- meta
+  var parameter = '?v20yymmdd'//- 更新日（キャッシュクリア用のパラメータとして使用）
+  var meta = {
+    directory: 'xxxx', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+    title: 'クーポン名クーポン名クーポン名クーポン名',
+    description: 'クーポン名クーポン名クーポン名クーポン名', //- Kintoneの「クーポン説明」（複数ある場合は全員対象優先）
+    url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/xxxx/',
+    og_image: 'https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png' + parameter,//- default (シェア画像があれば変更)
+  }
+
+  //- Campaign Tag
+  //- 下記コンフルを参照して記入
+  //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+  //- ''ごと増やすとタグが増えます
+  var taglist = {
+    tag: [
+      'ラ・クーポン', //- エントリー不要は自動的に青色になります
+      '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+      '美容室限定', //- ジャンル限定がない場合はなし
+      '対象サロン限定', //- セグメントがない場合はなし
+      '毎月開催',
+    ],
+  }
+
+  //- クーポンの種類（獲得 or 事前付与）
+  var couponkind = {
+    //- 獲得(get) or 事前付与(add) / Kintone：種別
+    type: 'get',
+    //- アプリ予約のみ対象(true) or 全デバイス対象(false) / Kintone：対象デバイス
+    app: false,
+  }
+
+  //- 毎月開催
+  var always = {
+    //- 毎月開催(true) or 単発(false) ※次回まで一ヶ月以上空いていれば単発 / Kintone：毎月開催
+    hold: true,
+  }
+
+  //- 事前付与(add)用設定
+  var add = {
+    //- ボタンテキスト（例：マイクーポンをみる）
+    btn_txt: 'マイクーポンをみる',
+    //- ボタンリンク（例：/user/coupon.php）
+    btn_url: '/user/coupon.php',
+    coupon : {
+      //- クーポン使用期間
+      //- 予約期限（例：2023年11月31日 23:59）/ Kintone：利用終了日時
+      reserve_end: '20yy/mm/dd 23:59',
+      //- 施術期限（例：2023年12月5日 23:59）/ Kintone：来店終了日時
+      visit_end: '20yy/mm/dd 23:59',
+      //- 対象条件:
+      //- 例：初回利用者様のみ／先着利用100回／対象サロンのネット予約／ネット予約時の施術料金が3,000円(税込)以上
+      term: '初回利用者様のみ／先着利用000回／対象サロンのネット予約／ネット予約時の施術料金が0,000円(税込)以上',
+    },
+  }
+
+  // ページ用設定 クーポン情報のうちページに1回のみ表示になるデータ
+  var coupondata = {
+    //- タイトル・何に使えるクーポンかを記載（例：12月の仙台市ヘアサロン予約 or 12月1日からのネット予約 etc.）
+    title: 'mm月の仙台市ヘアサロン予約',
+    //- クーポン使用期間
+    //- 予約期限（例：2023年11月31日 23:59）/ Kintone：利用終了日時
+    reserve_end: '20yy/mm/dd 23:59',
+    //- 施術期限（例：2023年12月5日 23:59）/ Kintone：来店終了日時
+    visit_end: '20yy/mm/dd 23:59',
+    //- 「対象サロンはこちら」ボタンの表示(true) or 非表示(false)
+    salonBtnFlag: true,
+
+    //- 対象サロン遷移ボタンあり(true) or なし(false)
+    btnFlag: true,
+    btn: [
+      //- {}ごと増やすとボタンが増えます
+      {
+        //- 対象サロンリンク（例：/addr04101/?l-id=rb_sendaiLP-1click_addr04101）
+        //- ボタンがfalseの時でも必須。同じurlが獲得後クーポンのリンク先にもなります
+        shoplistUrl: '#Shoplist',
+        //- 対象サロンボタン（例：対象サロンはこちら）
+        shoplistTxt: '対象サロンはこちら',
+      },
+    ]
+  }
+
+  //- 獲得(get)用設定
+  //- クーポンを増やしたい時は{}内丸ごと増やすと、{}の数だけ自動で増えます
+  //- クーポンの幅は main.styl の couponWidth を変更すると変わります
+
+  var coupon = [
+    {
+      //- クーポン条件表記
+      //- コンフルを参照して記入: https://confluence.rakuten-it.com/confluence/pages/editpage.action?pageId=5284144875
+      //- ('all' / 'all_targetshop' / 'new' / 'new_targetshop' / 'target_salon1' / 'target_salon2' / 'target_salon3' / 'salon1' / 'salon2' / 'salon3'/ 'repeater')
+      flag: 'new',
+      //- クーポン金額（例：1,000）/ Kintone：割引額
+      price: '1,000',
+      //- 最低利用金額（例：3,000円(税込)）/ Kintone：利用最低金額
+      minimum_price: '3,000円(税込)',
+      //- 利用上限枚数（例：2,000）/ Kintone：利用上限枚数
+      num: '000',
+      //- クーポン利用回数 / Kintone：会員利用上限枚数(一人あたりの利用回数)
+      number_of_use: 1,
+      //- 獲得のラ・クーポンURL / Kintone：獲得用URL
+      url: 'https://coupon.rakuten.co.jp/getCoupon?getkey=R0JHUC1ORTM2LTNYVzUtWEg1UA--',
+
+      //- 条件
+      //- Coupon Statusごとのテキスト（基本変更なし）
+      //- 獲得前（例：ラ・クーポンを獲得する）
+      default: 'ラ・クーポンを獲得する',
+      //- 獲得時（例：ラ・クーポン獲得済み）
+      acquired: 'ラ・クーポン獲得済み',
+      //- 獲得済み or ラ・クーポンを使う or 対象サロンを見る（shoplistUrl必須）
+      having: 'ラ・クーポンを使う',
+      //- 期限切れ（例：利用期間が終了しました）
+      expired: '利用期間が終了しました',
+      //- 枚数終了（例：ご好評につき終了しました）
+      finished: 'ご好評につき終了しました',
+
+      //- 対象サロン遷移ボタンあり(true) or なし(false)
+      btnFlag: false,
+      btn: [
+        {
+          //- 対象サロンリンク（例：/addr04101/?l-id=rb_sendaiLP-1click_addr04101）
+          //- クーポン獲得後のアンカーリンクURLで使用
+          shoplistUrl: '#Shoplist',
+        },
+      ],
+      //- 毎月開催するかどうか。毎月開催するなら''内に毎月を入力。異なるなら''内を未入力の状態にする
+      held: '毎月',
+    },
+    {
+      //- クーポン条件表記
+      //- コンフルを参照して記入: https://confluence.rakuten-it.com/confluence/pages/editpage.action?pageId=5284144875
+      //- ('all' / 'all_targetshop' / 'new' / 'new_targetshop' / 'target_salon1' / 'target_salon2' / 'target_salon3' / 'salon1' / 'salon2' / 'salon3'/ 'repeater')
+      flag: 'all',
+      //- クーポン金額（例：1,000）/ Kintone：割引額
+      price: '1,000',
+      //- 最低利用金額（例：3,000円(税込)）/ Kintone：利用最低金額
+      minimum_price: '3,000円(税込)',
+      //- 利用上限枚数（例：2,000）/ Kintone：利用上限枚数
+      num: '000',
+      //- クーポン利用回数 / Kintone：会員利用上限枚数(一人あたりの利用回数)
+      number_of_use: 2,
+      //- 獲得のラ・クーポンURL / Kintone：獲得用URL
+      url: 'https://coupon.rakuten.co.jp/getCoupon?getkey=R0JHUC1ORTM2LTNYVzUtWEg1UA--',
+
+      //- 条件
+      //- Coupon Statusごとのテキスト（基本変更なし）
+      //- 獲得前（例：ラ・クーポンを獲得する）
+      default: 'ラ・クーポンを獲得する',
+      //- 獲得時（例：ラ・クーポン獲得済み）
+      acquired: 'ラ・クーポン獲得済み',
+      //- 獲得済み or ラ・クーポンを使う or 対象サロンを見る（shoplistUrl必須）
+      having: 'ラ・クーポンを使う',
+      //- 期限切れ（例：利用期間が終了しました）
+      expired: '利用期間が終了しました',
+      //- 枚数終了（例：ご好評につき終了しました）
+      finished: 'ご好評につき終了しました',
+
+      //- 対象サロン遷移ボタンあり(true) or なし(false)
+      btnFlag: false,
+      btn: [
+        {
+          //- 対象サロンリンク（例：/addr04101/?l-id=rb_sendaiLP-1click_addr04101）
+          //- クーポン獲得後のアンカーリンクURLで使用
+          shoplistUrl: '#Shoplist',
+        },
+        //- {
+        //-   //- 対象サロンボタン（例：安芸郡府中町の対象ヘアサロンを見る）
+        //-   shoplistTxt: '安芸郡府中町の対象ヘアサロンを見る',
+        //-   //- 対象サロンリンク（例：/addr34302/?l-id=rb_hiroshimaLP-1click_addr34302）
+        //-   shoplistUrl: '/addr34302/?l-id=rb_hiroshimaLP-1click_addr34302',
+        //- },
+      ],
+      //- 毎月開催するかどうか。毎月開催するなら''内に毎月を入力。異なるなら''内を未入力の状態にする
+      held: '毎月',
+    }
+  ]
+
+  //- shop list
+  var shoplist = {
+    //- 検索UI 1カラム(1column) or 2カラム(2column) or 1カラムボタン(btn)
+    select: '2column',
+    //- メニュークーポン表示ON(true) or OFF(false)
+    menu: false,
+    //- 2カラム時 & 最初から絞り込みが必要な場合下記も変更
+    //- 1カラム目のデフォルト文言
+    //- 例：すべての都道府県
+    firstTxt1: 'すべての都道府県',
+    //- 初期絞り込み設定（デフォルトは空欄）
+    //- 例：東京都（jsonのselect1から1つ選ぶ）
+    firstSelect1: '',
+    //- 2カラム目のデフォルト文言
+    //- 例：すべてのエリア
+    firstTxt2: 'すべてのエリア',
+    //- 初期絞り込み設定（デフォルトは空欄）
+    //- 例：新宿（jsonのselect2から1つ選ぶ）
+    firstSelect2: '',
+
+    title: [
+      '【Special Coupon】',
+      '対象サロンはこちら！',
+    ],
+    //- 例：l-id=rb_app2x_SPU
+    lid: 'l-id=rb_[ディレクトリ名]_[誘導先(キャンペーン名etc)]',
+  }
+
+  //- もっと探すボタン
+  var morebtn = {
+    //- 出し分け(true/false)
+    visible: true,
+    url: '/',
+    title: '全国のサロンを探す',
+    subtxt: '※本企画のラ・クーポン対象外',
+  }
+
+  //- howto
+  //- ラ・クーポンの使い方の画像を手動入力する場合は、コメントアウトを外して''内に画像パスを記載
+  //- var howtoStep1 = '' + parameter 
+  //- var howtoStep2 = '' + parameter 
+  //- var howtoStep3 = '' + parameter 

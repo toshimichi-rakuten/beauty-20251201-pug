@@ -1,0 +1,34 @@
+//- 新クーポンLP専用テンプレート。毎回最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- CSV Coupon Template / ver 1.4.1 / 更新日時：2025.4.7 / クーポン注意事項追記・クーポン使い方画像切り替え追加
+
+-
+  //- こちらは基本更新の必要はありません。 店舗リストの設定変更が必要な場合のみ更新
+
+  //- 全員対象のクーポンがあればそちらのタイトルとディスクリプションを表示。なければ最初のクーポン
+  //- 手動で入れたい場合は''で括って手動で入れてください（例：title: 'sample'）
+  var meta = {
+    title: coupon[0].クーポン名, //- ページタイトルとパンくずリスト
+    description: descStr, //- ページの説明。Googleなどの検索結果でタイトルの下に表示される文章
+    url: coupon[0].ページURL,
+    og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/mama_grpcpn/img/share.png' + parameter, //- 事前：デフォルト画像、獲得：img/share.pngに自動で切り替わる。手動で指定したい場合は''で括った絶対パスで入力
+    directory: 'mama_grpcpn' //- ディレクトリ名, meta.directoryもCpnlistパーツ内で使用中のためここで作成
+  }
+
+  //- タグを手動で入れたい場合は下記のコメントを外して入力
+  var taglist = {
+    tag: [
+      'エントリー必要', //- エントリー不要は自動的に青色になります
+      '対象者限定', 
+      //- '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+      //- '対象サロン限定', //- セグメントがない場合はなし
+      '毎月開催',
+    ],
+  }
+
+  //- coupon設定
+  //- クーポン内金額上のテキスト：自動切り替え(default) or クーポン名(manual)
+  //- 自動切り替えの詳細はこちら: https://confluence.rakuten-it.com/confluence/pages/editpage.action?pageId=5284144875
+  var couponTerms = 'default'
+  //- クーポン下「対象サロンはこちら」ボタンの表示(true) or 非表示(false)
+  var salonBtnFlag = false

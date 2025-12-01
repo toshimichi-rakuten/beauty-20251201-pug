@@ -1,0 +1,405 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+visselColor = #870011
+
+pcWidth = 1216px
+
+//------------------------------
+
+#vissel2024　// #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  .-visselRed
+    color: visselColor !important
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  // main
+  .eaglesBnr
+    text-align: center
+    background-color: visselColor
+    max-width: pcWidth
+    margin: 0 auto 16px
+    img
+      &:hover
+        opacity: .8
+      +sp()
+        width 100%
+  .main
+    margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+        .main__termsLink
+          color:secondColor
+
+  // entry btn
+  .entryBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin: 0 16px 40px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+    // 追加分
+    //エントリーボタン上書用
+    .CampaignEntryButton_campaignButton__n6hK5 .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem
+      background: visselColor !important
+      border-color: visselColor !important
+
+    .CampaignEntryButton_campaignButton__n6hK5 .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem.disabled
+      background-color: #dfdfdf !important
+      border-color: #dfdfdf !important
+
+    //エントリーボタン用チェックボックス上書用
+    .Permission_checkbox__2N5q8:checked+.Permission_icon__uXZyD.Permission_red__wstq2
+      background-color: visselColor !important
+      border-color: visselColor !important
+
+  //- flow
+  .flow
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    // common
+    .flow__boxTitle
+      text-align: center
+      line-height: 1.5
+      font-weight: bold
+      color: grayTxtColor
+      +pc()
+        font-size: 2.4rem
+      +sp()
+        font-size: 1.6rem
+        margin-bottom: 8px
+    .flow__txt
+      text-align: center
+      line-height: 1.5
+      color: grayTxtColor
+      +pc()
+        font-size: 1.8rem
+        font-weight: bold
+      +sp()
+        font-size: 1.4rem
+      &.-small
+        margin-top: 8px
+        +pc()
+          font-size: 1.4rem
+          font-weight: normal
+        +sp()
+          font-size: 1.2rem
+    .flow__link
+      color: secondColor
+      &:hover
+        opacity: .8
+    .flow__boxImg
+      width: 100%
+      height: auto
+    // contents
+    .flow__wrapper
+      +pc()
+        margin-bottom: 24px
+      +sp()
+        background-color: grayBgColor
+        padding:24px 16px
+        box-sizing: border-box
+      .flow__caption
+        text-align: center
+        color: grayTxtColor
+        font-weight:bold
+        .-visselRed
+          color: visselColor
+        +pc()
+          font-size: 2rem
+          line-height: 1.5
+          margin-bottom: 40px
+        +sp()
+          font-size: 1.4rem
+          line-height: 1.5
+          margin-bottom: 16px
+
+      .flow__boxWrap
+        +pc()
+          display: flex
+          justify-content: space-between
+          //
+          width: 1160px
+          margin: 0 auto
+        .flow__box
+          display: flex
+          align-items: center
+          //
+          position: relative
+          background: grayBgColor
+          box-sizing: border-box
+          +pc()
+            flex-direction: column
+            //
+            width: 260px
+            padding: 16px
+            border-radius: 8px
+          +sp()
+            justify-content: center
+            // 
+            margin: 0 auto 16px
+          &::after
+            +pc()
+              content:''
+              position: absolute
+              top:calc((100% - 20px * 2) / 2)
+              right: -32px
+              arrowFill(right,20px,grayTagColor)
+          &:last-of-type
+            margin-bottom: 0
+            &::after
+              display: none
+          .flow__box0
+            +pc()
+              margin-bottom: 16px
+          .flow__box1
+            +pc()
+              width: 200px
+              height: 200px
+              margin-bottom: 16px
+            +sp()
+              flex-shrink: 0
+              //
+              width: 100px
+              height: 100px
+              margin-left: 8px
+          &:last-of-type
+            .flow__box1
+              &::after
+                border:none
+          .flow__box2
+            position: relative
+            width: 100%
+            +pc()
+              display: flex
+              flex-direction: column
+              align-items: center
+              // 
+              height: 100%
+            +sp()
+              max-width: 200px
+              margin: 0 8px
+            // override
+            .flow__txt
+              &.-small
+                +sp()
+                  color: grayTagColor
+            &::after
+              +sp()
+                z-index:100
+                content:''
+                position: absolute
+                left:calc((100% - 10px * 2) / 2)
+                bottom: -24px
+                arrowFill(bottom,10px,grayTagColor)
+          &:last-of-type
+            .flow__box2
+              &::after
+                border:none
+    .flow__attention
+      margin: 0 auto
+      +pc()
+        width: 1160px
+      +sp()
+        width: auto
+        margin: 16px 16px 0
+      // override
+      .flow__txt
+        text-align: left
+        line-height: 1.8
+        &::before
+          display:inline-block
+          margin:0
+          content:'※'
+          text-indent:-1.8rem
+          +sp()
+            text-indent:-1.6rem
+        +pc()
+          margin-left: 1.8rem // text-indent分
+        +sp()
+          margin-left: 1.6rem // text-indent分
+        &.-small
+          margin-top: 0
+  
+  //- howto
+  .howto
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // ラ・クーポンの使い方セット
+    howtoCouponset()
+
+  //- presentation of RB
+  .presentRB
+    .presentRB__introductionBox
+      width: pcWidth
+      margin: 0 auto 60px
+      text-align: center
+      +sp()
+        width: auto
+        margin-bottom: 40px
+
+      // RBを使うわけセット
+      presenRBset()
+
+  // app DL
+  .app
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFE8E8)
+
+  // banner
+  .banner
+    margin: 0 auto 60px
+    +sp()
+      margin-bottom: 40px
+    .banner__box
+      text-align: center
+      box-sizing: border-box
+      +pc()
+        width: 890px
+        margin: 0 auto
+        padding: 24px
+      +sp()
+        width: auto
+        margin: 0 8px
+        padding: 10px 16px 16px
+      .banner__link
+        display: block
+        width: auto
+        max-width: 640px
+        margin: 0 auto
+        transition: opacity .2s ease-out
+        &:hover
+          opacity: 0.8
+        .banner__img
+          width: 100%
+          height: auto
+
+  // QA
+  .qa
+    +pc()
+      width: pcWidth
+      margin: 0 auto 60px
+    +sp()
+      margin-bottom: 40px
+    .qa__listBox
+
+      // よくあるご質問セット(iconColor,bgColor,hoverColor)
+      QAset(secondColor,grayBgColor,grayBgColor)
+
+  // Search Area
+  .searchArea
+    background: grayBgColor
+    +pc()
+      display: block
+      padding: 32px 0
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Search Area Component / ()内に色を入れる
+    @import passStr + '_common/stylus/Module/Common/_searchArea'
+    searchArea(visselColor)
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

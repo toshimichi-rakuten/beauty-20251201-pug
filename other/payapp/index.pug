@@ -1,0 +1,700 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- クーポンがあるLPは_template_coupon/を複製→このテンプレートから必要なものを移植して作成したほうが簡単です
+//- template / ver 3.0.1 / 更新日時：2024.4.8 / 90日予約対応, Detailに中止注意文言追加
+
+extends ../../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20241224'
+    var meta = {
+      title: '楽天ビューティ x 楽天ペイ サロン予約＆施術完了＋楽天ペイのコード・QR払いで抽選で1,000名様に1,000ポイント当たる！',
+      description: '楽天ビューティ x 楽天ペイ サロン予約＆施術完了＋楽天ペイのコード・QR払いで抽選で1,000名様に1,000ポイント当たる！',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/other/payapp/',
+      directory: 'payapp', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/other/payapp/img/share.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+  link(rel='stylesheet', href="css/splide.min.css")
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #Payapp
+
+    //- 終了対応
+    #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー必要', //- エントリー不要は自動的に青色になります
+            //- '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+            //- 'アプリ限定',
+            'ネット予約・施術完了',
+            '条件達成',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+      .main__terms
+        .main__termsBox
+          p.main__termsTxt
+            | キャンペーン期間：6月24日 10:00 〜 7月24日 9:59
+            span.main__termsTxt.-secondary
+              | 条件達成期間：6月24日 10:00 〜 7月31日 23:59
+      .main__step__container
+        img.-pc(src='img/step_pc.png' + parameter, width='100%' height='')
+        img.-sp(src='img/step_sp.png' + parameter, width='100%' height='')
+      .main__step__info
+        p ※1. 
+          span.text--bold 3,000円(税込)以上のネット予約
+          | が対象
+        p ※2. 楽天ペイによる
+          span.text--bold コード・QR払い／セルフ払いで期間中の合計3,000円(税込)以上のお支払い
+          | が対象
+        p ※3. 楽天ビューティでの予約＆来店サロンで楽天ペイでのお支払いに加え、楽天ペイが使えるお店
+          br
+          | (
+          a.main__termsLink(href='https://pay.rakuten.co.jp/campaign/2020/pointprogram/rule/shop/#other_campaign' target="_blank" rel="noopener noreferrer")
+            | ポイント進呈対象外の店舗を除く
+          | )でのお支払いもキャンペーン達成条件の対象となります。
+        p ※本キャンペーンは予告なく変更・中止される可能性があります。
+        p ※条件の達成順序は順不同です。
+        p ※進呈するポイント（期間限定ポイントを含む）には上限や条件があります。キャンペーン詳細は
+          a.main__termsLink(href='#Detail')
+            | こちら
+
+    section#Navigation.navigation(data-ratid='cpn_' + meta.directory + '_Navigation' data-ratevent='appear' data-ratparam='all')
+      ul.global-nav
+        li.global-nav__list
+          a.global-nav__link(href='#Step1')
+            | エントリー
+        li.global-nav__list
+          a.global-nav__link(href='#Step2')
+            | 達成条件
+        li.global-nav__list
+          a.global-nav__link.-nav__position(href='#Beauty')
+            | 楽天ビューティ
+            br.-sp
+            | のメリット
+        li.global-nav__list
+          a.global-nav__link.-nav__position(href='#Pay')
+            | 楽天ペイアプリ
+            br.-sp
+            | のメリット
+
+    //- Entry Btn
+    #Step1
+    section#EntryBox.entryBox(data-ratid='cpn_' + meta.directory + '_EntryBox' data-ratevent='appear' data-ratparam='all')
+      h2.contentStep--title
+        | Step 1
+      h3.conditionsBox--title
+        | まずはこちらから
+        br.-sp
+        | エントリー
+      .entryBox__container
+        //- 終了対応
+        if endflag == true
+          //- ボタンセット(url,txt,endflag)
+          +btnSet('',btnTxt,true)
+        else
+
+          //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+          //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+          // ReX Campaign Entry Button: Mounting points
+          // mounting point for button 1
+          #rex-ceb-01
+          // ReX Campaign Entry Button: Configuration
+          script
+            | var rexButtons = {language: 'ja', buttons: [{"code":"/payapp2406","theme":"red","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","below":{"isCheckboxMandatory":true,"isChecked":true,"checkboxText":"エントリーしてメルマガを購読する","html":""},"ids":["rex-ceb-01"]}]}
+          // ReX Campaign Entry Button: Script
+          script(src='https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js' defer='')
+
+          //- メルマガパーミッション
+          include ../../../../../_common/pug/Module/Common/_mailPermissionTxt
+          +mailPermissionTxt()
+
+    //- Step2 条件達成
+    #Step2
+    section#ConditionsBox.conditionsBox(data-ratid='cpn_' + meta.directory + '_ConditionsBox' data-ratevent='appear' data-ratparam='all')
+      h2.contentStep--title
+        | Step 2
+      h3.conditionsBox--title
+        a.title-beauty(href='#ConditionsBeauty')
+          | 楽天ビューティ
+        | と
+        a.title-pay(href='#ConditionsPay')
+          | 楽天ペイ
+        | の
+        br.-sp
+        | 条件をどちらも達成
+
+      //- Step2 楽天ビューティー
+      #ConditionsBeauty
+      article.conditionsBox__section
+        .conditionsBox__section__title-beauty
+          img(src='img/img_beauty_title.png' + parameter, alt='Rakuten BEAUTY' width='100%' height='')
+        .conditionsBox__section__wrap
+          p.conditionsBox__section__lead
+            | 7月24日9:59までに
+            br.-sp
+            | 3,000円(税込)以上のサロンネット予約
+            br
+            | ＆
+            br.-sp
+            | 7月31日23:59までに
+            br.-sp
+            | 施術完了
+
+          //-  pc用 リスト
+          ul.conditionsBeauty__menu.-pc
+            li.conditionsBeauty__menu--list
+              .conditionsBeauty__menu--list--icon
+                | 1
+              p.conditionsBeauty__menu--list--lead
+                | ご希望の条件に
+                br
+                | 合うサロンを検索
+              img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list1.png' + parameter, alt='ご希望の条件に合うサロンを検索' width='' height='100%')
+            li.conditionsBeauty__menu--list
+              .conditionsBeauty__menu--list--icon
+                | 2
+              p.conditionsBeauty__menu--list--lead
+                | 日時やメニューを選択
+                br
+                | して予約
+              img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list2.png' + parameter, alt='日時やメニューを選択して予約' width='' height='100%')
+            li.conditionsBeauty__menu--list
+              .conditionsBeauty__menu--list--icon
+                | 3
+              p.conditionsBeauty__menu--list--lead
+                | 施術完了
+              img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list3.png' + parameter, alt='施術完了' width='' height='100%')
+
+          //-  sp用 リスト スライダー
+          .splide.-sp
+            .splide__track
+              ul.splide__list.conditionsBeauty__menu.-sp
+                li.splide__slide.conditionsBeauty__menu--list
+                  .conditionsBeauty__menu--list--icon
+                    | 1
+                  p.conditionsBeauty__menu--list--lead
+                    | ご希望の条件に
+                    br
+                    | 合うサロンを検索
+                  img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list1.png' + parameter, alt='ご希望の条件に合うサロンを検索' width='' height='100%')
+                li.splide__slide.conditionsBeauty__menu--list
+                  .conditionsBeauty__menu--list--icon
+                    | 2
+                  p.conditionsBeauty__menu--list--lead
+                    | 日時やメニューを選択
+                    br
+                    | して予約
+                  img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list2.png' + parameter, alt='日時やメニューを選択して予約' width='' height='100%')
+                li.splide__slide.conditionsBeauty__menu--list
+                  .conditionsBeauty__menu--list--icon
+                    | 3
+                  p.conditionsBeauty__menu--list--lead
+                    | 施術完了
+                  img.conditionsBeauty__menu--list__img(src='img/img_step2_beauty_list3.png' + parameter, alt='施術完了' width='' height='100%')
+          .conditionsBox__search
+            a.conditionsBox__search--button(href='https://beauty.rakuten.co.jp/?l-id=rb_payapp_search')
+              | 対象サロンの検索はこちら
+            p.conditionsBox__search--button--info
+              | ※ネット予約できるサロンが対象です。
+
+      //- Step2 楽天Pay
+      #ConditionsPay
+      article.conditionsBox__section.-pay
+        .conditionsBox__section__wrap
+          .conditionsBox__section__title-pay
+            img(src='img/img_pay_title.png' + parameter, alt='R Pay 楽天ペイ' width='100%' height='')
+          p.conditionsBox__section__lead
+            | 7月31日23:59までに
+            br
+            | コード・QR払い／セルフ払いで
+            br
+            | 期間中合計 3,000 円(税込)以上のお支払い
+          p.conditionsBox__section__info
+            | ※ 楽天ペイが使えるお店であれば（
+            a.info__link(href='https://pay.rakuten.co.jp/campaign/2020/pointprogram/rule/shop/#other_campaign' target="_blank" rel="noopener noreferrer")
+              | ポイント進呈対象外の店舗
+            | を除く）、サロンでのお支払以外も対象
+          .conditionsBox__section__img
+            img(src='img/img_step2_pay_conditions.png' + parameter, alt='7月31日23:59までにコード・QR払い／セルフ払いで期間中合計 3,000 円(税込)以上のお支払い' width='100%' height='')
+
+          //- PC用
+          .conditionsBox__section__download.-pc.-excludeApp
+            .conditionsBox__download__lead
+              .conditionsBox__download__lead__icon
+                img(src='img/img_pay_icon.png' + parameter, alt='R Pay' width='100%' height='')
+              .conditionsBox__download__lead__text
+                | 楽天ペイアプリの
+                br
+                | ダウンロードはコチラ
+            .conditionsBox__download__unit
+              .conditionsBox__download__app
+                a(href='https://r10.to/hF8RWR' target="_blank" rel="noopener noreferrer")
+                  img(src='img/img_app_button.png' + parameter, alt='App Storeからダウンロード' width='100%' height='')
+                img.conditionsBox__download__qr(src='img/img_app_qr.png' + parameter, alt='App Storeからダウンロード' width='100%' height='')
+              .conditionsBox__download__googleplay
+                a(href='https://r10.to/hF8RjB' target="_blank" rel="noopener noreferrer")
+                  img(src='img/img_googleplay_button.png' + parameter, alt='Google Playで手に入れよう' width='100%' height='')
+                img.conditionsBox__download__qr(src='img/img_googleplay_qr.png' + parameter, alt='App Storeからダウンロード' width='100%' height='')
+          //- SP用
+          .conditionsBox__section__download.-sp.-excludeApp
+            .conditionsBox__download__lead
+              .conditionsBox__download__lead__text
+                | 楽天ペイアプリの
+                br
+                | ダウンロードはコチラ
+            .conditionsBox__download__unit
+              .conditionsBox__download__lead__icon
+                img(src='img/img_pay_icon.png' + parameter, alt='R Pay' width='100%' height='')
+              .conditionsBox__download__app.-iphone
+                a(href='https://r10.to/hF8RWR' target="_blank" rel="noopener noreferrer")
+                  img(src='img/img_app_button.png' + parameter, alt='App Storeからダウンロード' width='100%' height='')
+              .conditionsBox__download__googleplay.-android
+                a(href='https://r10.to/hF8RjB' target="_blank" rel="noopener noreferrer")
+                  img(src='img/img_googleplay_button.png' + parameter, alt='Google Playで手に入れよう' width='100%' height='')
+            .conditionsBox__download__desktop-app.-desktop
+              a.conditionsBox__download__desktop-app--button(href='https://r10.to/hF8RWR' target="_blank" rel="noopener noreferrer")
+                img(src='img/img_app_button.png' + parameter, alt='App Storeからダウンロード' width='' height='56')
+              img(src='img/img_app_qr.png' + parameter, alt='App Storeからダウンロード' width='120' height='')
+            .conditionsBox__download__desktop-app.-desktop
+              a.conditionsBox__download__desktop-app--button(href='https://r10.to/hF8RjB' target="_blank" rel="noopener noreferrer")
+                img(src='img/img_googleplay_button.png' + parameter, alt='Google Playで手に入れよう' width='' height='56')
+              img(src='img/img_googleplay_qr.png' + parameter, alt='App Storeからダウンロード' width='120' height='')
+
+          //- app用
+          .conditionsBox__section__download.-sp.-app
+            .conditionsBox__download__desktop
+              img.conditionsBox__download__desktop--icon(src='img/img_pay_icon.png' + parameter, alt='R Pay' width='100%' height='')
+              .conditionsBox__download__desktop--caption
+                | 楽天ペイアプリの
+                br
+                | ダウンロードはコチラ
+            .conditionsBox__download__desktop--info
+              | 下記のURLをコピーしてスマートフォンのブラウザで開いてください。
+            .conditionsBox__download__app-container__wrap
+              .conditionsBox__download__app-container
+                p.conditionsBox__download__app-container--text iPhoneをお使いの方
+                p.conditionsBox__download__app-container--link https://r10.to/hF8RWR
+              .conditionsBox__download__app-container
+                p.conditionsBox__download__app-container--text Androidをお使いの方
+                p.conditionsBox__download__app-container--link https://r10.to/hF8RjB
+
+        .conditionsBox__section__method
+          .conditionsBox__section__method__wrap
+            .conditionsBox__method__title
+              p.conditionsBox__method__title__text
+                span.method__text__beauty 楽天ビューティ
+                | と
+                br.-sp
+                span.method__text__pay 楽天ペイ
+                | の条件は
+                br
+                span.conditionsBox__method__title__text__emphasis 一度に達成できます
+            .conditionsBox__method__caption
+              img(src='img/img_method.png' + parameter, alt='楽天ビューティと楽天ペイの条件は一度に達成できます' width='100%' height='')
+            .conditionsBox__method__info
+              p.conditionsBox__method__info--text
+                | 楽天ビューティで予約・施術したサロンのお会計（税込3,000円以上）を楽天ペイで支払うと・・・
+                br
+                | 楽天ビューティと楽天ペイの条件を一度に達成することができます。
+              p.conditionsBox__method__info--text--lead
+                | ※事前にご利用サロンで楽天ペイが使えるかご確認ください。
+
+    //- Step3
+    #Step3
+    section#AchievementBox.achievementBox(data-ratid='cpn_' + meta.directory + '_AchievementBox' data-ratevent='appear' data-ratparam='all')
+      h2.contentStep--title
+        | Step 3
+      h3.conditionsBox--title.-achievementBox
+        | 条件達成された方の中から
+        br
+        | 抽選で1,000名様に
+        br
+        span.title-achievement
+          span.title-achievement-point 1,000
+          | ポイント
+        | を進呈！
+      .achievementBox__point
+        img(src='img/img_step3_coin.png' + parameter, alt='条件達成された方の中から抽選で1,000名様に1,000ポイントを進呈！' width='100%' height='')
+      ul.achievementBox--info
+        li ※ポイント進呈予定日は2024年9月末頃
+        li ※進呈日から6 ヶ月間有効な期間限定ポイントとして進呈
+        li ※ポイント進呈をもって当選の発表に変えさせていただきます。
+        li ※進呈するポイント（期間限定ポイントを含む）には条件があります。キャンペーン詳細は
+          a.info__link(href='#Detail')
+            | こちら
+
+    //- 楽天ビューティーのメリット
+    #Beauty
+    section#Beautyintro.beautyintro(data-ratid='cpn_' + meta.directory + '_Beautyintro' data-ratevent='appear' data-ratparam='all')
+      article.conditionsBox__section.-beauty
+        .conditionsBox--title
+          h4 楽天ビューティのメリット
+        .beautyintro__wrap
+          .beautyintro__container
+            .beautyintro__title メリット1
+            .beautyintro__lead__wrap
+              .beautyintro__lead__icon__point
+                img(src='img/img_beauty_value1.svg' + parameter, alt='ポイント' width='100%' height='')
+              .beautyintro__lead--lead
+                | ポイントが貯まる！使える！
+                br.-sp
+                | 楽天のサロン予約
+                .beautyintro__lead--lead--text.-pc 
+                  | おトクに、キレイに。楽天ビューティ。
+            .beautyintro__lead--lead--text.-sp 
+              | おトクに、キレイに。楽天ビューティ。
+            ul.beautyintro__menu
+              li.beautyintro__menu__list
+                img(src='img/img_beauty_hair.png' + parameter, alt='ヘア' width='100%' height='')
+              li.beautyintro__menu__list
+                img(src='img/img_beauty_nail.png' + parameter, alt='ネイル' width='100%' height='')
+              li.beautyintro__menu__list
+                img(src='img/img_beauty_eyelash.png' + parameter, alt='まつげ' width='100%' height='')
+              li.beautyintro__menu__list
+                img(src='img/img_beauty_esthe.png' + parameter, alt='エステ' width='100%' height='')
+              li.beautyintro__menu__list
+                img(src='img/img_beauty_relax.png' + parameter, alt='リラックス' width='100%' height='')
+            .beautyintro__menu--info
+              | ヘア・ネイル・まつげ・エステ・リラク・
+              br.-sp
+              | マッサージサロンの検索・予約が可能
+              br
+              | ネット予約・施術完了するたびに
+              br.-sp
+              span.beautyintro__menu--info--bold 100円につき1ポイント
+              | が貯まる！
+          .beautyintro__container
+            .beautyintro__title メリット2
+            .beautyintro__lead__wrap
+              .beautyintro__lead__icon__deal
+                img(src='img/img_beauty_value2.png' + parameter, alt='ポイント' width='100%' height='')
+              .beautyintro__lead--lead
+                | ポイント高還元
+                br.-sp
+                | メニューも豊富！
+                .beautyintro__lead--lead--text.-pc 
+                  | スーパーDEALメニューでさらにおトクにサロンを予約！
+            .beautyintro__lead--lead--text.-sp 
+              | スーパーDEALメニューでさらに
+              br.-sp
+              | おトクにサロンを予約！
+            .beautyintro__menu__img
+              img.-pc(src='img/img_beauty_deal_pc.png' + parameter, alt='スーパーDEAL メニュー' width='100%' height='')
+              img.-sp(src='img/img_beauty_deal_sp.png' + parameter, alt='スーパーDEAL メニュー' width='100%' height='')
+            .beautyintro__menu__button__wrap
+              a.beautyintro__menu__button(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/superdeal/?l-id=rb_payapp_deal')
+                | スーパーDEALメニューをみる
+          .beautyintro__container
+            .beautyintro__title メリット3
+            .beautyintro__lead__wrap
+              .beautyintro__lead__icon__appicon
+                img(src='img/img_beauty_value3.svg' + parameter, alt='' width='100%' height='')
+              .beautyintro__lead--lead
+                | アプリから予約で
+                br.-sp
+                | 次回もポイントアップ
+            .beautyintro__lead--lead--info
+              | ※本キャンペーンとは併用不可となりますのでご注意ください。
+              br
+              | ※下記のキャンペーンはエントリーが必要です。
+              br
+              | ※詳細はキャンペーンページをご確認ください。
+            .beautyintro__menu__app__wrap
+              a.beautyintro__menu__app__banner(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/app2x/?l-id=rb_payapp_app2x')
+                img(src='../../../../common/banner/campaign/bnr_common_640x160.png' + parameter, alt='アプリから予約でポイント最大3倍' width='100%' height='')
+            .beautyintro__menu__app__link__wrap.-excludeApp
+              ul.beautyintro__menu__app__article.-pc
+                li.beautyintro__menu__app__img
+                  img(src='img/img_app2x_info.png' + parameter, width='100%' height='')
+                li.beautyintro__menu__app__qr
+                  p.beautyintro__menu__app__qr--text
+                    | ダウンロードはこちら
+                  img.beautyintro__menu__app__qr__img(src='img/img_app2x_qr.png' + parameter, alt='qrコード' width='100%' height='')
+              a.beautyintro__menu__app__button.-excludeApp.-sp.-iphone(href='https://app.adjust.com/1apl4ucs' target="_blank" rel="noopener noreferrer")
+                img(src='img/img_app_button.png' + parameter, alt='App Storeからダウンロード' width='100%' height='')
+              a.beautyintro__menu__app__button.-excludeApp.-sp.-android(href='https://app.adjust.com/1apl4ucs' target="_blank" rel="noopener noreferrer")
+                img(src='img/img_googleplay_button.png' + parameter, alt='Google Playからダウンロード' width='100%' height='')
+
+    //- 楽天ペイアプリのメリット
+    #Pay
+    section#Payappintro.payappintro(data-ratid='cpn_' + meta.directory + '_Payappintro' data-ratevent='appear' data-ratparam='all')
+      article.payappintro__section
+        .payappintro--title
+          h4 楽天ペイアプリのメリット
+        .payappintro__contents__wrap
+          .payappintro__contents--title
+            | 楽天ペイアプリは楽天ポイント
+            br.-sp
+            | が
+            br.-pc
+            | suicaや街のお店で
+            br.-sp
+            span.payappintro__contents--title--red 使える・貯まる
+            br.-sp
+            | お得なスマホ決済アプリです
+          .payappintro__contents__section
+            .payappintro__contents__charge
+              img.payappintro__contents--title--charge-icon.-pc(src='img/img_payappintro_change_left_pc.svg' + parameter, width='100%' height='')
+              img.payappintro__contents--title--charge-icon.-sp(src='img/img_payappintro_change_left_sp.svg' + parameter, width='100%' height='')
+              h4.payappintro__contents__section--title Suicaチャージでポイント貯まる!
+              img.payappintro__contents--title--charge-icon.-pc(src='img/img_payappintro_change_right_pc.svg' + parameter, width='100%' height='')
+              img.payappintro__contents--title--charge-icon.-sp(src='img/img_payappintro_change_right_sp.svg' + parameter, width='100%' height='')
+              .payappintro__contents__charge__container
+                a.payappintro__contents__charge__banner(href='https://pay.rakuten.co.jp/topics/suica/' target="_blank" rel="noopener noreferrer")
+                  img(src='img/img_bnr_suica.jpg' + parameter, alt='ポイントが貯まる・使える Suicaへのチャージは楽天ペイ ※条件あり' width='100%' height='')
+                .payappintro__contents__charge__lead 
+                  | 楽天ペイアプリ経由での
+                  br
+                  | チャージに変えるだけでお得に
+                a.payappintro__contents--button(href='https://pay.rakuten.co.jp/topics/suica/' target="_blank" rel="noopener noreferrer")
+                  | 詳しくはこちら
+            .payappintro__contents__back
+              img.payappintro__contents--title--back-icon.-pc(src='img/img_payappintro_back_left_pc.svg' + parameter, width='100%' height='')
+              img.payappintro__contents--title--back-icon.-sp(src='img/img_payappintro_back_left_sp.svg' + parameter, width='100%' height='')
+              h4.payappintro__contents__section--title お支払いに1ポイントから使えて
+                br
+                | さらに1％分戻ってくる
+              img.payappintro__contents--title--back-icon.-pc(src='img/img_payappintro_back_right_pc.svg' + parameter, width='100%' height='')
+              img.payappintro__contents--title--back-icon.-sp(src='img/img_payappintro_back_right_sp.svg' + parameter, width='100%' height='')
+              .payappintro__contents__back__img
+                img(src='img/img_bnr_point.png' + parameter, alt='期間限定ポイントも対象' width='100%' height='')
+              .payappintro__contents__back__btn
+                a.payappintro__contents--button(href='https://pay.rakuten.co.jp/guide/about_point/#point-setting' target="_blank" rel="noopener noreferrer")
+                  | ポイント利用方法
+                ul.payappintro__contents__back__btn--info
+                  li ※楽天ポイントを用いたコード・QR・セルフ払いに対し100円（税込）につき1ポイント（1%）が翌日に進呈されます。
+                  li ※「コード・QR払い」タブでのポイント利用のみ。「ポイントカード」タブでのポイント利用は還元の対象外となります。
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle 【MAQUIA】限定ラ・クーポン
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead エントリー・予約期間
+              td.detail__tableBlockBody 2024年6月24日(月)10:00 ～ 2024年7月24日(水)9:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 条件達成期間
+              td.detail__tableBlockBody 2024年6月24日(月)10:00 ～ 2024年7月31日(水)23:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                p.detail__tableBlockTxt 条件の達成は順不同です。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li エントリーをされた方
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li エントリーには楽天会員登録が必要です。楽天会員でない方は、エントリーと同時に楽天会員登録(無料)ができます。
+                  li.detail__tableBlockList--li エントリー履歴は
+                    a.detail__tableBlockTxt--link(href="https://oubo.rakuten.co.jp/list?spk=f1636b" target="_blank" rel="noopener noreferrer")
+                      | こちら
+                    | から確認できます。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 下記の楽天ビューティと楽天ペイアプリの条件をどちらも達成された方
+                p.detail__tableBlockTxt.detail__headline 楽天ビューティ条件
+                ul.detail__tableBlockList--disc.detail__indent
+                  li.detail__tableBlockList--li 予約期間中に楽天ビューティで3,000円以上(税込)ネット予約
+                  li.detail__tableBlockList--li 条件達成期間中に施術完了
+                ul.detail__tableBlockList.detail__indent
+                  li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、
+                    span.detail__tableBlockTxt--red クーポン割引後
+                    | の価格が3,000円(税込)以上の場合に対象となります。
+                  li.detail__tableBlockList--li 電話予約や直接来店での施術は対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約や直接来店で施術完了された場合は、ポイント進呈の対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の来店期間内で施術完了された場合は、ポイント進呈の対象となります。
+                  li.detail__tableBlockList--li 期間内の予約・施術完了であればエントリーと予約・施術完了どちらが先でも対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt.detail__headline 楽天ペイアプリ条件
+                ul.detail__tableBlockList--disc.detail__indent
+                  li.detail__tableBlockList--li 条件達成期間中に対象店舗にて楽天ペイのコード／QR／セルフ払いで期間中合計3,000円（税込）以上お支払いをした方
+                    br
+                    | 【対象店舗】
+                    br
+                    | 楽天ペイのコード／QR／セルフでのお支払いが可能な店舗
+                ul.detail__tableBlockList.detail__indent
+                  li.detail__tableBlockList--li 一部店舗でのご利用分はポイント進呈対象外となります。詳しくは必ず
+                    a.detail__tableBlockTxt--link(href="https://pay.rakuten.co.jp/campaign/2020/pointprogram/rule/shop/#other_campaign" target="_blank" rel="noopener noreferrer")
+                      | こちら
+                    | からご確認ください。
+                  li.detail__tableBlockList--li 楽天ペイアプリでお支払い後に、楽天ペイアプリ上で表示される獲得予定ポイントには、本キャンペーンで進呈するポイントは反映されません。
+                  li.detail__tableBlockList--li 楽天ペイアプリでのお支払いをキャンセルされた場合、キャンセル分の金額はキャンペーン対象外となります。
+                  li.detail__tableBlockList--li お支払いの設定に楽天カードを設定してお支払いの場合、通常通りの基準にてポイントを進呈いたします。さらに、［楽天カードご利用通常ポイント分のポイント1％］とは別に、本特典を進呈いたします。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 抽選で1,000名様に楽天ポイント1,000ポイントが進呈されます。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 楽天ビューティのその他のキャンペーンとの併用はできません。キャンペーン期間中にその他のキャンペーンの条件を達成された場合、本キャンペーンのポイント進呈の対象外となります。
+                    br
+                    a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/')
+                      | 楽天ビューティのキャンペーン一覧はこちら
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント進呈予定日
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 2024年9月末頃
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li ポイント進呈をもって、当選の発表に変えさせていただきます。
+                  li.detail__tableBlockList--li 獲得した特典ポイントは、
+                    a.detail__tableBlockTxt--link(href='https://point.rakuten.co.jp/history/' target="_blank" rel="noopener noreferrer")
+                      | 楽天PointClubのポイント実績
+                    | でご確認いただけます。
+                p.detail__tableBlockTxt 当選に関わる個別のお問い合わせについては、対応しておりません。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li ポイント進呈日から6ヶ月間有効な期間限定ポイントとして進呈されます。
+                  li.detail__tableBlockList--li 期間限定ポイントの詳細は
+                    a.detail__tableBlockTxt--link(href='https://ichiba.faq.rakuten.net/detail/000006532?scid=su_2312' target="_blank" rel="noopener noreferrer")
+                      | こちら
+                    | をご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt ■ 楽天ビューティ条件についてのご注意事項
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 一部ネット予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ■ 楽天ペイアプリ条件についてのご注意事項
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 楽天ペイアプリの対応機種は
+                    a.detail__tableBlockTxt--link(href='https://appuser-help.pay.rakuten.net/--615b1606e95a560022b0227a' target="_blank" rel="noopener noreferrer")
+                      | こちら
+                    | からご確認いただけます。
+                  li.detail__tableBlockList--li 楽天ペイアプリに設定可能なカードは、楽天カード、VISA、Mastercard、JCB、American Express のカードです。こちら以外のカードは、楽天会員情報に登録されていても、楽天ペイアプリのお支払い元の選択画面には表示されません。
+                  li.detail__tableBlockList--li 楽天カード以外のJCB、AmericanExpressのカードをお支払い元に設定した場合、一部の店舗でお支払いいただけません。
+                  li.detail__tableBlockList--li お近くの店舗でのご利用可否については、
+                    a.detail__tableBlockTxt--link(href='https://pay.rakuten.co.jp/shop/map/' target="_blank" rel="noopener noreferrer")
+                      | 使えるお店 地図
+                    | 内の各店舗ページでご確認ください。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ■ その他
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li メンテナンス等でキャンペーンにご参加いただけない場合がございます。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                  li.detail__tableBlockList--li 楽天会員から退会、楽天会員資格を喪失、または会員規約・利用規約等に違反している場合、特典は進呈できかねますので、あらかじめご了承ください。
+                  li.detail__tableBlockList--li 本ページをアプリでご覧の際、一部のリンク先が表示されない場合があります。大変お手数ですが、推奨環境にてご覧ください。
+                  li.detail__tableBlockList--li 本キャンペーンのポイント進呈対象者は、同時期に行われている他のキャンペーンの対象から除外、または景品総額が景品表示法上の範囲内に制限される場合がございます。あらかじめご了承ください。
+                  li.detail__tableBlockList--li 本キャンペーンの参加にかかる費用（通信費等含む）は、お客さまのご負担となりますので、あらかじめご了承ください。
+                  li.detail__tableBlockList--li 天災地変や大規模システム障害などの影響により、実施または継続が困難と弊社が判断した場合、予告なくキャンペーンを中止する場合がございます。あらかじめご了承ください。
+                  li.detail__tableBlockList--li 楽天グループの役職員及び関係者（業務委託・派遣社員・パートナースタッフ・アルバイト含む）は本キャンペーンに参加できません。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/' target="_blank" rel="noopener noreferrer")
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 掲載店舗、あるいは弊社及び楽天ペイメント株式会社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li キャンペーンのエントリー及び条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li 「QRコード」は、株式会社デンソーウェーブの登録商標です。
+                  li.detail__tableBlockList--li その他ご不明な点は下記よりお問い合わせください。
+                    br
+                    a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/' target="_blank" rel="noopener noreferrer")
+                      | 本キャンペーン及び楽天ビューティについて
+                    br
+                    a.detail__tableBlockTxt--link(href='https://appuser-help.pay.rakuten.net/' target="_blank" rel="noopener noreferrer")
+                      | 楽天ペイについて
+                    br
+                    ul.detail__tableBlockList
+                      li.detail__tableBlockList--li 本企画に関して楽天ペイメントにお問い合わせの際は、「22998」のキャンペーンコードをお伝えください。
+                  li.detail__tableBlockList--li 本キャンペーンは楽天グループ株式会社「楽天ビューティ」が主催しているものであり、Apple Inc., Apple Japan合同会社によるものではありません。
+
+    //- Other Campaign
+    section#Campaign.campaign(data-ratid='cpn_' + meta.directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title その他のキャンペーン
+
+      include ../../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  //- script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  //- script(src="/cnt/common/js/area-search/build.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  //- script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+  //- splide
+  script(src="js/splide.min.js", defer)
+  script.
+    document.addEventListener( 'DOMContentLoaded', function() {
+      var elms = document.getElementsByClassName( 'splide' );
+      for ( var i = 0; i < elms.length; i++ ) {
+        new Splide( elms[ i ] ).mount();
+      }
+    } );

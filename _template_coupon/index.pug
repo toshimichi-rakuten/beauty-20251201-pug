@@ -1,0 +1,573 @@
+//- 新クーポンLP専用テンプレート。毎回最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- CSV Coupon Template / ver 1.5.0 / 更新日時：2025.5.9 / CPNタグデザイン変更＆注記変更
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  //- Kintone情報読み込み
+  include _kintone
+  - var css = `${'css/main.css' + parameter}`
+  //- シェア画像切り替え
+  if coupon[0].種別 == '事前登録'
+    - var shareImg = 'https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png' + parameter //- default
+  if coupon[0].種別 == '獲得'
+    - var shareImg = coupon[0].ページURL + 'img/share.png' + parameter //- default (シェア画像があれば変更)
+  //- description（全員対象優先、全員対象がなければ一番最後のクーポンのdescriptionが入ります）
+  - var loopflag = true;
+  - for(var i = 0; i < coupon.length; i++)
+    if loopflag == true && coupon[i].対象条件 == 'セグメントなし'
+      - var descStr = coupon[i].クーポン説明
+      - var loopflag = false //- break
+    else if loopflag == true
+      - var descStr = coupon[i].クーポン説明
+  //- metaタグ等に反映
+  include _setting
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  #CouponTemplate
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このラ・クーポンは終了しました' //- ページ上部の文言
+      - var btnTxt = '終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+
+    //- このLP全体の対象判定    
+    - var tag_target = []
+    - var hasNoReservation = false
+    //- 対象店舗予約有無が「なし」の要素があるかをチェック
+    - for (var i = 0; i < coupon.length; i++)
+      if coupon[i].対象店舗予約有無 == 'なし'
+        - hasNoReservation = true
+        - break // 1つでも見つかればループを終了
+    - for (var i = 0; i < coupon.length; i++)
+      //- 全員対象判定（1つでもあれば全員対象）
+      if coupon[i].対象条件 == 'セグメントなし'
+        if coupon[i].対象店舗予約有無 == 'なし'
+          if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = []
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            if genre == 'hair'
+              - var tag_target = ['美容室限定']
+            else if genre == 'all' || genre == ''
+              - var tag_target = ['対象サロン限定']
+        else if coupon[i].対象店舗予約有無 == '0:サロン新規' || coupon[i].対象店舗予約有無 == '1:サロンリピーター促進(2回目)' || coupon[i].対象店舗予約有無 == '2:サロンリピーター促進(3回目)'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            if genre == 'hair'
+              - var tag_target = ['美容室限定', '対象者限定']
+            else if genre == 'all' || genre == ''
+              - var tag_target = ['対象サロン限定', '対象者限定']
+          else if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = ['対象者限定']
+      //- 新規限定判定
+      else if coupon[i].対象条件 == '新規限定'
+        if coupon[i]['対象店舗予約有無'] == 'なし'
+          if coupon[i]['割引適用ショップ・アイテム'] == '指定ショップ'
+            if genre == 'hair'
+              - var tag_target = ['美容室限定', '初回利用限定']
+            else if genre == 'all' || genre == ''
+              - var tag_target = ['対象サロン限定', '初回利用限定']
+          else if coupon[i]['割引適用ショップ・アイテム'] == '全ショップ'
+            - var tag_target = ['初回利用限定']
+
+      //- 「対象者限定」を削除する処理
+      if hasNoReservation
+        - tag_target = tag_target.filter(tag => tag !== '対象者限定')    
+
+      //- 毎月開催判定
+      if coupon[i].毎月開催 == '毎月'
+        - var alwaysflag = true;
+    //- tagリスト作り
+    -
+      var tags = ['ラ・クーポン']
+      for (var j = 0; j < tag_target.length; j++)
+        tags.push(tag_target[j])
+    if alwaysflag
+      - tags.push('毎月開催')
+
+    //- 手動のtaglistがなければKintoneを反映
+    if !taglist
+      -
+        var taglist = {
+          tag: tags,
+        }
+
+    section#CpnTags
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter alt=coupon[0].クーポン名)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter alt=coupon[0].クーポン名)
+      //- 条件
+      //- 事前登録
+      if coupon[0].種別 == '事前登録'
+        .main__terms
+          .main__termsBox
+
+            - var term2 = '先着利用' + addComma(coupon[0].利用上限枚数) + '回'
+            - var term3 = '対象サロンのネット予約'
+            - var term4 = 'ネット予約時の施術料金が' + addComma(coupon[0].利用最低金額) + '円(税込)以上'
+            //- 初回利用の場合term1表示
+            if coupon[0].対象条件 == '新規限定'
+              - var term1 = '初回利用者様のみ'
+              - var termslist = term1 + '／' + term2 + '／' + term3 + '／' + term4
+            //- 全員対象の場合term1なし
+            else if coupon[0].対象条件 == 'セグメントなし'
+              - var termslist = term2 + '／' + term3 + '／' + term4
+            //- サロン新規の場合term1表示
+            if coupon[0].対象店舗予約有無 == '0:サロン新規'
+              - var term1 = '対象サロンの初回利用者様のみ'
+              - var termslist = term1 + '／' + term2 + '／' + term3 + '／' + term4
+
+            p.main__termsTxt 対象条件：!{termslist}
+            p.main__termsTxt
+              | 予約期限：!{dateChange(coupon[0].利用終了日時)}
+              span
+                | ／
+              | 施術期限：!{dateChange(coupon[0].来店終了日時)}
+            //- 常時開催
+            if coupon[0].毎月開催 == '毎月'
+              p.main__termsTxt.-small ※本企画は予告無く変更・中止されることがございます。
+            //- 初回利用
+            if coupon[0].対象条件 == '新規限定'
+              p.main__termsTxt.-small ※初回利用者様とは、楽天ビューティからネット予約・施術したことのない方になります。
+            p.main__termsTxt.-small
+              | ※クーポンには利用上限があります。
+            p.main__termsTxt.-small
+              | ※ラ・クーポン注意事項は
+              a.main__termsLink(href='#Detail')
+                | こちら
+      //- 獲得
+      if coupon[0].種別 == '獲得'
+        .main__terms
+          .main__termsBox
+            span.main__termsTxt.-small
+              | ※一部ラ・クーポンがご利用できない店舗がございます。ご利用できる店舗では、獲得済みのラ・クーポンが表示されます。
+              | ※ネット予約のみ、他ラ・クーポンとの併用不可。
+              //- 常時開催
+              if coupon[0].毎月開催 == '毎月'
+                br.-pc
+                | ※本企画は予告無く変更・中止されることがございます。
+              span.main__termsTxt.-small
+                | ※クーポンには利用上限があります。
+              span.main__termsTxt.-small
+              | ※ラ・クーポン注意事項は
+              a.main__termsLink(href='#Detail')
+                | こちら
+
+    //- ラ・クーポン
+    section#Coupon.coupon(data-ratid='cpn_' + directory + '_Coupon' data-ratevent='appear' data-ratparam='all')
+      //- 事前登録
+      if coupon[0].種別 == '事前登録'
+        .couponAdd
+          //- 終了対応
+          if endflag == true
+            //- ボタンセット(url,txt,endflag)
+            +btnSet('', btnTxt, true)
+          else
+            //- ボタンセット(url,txt)
+            +btnSet('/user/coupon.php','マイクーポンをみる')
+            //- 条件
+            .coupon__terms
+              p.coupon__termsTxt
+                | ※利用回数が上限に達した場合はご利用いただけません。
+      //- 獲得
+      if coupon[0].種別 == '獲得'
+        .couponGet
+          //- 非遷移クーポン
+          include ../../../../_common/pug/Module/Common/_couponOneClick
+          +couponOneClickSet()
+
+    //- anchor link
+    #Shoplist(data-ratid='cpn_' + directory + '_Shoplist' data-ratevent='appear' data-ratparam='all')
+
+    //- shoplist
+    section#salonFilterContainer
+      #salonFilterSection(ref="wrapper", class="is-loading")
+        .loader
+
+        //- mixin card
+        mixin card()
+          if shoplist.select == '1column' || shoplist.select == 'btn'
+            - var type = 'filterList'
+          else if shoplist.select == '2column'
+            - var type = 'filteredSalonList'
+          #salonList(ref="list")
+            .salonList
+              section(v-for="item, index in " + type, :key="index", class="salonList__item position-relative")
+                .salonList__content
+                  .salonList__cover
+                    img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/" + item.shop_id + "_01.jpg" + param', class="salonList__image", rel="preload", :alt="item.shop_name")
+                  .salonList__outline
+                    h3.salonList__salonName
+                      a(:href='"/" + item.shop_id + "/?" + lid', class="salonList__link stretched-link") {{ item.shop_name }}
+                    span.salonList__area
+                      i.icon.icon-location
+                      | {{ item.area }}
+                    span.salonList__station
+                      i.icon.icon-train
+                      | {{ item.station }}
+        //- mixin menuCard
+        mixin menuCard()
+          #salonList(ref="list")
+            if shoplist.select == '1column' || shoplist.select == 'btn'
+              - var type = 'filterList'
+            else if shoplist.select == '2column'
+              - var type = 'filteredSalonList'
+            .salonList
+              section(v-for="item, index in " + type, :key="index", class="salonList__item has-divide")
+                .salonList__content.position-relative
+                  .salonList__cover
+                    img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/" + item.shop_id + "_01.jpg" + param', class="salonList__image", rel="preload", :alt="item.shop_name")
+                  .salonList__outline
+                    h3.salonList__salonName
+                      a(:href='"/" + item.shop_id + "/?" + lid', class="salonList__link stretched-link") {{ item.shop_name }}
+                    span.salonList__area
+                      i.icon.icon-location
+                      | {{ item.area }}
+                    span.salonList__station
+                      i.icon.icon-train
+                      | {{ item.station }}
+                .salonList__divide.position-relative
+                  .salonList__outline
+                    .salonList__detail
+                      .salonList__menuIcon
+                        span.salonList__genre.-no1(v-if='item.genreNo_1 == 1') {{ item.genre_1 }}
+                        span.salonList__genre.-no2(v-if='item.genreNo_1 == 2') {{ item.genre_1 }}
+                        span.salonList__genre.-no3(v-if='item.genreNo_1 == 3') {{ item.genre_1 }}
+                      .salonList__menuDetail
+                        h4.salonList__menuName
+                          span.salonList__target(v-if='item.target_1 == "初回"') {{ item.target_1 }}
+                          span.salonList__target.is-all(v-if='item.target_1 == "全員"') {{ item.target_1 }}
+                          | {{ item.menu_name_1 }}
+                    p.salonList__description {{ item.menu_detail_1 }}
+                  .salonList__buttonArea
+                    .salonList__menuPriceArea
+                      span.salonList__menuTime 約{{ item.menu_time_1 }}分
+                      span.salonList__menuPrice ￥{{ item.menu_price_1.toLocaleString() }}
+                    .salonList__menuTermsArea
+                      span.salonList__menuTerm {{ item.condition_1 }}
+                    a(:href='"/reserve/?shop_ex_id=" + item.shop_id + "&menu_id=" + item.menu_id_1 + "&" + lid', class="stretched-link salonList__button") このメニューで予約する
+                .salonList__divide.position-relative(v-if='item.menu_id_2')
+                  .salonList__outline
+                    .salonList__detail
+                      .salonList__menuIcon
+                        span.salonList__genre.-no1(v-if='item.genreNo_2 == 1') {{ item.genre_2 }}
+                        span.salonList__genre.-no2(v-if='item.genreNo_2 == 2') {{ item.genre_2 }}
+                        span.salonList__genre.-no3(v-if='item.genreNo_2 == 3') {{ item.genre_2 }}
+                      .salonList__menuDetail
+                        h4.salonList__menuName
+                          span.salonList__target(v-if='item.target_2 == "初回"') {{ item.target_2 }}
+                          span.salonList__target.is-all(v-if='item.target_2 == "全員"') {{ item.target_2 }}
+                          | {{ item.menu_name_2 }}
+                    p.salonList__description {{ item.menu_detail_2 }}
+                  .salonList__buttonArea
+                    .salonList__menuPriceArea
+                      span.salonList__menuTime 約{{ item.menu_time_2 }}分
+                      span.salonList__menuPrice ￥{{ item.menu_price_2.toLocaleString() }}
+                    .salonList__menuTermsArea
+                      span.salonList__menuTerm {{ item.condition_2 }}
+                    a(:href='"/reserve/?shop_ex_id=" + item.shop_id + "&menu_id=" + item.menu_id_2 + "&" + lid', class="stretched-link salonList__button") このメニューで予約する
+
+        //- 1column
+        if shoplist.select == '1column'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            .filter-select
+              select.filter-select__item(v-model="select1")
+                option(value="") !{shoplist.firstTxt1}
+                option(v-for="(item, index) in select1List", :value="item.name") {{ item.name }} ({{ item.count }}件)
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+        //- 2column
+        else if shoplist.select == '2column'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            .filter-select
+              select.filter-select__item(v-model="select1", ref="select1")
+                option(value="", selected) !{shoplist.firstTxt1}
+                option(v-for="(item, index) in select1List", :value="item") {{ item }}
+            .filter-select
+              select.filter-select__item(v-model="select2", ref="select2", disabled)
+                option(value="", selected) !{shoplist.firstTxt2}
+                option(v-for="(item, index) in select2List", :value="item") {{ item }}
+            button(class="filter-button", disabled, v-on:click="search", ref="button")
+              span 検索
+              span(v-if="count !== 0 && !firstFlag") （{{count}}件）
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+        //- btn
+        else if shoplist.select == 'btn'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            ul.filter-button-list
+              li.filter-button-list-item
+                button.filter-list-button(@click="select1 = ''", :class="{'is-selected': select1 == ''}") すべて
+              li.filter-button-list-item(v-for="(item, index) in select1List")
+                button.filter-list-button(@click="select1 = item.name", :class="{'is-selected': select1 == item.name}") {{ item.name }} ({{ item.count }}件)
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+    //- more search
+    if morebtn.visible == true
+      section#couponMore.couponMore(data-ratid='cpn_' + directory + '_couponMore' data-ratevent='appear' data-ratparam='all')
+        .couponSalon__moreBtn
+          a.couponSalon__link(href=morebtn.url)
+            | !{morebtn.title}
+            if morebtn.subtxt
+              span.couponMore__txtSmall
+                | !{morebtn.subtxt}
+
+    //- howto
+    section#Howto.howto(data-ratid='cpn_' + directory + '_Howto' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title ラ・クーポンの使い方
+      
+      //- 事前付与
+      if coupon[0].種別 == '事前登録'
+        //- ラ・クーポンの使い方セット（'get' or 'add'）
+        +howtoCouponset('add')
+      //- 獲得
+      if coupon[0].種別 == '獲得'
+        //- ラ・クーポンの使い方セット（'get' or 'add'）
+        +howtoCouponset('get')
+
+    //- app DL
+    section#App.app.-excludeApp(data-ratid='cpn_' + meta.directory + '_App' data-ratevent='appear' data-ratparam='all')
+
+      //- app DL parts(app2x, adjustUrl, QRCodeURL)
+      //- 
+        1.狭域追加設定：app2xを表示
+        2.DL用のAdjust URLとQRコードは基本変えずに運用でマーケと合意済み。変更したい場合は第2引数にadjustUrl、第3引数にQRCodeの画像URLを入れると変更可能
+        3.例：+appDL('app2x','https://app.adjust.com/1ifdl1tv','/cnt/common/images/cpn-parts/btn_dl_qr.svg')
+        3.DL用のAdjust URLとQRコードは基本変えずに運用でマーケと合意済み。変更したい場合は第2引数にadjustUrl、第3引数にQRCodeの画像URLを入れると変更可能	
+        4.例：+appDL('app2x','https://app.adjust.com/1ifdl1tv','/cnt/common/images/cpn-parts/btn_dl_qr.svg')	3.例：+appDL('app2x','https://app.adjust.com/1ifdl1tv','/cnt/common/images/cpn-parts/btn_dl_qr.svg')
+
+      //- appInfoFlag 注意文の表示/非表示 trueで表示、falseで非表示
+      - var appInfoFlag = false
+      +appDL('app2x')
+    
+    //- Coupon Detail
+    section#Detail.detail(data-ratid='cpn_' + directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title ラ・クーポン注意事項
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        //- 事前付与
+        if coupon[0].種別 == '事前登録'
+          table.detail__table
+            tbody
+              tr.detail__tableBlock
+                th.detail__tableBlockHead 予約期限
+                td.detail__tableBlockBody !{dateChange(coupon[0].利用終了日時)}
+              tr.detail__tableBlock
+                th.detail__tableBlockHead 施術期限
+                td.detail__tableBlockBody !{dateChange(coupon[0].来店終了日時)}
+              tr.detail__tableBlock
+                th.detail__tableBlockHead 対象条件
+                td.detail__tableBlockBody !{termslist}
+              tr.detail__tableBlock
+                th.detail__tableBlockHead 注意事項
+                td.detail__tableBlockBody
+                  ul.detail__tableBlockList
+                    li.detail__tableBlockList--li ラ・クーポンの利用回数には上限があります。
+                    li.detail__tableBlockList--li 他のラ・クーポンとの併用はできません。
+                    li.detail__tableBlockList--li ラ・クーポンには利用上限回数（予約成立順）が設定されています。ラ・クーポン獲得済みであっても利用上限に達した場合はご利用いただけません。
+                    li.detail__tableBlockList--li ラ・クーポンは、マイページの
+                      a.detail__tableBlockTxt--link(href="https://beauty.rakuten.co.jp/user/coupon.php")
+                        | マイクーポン
+                      | からご確認いただけます。
+                    li.detail__tableBlockList--li ラ・クーポンの利用条件に合致したクーポンのみが、ネット予約STEP中に表示されます。獲得していても、ラ・クーポンが表示されない場合、ラ・クーポンの利用条件等をご確認ください。（予約条件が一致しない、有効期限を過ぎている、利用回数を超えた場合等）
+                    li.detail__tableBlockList--li ネット予約確定の前に、他のネット予約が成立し利用上限回数に達した場合には、ネット予約がエラーとなり、ラ・クーポンをご利用になれません。
+                    li.detail__tableBlockList--li ラ・クーポンは、楽天ビューティ（サイト/アプリ）での予約時にのみご利用いただけます。予約成立後など後から利用することはできません。
+                    li.detail__tableBlockList--li ラ・クーポンを印刷して来店時にお持ちいただいても割引することはできません。
+                    li.detail__tableBlockList--li ラ・クーポンは、電話予約でご利用できません。
+                    li.detail__tableBlockList--li 一部、ラ・クーポンを利用できない店舗がございます。
+                    li.detail__tableBlockList--li 発行されているラ・クーポンによって来店期日は異なりますので、ご注意ください。
+                    li.detail__tableBlockList--li サロンの予約状況によっては、ご希望に添えなかったり、お断りする場合もございます。
+                    li.detail__tableBlockList--li ラ・クーポンを利用した予約をキャンセルした場合、利用条件を満たしていれば、マイクーポンに返還されます。詳しくは
+                      a.detail__tableBlockTxt--link(href="https://beauty.faq.rakuten.net/user/s/detail/000005759")
+                        | こちら
+                    li.detail__tableBlockList--li 本企画は予告無く変更・中止されることがございます。
+                    li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                    li.detail__tableBlockList--li ご来店いただける期間はサロンの営業時間によって異なります。
+                    li.detail__tableBlockList--li ラ・クーポンの使用方法についてご不明点があった場合は、楽天ビューティにお問い合わせください。
+        //- 獲得
+        if coupon[0].種別 == '獲得'
+          if coupon[0].対象デバイス == 'セグメントなし'
+            table.detail__table
+              tbody
+                tr.detail__tableBlock
+                tr.detail__tableBlock
+                  th.detail__tableBlockHead 注意事項
+                  td.detail__tableBlockBody
+                    ul.detail__tableBlockList
+                      li.detail__tableBlockList--li 獲得したラ・クーポンの利用回数には上限があります。
+                      li.detail__tableBlockList--li 他のラ・クーポンとの併用はできません。
+                      li.detail__tableBlockList--li ラ・クーポンには利用上限回数（予約成立順）が設定されています。ラ・クーポン獲得済みであっても利用上限に達した場合はご利用いただけません。
+                      li.detail__tableBlockList--li 獲得したラ・クーポンは、マイページの
+                        a.detail__tableBlockTxt--link(href="/user/coupon.php")
+                          | マイクーポン
+                        | からご確認いただけます。
+                      li.detail__tableBlockList--li ラ・クーポンの利用条件に合致したクーポンのみが、ネット予約STEP中に表示されます。獲得していても、ラ・クーポンが表示されない場合、ラ・クーポンの利用条件等をご確認ください。（予約条件が一致しない、有効期限を過ぎている、利用回数を超えた場合等）
+                      li.detail__tableBlockList--li ネット予約確定の前に、他のネット予約が成立し利用上限回数に達した場合には、ネット予約がエラーとなり、ラ・クーポンをご利用になれません。
+                      li.detail__tableBlockList--li ラ・クーポンは、楽天ビューティ（サイト/アプリ）での予約時にのみご利用いただけます。予約成立後など後から利用することはできません。
+                      li.detail__tableBlockList--li ラ・クーポンを印刷して来店時にお持ちいただいても割引することはできません。
+                      li.detail__tableBlockList--li ラ・クーポンは、電話予約でご利用できません。
+                      li.detail__tableBlockList--li 一部、ラ・クーポンを利用できない店舗がございます。
+                      li.detail__tableBlockList--li 発行されているラ・クーポンによって来店期日は異なりますので、ご注意ください。
+                      li.detail__tableBlockList--li サロンの予約状況によっては、ご希望に添えなかったり、お断りする場合もございます。
+                      li.detail__tableBlockList--li ラ・クーポンを利用した予約をキャンセルした場合、利用条件を満たしていれば、マイクーポンに返還されます。
+                        a.detail__tableBlockTxt--link(href="https://beauty.faq.rakuten.net/user/s/detail/000005759")
+                          | 詳しくはこちら
+                      li.detail__tableBlockList--li 本企画は予告無く変更・中止されることがございます。
+                      li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                      li.detail__tableBlockList--li ご来店いただける期間はサロンの営業時間によって異なります。
+                      li.detail__tableBlockList--li ラ・クーポンの使用方法についてご不明点があった場合は、楽天ビューティにお問い合わせください。
+          //- 獲得＋アプリ予約のみ対象
+          if coupon[0].対象デバイス == 'アプリ限定'
+            table.detail__table
+              tbody
+                tr.detail__tableBlock
+                tr.detail__tableBlock
+                  th.detail__tableBlockHead 注意事項
+                  td.detail__tableBlockBody
+                    ul.detail__tableBlockList
+                      li.detail__tableBlockList--li 獲得したラ・クーポンの利用回数には上限があります。
+                      li.detail__tableBlockList--li 他のラ・クーポンとの併用はできません。
+                      li.detail__tableBlockList--li ラ・クーポンには利用上限回数（予約成立順）が設定されています。ラ・クーポン獲得済みであっても利用上限に達した場合はご利用いただけません。
+                      li.detail__tableBlockList--li 獲得したラ・クーポンは、マイページの
+                        a.detail__tableBlockTxt--link(href="/user/coupon.php")
+                          | マイクーポン
+                        | からご確認いただけます。
+                      li.detail__tableBlockList--li ラ・クーポンの利用条件に合致したクーポンのみが、ネット予約STEP中に表示されます。獲得していても、ラ・クーポンが表示されない場合、ラ・クーポンの利用条件等をご確認ください。（予約条件が一致しない、有効期限を過ぎている、利用回数を超えた場合等）
+                      li.detail__tableBlockList--li ネット予約確定の前に、他のネット予約が成立し利用上限回数に達した場合には、ネット予約がエラーとなり、ラ・クーポンをご利用になれません。
+                      li.detail__tableBlockList--li ラ・クーポンは、楽天ビューティのアプリでの予約時にのみご利用いただけます。予約成立後など後から利用することはできません。
+                      li.detail__tableBlockList--li ラ・クーポンを印刷して来店時にお持ちいただいても割引することはできません。
+                      li.detail__tableBlockList--li ラ・クーポンは、電話予約でご利用できません。
+                      li.detail__tableBlockList--li 一部、ラ・クーポンを利用できない店舗がございます。
+                      li.detail__tableBlockList--li 発行されているラ・クーポンによって来店期日は異なりますので、ご注意ください。
+                      li.detail__tableBlockList--li サロンの予約状況によっては、ご希望に添えなかったり、お断りする場合もございます。
+                      li.detail__tableBlockList--li ラ・クーポンを利用した予約をキャンセルした場合、利用条件を満たしていれば、マイクーポンに返還されます。
+                        a.detail__tableBlockTxt--link(href="https://beauty.faq.rakuten.net/user/s/detail/000005759")
+                          | 詳しくはこちら
+                      li.detail__tableBlockList--li 本企画は予告無く変更・中止されることがございます。
+                      li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                      li.detail__tableBlockList--li ご来店いただける期間はサロンの営業時間によって異なります。
+                      li.detail__tableBlockList--li ラ・クーポンの使用方法についてご不明点があった場合は、楽天ビューティにお問い合わせください。
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  //- script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- 1click coupon
+  script(src='//r.r10s.jp/com/js/d/Rmodules/Rmodules.min.js?v=1.4.0', defer)
+  script(src='//r.r10s.jp/com/js/d/coupon/one_click_acquisition/1.2/one_click_acquisition-1.2.0.min.js', defer)
+
+  //------------------------------- Shoplist 絞り込み (vue) -------------------------------//
+
+  //- js用パラメータ生成
+  script.
+    const param = '!{parameter}';
+    const firstSelect1 = '!{shoplist.firstSelect1}';
+    const firstSelect2 = '!{shoplist.firstSelect2}';
+    const dir = '!{directory}';
+    const lid = 'l-id=rb_' + dir + '_shopdetail';
+
+  //- pugで読み込むjsのurl（パラメータつき）を生成 = キャッシュ対策
+  -
+    var jsUrl1column = `${'js/filter-by-1column.js' + parameter}`
+    var jsUrl2column = `${'js/filter-by-2column.js' + parameter}`
+
+  //- json読み込み & 絞り込み (vue)
+  if shoplist.select == '1column' || shoplist.select == 'btn'
+    script(src=jsUrl1column, defer)
+  else if shoplist.select == '2column'
+    script(src=jsUrl2column, defer)
+
+  //------------------------------- Kintoneの数字変換用js -------------------------------//
+
+  -
+    //- 数字にカンマをつける（Kintoneの数字変換用js）
+    function addComma(no){
+      return no.toLocaleString();
+    }
+    //- 日付置換（_couponOneClickで使用）
+    function dateChange(date){
+      let dateArray = date.split(/[/ ]/);
+      dateArray.splice( 0, 1, removeLeadingZeros(dateArray[0]) + '年');
+      dateArray.splice( 1, 1, removeLeadingZeros(dateArray[1]) + '月');
+      //- 日付と時刻の間に半角スペースも挿入
+      dateArray.splice( 2, 1, removeLeadingZeros(dateArray[2]) + '日 ');
+      return dateArray.join('');
+    }
+    //- 日付から先頭の0を削除
+    function removeLeadingZeros(dateString) {
+      return dateString.replace(/^0/, '');
+    }
+    
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+

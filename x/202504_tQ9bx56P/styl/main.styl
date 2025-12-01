@@ -1,0 +1,309 @@
+passStr = '../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+seaGreenColor = #ccc401
+cyanColor = #35c5ce
+naplesYellowColor = #ffeb99
+whiteColor = #fff
+blackColor = #000
+LPtext = #070A0D
+
+BtnColor = #FF651E
+BtnText = #fff
+
+pcWidth = 1216px
+
+//------------------------------
+
+#X // #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // commom
+  .text-underline
+    text-decoration: underline
+  // main
+  .main
+    margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .main__title
+      display: block
+      width: 750px
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 16px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width: 750px
+        padding: 16px 32px
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.4
+          color:grayTxtColor
+          +pc()
+            display: block
+            font-size: 2.8rem
+          +sp()
+            font-size: 1.4rem
+          &.-small
+            color:grayTxtColor
+            line-height: 1.5
+            +pc()
+              display: inline-block
+              font-size: 2rem
+            +sp()
+              display: block
+              font-size: 1rem
+          &.-bold
+            font-weight: bold
+        .main__termsLink
+          color:secondColor
+        .main__stepList
+          display: flex
+          align-items: stretch
+          justify-content: center
+          +pc()
+            width: 780px
+            margin: 10px auto
+          +sp()
+            width: 100%
+            max-width: 800px
+            margin: 16px auto
+          .main__stepWrap
+            position: relative
+            width: 100%
+            +pc()
+              height: 98px
+            +sp()
+              height: 128px
+            .main__step__container
+              display: flex
+              flex-direction: column
+              align-items: center
+              justify-content: center
+              position: absolute
+              top: 0
+              left: 0
+              z-index: 2
+              width: 100%
+              height: 100%
+              color: whiteColor
+              +sp()
+                padding: 0 16px 0 8px
+                box-sizing: border-box
+              .main__step__title
+                font-weight: bold
+                +pc()
+                  font-size: 1.8rem
+                  line-height: 1.4
+                +sp()
+                  font-size: 1.4rem
+                  line-height: 1.8
+              .main__step__caption
+                // padding: 0 8px
+                word-break: break-all
+                +pc()
+                  font-size: 1.4rem
+                  line-height: 1.5
+                +sp()
+                  display: flex
+                  align-items: center
+                  justify-content: center
+                  flex-flow: column
+                  height: 4.2em
+                  font-size: 1.2rem
+                  line-height: 1.4
+                .main__step__caption__point
+                  +sp()
+                    display: block
+                    font-weight: bold
+              .main__step__icon
+                height: 24px
+                margin-top: 4px
+            .main__step
+              position: absolute
+              top: 0
+              left: 0
+              z-index: 1
+              height: 100%
+              background: seaGreenColor
+              color: whiteColor
+              +pc()
+                width: 236px
+                margin-right: 24px
+              +sp()
+                width: calc(100% - 16px)
+                margin-right: 16px
+              &::after
+                position: absolute
+                top: 0
+                height: 100%
+                background: seaGreenColor
+                content: ""
+                +pc()
+                  clip-path: polygon(0% 0%, 0% 100%, 100% 50%)
+                  right: -24px
+                  width: 24px
+                +sp()
+                  clip-path: polygon(-2% 0%, -2% 100%, 100% 50%)
+                  right: -16px
+                  width: 16px
+              &.-cyancolor
+                background: cyanColor
+                &::after
+                  background: cyanColor
+
+
+  // complete
+  .completeContent
+    position: relative
+    width: 100%
+    background: whiteColor
+    text-align: center
+    +pc()
+      margin: 0 auto 60px
+    +sp()
+      margin: 0 auto 40px
+    .completeContent--title
+      +pc()
+        width: 520px
+        margin: 0 auto 24px
+      +sp()
+        width: 70%
+        margin: 0 auto 24px
+    .completeContent--lead
+      color: LPtext
+      font-weight: bold
+      line-height: 1.4
+      +pc()
+        font-size: 2.4rem
+      +sp()
+        font-size: 1.6rem
+      &.-info
+        margin-top: 24px
+
+  // step
+  .stepContent
+    +pc()
+      margin: 0 auto 60px
+    +sp()
+      margin: 0 auto 40px
+    .stepContent--title
+      +pc()
+        width: 137px
+        margin: 0 auto 32px
+      +sp()
+        width: 103px
+        margin: 0 auto 24px
+    .stepContent--lead
+      text-align: center
+      font-weight: bold
+      line-height: 1.4
+      +pc()
+        margin: 0 auto 32px
+        font-size: 2rem
+      +sp()
+        margin: 0 auto 24px
+        font-size: 1.6rem
+    .stepContent__img
+      width: 250px
+      margin: 0 auto
+    .stepContent__form__wrap
+      +pc()
+        margin: 0 auto 40px
+      +sp()
+        margin: 0 auto 24px
+      .stepContent__form
+        margin: 0 auto
+        text-align: center
+        .stepContent--input
+          border: 1px solid #d6d6d6
+          border-radius: 4px
+          box-sizing: border-box
+          +pc()
+            width: 500px
+            height: 70px
+            margin: 0 auto 40px
+            padding: 16px
+            font-size: 2rem
+          +sp()
+            width: 300px
+            height: 42px
+            margin: 0 auto 24px
+            padding: 8px
+            font-size: 1.6rem
+        .stepContent--button
+          background: BtnColor
+          border: 0
+          border-radius: 44px
+          box-sizing: border-box
+          color: white
+          line-height: 1.5
+          +pc()
+            width: 600px
+            padding: 20px 40px
+            font-size: 3.6rem
+          +sp()
+            width: calc(100vw - 16px)
+            max-width: 333px
+            padding: 16px 40px
+            font-size: 2.4rem
+          &:hover
+            cursor: pointer
+            opacity: .8
+    .stepContent--info
+      text-align: center
+      line-height: 1.4
+      +pc()
+        font-size: 1.6rem
+      +sp()
+        font-size: 1.2rem
+
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: unset
+    +sp()
+      margin-bottom: unset
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

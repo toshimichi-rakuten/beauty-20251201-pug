@@ -1,0 +1,731 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #FF5E6D
+mainColorSub = #f3abbf
+secondColor = #99B234
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+LinkColor = #45A9BC
+redColor = #bf0000
+
+pcWidth = 1216px
+couponWidth = 430px // 3つ並列にする場合は357px以内にする
+
+navHeightPc = 97px
+navHeightSp = 62px
+//------------------------------
+
+#EntryBox,
+#Coupon
+#Search
+  display: block
+  +pc()
+    padding-top: (navHeightPc + 0)
+    margin-top: -(navHeightPc + 0)
+  +sp()
+    padding-top: (navHeightSp + 0)
+    margin-top: -(navHeightSp + 0)
+#Coupon
+  margin-bottom: -16px
+  
+
+#Mama
+  // common
+  .main__titleTxt
+    font-weight: 600
+    line-height: 1.4
+    text-align: center
+    +pc()
+      font-size: 2.6rem
+      margin-bottom: 25px
+    +sp()
+      font-size: 2.1rem
+      margin-bottom: 20px
+      padding: 0 16px
+  .main__titleLine
+    width: 79%
+    height: 1px
+    background: linear-gradient(270deg, rgba(153, 178, 52, 1) 20%,rgba(255, 94, 109, 1) 40%)
+    +sp()
+      width: 76%
+  .main__subTitle
+    text-align: center
+    color: secondColor
+    font-size: 2rem
+    font-weight: 700
+    padding-bottom: 32px
+    +sp()
+      padding-bottom: 16px
+    &.-step2
+    &.-step3
+      padding-bottom: 0
+  .titleTxt
+    width: 100%
+    font-size: 2rem
+    font-weight: 600
+    line-height: 1.4
+    margin: 0 auto 32px
+    text-align: center
+    &.-small
+      font-size: 1.2rem
+    &.-pink
+      color: mainColor
+    +sp()
+      font-size: 1.8rem
+      margin: 0 auto 24px
+    .titleTxtLine
+      width: 100%
+      border-bottom: 2px secondColor solid
+      padding-top: 12px
+  .captionTxt
+    font-size: 1.8rem
+    line-height: 1.6
+    &.-bold
+      font-weight: bold
+    &.-small
+      font-size: 1.4rem
+      line-height: 1.5
+    &.-center
+      text-align: center
+    +sp()
+      font-size: 1.4rem
+  .main__termsTxt__wrap
+    text-align: left
+    &.-center
+      text-align: center
+    +pc()
+      width: 840px
+      margin: 16px auto 0
+    +sp()
+      margin: 8px auto 0
+    .main__termsTxt
+      color:grayTxtColor
+      line-height 1.5
+      +pc()
+        display: inline-block
+        font-size: 1.4rem
+      +sp()
+        display: block
+        font-size: 1rem
+    .main__termsLink
+      color: LinkColor
+      text-decoration: underline
+      &:hover
+        text-decoration: none
+
+
+  // main
+  .main
+    .main__title
+      position: relative
+      display: block
+      width: pcWidth
+      margin: 0 auto
+      line-height: 1
+      font-size: 1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+      .main__anclink
+        position: absolute
+        z-index :5
+        bottom: 22px
+        &.-left
+          left: 17%
+        &.-right
+          right: 17%
+        +pc()
+          animation: coupon-button 1.8s ease-in-out infinite alternate-reverse
+        +sp()
+          bottom: 8px
+          width: 50%
+          animation: coupon-button-sp 1.8s ease-in-out infinite alternate-reverse
+          &.-left
+            left: 0
+          &.-right
+            right: 0
+        a
+          display: block
+        img
+          +sp()
+            width: 55%
+      @keyframes coupon-button
+        0%
+          transform: translateY(-8px)
+        100% 
+          transform: translateY(8px)
+      @keyframes coupon-button-sp
+        0%
+          transform: translateY(-6px)
+        100% 
+          transform: translateY(6px)
+
+      // PC画像, リンク
+      .main__pc
+        position: relative
+        .main__pc__button
+          display: block
+          position: absolute
+          width: 120px
+          height: 120px
+          top: 85px
+          right: 224px
+    .main__terms
+      text-align: center
+      margin: 0 auto
+      box-sizing: border-box
+      +pc()
+        width:pcWidth
+        padding: 10px 10px 26px
+      +sp()
+        padding: 10px 10px 16px
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsList__wrap
+          display: flex
+          justify-content: center
+          +sp()
+            flex-direction: column
+          .main__termsList
+            font-weight: bold
+            line-height: 1.5
+            +pc()
+              font-size: 1.6rem
+            +sp()
+              font-size: 1.2rem
+            &:last-of-type
+              +pc()
+                padding-left: 1.5rem
+        .main__stepsection
+          +pc()
+            width: 884px
+            margin: 10px auto 0
+          +sp()
+            max-width: 343px
+            margin: 8px auto 0
+
+  //- nav-menu
+  .nav-menu
+    position: sticky
+    top: 0
+    z-index: 100
+    background: mainColor
+    box-sizing: border-box
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .nav-menu-inner
+      display: flex
+      justify-content: center
+      width: 100%
+      margin: 0 auto
+      +pc()
+        width: 1088px
+      +sp()
+        width: 100%
+      .nav-menu-list
+        position: relative
+        width: 33.3%
+        box-sizing: border-box
+        color: #fff
+        font-weight: bold
+        line-height: 1.5
+        +pc()
+          height: 97px
+          font-size: 1.8rem
+        +sp()
+          height: 62px
+          font-size: 1.2rem
+        &:first-of-type::before
+          +pc()
+            display: inline-block
+            position: absolute
+            top: 48px
+            left: -16px
+            width: 30px
+            height: 1px
+            transform: rotate(90deg)
+            background-color: #fff
+            border-right: 1px solid #fff
+            content: ''
+        &:not(:last-child)::after
+          display: inline-block
+          position: absolute
+          width: 30px
+          height: 1px
+          transform: rotate(90deg)
+          background-color: #fff
+          border-right: 1px solid #fff
+          content: ''
+          +pc()
+            top: 48px
+            right: -16px
+          +sp()
+            top: 31px
+            right: -16px
+        &:last-of-type::after
+          +pc()
+            display: inline-block
+            position: absolute
+            width: 30px
+            height: 1px
+            transform: rotate(90deg)
+            background-color: #fff
+            border-right: 1px solid #fff
+            content: ''
+            +pc()
+              top: 48px
+              right: -16px
+            +sp()
+              top: 31px
+              right: -19px
+        .nav-menu-button
+          display: flex
+          justify-content: center
+          position: relative
+          width: 100%
+          height: 100%
+          box-sizing: border-box
+          text-align: center
+          line-height: 1.5
+          +pc()
+            align-items: center
+            padding: 12px 0
+          +sp()
+            align-items: center
+            padding: 8px 0
+          &::before
+            content: ""
+            position: absolute
+            left: 50%
+            border-top: solid 1px #fff
+            border-right: solid 1px #fff
+            transform: translateX(-50%) rotate(135deg)
+            +pc()
+              bottom: 15px
+              width: 10px
+              height: 10px
+            +sp()
+              bottom: 12px
+              width: 8px
+              height: 8px
+          &:hover,
+          &:hover::before
+            +pc()
+              cursor: pointer
+              opacity: .8
+          .nav-menu-text
+            display: block
+            flex-grow: 0
+            color: #fff
+            font-weight: bold
+            line-height: 1.4
+            +pc()
+              padding: 0 0 16px
+              font-size: 1.8rem
+            +sp()
+              margin: 0 2px
+              padding: 0 0 12px
+              font-size: 1.2rem
+              line-height: 1.1
+  .main__wave
+    width: 100%
+    margin-bottom: -1px
+    &.-bottom
+      margin-top: -2px
+
+  //entrybox
+  .entryBoxTxt
+    display: block
+    text-align: left
+    max-width: 60%
+    margin: auto
+    padding-top: 24px
+    //
+    font-size: 1.4rem
+    color:#333
+    line-height: 1.5
+    &--bold
+      font-size: 1.4rem
+      color:#333
+      line-height: 1.5
+      font-weight:bold
+    +sp()
+      max-width: 100%
+    .entryBoxTxtLink
+      color:LinkColor
+
+  // Howto
+  .howto
+    padding-top: 40px
+    background: linear-gradient(180deg, #FFF0EE 16.54%, #FFDACA 57.49%, #FFD4AD 97.74%)
+    .howto__BoxWrap
+      display: flex
+      padding: 40px 0px
+      flex-direction: column
+      align-items: center
+      align-self: stretch
+      margin: 0 auto
+      +sp()
+        width: calc(100% - 32px)
+      .howto__Box
+        position: relative
+        width: 960px
+        padding: 32px 16px
+        background: white
+        border-radius: 16px
+        flex-direction: column
+        justify-content: flex-start
+        align-items: center
+        margin-bottom: 32px
+        display: inline-flex
+        +sp()
+          width: calc(100% - 32px)
+      .search__allow
+        width: 0;
+        height: 0;
+        border-top: 24px solid mainColor
+        border-right: 40px solid transparent
+        border-left: 40px solid transparent
+        margin-bottom: 24px
+      .search__img
+        padding-top:24px
+        +sp()
+          width: 80%
+      .search
+        .captionTxt
+          padding-top: 24px
+
+    .howto__btnSubWrap
+      width: 340px
+      padding: 24px 32px
+      flex-direction: column
+      justify-content: flex-start
+      align-items: center
+      gap: 12px
+      display: flex
+      +sp()
+        width: inherit
+      .howto__btnSub
+        width: 100%
+        padding: 20px
+        border-radius: 44px
+        justify-content: center
+        align-items: center
+        gap: 10px
+        display: inline-flex
+        &.-register
+          background: white
+          border: 2px mainColor solid
+        &.-search
+          background: mainColor
+        +sp()
+          width: 100%
+        .howto__btnTxt
+          text-align: center
+          font-size: 2rem
+          font-weight: 600
+          word-wrap: break-word
+          &.-register
+            color: mainColor
+          &.-search
+            color: white
+    //- coupon
+    .coupon_subTitle
+      display: flex
+      margin-bottom: 24px
+      align-items: center
+      flex-direction: column
+      .coupon_subTitle_wrap
+        display: flex
+        align-items: center
+      .titleTxt
+        margin: 0
+        text-align: left
+
+    //- spu
+    .spu__next
+      display: flex
+      flex-direction: column
+      align-items: center
+    .spu__box
+      padding: 16px
+      background: #FFF0EE
+      border-radius: 8px
+      flex-direction: column
+      justify-content: flex-start
+      align-items: center
+      display: inline-flex
+      .main__termsLink
+        color:LinkColor
+        text-decoration: underline
+        &:hover
+          text-decoration: none
+      .spu__boxImg
+        padding: 8px 0px
+        +sp()
+          width: 100%
+
+    //- search
+    .search
+      .titleTxt
+        margin:16px 0 0
+      .search__contents
+        .titleTxt
+          margin: 24px auto 16px
+          position: relative
+          text-align: center
+          display: block
+          width: fit-content
+          padding: 0 1.8rem
+          &:before
+          &:after
+            content: ""
+            position: absolute
+            bottom: 0
+            width: 1px
+            height: 2.5rem
+            background:mainColor
+          &::before
+            transform: rotate(-30deg)
+            left: 0
+          &::after
+            transform: rotate(30deg)
+            right: 0
+        .search__boxWrap
+          display: flex
+          justify-content: center
+          +pc()
+            width:680px
+        .search__box
+          position relative
+          width: 50%
+          display: flex
+          flex-direction: column
+          padding: 16px
+          background: white
+          border-radius: 4px
+          border: 1px #D1D1D1 solid
+          justify-content: space-between
+          align-items: center
+          +sp()
+            padding: 8px
+          &:nth-of-type(odd)
+            margin-right: 16px
+            +sp()
+              margin-right: 8px
+          .captionTxt
+            padding:0
+          .search__boxImg
+            padding-top: 8px
+            +sp()
+              width: 100%
+              height: auto
+          .triangle
+              position absolute
+              display: block;
+              height: 0;
+              width: 0;
+              bottom: 8px;
+              right: 8px;
+              border-left: 15px solid transparent;
+              border-bottom: 15px solid secondColor;
+              +sp()
+                right: 0
+                bottom: 0
+    .captionTxt
+      font-weight: bold
+
+
+  // RB introduction
+  .RBintroduction
+    padding-top:40px
+    .RBintroductionBox
+      margin: 0 auto
+      text-align: center
+      padding: 40px 0px
+      +pc()
+        width: pcWidth
+      .introductionContent
+        width: 950px
+        display: grid
+        margin: 0 auto
+        +sp()
+          display: block
+          width: auto
+          padding: 16px 16px 0
+      .main__card
+        .titleBox
+          margin: 0 auto 32px
+          display: flex
+          width: 600px
+          justify-content: center
+          gap: 24px
+          +sp()
+            width: auto
+            margin-bottom: 24px
+            justify-content: center
+            img
+              width: 50px
+              height: 50px
+          .titleTxt
+            margin-bottom: 8px
+            +sp()
+              margin-bottom: 0
+        .imageBox
+          display: flex
+          justify-content: center
+          gap: 16px
+          margin-bottom: 32px
+          img
+            width: auto
+            height: auto
+          +sp()
+            display: block
+            margin: 24px 0
+            img
+              width: 100%
+              height: auto
+            &.appBnr img
+              width: 100%
+              height: auto
+          &.appLink
+              width:160px
+              margin: 0 auto
+              img
+                width: 100%
+                height: auto
+          .imageColumn
+            display: flex
+            gap:16px
+            +sp()
+              gap: 8px
+              &:first-child
+                margin-bottom: 8px
+              &:last-child
+                justify-content: center
+              img
+                width: 31.333%
+                height: auto
+          .qrcodeBox
+            display: grid
+            align-items: center
+            .titleTxt
+              font-size: 2.0rem
+              font-weight: 400
+              line-height: 1.4
+              margin-bottom: 0
+            img
+              margin: 0 auto
+        .spu__boxImg
+          padding: 24px 0 0
+          +sp()
+            width: 100%
+  //- ラ・クーポン
+  .coupon
+    width:100%
+    // text-align: center
+
+    // 事前
+    .couponAdd
+      +pc()
+        margin-bottom:60px
+        //
+        display: flex
+        flex-direction: column
+        justify-content: center
+      +sp()
+        padding 0 10px 40px
+        box-sizing: border-box
+
+      // ボタンセット(bgColor,txtColor)
+      btnSet(Colors.CrimsonRed.color,#fff)
+
+      .coupon__terms
+        +pc()
+          display: flex
+          flex-direction: column
+          //
+          width: auto
+          height:auto
+          margin: 16px auto
+          &:last-of-type
+            margin: 0 auto
+        +sp()
+          margin: 0 auto
+        .coupon__termsTxt
+          font-size: 1.4rem
+          line-height 1.5
+          color:grayTxtColor
+          +sp()
+            font-size: 1.2rem
+          .coupon__termsLink
+            color:secondColor
+    // 獲得
+    .couponGet
+      text-align: center
+      // 非遷移クーポン
+      // couponOneClickSet(couponWidth,couponColor)
+      @import passStr + '_common/stylus/Module/Common/_couponOneClick'
+      couponOneClickSet(couponWidth,mainColor)
+      .couponOneClickSetWrap
+        max-width: 800px
+        margin: 0 auto 24px
+        .couponOneClickSetSummary
+          .couponOneClickSetTitle
+            display: none
+        .couponOneClickSet
+          .couponBox
+            +sp()
+              &:only-of-type
+                width: 100%
+            .couponBoxBottom
+              .couponOneClickTerms
+                .couponOneClickTermsAttention
+                  .couponOneClickTermsAttentionLink
+                    color: LinkColor
+    .midashi__img
+      padding-bottom: 16px
+      
+      
+
+
+  // //- 検索UI
+  // // JSに影響する記述 ----------------------- //
+  // $loader-size = 60px
+  // $loader-size = 60px
+
+  // レイアウト関連 --------------------- //
+  //- howto
+  .howto
+    // ラ・クーポンの使い方セット
+    howtoCouponset()
+
+  // app DL
+  .app
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFE8E8)
+
+  // Campaign Deatail
+  .detail
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)

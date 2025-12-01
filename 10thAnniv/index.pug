@@ -1,0 +1,651 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- クーポンがあるLPは_template_coupon/を複製→このテンプレートから必要なものを移植して作成したほうが簡単です
+//- ver 3.0.0 / 更新日時：2024.3.6 / キャンペーン詳細サンプル更新
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v202450206'
+    var meta = {
+      title: '楽天ビューティのXフォロー＆リポストで合計220名様に最大10,000ポイント抽選権GET！',
+      description: 'Xアカウントフォロー＆リポストで合計220名様に最大10,000ポイント抽選権GET！引用リポスト・ネット予約で当選確率アップ！',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/10thanniv/',
+      directory: '10thanniv', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/10thanniv/img/share.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #X
+
+    //- 終了対応
+    #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            //- 'エントリー不要', //- エントリー不要は自動的に青色になります
+            //- '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+            '条件達成',
+            //- 'ネット予約・施術完了',
+            //- '毎月開催',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+      .main__terms
+        .main__termsBox
+          p.main__termsTxt
+            | 条件達成期限
+            span.main__termsTxt-small
+              |  [施術除く]
+            | ：2025年1月6日 9:59まで
+          p.main__termsTxt
+            | 施術期限：2025年1月31日 23:59まで
+        .main__terms__summary__wrap
+          .main__terms__summary
+            .main__terms__summary__step
+              img.main__terms__summary__all(src='img/img_main_summary_all.png' + parameter, alt='Xアカウントフォローで当選確率1倍 引用リポストで当選確率2倍' width='100%' height='auto')
+            .main__terms__summary__step
+              img.main__terms__summary__new(src='img/img_main_summary_new.png' + parameter, alt='エントリーとネット予約で当選確率5倍！' width='100%' height='auto')
+          p.main__terms__summary--info
+            | ※1.施術料金が2,500円以上(税込)。※2.
+            span.main__terms__summary--info-bold
+              | 全員対象と新規対象の条件は同時に達成可能
+            | です。
+            span.main__terms__summary--info-bold
+              | この場合の当選確率は合算
+            | となります(リポスト/引用リポストはお 1 人様 1 つまで)。※既にフォローいただいている方も条件達成で対象となります。※条件の達成順序は順不同です。※本キャンペーンは予告なく変更・中止される可能性があります。※進呈するポイント（期間限定ポイント）には条件があります。※キャンペーン詳細は
+            a.main__termsLink.txtLink(href='#Detail')
+              | こちら
+
+    //- globalMenu
+    section#globalmenu.globalMenu(data-ratid='cpn_' + meta.directory + '_globalmenu' data-ratevent='appear' data-ratparam='all')
+      ul.globalMenu-inner
+        li.globalMenu-list
+          a.globalMenu-button.-profit(href='#Prize' data-ratid='10thanniv_prize' data-ratevent='click' data-ratparam='all')
+            span.globalMenu-text 最大1万 
+              br
+              | ポイント
+        li.globalMenu-list
+          a.globalMenu-button.-stepall(href='#StepAll' data-ratid='10thanniv_stepall' data-ratevent='click' data-ratparam='all')
+            span.globalMenu-text 全員
+              br
+              | 確率1倍＆2倍
+        li.globalMenu-list
+          a.globalMenu-button.-stepnew(href='#StepNew' data-ratid='10thanniv_stepnew' data-ratevent='click' data-ratparam='all')
+            span.globalMenu-text 新規
+              br
+              | 確率５倍
+        li.globalMenu-list
+          a.globalMenu-button.-anniv(href='#Anniversary_section' data-ratid='10thanniv_anniversary' data-ratevent='click' data-ratparam='all')
+            span.globalMenu-text 10th
+              br
+              | Anniversary
+
+
+    //- Prize
+    section#Prize.prize(data-ratid='cpn_' + meta.directory + '_prize' data-ratevent='appear' data-ratparam='all')
+      .prizeContent__wrap
+        .prizeContent__title.-pc
+          img(src='img/img_prize_title.png' + parameter, width='100%' height='auto')
+        .prizeContent__title.-sp
+          img(src='img/img_prize_title_sp.png' + parameter, width='100%' height='auto')
+        .prizeContent__rankingBox
+          img.-pc(src='img/img_prize_rankingBox_pc.png' + parameter, width='100%' height='auto')
+          img.-sp(src='img/img_prize_rankingBox_sp.png' + parameter, width='100%' height='auto')
+        .prizeContent__termsBox
+          p.prizeContent__termsTxt
+            | ※進呈するポイント（期間限定ポイント）には条件があります。※キャンペーン詳細は
+            a.prizeContent__termsLink.txtLink(href='#Detail')
+              | こちら
+
+
+    //- Step1（All）
+    #StepAll
+    section.stepall.stepContent.-first(data-ratid='cpn_' + meta.directory + '_Step1' data-ratevent='appear' data-ratparam='all')
+      .stepContent--leadtitle__wrap.-orange
+        p.stepContent--leadtitle
+          span.stepContent--leadtitle-small
+            | 全員対象
+          br
+          | 当選確率1倍&amp;2倍
+      ul.stepContent__terms
+        li.stepContent__terms--list 
+          | 1月6日 9:59までに
+          br.-sp
+          | 公式Xアカウントをフォロー＆
+          br.-sp
+          | リポスト/引用リポスト
+      h2.stepContent--title
+        img(src='img/img_title_step1.png' + parameter, alt='Step1' width='100%' height='')
+      .stepContent--text--wrap
+        p.stepContent--text
+          | 楽天ビューティの
+          br.-sp
+          | X公式アカウントをフォロー
+      .stepContent__button__wrap
+        .stepContent__button__icon
+          img(src='img/img_follow_button_icon.png' + parameter, width='100%' height='auto')
+        .stepContent__button
+          a#snsBtn.stepContent__button--link.endButton(href='https://twitter.com/Rakuten__BEAUTY' target='_blank' rel='noopener noreferrer' data-ratid='cpn_x_snsBtn_1' data-ratevent='click' data-ratparam='all')
+            | @Rakuten__BEAUTYをフォロー
+    //- Step2
+    #activeArea
+    section#Step2.stepContent.-step2(data-ratid='cpn_' + meta.directory + '_Step2' data-ratevent='appear' data-ratparam='all')
+      h2.stepContent--title
+        img(src='img/img_title_step2.png' + parameter, alt='Step2' width='100%' height='')
+      .stepContent--text--wrap
+        p.stepContent--text
+          | 指定のX投稿をリポスト
+        p.stepContent--text--info
+          | ※画像はイメージです
+      .stepContent__share__long
+        img(src='img/img_repost_screen1.png' + parameter, alt='リポスト選択箇所イメージ' width='100%' height='')
+      ul.stepContent__info
+        li.stepContent__info--list ※非公開アカウントの場合は対象外となります。
+        li.stepContent__info--list
+          | ※複数回リポストいただいても当選確率は上がりません。
+          br.-sp
+          | ※詳しくは
+          a.stepContent__info--link.txtLink(href='#Detail')
+            | こちら
+          | をご確認ください。
+      .stepContent__post
+        h3.stepContent__post--title
+          span.stepContent__post--title--text
+            | さらに
+          img.stepContent__post--title--img(src='img/img_post_title.png' + parameter, alt='当選確率UPの裏ワザ！？' width='100%' height='')
+          p.stepContent__post--title--info
+            | ※画像はイメージです
+        .stepContent__post__summary
+          p.stepContent__post__summary--text
+            | 引用リポストなら当選確率
+            span.stepContent__post__summary--emphasis
+              span.stepContent__post__summary--emphasis-point 2
+              | 倍
+            | ！
+          p.stepContent__post__summary--info
+            | ※対象となるリポスト/引用リポストは
+            br
+            | お1人様1つまでとなります。
+        .stepContent__post__container
+          ul.stepContent__post__menu
+            li.stepContent__post__menu__list
+              .stepContent__post__menu__list--text__wrap
+                span.stepContent__post__menu__list--text--icon
+                  | 1
+                p.stepContent__post__menu__list--text リポスト時に『引用』を選択
+              .stepContent__post__menu__list--img
+                img(src='img/img_repost_screen2.png' + parameter, alt='X引用リポスト選択箇所イメージ' width='100%' height='')
+            li.stepContent__post__menu__list
+              .stepContent__post__menu__list--text__wrap
+                span.stepContent__post__menu__list--text--icon.-second
+                  | 2
+                p.stepContent__post__menu__list--text 楽天ビューティ10周年
+                  br
+                  | お祝いコメントか、
+                  br
+                  | 掲載してほしいサロン名を記載
+              .stepContent__post__menu__list--img.-long
+                img(src='img/img_repost_screen4.png' + parameter, alt='お祝いコメント か、掲載してほしいサロン名を記載' width='100%' height='')
+              .stepContent__post__menu__list--img.-min
+                img(src='img/img_repost_screen3.png' + parameter, alt='X引用リポストコメントイメージ' width='100%' height='')
+          .stepContent__post__contents
+            h3.stepContent__post__contents--title
+              img(src='img/img_post_contents_title.png' + parameter, alt='対象となる投稿' width='100%' height='')
+            p.stepContent__post__contents--info
+              | 楽天ビューティ公式アカウントの
+              br
+              | 12月2日(月)の投稿
+            ul.stepContent__post__contents__list
+              li.stepContent__post__contents__list__img
+                img(src='img/img_post_x_screen.png' + parameter, alt='楽天ビューティ フォロー＆PRキャンペーン' width='100%' height='')
+
+    //- Stepresult
+    section#Stepresult.stepContent.-stepresult.-stepall(data-ratid='cpn_' + meta.directory + '_stepresult' data-ratevent='appear' data-ratparam='all')
+      p.stepContent--result--lead
+        | 当選された方はDMに記載された案内に沿って
+        br
+        | ポイントをお受け取りください。
+      ul.stepContent--result--info
+        li ※2025年2月中旬頃に、ダイレクトメッセージにて当選通知のご案内をさせていただきます。
+        li ※一週間以内にご返信をいただけなかった場合は、当選を無効とさせていただきます。
+        li ※ポイント進呈予定日：2025年2月末頃までに進呈いたします。
+        li ※進呈するポイント(期間限定ポイント)には条件があります。
+        li ※キャンペーン詳細は
+          a.stepContent--result--info--link.txtLink(href='#Detail')
+            | こちら
+
+    //- Step1（New）
+    #StepNew
+    section.stepnew.stepContent.-first(data-ratid='cpn_' + meta.directory + '_New_Step1' data-ratevent='appear' data-ratparam='all')
+      .stepContent--leadtitle__wrap.-blue
+        p.stepContent--leadtitle
+          span.stepContent--leadtitle-small.-new
+            | はじめての方限定
+          br
+          | ネット予約で当選確率
+          span.stepContent--leadtitle-big
+            | 5
+          | 倍！
+      ul.stepContent__terms
+        li.stepContent__terms--list 
+          | 1月6日 9:59までに2,500円(税込)以上の予約＆
+          br.-sp
+          | 1月31日 23:59までに施術完了
+          br
+          br
+          span.stepContent__terms--list-bold
+            | ※楽天ビューティでのサロン予約が初めての方のみが対象
+          | です。
+          br
+          span.stepContent__terms--list-bold
+            | ※全員対象と新規対象の条件は同時に達成可能
+          | です。
+          span.stepContent__terms--list-bold
+            | この場合の当選確率は合算
+          | となります。
+      h2.stepContent--title
+        img(src='img/img_title_step1_new.png' + parameter, alt='Step1' width='100%' height='')
+      .stepContent--text--wrap
+        p.stepContent--text
+          | まずはエントリー！
+        p.stepContent--text--info
+          | 予約後でもOK！条件の達成順序は順不同です
+      .stepContent__button__wrap
+        .stepContent__button__icon
+          img(src='img/img_follow_button_icon2.png' + parameter, alt='エントリーイメージ' width='100%' height='auto')
+
+        //- Entry Btn
+        section#EntryBox.entryBox(data-ratid='cpn_' + meta.directory + '_EntryBox' data-ratevent='appear' data-ratparam='all')
+
+          //- 終了対応
+          if endflag == true
+            //- ボタンセット(url,txt,endflag)
+            +btnSet('',btnTxt,true)
+          else
+
+            //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+            //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+            // ReX Campaign Entry Button: Mounting points
+            // mounting point for button 1
+            #rex-ceb-01
+            // ReX Campaign Entry Button: Configuration
+            script
+              | var rexButtons = {language: 'ja', buttons: [{"code":"/10thanniv","theme":"red","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","below":{"isCheckboxMandatory":true,"isChecked":true,"checkboxText":"エントリーしてメルマガを購読する","html":""},"ids":["rex-ceb-01"]}]}
+            // ReX Campaign Entry Button: Script
+            script(src='https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js' defer='')
+
+            //- メルマガパーミッション
+            include ../../../../_common/pug/Module/Common/_mailPermissionTxt
+            +mailPermissionTxt()
+
+
+    //- Step2
+    #activeArea
+    section#Step2.stepContent.-step2.-new(data-ratid='cpn_' + meta.directory + '_New_Step2' data-ratevent='appear' data-ratparam='all')
+      h2.stepContent--title
+        img(src='img/img_title_step2_new.png' + parameter, alt='Step2' width='100%' height='')
+      .stepContent--text--wrap
+        p.stepContent--text
+          | 1月6日9:59までにネット予約
+      .stepContent__pandaicon__container
+        ul.stepContent__pandaicon__menu
+          li.stepContent__pandaicon__menu__list
+            .stepContent__pandaicon__menu__list--text__wrap
+              .stepContent__pandaicon__menu__list--img
+                img(src='img/img_panda_step2.png' + parameter, alt='ネット予約イメージ' width='100%' height='')
+      //- Shoplist
+      #ShoplistMenu
+      section.shoplist.shoplisttokyo(data-ratid='cpn_' + meta.directory + '_New_ShoplistMenu' data-ratevent='appear' data-ratparam='all')
+        //- 対象の美容室を探す
+        h2.shoplist--title.-min 対象サロンを探す
+        .shoplist__search
+          p.shoplist__search--info
+            | ヘア・ネイル・まつげ・エステ・リラクサロン対象!
+
+          //- Area Search
+          //- プロパティをつけると検索内容をカスタマイズできます
+          //- https://git.rakuten-it.com/projects/RBEAUT/repos/rbeautyuicomponent/browse/src/components/ShopSearch/readme.md
+          #shopSearch(default-genre-id="", default-prefectures-id="13", search-style="", search-type="")
+            include ../../../../_common/pug/Module/Common/_shopSearchList
+
+    //- Step3
+    section#Step3.stepContent.-step3.-new(data-ratid='cpn_' + meta.directory + '_New_Step3' data-ratevent='appear' data-ratparam='all')
+      h2.stepContent--title
+        img(src='img/img_title_step3_new.png' + parameter, alt='step3' width='100%' height='')
+      .stepContent--text--wrap
+        p.stepContent--text
+          | 1月31日23:59までに
+          br.-sp
+          | サロンで施術完了
+      .stepContent__pandaicon__container
+        ul.stepContent__pandaicon__menu
+          li.stepContent__pandaicon__menu__list
+            .stepContent__pandaicon__menu__list--text__wrap
+              .stepContent__pandaicon__menu__list--img
+                img(src='img/img_panda_step3.png' + parameter, alt='サロン施術完了イメージ' width='100%' height='')
+
+    //- StepResult
+    section#StepResult.stepContent.-stepresult.-new(data-ratid='cpn_' + meta.directory + '_New_Stepresult' data-ratevent='appear' data-ratparam='all')
+      p.stepContent--result--lead.-new
+        | 当選された方はポイント進呈をもって 
+        br
+        | 当選の発表に代えさせていただきます。
+      ul.stepContent--result--info
+        li ※ポイント進呈予定日：2025年2月末頃までに進呈いたします。
+        li ※進呈するポイント(期間限定ポイント)には条件があります。
+        li ※キャンペーン詳細は
+          a.stepContent--result--info--link.-new.txtLink(href='#Detail')
+            | こちら
+
+    //- Anniversary
+    #Anniversary_section
+    section#Anniversary.anniversary(data-ratid='cpn_' + meta.directory + '_Anniversary_section' data-ratevent='appear' data-ratparam='all')
+      .confetti
+        canvas
+      .anniversary__wrap
+        .anniversary__ribbon
+          img(src='img/anniversary_ribbon.png' + parameter, alt='Thank you 10years' width='100%' height='auto')
+        h3.anniversary--title
+          | 楽天ビューティは
+          br
+          | 2024年12月16日で10周年！
+        .anniversary__icon__wrap
+          .anniversary__icon
+            img(src='img/anniversary_icon.png' + parameter, width='100%' height='auto')
+          p.anniversary__icon__txt.-pc
+            | ありがとう、Rakuten BEAUTYでつなぐ未来へ
+          p.anniversary__icon__txt.-sp
+            | ありがとう
+            br
+            | Rakuten BEAUTYでつなぐ未来へ
+          p.anniversary--title--catch
+            | この10年でおトクにご利用いただける
+            br
+            | サービスやキャンペーン、機能が続々
+        .anniversary__line
+          img.-pc(src='img/anniversary_line_pc.svg' + parameter, width='100%' height='auto')
+          img.-sp(src='img/anniversary_line_sp.svg' + parameter, width='100%' height='auto')
+        .anniversary__heading
+          | ポイントが貯まる！使える！
+          .anniversary__heading__title
+            img(src='img/anniversary_heading.png' + parameter, alt='掲載サロンも増加中' width='100%' height='auto')
+          .anniversary__heading--catch
+            | 行きたいサロンがスグに見つかる！
+        .anniversary__caption
+          .anniversary__caption__catch
+            img.-pc(src='img/anniversary_caption_catch.png' + parameter, alt='SPU加入で楽天市場のお買い物もポイントアップ! クーポンでさらにおトクに! 楽天ポイントが利用できるように!' width='100%' height='auto')
+            img.-sp(src='img/anniversary_caption_catch.png' + parameter, alt='SPU加入で楽天市場のお買い物もポイントアップ! クーポンでさらにおトクに! 楽天ポイントが利用できるように!' width='100%' height='auto')
+          .anniversary__caption__graph
+            img(src='img/anniversary_caption_graph.png' + parameter, width='100%' height='auto')
+          p.anniversary__caption__info
+            | ※画像はイメージです
+        .anniversary__line
+          img.-pc(src='img/anniversary_line_pc.svg' + parameter, width='100%' height='auto')
+          img.-sp(src='img/anniversary_line_sp.svg' + parameter, width='100%' height='auto')
+        .anniversary__letter
+          img(src='img/anniversary_letter.png' + parameter, width='100%' height='auto')
+        .anniversary__button__wrap
+          h3.anniversary--button__caption
+            span.anniversary--button__captiontxt
+              | 公式Xでおトクな情報をGET!
+          .anniversary__button
+            a#snsBtn.anniversary__button--link.endButton(href='https://twitter.com/Rakuten__BEAUTY' target='_blank' rel='noopener noreferrer' data-ratid='cpn_x_snsBtn_2' data-ratevent='click' data-ratparam='all')
+              | @Rakuten__BEAUTYをフォロー
+
+    //- アプリ
+    section#App.app.-excludeApp(data-ratid='cpn_' + meta.directory + '_App' data-ratevent='appear' data-ratparam='all')
+
+      //- app DL parts(app2x, url)
+      //- DL用のAdjust URLを変えたい時はurlを変更
+      +appDL('app2x','https://app.adjust.com/1ilrq0jq?engagement_type=fallback_click')
+
+    //- ページ下部リンクボタン
+    .buttonSection.-fixed
+      a#snsFooterBtn.buttonSection__button--link.endButton(href='https://twitter.com/Rakuten__BEAUTY' target='_blank' rel='noopener noreferrer' data-ratid='cpn_x_snsBtn_3' data-ratevent='click' data-ratparam='all')
+        | @Rakuten__BEAUTYをフォロー
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead キャンペーン・エントリー・予約期間
+              td.detail__tableBlockBody 2024年12月2日(月) 10:00～2025年1月6日(月) 9:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 施術期間
+              td.detail__tableBlockBody 2024年12月2日(月) 10:00～2025年1月31日(金) 23:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 楽天ビューティのXアカウントをフォローされた方
+                    br
+                    | Xアカウントは
+                    a.detail__tableBlockTxt--link.txtLink(href="https://twitter.com/Rakuten__BEAUTY" target="_blank")
+                      | こちら
+                  li.detail__tableBlockList--li 下記いずれかの条件を達成された方
+                    br
+                    | （達成された条件によって当選確率が変動します）
+                    br
+                    | A） 当選確率1倍
+                    span.detail__tableBlockList--indent 12月2日(月)に楽天ビューティのアカウントから投稿されている対象ポストをリポスト
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li.-style_none
+                    | B） 当選確率2倍
+                    br
+                    span.detail__tableBlockList--indent
+                      | 12月2日(月)に楽天ビューティのアカウントから投稿されている対象ポストに
+                      br
+                      | 楽天ビューティ10周年に対するお祝いコメントや掲載してほしいサロン名
+                      br
+                      | 「#楽天ビューティ」「#楽天ビューティ10周年」のハッシュタグ
+                      br
+                      | を添えて引用リポスト
+                      br
+                      | 例）10周年おめでとうございます！ポイントを使っていつもよりちょっと贅沢な
+                      br
+                      | トリートメントをできるのが嬉しいです♪〇〇〇というサロンも掲載されるとネイ
+                      br
+                      | ルでも楽天ビューティにお世話になるかも・・・！
+                      br
+                      | #楽天ビューティ #楽天ビューティ10周年
+                ul.detail__tableBlockList.-style_none.-indent
+                  li.detail__tableBlockList--li
+                    |  応募期間以前から
+                    a.detail__tableBlockTxt--link(href="https://twitter.com/Rakuten__BEAUTY" target="_blank")
+                      | 楽天ビューティの公式アカウント「@Rakuten__BEAUTY」
+                    | をフォローいただいている方も、その他条件を満たせば応募可能です。
+                  li.detail__tableBlockList--li 対象となるリポスト/引用リポストはお1人様1つまでとなります。複数回リポスト/引用リポストいただいても当選確率は上がりませんのでご了承ください。
+                  li.detail__tableBlockList--li 12月2日(月)の本キャンペーンに関する投稿へのリポスト/引用リポストのみが対象となります。その他投稿をリポスト/引用リポストされても対象外となりますので、ご注意ください。
+                  li.detail__tableBlockList--li ご自身のアカウントを非公開設定にしている場合は対象外となります。
+                  p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList--disc.-style_none
+                  li.detail__tableBlockList--li.-style_none
+                    span.detail__tableBlockList--indent.-style_none
+                    | C） 当選確率5倍
+                    br
+                    span.detail__tableBlockList--indent.detail__tableBlockList--indent
+                      | 【楽天ビューティで初めてご予約される方限定】
+                      br
+                      | ・キャンペーン期間中にエントリー＆2,500円(税込)以上のネット予約
+                      br
+                      | ・施術期間中に施術を完了
+                ul.detail__tableBlockList.detail__tableBlockList--indent.-indent
+                  li.detail__tableBlockList--li エントリーには楽天会員登録が必要です。楽天会員でない方は、エントリーと同時に楽天会員登録(無料)ができます。
+                  li.detail__tableBlockList--li エントリー履歴は
+                    a.detail__tableBlockTxt--link.txtLink(href="https://oubo.rakuten.co.jp/list?spk=f1636b" target="_blank")
+                      | こちら
+                    | から確認できます。
+                  li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、クーポン割引後の価格が2,500円(税込)以上の場合に対象となります。
+                  li.detail__tableBlockList--li 電話予約や直接来店は対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約や直接来店で施術完了された場合は、対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の来店期間内で施術完了された場合は、対象となります。
+                  li.detail__tableBlockList--li 期間内の予約・施術完了であればエントリーと予約・施術完了どちらが先でも対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 複数達成された場合の当選確率は合算となります。
+                    br
+                    | 例）BとCの条件を達成された場合、当選確率は7倍
+                  li.detail__tableBlockList--li 楽天グループの役職員及び関係者は応募できません。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容 
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 抽選で合計220名様に下記の通りの楽天ポイントをそれぞれ進呈いたします。
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li 1万ポイント：5名様
+                  li.detail__tableBlockList--li 5,000ポイント：15名様
+                  li.detail__tableBlockList--li 1,000ポイント：30名様
+                  li.detail__tableBlockList--li 500ポイント：70名様
+                  li.detail__tableBlockList--li 100ポイント：100名様
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 現在実施中のキャンペーンとの併用が可能です(一部併用が出来ないキャンペーンもございます)。
+                    a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/')
+                      | キャンペーン一覧はこちら
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント進呈予定日
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li 2025年2月末頃
+                    br
+                    | リポスト/引用リポストの条件を達成した当選者の方には2025年2月中旬頃に、Xのダイレクトメッセージにて「@Rakuten__BEAUTY」より当選通知とその後のご案内をさせていただきます。
+                    br
+                    | ダイレクトメッセージを受け取れる設定をされていない場合や、メッセージをお送りしてから一週間以内にご返信をいただけなかった場合は、当選を無効とさせていただきますのでご了承ください。
+                    br
+                    | ネット予約の条件を達成した当選者の方は、ポイント進呈をもって当選の発表にかえさせていただきます。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li ポイントの進呈には、楽天IDが必要になります。まだお持ちでない方は
+                    a.detail__tableBlockTxt--link(href="https://www.rakuten.co.jp/myrakuten/help/")
+                      | こちらから楽天会員登録
+                    | (無料)をお願いいたします。
+                  li.detail__tableBlockList--li 獲得した特典ポイントは、
+                    a.detail__tableBlockTxt--link(href="https://point.rakuten.co.jp/history/")
+                      | 楽天PointClubのポイント実績
+                    | でご確認いただけます。
+                  li.detail__tableBlockList--li 当選発表は当選者の方のみにご連絡いたします。当選に関わる個別のお問い合わせについては、対応しておりません。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li ポイント進呈日から6ヶ月間有効な期間限定ポイントとして進呈されます。
+                    br
+                    | 期間限定ポイントの詳細は
+                    a.detail__tableBlockTxt--link(href="https://ichiba.faq.rakuten.net/detail/000006532?scid=su_2312")
+                      | こちら
+                    | をご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 抽選時に楽天ビューティのアカウントのフォロー及び該当投稿へのアクションが確認できない場合には対象外となります。
+                  li.detail__tableBlockList--li 本キャンペーンのためにアカウントを開設し、応募したと当社が合理的に判断した場合、当選権利を無効とさせていただく場合がございます。
+                  li.detail__tableBlockList--li Xの利用規約・法令に違反する行為は当選を無効とさせていただきます。
+                  li.detail__tableBlockList--li 一部ネット予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、またシステム等の不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象につきましては、楽天グループ株式会社の責めに帰すべき場合を除き責任を負いかねます。
+                  li.detail__tableBlockList--li 本キャンペーン参加にかかる費用(通信費等含む)は、ユーザ様のご負担となりますので、あらかじめご了承ください。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li キャンペーンのエントリー及び条件達成状況、抽選に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li 「QRコード」は、株式会社デンソーウェーブの登録商標です。
+                  li.detail__tableBlockList--li 本キャンペーンは楽天グループ株式会社「楽天ビューティ」が主催しているものであり、Apple Inc., Apple Japan合同会社によるものではありません。
+                  li.detail__tableBlockList--li その他ご不明な点は
+                    a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/')
+                      | こちら
+                    | よりお問い合わせください。
+    //- Other Campaign
+    section#Campaign.campaign(data-ratid='cpn_' + meta.directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title その他のキャンペーン
+
+      include ../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  //- script(src="/cnt/common/js/area-search/build.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  //- script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  //- script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+  script(src="js/scroll.js", defer)
+  script(src="js/confetti.js", defer)
+  script(src="/cnt/common/js/area-search/shopSearch.js", defer)

@@ -1,0 +1,362 @@
+#award
+  .container
+    margin: 0 auto
+
+.awardCatchcopy
+  display: flex
+
+  +pc()
+    justify-content: space-between
+    align-items: center
+    padding: 50px 0  
+
+  +sp() 
+    flex-direction: column-reverse
+    padding: 32px 20px
+
+  &__image
+    +pc()
+      margin-right: 50px
+    
+    &__img
+      +sp()
+        width: 100%
+
+  &__description
+    +sp()
+      margin-bottom: 32px
+
+    &Txt
+      text-align: left
+      font-size: 2rem
+      line-height: 1.8
+
+      +pc()
+        margin-bottom: 4rem
+
+      &:last-of-type
+        margin-bottom: 0
+
+#award-top
+  +pc()
+    display: flex
+    flex-direction: column
+    // justify-content: space-between
+    padding-bottom: 60px
+
+.awardOutline
+  +pc()
+    width: $width-lp-content
+    background-color: #fff
+
+  &__content
+    position: relative
+    color: #fff
+    text-align: center
+    pointer-events: none
+
+    +pc()
+      &:hover &__jumbotron
+        background-color: rgba(mix(#fff, lighten($color-main, 5), 5), .7)
+        transition-duration: .25s
+
+      &:hover &__cover
+        transition-duration: .25s
+        transform: scale(1.03)
+
+      // &:hover &__link
+      //   background-color: mix(#fff, lighten($color-accent, 5), 5)
+
+    +pc()
+      overflow: hidden
+      width: 100%
+      height: auto
+
+    +sp()
+      height: 100%
+
+    &__cover
+      line-height: 0
+      transition: .3s easeInOutQuad
+
+
+      &.is-bestsalon
+      &.is-beststylist
+        display: flex
+        height: 500px //2025修正
+
+        +sp()
+          flex-wrap: wrap
+          height: 600px
+          overflow: hidden
+
+      &.is-bestsalon &__column
+      &.is-beststylist &__column
+        width: 100%
+
+        +sp()
+          width: auto
+          height: 600px
+          
+          &:last-of-type
+            display: flex
+
+    &__jumbotron
+      position: absolute
+      top: 0
+      left: 0
+      z-index: 1
+      display: flex
+      flex-direction: column
+      justify-content: center
+      box-sizing: border-box
+      padding: 50px 100px
+      width: 100%
+      height: 100%
+      background-color: rgba($color-main, .7)
+      transition: background-color .3s easeInOutQuad
+
+      +sp()
+        padding: 53px 30px
+
+    &__subTitle,
+    &__title
+      titleTextShadow()
+
+    &__subTitle
+      margin: 0 0 10px
+      color: $color-accent
+      font-weight: bold
+      font-size: 5.2rem
+      font-family: $font-lora
+
+      +sp()
+        margin-right: -20px
+        margin-left: @margin-right
+        font-size: 4.2rem
+
+    &__title
+      margin: 0 0 2rem
+      color: $color-accent
+      font-weight: bold
+      font-size: 1.6rem
+
+      +sp()
+        margin-bottom: 2rem
+        // margin-left: @margin-right
+        font-size: 1.4rem
+
+    &__description
+      margin: 0 auto 1.6rem
+      text-align: center
+      font-size: 1.8rem
+      line-height: 1.8
+
+      +sp()
+        height: auto
+        margin: 0 auto 3.2rem
+        text-align: left
+        font-size: 1.5rem
+
+    &__more
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between //追加
+      align-items: stretch
+      margin: 24px 0 0
+
+      +sp()
+        margin-top: 0
+
+    &__link
+      // display: block
+      display: flex
+      align-items: center
+      justify-content: center
+      width: 100%
+      height: 60px
+      padding: 20px 0px
+      margin-bottom: 24px
+      background: $color-accent
+      color: $color-main
+      text-align: center
+      text-decoration: none
+      font-weight: bold
+      font-size: 1.6rem
+      pointer-events: auto
+      box-sizing: border-box
+
+      // &:nth-last-of-type(1)
+      &:nth-last-of-type(2)
+      // &:nth-last-of-type(3)
+      // &:nth-last-of-type(5)
+      // &:nth-last-of-type(7)
+        // background: #56402B
+        // color: $color-accent
+        // text-align: center
+        // pointer-events: none
+
+        // &disabled
+        //   pointer-events: none
+
+
+      .icon-chevronRight
+        margin: -2px 0 0 6px
+        vertical-align: middle
+        font-size: 2.2rem
+
+      &:hover
+        color: $color-main
+        background-color: mix(#fff, lighten($color-accent, 5), 5)
+
+    
+        
+
+      +pc()
+        max-width: calc((100% - (24px * 2)) / 3)
+
+        &:nth-last-of-type(1)
+          margin-bottom: 0
+          margin-left: auto
+          margin-right: auto
+      
+        transition: .25s easeInOutQuad
+
+        &:hover
+          transition-duration: .15s
+          
+
+      +sp()
+        padding: 16px 0px
+        font-size: 1.4rem
+        line-height: 1.2
+        max-width: calc((100% - 24px) / 2)
+        
+
+        &:nth-last-of-type(-n+1)
+          margin-bottom: 0
+          margin-left: auto
+          margin-right: auto
+
+        .icon-chevronRight
+          margin-right: -8px
+          font-size: 1.8rem
+
+
+  &__about
+    padding: 40px
+    text-align: center
+
+    +sp()
+      padding: 32px
+
+    &__label
+      margin: 0 -20px
+
+      &Title
+        font-weight: bold
+        font-size: 2rem
+
+        +sp()
+          font-size: 1.6rem
+        
+      &Note
+        font-size: 1rem
+        margin-top: 16px
+        text-align: center
+        line-height: 1.2
+
+
+      &List
+        text-align: center
+
+      &Item
+        display: inline-block
+        padding: 16px 4px 0
+        +pc()
+          width: 170px
+
+          &:last-of-type
+            width: 160px
+
+        +sp()
+          width: 144px
+          text-align: left
+
+        &.single
+          +sp()
+            text-align: center
+
+        img
+          +pc()
+            width: auto
+            height: 40px
+          +sp()
+            width: auto
+            height: 32px
+
+        // +sp()
+        //   &:first-of-type
+        //     display: block
+        //     padding-right: 0
+        //     padding-left: 0
+
+    &__interview
+      display: block
+      margin: 20px auto 0
+      padding: 20px 0
+      border: 2px solid $color-accent
+      background-color: rgba($color-accent, 0)
+      color: $color-accent
+      font-weight: bold
+      font-size: 1.8rem
+
+      &:hover
+        color: $color-accent
+
+      +pc()
+        width: 400px
+        transition: .25s easeInOutQuad
+
+        &:hover
+          background-color: rgba($color-accent, .2)
+          transition-duration: .15s
+
+      +sp()
+        padding: 16px 0
+        font-size: 1.4rem
+
+      .icon-chevronRight
+        margin: 0 0 0 6px
+        vertical-align: middle
+        font-size: 2rem
+
+        +sp()
+          font-size: 1.6rem
+
+// バーターバナー ------------------------------
+#otherContent
+  margin: 0 auto
+  padding: 10px 0 0
+  width: 432px
+  text-align: center
+
+  +sp()
+    padding: 0 0 40px
+    max-width: 432px
+    width: 90%
+
+.banner
+  &__item + &__item
+    margin-top: 20px
+
+  +pc()
+    &__item
+      &__link
+        display: block
+        opacity: 1
+        transition: .25s easeInOutQuad
+
+        &:hover
+          opacity: .7
+          transition-duration: .15s

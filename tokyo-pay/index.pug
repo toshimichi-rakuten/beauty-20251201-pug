@@ -1,0 +1,520 @@
+//- テンプレートは最新のものをフォルダごと複製して使用してください
+//- 外注用テンプレートにも反映：https://rak.app.box.com/folder/94629540317?s=wt6ydhlrtv2zc1bhbfpqc9x80dsztsmx
+//- ver 2.9.2 / 更新日時：2023.10.10 / 1click js update
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  include _data
+  - var css = `${'css/main.css' + parameter}`
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  #Tokyopay
+
+    //- 終了対応
+    #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'キャンペーンは終了しました' //- ボタンの文言
+      +endSet(endTxt)
+   
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    section#CpnTags
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter alt=meta.title width='1216' height='240')
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter alt=meta.title width='640' height='auto')
+      .main__terms
+        .main__termsBox
+          p.main__termsTxt
+            | 対象条件：エントリーが必要／渋谷区・世田谷区内の対象ヘアサロンのみ／4,000円(税込)以上のネット予約／期間中の施術完了／
+            br.-pc
+            | 楽天ペイアプリ(コード・QR払い)でのお支払い
+          p.main__termsTxtDate
+            | 対象の予約期間、施術期間：2023年11月1日(水) 0:00 ～ 2024年1月31日(水) 23:59
+          p.main__termsTxt.-small
+            | ※楽天ペイアプリ内の楽天ポイントカード払い、楽天Edy、楽天カードタッチ決済、Suicaでのお支払いは、本キャンペーンの対象外となります。
+          p.main__termsTxt.-small
+            | ※進呈するポイントには上限や条件があります。キャンペーン詳細は
+            a.main__termsLink(href='#Detail')
+              | こちら
+
+    //- Entry Btn
+    section#EntryBox.entryBox
+
+      //- 終了対応
+      if endflag == true
+        //- ボタンセット(url,txt,endflag)
+        +btnSet('',btnTxt,true)
+      else
+        //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+        //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+        // ReX Campaign Entry Button: Mounting points
+        // mounting point for button 1
+        #rex-ceb-01
+        // ReX Campaign Entry Button: Configuration
+        script
+          | var rexButtons = {language: 'ja', buttons: [{"code":"/rbeauty/tokyopay202311","theme":"red","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","below":{"isCheckboxMandatory":true,"isChecked":true,"checkboxText":"エントリーしてメルマガを購読する","html":""},"ids":["rex-ceb-01"]}]}
+        // ReX Campaign Entry Button: Script
+        script(src='https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js' defer='')
+
+
+        //- メルマガパーミッション
+        include ../../../../_common/pug/Module/Common/_mailPermissionTxt
+        +mailPermissionTxt()
+
+    //- flow
+    section#Flow.flow
+      .titleWrap
+        h2.titleWrap--title キャンペーンの流れ
+      .flow__wrapper
+        ul.flow__boxWrap
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step.1
+            .flow__box1
+              img.flow__boxImg(src='img/img_step1.png', alt='Step1' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step.1
+              p.flow__boxTxt
+                a.flow__link(href='#EntryBox')
+                  | エントリー
+                | する
+                br
+                | （予約後でもOK！）
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step.2
+            .flow__box1
+              img.flow__boxImg(src='img/img_step2.png', alt='Step2' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step.2
+              p.flow__boxTxt
+                a.flow__link(href='#Shoplist')
+                  | 楽天ビューティ
+                | で
+                br
+                | 2024年1月31日までに
+                br
+                a.flow__link(href='#Shoplist')
+                  | 対象ヘアサロン
+                | にネット予約・来店して施術
+              p.flow__boxTxt.-small
+                | ※4,000円(税込)以上の予約が対象
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step.3
+            .flow__box1
+              img.flow__boxImg(src='img/img_step3.png', alt='Step3' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step.3
+              p.flow__boxTxt
+                a.flow__link(href='#Download')
+                  | 楽天ペイアプリ
+                  br
+                  | （コード・QR払い）
+                br.-pc
+                | を使って
+                br.-pc
+                | サロンでお支払い
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step.4
+            .flow__box1
+              img.flow__boxImg(src='img/img_step4.png', alt='Step4' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step.4
+              p.flow__boxTxt
+                | 条件達成で
+                br
+                | 楽天ポイント500ポイントプレゼント！
+              p.flow__boxTxt.-small
+                | ※2024年3月末日頃までに進呈
+      .flow__btn
+        //- ボタンセット(url,txt)
+        -
+          var btnUrl = '#Shoplist'
+          var btnTxt = '対象ヘアサロンはこちら'
+        +btnSet(btnUrl, btnTxt)
+      ul.flow__attentionBox
+        li.flow__attentionTxt キャンペーン期間内であれば、エントリーとネット予約・施術の順番は問いません。
+        li.flow__attentionTxt 楽天ペイアプリ内の楽天ポイントカード払い、楽天Edy、楽天カードタッチ決済、Suicaでのお支払いは、本キャンペーンの対象外となります。
+        li.flow__attentionTxt ネット予約後キャンセルされた場合、ご来店いただけなかった場合、楽天ペイアプリでお支払いいただけなかった場合は対象外となります。
+        li.flow__attentionTxt 楽天発行の割引クーポン利用の場合は、クーポン割引後の価格が4,000円（税込）以上の場合に対象となります。キャンペーン詳細は
+          a.flow__link(href='#Detail') こちら
+          | 。
+
+    //- Download
+    section#Download.download
+      p.download__icon
+        img.download__img(src='img/logo_pay.svg' + parameter, alt='Rakuten Pay Logo' width='80' height='80')
+      h3.download__title
+        | 楽天ペイアプリをダウンロード
+      .download__linkBox
+        a.download__link(href='https://r10.to/hM2Ene' target='_blank')
+          img.download__img(src='img/btn_apple_store.svg' width='240px' height='auto')
+        a.download__link(href='https://r10.to/h5Lq8Z' target='_blank')
+          img.download__img(src='img/btn_google_play.svg' width='240px' height='auto')
+
+    //- Pay Campaign
+    //- section#PayCpn.paycpn
+      .bannerBox
+        h3.bannerTxt
+          | こちらもCheck！
+          br.-sp
+          | おトクなキャンペーン実施中！
+        .bannerBoxInner
+          a.bannerLink(href='https://r10.to/hueHcO')
+            img.bannerImg(src='img/bnr_pay_640x160.png' + parameter, alt='Pay Campaign')
+
+    //- anchor link
+    #Shoplist(data-ratid='cpn_' + meta.directory + '_Shoplist' data-ratevent='appear' data-ratparam='all')
+
+    //- shoplist
+    section#salonFilterContainer
+      #salonFilterSection(ref="wrapper", class="is-loading")
+        .loader
+
+        //- mixin card
+        mixin card()
+          if shoplist.select == '1column' || shoplist.select == 'btn'
+            - var type = 'filterList'
+          else if shoplist.select == '2column'
+            - var type = 'filteredSalonList'
+          #salonList(ref="list")
+            .salonList
+              section(v-for="item, index in " + type, :key="index", class="salonList__item position-relative")
+                .salonList__content
+                  .salonList__cover
+                    img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/" + item.shop_id + "_01.jpg" + param', class="salonList__image", rel="preload", :alt="item.shop_name")
+                  .salonList__outline
+                    h3.salonList__salonName
+                      a(:href='"/" + item.shop_id + "/?" + lid', class="salonList__link stretched-link") {{ item.shop_name }}
+                    span.salonList__area
+                      i.icon.icon-location
+                      | {{ item.area }}
+                    span.salonList__station
+                      i.icon.icon-train
+                      | {{ item.station }}
+        //- mixin menuCard
+        mixin menuCard()
+          #salonList(ref="list")
+            if shoplist.select == '1column' || shoplist.select == 'btn'
+              - var type = 'filterList'
+            else if shoplist.select == '2column'
+              - var type = 'filteredSalonList'
+            .salonList
+              section(v-for="item, index in " + type, :key="index", class="salonList__item has-divide")
+                .salonList__content.position-relative
+                  .salonList__cover
+                    img(:src='"//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,dpr_2.0,q_auto:good/c_fill,g_auto,w_370,h_229/" + item.shop_id + "_01.jpg" + param', class="salonList__image", rel="preload", :alt="item.shop_name")
+                  .salonList__outline
+                    h3.salonList__salonName
+                      a(:href='"/" + item.shop_id + "/?" + lid', class="salonList__link stretched-link") {{ item.shop_name }}
+                    span.salonList__area
+                      i.icon.icon-location
+                      | {{ item.area }}
+                    span.salonList__station
+                      i.icon.icon-train
+                      | {{ item.station }}
+                .salonList__divide.position-relative
+                  .salonList__outline
+                    .salonList__detail
+                      .salonList__menuIcon
+                        span.salonList__genre.-no1(v-if='item.genreNo_1 == 1') {{ item.genre_1 }}
+                        span.salonList__genre.-no2(v-if='item.genreNo_1 == 2') {{ item.genre_1 }}
+                        span.salonList__genre.-no3(v-if='item.genreNo_1 == 3') {{ item.genre_1 }}
+                      .salonList__menuDetail
+                        h4.salonList__menuName
+                          span.salonList__target(v-if='item.target_1 == "初回"') {{ item.target_1 }}
+                          span.salonList__target.is-all(v-if='item.target_1 == "全員"') {{ item.target_1 }}
+                          | {{ item.menu_name_1 }}
+                    p.salonList__description {{ item.menu_detail_1 }}
+                  .salonList__buttonArea
+                    .salonList__menuPriceArea
+                      span.salonList__menuTime 約{{ item.menu_time_1 }}分
+                      span.salonList__menuPrice ￥{{ item.menu_price_1.toLocaleString() }}
+                    .salonList__menuTermsArea
+                      span.salonList__menuTerm {{ item.condition_1 }}
+                    a(:href='"/reserve/?shop_ex_id=" + item.shop_id + "&menu_id=" + item.menu_id_1 + "&" + lid', class="stretched-link salonList__button") このメニューで予約する
+                .salonList__divide.position-relative(v-if='item.menu_id_2')
+                  .salonList__outline
+                    .salonList__detail
+                      .salonList__menuIcon
+                        span.salonList__genre.-no1(v-if='item.genreNo_2 == 1') {{ item.genre_2 }}
+                        span.salonList__genre.-no2(v-if='item.genreNo_2 == 2') {{ item.genre_2 }}
+                        span.salonList__genre.-no3(v-if='item.genreNo_2 == 3') {{ item.genre_2 }}
+                      .salonList__menuDetail
+                        h4.salonList__menuName
+                          span.salonList__target(v-if='item.target_2 == "初回"') {{ item.target_2 }}
+                          span.salonList__target.is-all(v-if='item.target_2 == "全員"') {{ item.target_2 }}
+                          | {{ item.menu_name_2 }}
+                    p.salonList__description {{ item.menu_detail_2 }}
+                  .salonList__buttonArea
+                    .salonList__menuPriceArea
+                      span.salonList__menuTime 約{{ item.menu_time_2 }}分
+                      span.salonList__menuPrice ￥{{ item.menu_price_2.toLocaleString() }}
+                    .salonList__menuTermsArea
+                      span.salonList__menuTerm {{ item.condition_2 }}
+                    a(:href='"/reserve/?shop_ex_id=" + item.shop_id + "&menu_id=" + item.menu_id_2 + "&" + lid', class="stretched-link salonList__button") このメニューで予約する
+
+        //- 1column
+        if shoplist.select == '1column'
+          #salonFilter
+            p.filter-__icon
+              img.filter__img(src='img/logo_rb.svg' + parameter, alt='Rakuten Beauty Logo' width='260' height='55')
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            .filter-select
+              select.filter-select__item(v-model="select1")
+                option(value="") !{shoplist.firstTxt1}
+                option(v-for="(item, index) in select1List", :value="item.name") {{ item.name }} ({{ item.count }}件)
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+        //- 2column
+        else if shoplist.select == '2column'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            .filter-select
+              select.filter-select__item(v-model="select1", ref="select1")
+                option(value="", selected) !{shoplist.firstTxt1}
+                option(v-for="(item, index) in select1List", :value="item") {{ item }}
+            .filter-select
+              select.filter-select__item(v-model="select2", ref="select2", disabled)
+                option(value="", selected) !{shoplist.firstTxt2}
+                option(v-for="(item, index) in select2List", :value="item") {{ item }}
+            button(class="filter-button", disabled, v-on:click="search", ref="button")
+              span 検索
+              span(v-if="count !== 0 && !firstFlag") （{{count}}件）
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+        //- btn
+        else if shoplist.select == 'btn'
+          #salonFilter
+            h2.filter-heading !{shoplist.title[0]}
+              if shoplist.title[1]
+                span.-sp
+                  br
+                | !{shoplist.title[1]}
+            ul.filter-button-list
+              li.filter-button-list-item
+                button.filter-list-button(@click="select1 = ''", :class="{'is-selected': select1 == ''}") すべて
+              li.filter-button-list-item(v-for="(item, index) in select1List")
+                button.filter-list-button(@click="select1 = item.name", :class="{'is-selected': select1 == item.name}") {{ item.name }} ({{ item.count }}件)
+          if shoplist.menu == false
+            +card()
+          else if shoplist.menu == true
+            +menuCard()
+
+    //- more search
+    if morebtn.visible == true
+      section#couponMore.couponMore(data-ratid='cpn_' + meta.directory + '_couponMore' data-ratevent='appear' data-ratparam='all')
+        .couponSalon__moreBtn
+          a.couponSalon__link(href=morebtn.url)
+            | !{morebtn.title}
+            if morebtn.subtxt
+              span.couponMore__txtSmall
+                | !{morebtn.subtxt}
+    
+    //- Coupon Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle 【MAQUIA】限定ラ・クーポン
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 予約期間及び施術期間
+              td.detail__tableBlockBody 2023年11月1日 0:00 ～ 2024年1月31日 23:59 まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント付与予定日
+              td.detail__tableBlockBody 2024年3月末日頃
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 特典ポイントは、
+                  span.detail__tableBlockTxt--red
+                    | 通常ポイント
+                  | で付与されます。(期間限定ポイントではございません)
+                p.detail__tableBlockTxt 通常ポイントの有効期限については
+                  a.detail__tableBlockTxt--link(href="https://ichiba.faq.rakuten.net/detail/000006609")
+                    | こちら
+                  | をご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li エントリーをされた方
+                  li.detail__tableBlockList--li 予約対象期間中に対象ヘアサロンで楽天ビューティより4,000円以上(税込)のネット予約された方
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、クーポン割引「後」の価格が4,000円(税込)以上の場合に対象となります。
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 対象期間内に施術完了された方
+                  li.detail__tableBlockList--li 施術後、楽天ペイアプリ(コード・QR払い・セルフ)によるお支払い
+                  li.detail__tableBlockList--li 楽天ペイアプリ内の楽天ポイントカード払い、楽天Edy、楽天カードタッチ決済、Suicaでのお支払いは、本キャンペーンの対象外となります。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 条件達成者様全員に500ポイントをプレゼントいたします
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li 進呈予定日：2024年3月末日頃までに進呈いたします
+                  li.detail__tableBlockList--li 進呈ポイント数：500ポイント
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 本特典の進呈上限はおひとり様あたり500ポイント
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li 特典ポイントは、通常ポイントで付与されます。(期間限定ポイントではございません)
+                  li.detail__tableBlockList--li 期間中何度ご利用いただいても、500ポイントの付与となりますのでご注意ください。
+                  li.detail__tableBlockList--li 通常ポイントの有効期限については
+                    a.detail__tableBlockTxt--link(href="https://ichiba.faq.rakuten.net/detail/000006609")
+                      | こちら
+                    | をご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li エントリーするには楽天会員登録する必要があります。楽天会員でない方は、エントリーと同時に楽天会員登録(無料)ができます。
+                  li.detail__tableBlockList--li エントリー履歴は
+                    a.detail__tableBlockTxt--link(href="https://oubo.rakuten.co.jp/list?spk=f1636b")
+                      | こちら
+                    | から確認できます。
+                  li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合、楽天ペイアプリでお支払いいただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li 電話予約や直接来店の予約は対象外となります。ネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約で施術完了された場合は、ポイント付与の対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の施術期間内で施術完了＆楽天ペイアプリでお支払いされた場合は、ポイント付与の対象となります。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、クーポン割引「後」の価格が4,000円(税込)以上の場合に対象となります。
+                  li.detail__tableBlockList--li ネット予約後にメニューが変更になり金額が変わった場合は、変更後の金額が4,000円(税込)以上の場合にポイントが付与されます。
+                  li.detail__tableBlockList--li ポイントを利用してネット予約された場合は、ポイント差引「前」の金額に対して、特典ポイントが計算されます。
+                  li.detail__tableBlockList--li 楽天会員から退会している、楽天会員資格を喪失している、または会員規約・利用規約等に違反している場合、特典ポイントは進呈できかねますので、あらかじめご了承ください。
+                  li.detail__tableBlockList--li 本キャンペーンに複数回エントリーされた場合でも、ポイント進呈は重複いたしません。
+                  li.detail__tableBlockList--li 本キャンペーンは予告なく中止・延長・変更する場合がございます。
+                  li.detail__tableBlockList--li 楽天グループ社員及びキャンペーンの関係者による応募は禁止とします。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜楽天ペイアプリ支払いにおける注意事項＞
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 本キャンペーンは楽天ペイアプリによるコード／QR／セルフでのお支払いを対象としています。下記のお支払い分は対象外となります。
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 楽天ペイアプリ内の楽天ポイントカードによるお支払い分
+                  li.detail__tableBlockList--li 楽天ペイアプリ内の楽天Edyへのチャージ分、楽天Edyによるお支払い分
+                  li.detail__tableBlockList--li 楽天カードタッチ決済によるお支払い分
+                  li.detail__tableBlockList--li 楽天ペイアプリ内のSuicaへのチャージ分、Suicaによるお支払い分
+                  li.detail__tableBlockList--li ネットでの楽天ペイのお支払い分
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 楽天ポイントカードおよび楽天ポイントカードアプリによるポイント利用は、本キャンペーンの対象外です。
+                  li.detail__tableBlockList--li お支払いの設定に楽天カードを設定してお支払いの場合、通常進呈いたします［楽天カードご利用通常ポイント分のポイント1％］とは別に本特典を進呈いたします。
+                  li.detail__tableBlockList--li 楽天ペイアプリでのお支払いをキャンセルされた場合、キャンセル分の金額はキャンペーン対象外となります。
+                  li.detail__tableBlockList--li 楽天ペイアプリの対応機種は
+                    a.detail__tableBlockTxt--link(href='https://appuser-help.pay.rakuten.net/--615b1606e95a560022b0227a')
+                      | こちら
+                    | からご確認いただけます。
+                  li.detail__tableBlockList--li 楽天ペイアプリに設定可能なカードは、楽天カード、VISA、Mastercard、JCB、American Expressのカードです。左記以外のカードは、楽天会員情報に登録されていても、楽天ペイアプリのお支払い元の選択画面には表示されません。
+                  li.detail__tableBlockList--li 楽天カード以外のJCB、American Expressのカードをお支払い元に設定した場合、一部の店舗でお支払いいただけません。
+                  li.detail__tableBlockList--li お近くの店舗でのご利用可否は
+                    a.detail__tableBlockTxt--link(href='https://pay.rakuten.co.jp/shop/map/')
+                      | 使えるお店 地図内の各店舗ページ
+                    | でご確認ください。
+
+    //- Other Campaign
+    section#CampaignTokyo.campaign
+      .titleWrap
+        h2.titleWrap--title 東京都のその他のキャンペーン
+
+      include ../../../../_common/pug/Module/Common/_campaignList
+      +campaignListAreaAll('Tokyo','東京')
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  //- script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    const campaignlisttokyo = true;
+
+  //------------------------------- Shoplist 絞り込み (vue) -------------------------------//
+
+  //- js用パラメータ
+  script.
+    const param = '!{parameter}';
+    const lid = '!{shoplist.lid}';
+    const firstSelect1 = '!{shoplist.firstSelect1}';
+    const firstSelect2 = '!{shoplist.firstSelect2}';
+
+  //- pugで読み込みjsのurl（パラメータつき）を生成 = キャッシュ対策
+  -
+    var jsUrl1column = `${'js/filter-by-1column.js' + parameter}`
+    var jsUrl2column = `${'js/filter-by-2column.js' + parameter}`
+
+  //- js読み込み
+  if shoplist.select == '1column' || shoplist.select == 'btn'
+    script(src=jsUrl1column, defer)
+  else if shoplist.select == '2column'
+    script(src=jsUrl2column, defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く

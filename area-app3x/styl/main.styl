@@ -1,0 +1,770 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+poppyRedColor = #ff41b4
+
+navyColor = #495273
+rbPinkColor = #ff41be
+
+pcWidth = 1216px
+
+//------------------------------
+
+#AreaApp3x　// #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  // main
+  .main
+    margin-bottom: 60px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+      // PC画像, リンク
+      .main__pc
+        position: relative
+        .main__pc__button
+          position: absolute
+          display: block
+          width: 140px
+          height: 180px
+          right: 200px
+          top: 100px
+      // SP画像
+      .main__app
+        .main__appWebBlocks
+          position: relative
+          .main__app__buttonBox
+            display: flex
+            justify-content: center
+            // 
+            z-index: 1
+            position: absolute
+            bottom: 3vw
+            left: 50%
+            transform: translateX(-50%)
+            .main__app__button
+              display: block
+              width: auto
+              height: 15vw
+              img
+                width auto
+                height: 100%
+
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          font-weight: bold
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+        .main__termsLink
+          color:secondColor
+    .main__termsInfo
+      display: flex
+      align-items: center
+      justify-content: space-between
+      width: 614px
+      margin: 60px auto 0
+      padding: 16px
+      background: grayBgColor
+      +sp()
+        flex-direction:column
+        width: 100%
+        margin: 24px auto 0
+        padding: 0
+      .main__termsInfo--section
+        position: relative
+        width: 437px
+        +sp()
+          width: calc(100% - 32px)
+          margin: 0 auto 28px
+          padding: 16px 8px 0 8px
+        &::after
+          position: absolute
+          width: 0
+          height: 0
+          border-top: 15px solid transparent
+          border-left: 15px solid secondColor
+          border-bottom: 15px solid transparent
+          content: ''
+          +pc()
+            top: 50px
+            right: -32px
+          +sp()
+            left: 50%
+            bottom: -40px
+            border-top: 15px solid secondColor
+            border-left: 15px solid transparent
+            border-right: 15px solid transparent
+            transform: translateX(-50%)
+
+      .main__termsInfo--lead
+        width: 134px
+        +sp()
+          width: calc(100% - 32px)
+          margin: 0 auto 16px
+          padding: 0 16px 0 16px
+
+
+    .main__termsInfo--text
+      margin: 8px auto 60px
+      +sp()
+        margin: 8px auto 24px
+      .flow__attention
+        width: 610px
+        margin: 0 auto
+        +sp()
+          width: auto
+          margin: 0 16px 0
+        // override
+        .flow__txt
+          font-size: 1.2rem
+          text-align: left
+          line-height: 1.8
+          &::before
+            display:inline-block
+            margin:0
+            content:'※'
+            text-indent:-1.8rem
+            +sp()
+              text-indent:-1.6rem
+          +pc()
+            margin-left: 1.8rem // text-indent分
+          +sp()
+            margin-left: 1.6rem // text-indent分
+          &.-small
+            margin-top: 0
+          &.-red
+            color: redColor  
+        .flow__link
+          color: secondColor
+          &:hover
+            opacity: .8
+
+  //- section title
+  .main__section
+    width: 100%
+    margin-bottom: 60px
+    +sp()
+      margin-bottom: 24px
+    .main__section--wrap
+      width: 100%
+      background: grayBgColor
+      text-align: center
+      .main__section--title
+        display: inline-block
+        position: relative
+        padding: 30px 0
+        background: grayBgColor
+        color: navyColor
+        font-size: 3.2rem
+        font-weight: bold
+        line-height: 1.3
+        +sp()
+          padding: 16px 0
+          font-size: 1.8rem
+          line-height: 1.5
+        &::before
+          content: "|"
+          position: absolute
+          left: -2.75rem
+          font-weight: normal
+          transform: rotate(-45deg)
+          +sp()
+            left: -1.75rem
+        &::after
+          content: "|"
+          position: absolute
+          right: -2.75rem
+          font-weight: normal
+          transform: rotate(45deg)
+          +sp()
+            right: -1.75rem
+        &.-auxiliary
+          &::before
+            +sp()
+              left: -2.5rem
+              bottom: 10px
+              font-size: 3rem
+          &::after
+            +sp()
+              right: -2.5rem
+              bottom: 10px
+              font-size: 3rem
+
+    //- ポイントGET
+    .main__article
+      width: 960px
+      margin: 60px auto 0
+      +sp()
+        width: calc(100% - 16px)
+        margin: 24px auto 0
+      .main__article--title
+        padding: 16px 0
+        background: secondColor
+        border-radius: 16px 16px 0px 0px
+        box-sizing: border-box
+        color: #fff
+        text-align: center
+        font-size: 2.6rem
+        font-weight: bold
+        line-height: 1
+        +sp()
+          padding: 8px
+          border-radius: 8px 8px 0 0
+          font-size: 1.6rem
+      .main__article__content
+        padding: 40px 0
+        border-right: 1px solid grayTagColor
+        border-bottom: 1px solid grayTagColor
+        border-left: 1px solid grayTagColor
+        border-radius: 0 0 16px 16px
+        box-sizing: border-box
+        +sp()
+          margin: 0
+          padding: 16px 8px
+          border-radius: 0 0 8px 8px
+        .main__article__conten--title
+          font-size: 2rem
+          font-weight: bold
+          text-align: center
+          +sp()
+            font-size: 1.4rem
+            line-height: 1.3
+        .main__article__conten__wrap
+          margin-top: 40px
+          +sp()
+            margin-top: 16px
+          .main__article__conten__list
+            display: flex
+            justify-content: center
+            // ---------------- DL parts
+            .app__subtitle
+              display: inline-block
+              position: relative
+              font-weight: bold
+              line-height: 1.4
+              +pc()
+                font-size: 2rem
+              +sp()
+                font-size: 1.4rem
+              &::before
+              &::after
+                content:''
+                position: absolute
+                display: block
+                width: 1px
+                border-left: 1px solid grayTxtColor
+                height: 100%
+                bottom: 0
+              &::before
+                left: -2rem
+                transform:rotate(-45deg)
+              &::after
+                right: -2rem
+                transform:rotate(45deg)
+            .app__attention
+              line-height: 1.5
+              +pc()
+                font-size: 1.2rem
+              +sp()
+                font-size: 1rem
+            .app__img
+              +sp()
+                width: 100%
+                height: auto
+            .app__link
+              display: inline-block
+              color: secondColor
+              +pc()
+                transition: opacity .2s easeInOutQuad
+                &:hover
+                  opacity: 0.8
+            // ----------------
+            .app__dlbtns
+              list-style: none
+              .app__dlbtnsWebBlocks
+                display: flex
+                align-items: center
+                +pc()
+                  margin-right: 24px
+                +sp()
+                  flex-direction: column
+                .app__dlbtnsPic
+                  width: 60%
+                  max-width: 300px
+                  height: auto
+                  +pc()
+                    margin-right: 60px
+                  +sp()
+                    margin-bottom: 16px
+                  .app__img
+                    // 
+                .app__link
+                  width: 55%
+                  max-width: 200px
+                  height: auto
+                  .app__img
+                    // 
+            .main__article__conten__list__qr
+              width: 149px
+              margin-left: 50px
+              +sp()
+                width: 80px
+                margin-left: 16px
+              img
+                width: 100%
+          .main__article__menu__list
+            +pc()
+              display: flex
+              width: 758px
+              margin: 0 auto
+            +sp()
+              width: 100%
+            .main__article__menu__list__item
+              position: relative
+              width: 210px
+              height: 280px
+              background: grayBgColor
+              border-radius 16px
+              text-align: center
+              +pc()
+                margin-right: 64px
+              +sp()
+                width: 100%
+                height: 240px
+              &:nth-of-type(-n+2)::after
+                position: absolute
+                top: 50%
+                right: -40px
+                width: 0
+                height: 0
+                border-top: 15px solid transparent
+                border-left: 15px solid grayTagColor
+                border-bottom: 15px solid transparent
+                transform: translateY(-50%)
+                content: ''
+              &:last-of-type
+                margin-right: 0
+              .main__article__menu__list__item--lead
+                display: flex
+                align-items: center
+                justify-content: center
+                padding: 28px 0
+                font-size: 1.6rem
+                line-height: 1.3
+                +sp()
+                  padding: 22px 0
+                  font-size: 1.4rem
+                  line-height: 1
+                &.-min
+                  padding: 18px 0
+                  +sp()
+                    padding: 15px 0
+                .main__article__menu__list__item--step
+                  display: block
+                  position: relative
+                  top: 1px
+                  width: 20px
+                  height: 20px
+                  margin-right: 4px
+                  background: #495273
+                  border-radius: 50%
+                  color: #fff
+                  font-size: 10px
+                  font-weight: bold
+                  line-height: 2
+              .main__article__menu__list__item--img
+                width: 152px
+                +sp()
+                  width: 135px
+          .main__article__result__list
+            display: flex
+            align-items: center
+            width: 736px
+            margin: 0 auto
+            +sp()
+              width: 100%
+              display: flex
+              flex-direction: column
+              align-items: center
+            .main__article__result__list__salon
+              position: relative
+              width: 200px
+              margin: 0 75px 0 0
+              +sp()
+                width: 170px
+                margin: 0 auto 40px
+              &::after
+                position: absolute
+                width: 0
+                height: 0
+                border-top: 18px solid transparent
+                border-left: 27px solid secondColor
+                border-bottom: 18px solid transparent
+                transform: translateY(-50%)
+                content: ''
+                +pc()
+                  top: 50%
+                  right: -58px
+                +sp()
+                  left: 50%
+                  bottom: -49px
+                  border-top: 15px solid #e92083
+                  border-left: 15px solid transparent
+                  border-right: 15px solid transparent
+                  transform: translateX(-50%)
+              img
+                width: 200px
+                +sp()
+                  width: 100%
+            .main__article__result__list__point
+              width: 464px
+              text-align: center
+              +sp()
+                width: 276px
+                margin: 0 auto
+              img
+                width: 464px
+                +sp()
+                  width: 100%
+              .main__article__result__list__point__wrap
+                margin-top: 16px
+                .main__article__result__list__point--info
+                  margin-top: 8px
+                  font-size: 1.2rem
+                  text-align: left
+                  line-height: 1.5
+                  +sp()
+                    margin-top: 2px
+                  .main__article__result__list__point--info__link
+                    color: secondColor
+
+    //- お得で便利
+    .profit__menu
+      width: 100%
+      .profit__menu__wrap
+        &.-standard
+          background: linear-gradient(90deg, #fff 0%, #fff 50%, #f7f7f7 50%, #f7f7f7 100%)
+          +sp()
+            background: grayBgColor 
+        &.-reverse
+          background: linear-gradient(90deg, #f7f7f7 0%, #f7f7f7 50%, #fff 50%, #fff 100%)
+          +sp()
+            background: grayBgColor 
+        .profit__menu__content
+          display: flex
+          align-items: center
+          width: 800px
+          margin: 0 auto
+          padding: 60px 0
+          +pc()
+            justify-content: space-between
+          +sp()
+            flex-flow: column
+            width: calc(100% - 32px)
+            margin: 0 auto
+            padding: 24px 0
+          &.-standard
+            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(247,247,247,1) 100%)
+            +sp()
+              background: grayBgColor 
+          &.-reverse
+            background: linear-gradient(90deg, rgba(247,247,247,1) 0%, rgba(255,255,255,1) 100%)
+            +sp()
+              background: grayBgColor 
+          .profit__menu__content__img
+            +pc()
+              width: 320px
+            +sp()
+              height: 250px
+              margin-top: 16px
+            img
+              +pc()
+                width: 100%
+              +sp()
+                height: 100%
+          .profit__menu__content__item
+            width: 448px
+            +sp()
+              width: 100%
+            .profit__menu__content__item--title
+              position: relative
+              margin-bottom: 40px
+              padding-bottom: 29px
+              font-size: 3.2rem
+              font-weight: bold
+              text-align: center
+              line-height: 1.5
+              &::after
+                position: absolute
+                bottom: 0
+                left: 50%
+                width: 90px
+                height: 5px
+                background: secondColor
+                border-radius: 6px
+                transform: translateX(-50%)
+                content: ''
+              +sp()
+                font-size: 1.4rem
+                margin-bottom: 26px
+                padding-bottom: 15px
+                &::after
+                  width: 40px
+            .profit__menu__content__item--text
+              font-size: 2.4rem
+              line-height: 1.5
+              +sp()
+                font-size: 1.4rem
+
+    // 毎月開催
+    .main__termsAlways
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+        padding: 20px
+      +sp()
+        padding: 8px 10px
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        &:first-of-type
+          display: block
+          border-bottom: 1px solid secondColor
+          +pc()
+            width: 800px
+            margin-bottom: 10px
+            padding-bottom: 10px
+          +sp()
+            margin-bottom: 8px
+            padding-bottom: 8px
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          font-weight: bold
+          margin-bottom: 0.4rem
+          +pc()
+            display: block
+            font-size: 1.8rem
+          +sp()
+            font-size: 1.4rem
+          &.-big
+            line-height 1.3
+            color: secondColor
+            margin: 0
+            +pc()
+              font-size: 2.8rem
+            +sp()
+              font-size: 1.6rem
+          &.-small
+            color:grayTxtColor
+            font-weight: normal
+            margin: 0
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+        .main__termsLink
+          color:secondColor
+
+  // entry btn
+  .entryBox
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin: 0 16px 24px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+  // QA
+  .qa
+    +pc()
+      width: pcWidth
+      margin: 0 auto 60px
+    +sp()
+      margin-bottom: 40px
+    .qa__listBox
+
+      // よくあるご質問セット
+      QAset()
+
+  // Search Area
+  .searchArea
+    background: #fff
+    +pc()
+      display: block
+      padding: 32px 0
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    //- Search Area Component / ()内に色を入れる
+    @import passStr + '_common/stylus/Module/Common/_searchArea'
+    searchArea(grayTxtColor)
+    // override
+    #vue-container
+      .feature-search__form
+        padding-top:0
+        .feature-search__buttonItem
+          background: rbPinkColor
+
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .-red
+        color: redColor
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaignSendai
+  .campaignKobe
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    .sendaiApp3xOtherCampaignBox__listBox
+      @import passStr + '_common/stylus/Module/Common/_campaignList'
+      campaignList(pcWidth)
+    .-titleContainer
+      +pc()
+        border-left: 4px solid #45a9bc
+        padding: 0 12px 0 20px
+        margin: 40px auto 24px
+        max-width: 1216px
+      +sp()
+        margin: 24px 0 0
+
+  //-  splide スライダー
+  .splide
+    width: 256px
+    margin: 0 auto 20px
+    .splide__arrow:disabled
+      display: none !important
+    .splide__pagination
+      bottom: -20px
+    // .splide__arrow:disabled
+    //   display: none !important
+    .splide__pagination__page
+      width: 4px
+      height: 4px
+      background #ccc
+    .splide__pagination__page.is-active
+      width: 4px
+      height: 4px
+      background #828282
+      transform: scale(1)
+    .splide__arrow
+      display: block
+      position: absolute !important
+      top: 50% !important
+      width: 0 !important
+      height: 0 !important
+      background: transparent !important
+      border-radius: 0 !important
+      transform: translateY(-50%) !important
+      content: '' !important
+      &.splide__arrow--next
+        right: -20px !important
+        border-top: 15px solid transparent !important
+        border-left: 15px solid #828282 !important
+        border-bottom: 15px solid transparent !important
+      &.splide__arrow--prev
+        left: -20px !important
+        border-top: 15px solid transparent !important
+        border-right: 15px solid #828282 !important
+        border-bottom: 15px solid transparent !important
+      svg
+        display: none
+
+  // Popask
+  .popask
+    +pc()
+      margin: 0 auto
+      padding: 40px 0 0
+
+    +sp()
+      margin-bottom: 32px
+      padding: 0

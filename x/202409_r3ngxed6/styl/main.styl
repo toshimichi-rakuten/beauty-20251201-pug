@@ -1,0 +1,565 @@
+passStr = '../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+seaGreenColor = #ccc401
+cyanColor = #35c5ce
+naplesYellowColor = #ffeb99
+whiteColor = #fff
+blackColor = #000
+
+pcWidth = 1216px
+
+//------------------------------
+
+#X // #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // main
+  .main
+    margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: block
+              font-size: 1.1rem
+          &.-bold
+            font-weight: bold
+        .main__termsLink
+          color:secondColor
+        .main__stepList
+          display: flex
+          align-items: stretch
+          justify-content: center
+          +pc()
+            width: 780px
+            margin: 10px auto
+          +sp()
+            width: 100%
+            max-width: 800px
+            margin: 16px auto
+          .main__stepWrap
+            position: relative
+            width: 100%
+            +pc()
+              height: 98px
+            +sp()
+              height: 128px
+            .main__step__container
+              display: flex
+              flex-direction: column
+              align-items: center
+              justify-content: center
+              position: absolute
+              top: 0
+              left: 0
+              z-index: 2
+              width: 100%
+              height: 100%
+              color: whiteColor
+              +sp()
+                padding: 0 16px 0 8px
+                box-sizing: border-box
+              .main__step__title
+                font-weight: bold
+                +pc()
+                  font-size: 1.8rem
+                  line-height: 1.4
+                +sp()
+                  font-size: 1.4rem
+                  line-height: 1.8
+              .main__step__caption
+                // padding: 0 8px
+                word-break: break-all
+                +pc()
+                  font-size: 1.4rem
+                  line-height: 1.5
+                +sp()
+                  display: flex
+                  align-items: center
+                  justify-content: center
+                  flex-flow: column
+                  height: 4.2em
+                  font-size: 1.2rem
+                  line-height: 1.4
+                .main__step__caption__point
+                  +sp()
+                    display: block
+                    font-weight: bold
+              .main__step__icon
+                height: 24px
+                margin-top: 4px
+            .main__step
+              position: absolute
+              top: 0
+              left: 0
+              z-index: 1
+              height: 100%
+              background: seaGreenColor
+              color: whiteColor
+              +pc()
+                width: 236px
+                margin-right: 24px
+              +sp()
+                width: calc(100% - 16px)
+                margin-right: 16px
+              &::after
+                position: absolute
+                top: 0
+                height: 100%
+                background: seaGreenColor
+                content: ""
+                +pc()
+                  clip-path: polygon(0% 0%, 0% 100%, 100% 50%)
+                  right: -24px
+                  width: 24px
+                +sp()
+                  clip-path: polygon(-2% 0%, -2% 100%, 100% 50%)
+                  right: -16px
+                  width: 16px
+              &.-cyancolor
+                background: cyanColor
+                &::after
+                  background: cyanColor
+
+  // entry btn
+  .entryBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin: 0 16px 40px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+    .CampaignEntryButton_yellow__7sEdF
+      background-color: #ECDF1C
+      border-color: #ECDF1C
+      color: grayTxtColor
+      &:hover
+        opacity: .8
+    .CampaignEntryButton_yellow__7sEdF.disabled
+      background-color: #dfdfdf
+      border-color: #dfdfdf
+    .CampaignEntryButton_yellow__7sEdF.disabled.CampaignEntryButton_loading__lYu0i
+      background-color: #ECDF1C
+      border-color: #ECDF1C
+    .CampaignEntryButton_success__GLKNB
+      background: #ebf7ec !important
+      border-color: #ebf7ec !important
+      color: #047205
+
+    .entryBox--info
+      text-align: center
+      line-height: 1.4
+      +pc()
+        font-size: 1.6rem
+      +sp()
+        font-size: 1.4rem
+
+
+  // step
+  .stepContent
+    position: relative
+    width: 100%
+    background: whiteColor
+    text-align: center
+    +pc()
+      margin: auto
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .stepContent--title
+      margin: auto
+      +pc()
+        width: 520px
+      +sp()
+        width: 80%
+    .stepContent--lead
+      margin-top: 40px
+      font-weight: bold
+      font-size: 2rem
+      line-height: 1.4
+    .stepContent--lead--info
+      margin-top: 8px
+      +pc()
+        font-size: 1.4rem
+        line-height: 1.5
+      +sp()
+        font-size: 1.2rem
+        line-height: 1.4
+    .stepContent__button
+      width: 100%
+      background: whiteColor
+      margin: 40px auto 0
+      .stepContent__button--link
+        display: inline-block
+        margin: auto
+        background: blackColor
+        border-radius: 44px
+        color: whiteColor
+        +pc()
+          width: 600px
+          padding: 20px 0
+          font-size: 3.6rem
+          line-height: 1.3
+        +sp()
+          width: calc(100% - 61px)
+          padding: 16px 0
+          font-size: 1.8rem
+          line-height: 1.5
+        &:hover
+          opacity: .8
+    .stepContent__menu
+      +pc()
+        margin-top: 60px
+      +sp()
+        width: calc(100% - 32px)
+        margin: 40px auto 0
+      .stepContent__step
+        margin: auto
+        +pc()
+          width: 207px
+        +sp()
+          width: 44.6%
+
+      .stepContent__step--lead
+        font-weight: bold
+        line-height: 1.4
+        +pc()
+          margin-top: 40px
+          font-size: 1.8rem
+        +sp()
+          margin-top: 24px
+          font-size: 1.6rem
+        .stepContent__step--lead--icon
+          display: inline-block
+          width: 24px
+          +pc()
+            padding: 2px 2px 0 1px
+          +sp()
+            padding: 0 2px 0 1px
+      .stepContent__share__short
+        +pc()
+          width: 300px
+          margin: 40px auto 0
+        +sp()
+          width: 52.4%
+          margin: 24px auto 0
+      .stepContent__share
+        +pc()
+          width: 459px
+          margin: 40px auto 0
+        +sp()
+          width: 68.2%
+          margin: 24px auto 0
+      .stepContent__share__long
+        +pc()
+          width: 649px
+          margin: 40px auto 0
+        +sp()
+          width: 99.4%
+          margin: 24px auto 0
+    .stepContent__info
+      line-height: 1.8
+      +pc()
+        margin-top: 60px
+        font-size: 1.4rem
+      +sp()
+        width: calc(100% - 32px)
+        margin: 40px auto 0
+        font-size: 1.2rem
+        text-align: left
+      .stepContent__info--link
+        color: whiteColor
+        &:hover
+          opacity: .8
+    .stepContent__post 
+      background: whiteColor
+      +pc()
+        width: 816px
+        margin: 60px auto 0
+      +sp()
+        width: calc(100% - 32px)
+        margin: 40px auto 0
+      .stepContent__post__container
+        padding: 40px
+        .stepContent__post--title
+          +pc()
+            width: 281px
+            margin: auto
+          +sp()
+            width: 58.6%
+            margin: auto
+        .stepContent__post--info
+          line-height: 1.4
+          +pc()
+            margin-top: 40px
+            font-size: 1.8rem
+            font-weight: bold
+          +sp()
+            margin-top: 24px
+            font-size: 1.6rem
+        .stepContent__post__list
+          display: flex
+          +pc()
+            margin: 40px auto 0
+            width: 227px
+          +sp()
+            margin: 24px auto 0
+          .stepContent__post__list__img
+            width: 100%
+    .stepContent--result
+      margin-top: 40px
+      font-size: 2rem
+      line-height: 1.4
+      font-weight: bold
+      .stepContent--result--point
+        color: naplesYellowColor
+        line-height: 1.1
+        +pc()
+          font-size: 4.8rem
+        +sp()
+          font-size: 3.2rem
+      .stepContent--result--text
+        color: naplesYellowColor
+        line-height: 1.1
+        +pc()
+          font-size: 3.2rem
+        +sp()
+          font-size: 2.4rem
+    .stepContent--result--lead
+      margin-top: 40px
+      font-weight: bold
+      line-height: 1.4
+      +pc()
+        font-size: 1.8rem
+      +sp()
+        font-size: 1.6rem
+    .stepContent--result--caption
+      margin: 40px auto 0
+      +pc()
+        width: 400px
+      +sp()
+        width: 62.9%
+    .stepContent--result--info
+      margin: 40px auto 0
+      line-height: 1.8
+      +pc()
+        font-size: 1.4rem
+      +sp()
+        width: calc(100% - 32px)
+        font-size: 1.2rem
+        text-align: left
+      .stepContent--result--info--link
+        color: whiteColor
+        &:hover
+          opacity: .8
+  // App
+  .appContent
+    margin: auto
+    background: whiteColor
+    text-align: center
+    +pc()
+      width: 1216px
+      padding-bottom: 60px
+    +sp()
+      width: calc(100% - 32px)
+      padding-bottom: 40px
+    .appContent--title
+      +pc()
+        width: 466px
+        margin: 60px auto 0
+      +sp()
+        width: 100%
+        margin: 40px auto 0
+    .appContent--lead
+      display: inline-block
+      position: relative
+      margin-top: 40px
+      font-size: 2rem
+      font-weight: bold
+      line-height: 1.4
+      +sp()
+        margin-right: 10px
+        margin-left: 10px
+        box-sizing: border-box
+      &::before
+        content: "|"
+        position: absolute
+        top: calc((100% - 24px) / 2)
+        left: -1.5rem
+        font-weight: normal
+        transform: rotate(-45deg)
+      &::after
+        content: "|"
+        position: absolute
+        top: calc((100% - 24px) / 2)
+        right: -1.5rem
+        font-weight: normal
+        transform: rotate(45deg)
+    .appContent--info
+      margin-top: 16px
+      +pc()
+        font-size: 1.4rem
+        line-height: 1.8
+      +sp()
+        font-size: 1.2rem
+        line-height: 1.4
+    .appContent__campaign
+      display: flex
+      margin: 24px auto 0
+      +pc()
+        width: 640px
+      +sp()
+        width: calc(100% - 23px)
+      .appContent__campaign__banner
+        +pc()
+          width: 296px
+        &:first-of-type
+          +pc()
+            margin-right: 48px
+          +sp()
+            margin-right: 24px
+        &:hover
+          opacity: .8
+    .appContent__app
+      margin: 40px auto 0
+      +pc()
+        width: 530px
+      +sp()
+        width: 55.3%
+      .appContent__app__container
+        +pc()
+          display: flex
+          align-items: center
+        .appContent__app__img
+          +pc()
+            width: 262px
+            margin-right: 40px
+          +sp()
+            width: 80%
+            margin: auto
+        .appContent__app__qr
+          +pc()
+            width: 250px
+          .appContent__app__qr--lead
+            +pc()
+              display: inline-block
+              position: relative
+              font-size: 2rem
+              font-weight: bold
+              line-height: 1.4
+              &::before
+                content: "|"
+                position: absolute
+                top: 0
+                left: -1.5rem
+                font-weight: normal
+                transform: rotate(-45deg)
+              &::after
+                content: "|"
+                position: absolute
+                top: 0
+                right: -1.5rem
+                font-weight: normal
+                transform: rotate(45deg)
+          .appContent__app__qr__img
+            +pc()
+              width: 192px
+              margin: 24px auto 0
+      .appContent__app__button
+        display: flex
+        justify-content: center
+        width: 100%
+        +pc()
+          margin: 24px auto 0
+          > li:nth-of-type(2)
+            margin-left: 40px
+        +sp()
+          margin: 16px auto 0
+        .appContent__app__button__ios,
+        .appContent__app__button__android
+          +pc()
+            width: 285px
+          +pc()
+            width: 55%
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

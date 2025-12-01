@@ -1,0 +1,254 @@
+[
+  {
+    "area": "泉中央・八乙女・北仙台",
+    "select1": "泉中央・八乙女・北仙台",
+    "shop_id": "s9000044895",
+    "shop_name": "NOVEL富沢店",
+    "station": "仙台市地下鉄南北線 富沢駅 徒歩15分"
+  },
+  {
+    "area": "泉中央・八乙女・北仙台",
+    "select1": "泉中央・八乙女・北仙台",
+    "shop_id": "s9000044873",
+    "shop_name": "Be-COOL 富沢店",
+    "station": "仙台市地下鉄南北線 富沢駅 徒歩5分"
+  },
+  {
+    "area": "仙台駅周辺・一番町",
+    "select1": "仙台駅周辺・一番町",
+    "shop_id": "s9000044578",
+    "shop_name": "tocca hair&treatment 仙台店",
+    "station": "各線 仙台駅 徒歩5分"
+  },
+  {
+    "area": "泉中央・八乙女・北仙台",
+    "select1": "泉中央・八乙女・北仙台",
+    "shop_id": "s6000020752",
+    "shop_name": "HANAI hair design",
+    "station": "仙台市地下鉄南北線 富沢駅 徒歩1分"
+  },
+  {
+    "area": "その他青葉区・太白区",
+    "select1": "その他青葉区・太白区",
+    "shop_id": "s6000022806",
+    "shop_name": "HAIR MAKE ATELIER",
+    "station": "JR仙山線 陸前落合駅 徒歩13分"
+  },
+  {
+    "area": "仙台駅周辺・一番町",
+    "select1": "仙台駅周辺・一番町",
+    "shop_id": "s5000017612",
+    "shop_name": "tocca hair＆treatment by Rium",
+    "station": "各線 仙台駅 徒歩5分"
+  },
+  {
+    "area": "長町・南仙台・富沢",
+    "select1": "長町・南仙台・富沢",
+    "shop_id": "s8000040764",
+    "shop_name": "PROGRESS 長町南店",
+    "station": "仙台市地下鉄南北線 長町南駅 徒歩2分"
+  },
+  {
+    "area": "長町・南仙台・富沢",
+    "select1": "長町・南仙台・富沢",
+    "shop_id": "s9000044839",
+    "shop_name": "PROGRESS　フレスポ富沢店",
+    "station": "仙台市地下鉄南北線 富沢駅 徒歩19分"
+  },
+  {
+    "area": "仙台駅周辺・一番町",
+    "select1": "仙台駅周辺・一番町",
+    "shop_id": "s0000045393",
+    "shop_name": "【全席半個室サロン】Natural 仙台店",
+    "station": "仙台市地下鉄南北線 広瀬通駅 徒歩1分"
+  },
+  {
+    "area": "長町・南仙台・富沢",
+    "select1": "長町・南仙台・富沢",
+    "shop_id": "s9000044847",
+    "shop_name": "ラポール ヘア柳生店",
+    "station": "JR常磐線 南仙台駅 徒歩16分"
+  },
+  {
+    "area": "仙台駅周辺・一番町",
+    "select1": "仙台駅周辺・一番町",
+    "shop_id": "s6000022809",
+    "shop_name": "salon de favori",
+    "station": "仙台市地下鉄東西線 青葉通一番町駅 徒歩4分"
+  },
+  {
+    "area": "仙台駅周辺・一番町",
+    "select1": "仙台駅周辺・一番町",
+    "shop_id": "s8000038449",
+    "shop_name": "hair&make sofa 広瀬通り店",
+    "station": "各線 仙台駅 徒歩8分"
+  },
+  {
+    "area": "若林区・宮城野区",
+    "select1": "若林区・宮城野区",
+    "shop_id": "s8000039524",
+    "shop_name": "mode Factor designer's salon",
+    "station": "仙台市地下鉄東西線 卸町駅 徒歩2分"
+  },
+  {
+    "area": "長町・南仙台・富沢",
+    "select1": "長町・南仙台・富沢",
+    "shop_id": "s8000038456",
+    "shop_name": "PASSION 長町南店",
+    "station": "地下鉄長町南駅から徒歩５分"
+  },
+  {
+    "area": "長町・南仙台・富沢",
+    "select1": "長町・南仙台・富沢",
+    "shop_id": "s8000040857",
+    "shop_name": "ungu GALLERY",
+    "station": "各線 長町駅 徒歩5分"
+  },
+  {
+    "area": "仙台駅周辺・一番町",
+    "select1": "仙台駅周辺・一番町",
+    "shop_id": "s0000045918",
+    "shop_name": "ROCCO Hair",
+    "station": "JR仙石線 榴ケ岡駅 徒歩3分"
+  },
+  {
+    "area": "仙台駅周辺・一番町",
+    "select1": "仙台駅周辺・一番町",
+    "shop_id": "s9000044702",
+    "shop_name": "little×aimer 仙台2号店",
+    "station": "JR 仙台駅 徒歩6分"
+  },
+  {
+    "area": "若林区・宮城野区",
+    "select1": "若林区・宮城野区",
+    "shop_id": "s9000044892",
+    "shop_name": "L by first 東仙台駅前店",
+    "station": "各線 東仙台駅 徒歩1分"
+  },
+  {
+    "area": "若林区・宮城野区",
+    "select1": "若林区・宮城野区",
+    "shop_id": "s9000044884",
+    "shop_name": "hair lounge comorebi",
+    "station": "仙台市地下鉄東西線 薬師堂駅 徒歩5分"
+  },
+  {
+    "area": "その他青葉区・太白区",
+    "select1": "その他青葉区・太白区",
+    "shop_id": "s8000038458",
+    "shop_name": "feel.a 南吉成店",
+    "station": "吉成一丁目（バス）から徒歩5分"
+  },
+  {
+    "area": "泉中央・八乙女・北仙台",
+    "select1": "泉中央・八乙女・北仙台",
+    "shop_id": "s8000038453",
+    "shop_name": "hair&make sofa 高森店",
+    "station": "泉中央駅より車で10分"
+  },
+  {
+    "area": "長町・南仙台・富沢",
+    "select1": "長町・南仙台・富沢",
+    "shop_id": "s0000045788",
+    "shop_name": "YOKE",
+    "station": "仙台市地下鉄南北線 勾当台公園駅 徒歩3分"
+  },
+  {
+    "area": "長町・南仙台・富沢",
+    "select1": "長町・南仙台・富沢",
+    "shop_id": "s0000045834",
+    "shop_name": "Rosette hair＆spa",
+    "station": "仙台市地下鉄南北線 長町駅　徒歩5分"
+  },
+  {
+    "area": "泉中央・八乙女・北仙台",
+    "select1": "泉中央・八乙女・北仙台",
+    "shop_id": "s8000038452",
+    "shop_name": "hair＆make sofa 泉中央店",
+    "station": "地下鉄泉中央駅から徒歩3分"
+  },
+  {
+    "area": "長町・南仙台・富沢",
+    "select1": "長町・南仙台・富沢",
+    "shop_id": "s9000041640",
+    "shop_name": "mod's hair 仙台長町店",
+    "station": "仙台市地下鉄南北線 長町南駅 徒歩1分"
+  },
+  {
+    "area": "泉中央・八乙女・北仙台",
+    "select1": "泉中央・八乙女・北仙台",
+    "shop_id": "s0010001668",
+    "shop_name": "afumty",
+    "station": "仙台市営南北線 泉中央駅 徒歩7分"
+  },
+  {
+    "area": "泉中央・八乙女・北仙台",
+    "select1": "泉中央・八乙女・北仙台",
+    "shop_id": "s9000044825",
+    "shop_name": "concierge",
+    "station": "仙台市地下鉄南北線 泉中央駅 徒歩31分"
+  },
+  {
+    "area": "仙台駅周辺・一番町",
+    "select1": "仙台駅周辺・一番町",
+    "shop_id": "s8000038593",
+    "shop_name": "アリミノ美容室",
+    "station": "JR東北本線・仙台市営地下鉄 仙台駅 徒歩5分"
+  },
+  {
+    "area": "若林区・宮城野区",
+    "select1": "若林区・宮城野区",
+    "shop_id": "s8000038451",
+    "shop_name": "hair therapy sara 荒井店",
+    "station": "仙台市地下鉄東西線 荒井駅 徒歩8分"
+  },
+  {
+    "area": "若林区・宮城野区",
+    "select1": "若林区・宮城野区",
+    "shop_id": "s0000046019",
+    "shop_name": "ハロースタイリスト 荒井東店",
+    "station": "仙台市地下鉄東西線 荒井(宮城)駅 徒歩3分"
+  },
+  {
+    "area": "長町・南仙台・富沢",
+    "select1": "長町・南仙台・富沢",
+    "shop_id": "s8000036795",
+    "shop_name": "Hair Room Nico",
+    "station": "JR東北本線 太子堂駅 徒歩1分"
+  },
+  {
+    "area": "仙台駅周辺・一番町",
+    "select1": "仙台駅周辺・一番町",
+    "shop_id": "s8000038450",
+    "shop_name": "hair&make sofa 仙台駅前店",
+    "station": "各線 仙台駅 徒歩7分"
+  },
+  {
+    "area": "泉中央・八乙女・北仙台",
+    "select1": "泉中央・八乙女・北仙台",
+    "shop_id": "s8000037671",
+    "shop_name": "NAGOMI NO HiTOTOKi",
+    "station": "各線 北仙台駅 徒歩7分"
+  },
+  {
+    "area": "仙台駅周辺・一番町",
+    "select1": "仙台駅周辺・一番町",
+    "shop_id": "s1000046846",
+    "shop_name": "のあともあ",
+    "station": "地下鉄東西線青葉通一番町駅7分"
+  },
+  {
+    "area": "その他青葉区・太白区",
+    "select1": "その他青葉区・太白区",
+    "shop_id": "s9000044887",
+    "shop_name": "trove by first 富沢店",
+    "station": "仙台市地下鉄南北線 富沢駅 徒歩1分"
+  },
+  {
+    "area": "長町・南仙台・富沢",
+    "select1": "長町・南仙台・富沢",
+    "shop_id": "s0000045833",
+    "shop_name": "Clair hair＆spa",
+    "station": "仙台市地下鉄南北線 長町南駅 徒歩1分"
+  }
+]

@@ -1,0 +1,281 @@
+passStr = '../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+$red1 = #bf0000
+$pink1 = #CC5777
+$blue1 = #45A9BC
+$gray1 = #F7F7F7
+$gray_txt = #444444
+$max-width = 1216px
+$m-width = 1100px
+//------------------------------
+
+#area_form // #Pagenameはページ固有の名前に置換してください
+
+  +pc()
+
+    a
+      color:$blue1
+      &:hover
+        text-decoration: underline
+    .spbr
+      display: none
+    #mainArea
+      width: $max-width
+      margin: 30px auto 0
+      .main__image
+        img
+          width:100%
+      .main__targetArea
+        width 100%
+        background-color:$gray1
+        padding 16px 0
+        margin: 0 0 80px 0
+        display:flex
+        justify-content: center
+        .main__targetArea__title
+          background-color:$blue1
+          border-radius: 4px
+          width: 170px
+          padding: 8px 0
+          font-size: 1.4rem
+          text-align: center
+          font-weight: bold
+          color: #fff
+        .main__targetArea__area
+          padding: 8px 0 0 16px
+          font-size: 1.8rem
+          font-weight: bold
+      .main_ttl
+        margin:0 auto
+        text-align:center
+        font-weight: bold
+        font-size: 3.0rem
+        color:$pink1
+      .request_merit
+        display:flex
+        justify-content: center
+        margin: 40px 0 0 0
+        .request_merit__box
+          width 240px
+          margin: 0 30px
+        .request_merit__txt
+          .request_merit__title
+            margin:24px 0 16px 0
+            text-align:center
+            font-weight: bold
+            font-size: 1.8rem
+            color:$blue1
+          p
+            font-size: 1.4rem
+            line-height: 1.5
+      .request_area
+        background: $gray1
+        padding: 40px 0
+        margin: 80px auto 0
+        .request_message
+          text-align: center
+          font-weight: bold
+          font-size: 1.8rem
+          padding: 16px 0 40px 0
+        table
+          border-top: 1px solid #ccc
+          border-right: 1px solid #ccc
+          width: 90%
+          margin: 0 auto
+          background: #fff
+          font-size: 1.4rem
+          line-height: 1.5
+          td
+            border-bottom: 1px solid #ccc
+            border-left: 1px solid #ccc
+            padding: 16px
+            vertical-align: middle
+            &:first-child
+              width:30%
+              font-weight:bold
+            span
+              color:$pink1
+            input
+              &[type="text"]
+                width:80%
+                padding: 8px
+              &[type="radio"]
+                width:auto
+                margin:0 8px
+                vertical-align:center
+            textarea
+              height:100px
+              width:80%
+              padding: 8px
+        .btn_area
+          text-align: center
+          margin-top:20px
+          input
+            margin:0 auto
+            display:block
+            font-size:2.4rem
+            font-weight:bold
+            color: #fff
+            padding:15px 100px
+            border-radius:8px
+            border:none
+            border-bottom:3px solid #A1435D
+            cursor: pointer
+            background-color:$pink1
+            &:disabled
+              opacity:0.6
+              pointer-events: none
+        .readme
+          text-align:center
+          font-size 1.2rem
+          margin: 24px 40px 0 40px
+          li
+            line-height:1.5
+
+
+  +sp()
+
+    a
+      color:red
+      text-decoration: underline
+
+    #mainArea
+      width: 100%
+      .main__image
+        img
+          width:100%
+      .main__targetArea
+        background-color:$gray1
+        padding 16px
+        margin: 0 0 40px 0
+        .main__targetArea__title
+          background-color:$blue1
+          border-radius: 4px
+          width: 170px
+          padding: 8px 0
+          margin:0 auto
+          font-size: 1.4rem
+          text-align: center
+          font-weight: bold
+          color: #fff
+        .main__targetArea__area
+          padding: 8px 0 0 0
+          font-size: 1.6rem
+          font-weight: bold
+          text-align: center
+          line-height: 1.3
+      .main_ttl
+        margin:0 auto
+        width:90%
+        text-align:center
+        font-weight: bold
+        font-size: 2.0rem
+        line-height:1.3
+        color:$pink1
+      .request_merit
+        margin: 40px 0 0 0
+        .request_merit__box
+          width 80%
+          margin: 0 auto 40px
+          text-align:center
+          img
+            width:150px
+        .request_merit__txt
+          .request_merit__title
+            margin:24px 0 8px
+            text-align:center
+            font-weight: bold
+            font-size: 1.8rem
+            color:$blue1
+          p
+            font-size: 1.4rem
+            line-height: 1.5
+      .request_area
+        background: $gray1
+        padding: 40px 5%
+        margin: 80px auto
+        .request_message
+          text-align: center
+          font-weight: bold
+          font-size: 1.4rem
+          padding: 16px 0 40px 0
+          line-height:1.3
+        table
+          width:100%
+          border-collapse: collapse
+          border(1px solid #ccc)
+          margin: 0 auto
+          background: #fff
+          font-size: 1.4rem
+          &.freetxt
+            margin-top:20px
+            textarea
+              width:100%
+          tr
+            padding:0
+            td
+              display: block
+              width:auto
+              border:none
+              padding: 10px
+              font-size:1.4rem
+              &:first-of-type
+                line-height: 1.5
+              &:nth-child(odd)
+                background:$gray1
+                font-weight:bold
+              input,select
+                width:100%
+                height:40px
+                box-sizing: border-box
+                font-size:1.4rem
+                border:1px solid #ddd
+                background:#fff
+                &.form_w_s
+                  width:50%
+                &[type="radio"]
+                  width:auto
+                  height:auto
+                  text-align:left
+                  margin:0 1%
+              textarea
+                height:100px
+                width:100%
+                padding: 1%
+                box-sizing: border-box
+                font-size:1.4rem
+                border:1px solid #ddd
+                background:#fff
+              label
+                display:block
+                padding:10px 0
+                height:auto
+                box-sizing: border-box
+              span
+                color: $pink1
+        .btn_area
+          text-align: center
+          color: #000
+          margin-top:20px
+          input
+            cursor: pointer
+            margin:0 auto 8px
+            display:block
+            font-size:1.8rem
+            font-weight:bold
+            color:#fff
+            padding:5% 30%
+            border-radius:8px
+            border:none
+            border-bottom:3px solid #A1435D
+            background-color: $pink1
+            &:disabled
+              opacity:0.6
+              pointer-events: none
+        .readme
+          font-size 1.2rem
+          margin: 24px 0
+          li
+            line-height:1.5

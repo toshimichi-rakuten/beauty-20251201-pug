@@ -1,0 +1,1011 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+
+// colors for anniversary
+annivBgColor = #fdf7fc
+cardBgColor = #fff
+annivPink = #ff53bb
+pageBullet = #d9d9d9
+pageBulletOn = #ff9ad7
+blueBgColor = #41a4e8
+
+
+pcWidth = 1216px
+
+//------------------------------
+
+#anniversary// #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // 汎用テキストリンク
+  .textLink
+    color: secondColor
+    text-decoration: underline
+    &:hover
+      text-decoration: none
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  // main
+  .main
+    overflow: hidden
+    margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .main__background
+      background-image: url('../../../../../cnt/topics/campaign/anniversary/img/main_background.png')
+      background-repeat: no-repeat
+      background-position: center
+      background-size: cover
+      .main__title
+        line-height:1
+        font-size:1.4rem
+        text-align: center
+        &Img
+          opacity: 0
+          width: 100%
+          object-fit: cover
+          +pc()
+            min-height: 614px
+      .main__message
+        text-align: center
+        margin: 0 auto
+        box-sizing: border-box
+        background: annivBgColor
+        .main__messageBox
+          //width: 100% //IE対応
+          padding: 40px 16px
+
+          // Message Title
+          .main__messageTitle
+            line-height: 1.3
+            background: linear-gradient(-15deg,#2996d3,#2996d3 43%,#ff53bb 57%,#ff53bb)
+            opacity:90% // 必要なければ削除
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 32px
+            +pc()
+              font-size: 2.2rem
+            +sp()
+              font-size: 2.0rem
+
+          // Message Text
+          .main__messageTxt
+            line-height 2.2
+            color:grayTxtColor
+            +pc()
+              display: block
+              font-size: 1.6rem
+            +sp()
+              font-size: 1.4rem
+            &.-small
+              color:grayTxtColor
+              +pc()
+                display: inline-block
+                font-size: 1.4rem
+              +sp()
+                display: inline
+                font-size: 1.2rem
+          .main__messageLink
+            color: secondColor
+            text-decoration: underline
+            &:hover
+              text-decoration: none
+    
+    // comment
+    .main__comment
+      background: linear-gradient(90deg, #FDE6F3 20%, #FDE0F1 80%)
+      height: auto
+      width: auto
+      .main__commentBgImg
+        background-image: url('../../../../../cnt/topics/campaign/anniversary/img/commentBgImg.png')
+        background-repeat: no-repeat
+        background-position: center
+        background-size: cover;
+        +pc()
+          min-height: 521px
+        .main__commentBox
+          text-align: center
+          margin: 0 auto
+          +pc()
+            width: pcWidth
+            padding: 30px 0px 80px
+          +sp()
+            //width: 100%
+            padding: 16px 0px 60px
+          .main__cardBox
+            display: flex
+            gap: 15px
+            height: auto //192px
+            margin-bottom: 32px
+            +sp()
+              margin-left: 16px
+              margin-bottom: 16px
+              overflow-x: auto
+              -ms-overflow-style: none
+              /* Firefox 対応 */
+              scrollbar-width: none
+              /* Chrome, Safari 対応 */
+              &::-webkit-scrollbar
+                display:none
+            .main__card
+              display: flex
+              flex: 1
+              align-items: center
+              vertical-align: middle
+              background-color: cardBgColor
+              padding: 24px
+              border-radius: 10px
+              box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
+              +sp()
+                min-width: calc(100% - 72px)
+                scroll-snap-align: start
+              &:last-child
+                margin-right: 16px
+              .cardTxt
+                font-size: 1.4rem
+                line-height: 1.3
+                text-align: left
+
+    // timeline
+    .main__timeline
+      background: linear-gradient(#FBECF5 5%, #E6F3FC 95%)
+      min-height: 400px
+      width: auto
+      .main__timelineBox
+        text-align: center
+        margin: 0 auto
+        +pc()
+          width: pcWidth
+          padding: 30px 0px 80px
+        +sp()
+          padding: 16px 0px 60px
+        .main__timelineWrapper
+          +pc()
+            width: pcwidth
+            height: auto
+            margin-bottom: 30px
+            overflow-x: scroll
+            -ms-overflow-style: none
+            /* Firefox 対応 */
+            scrollbar-width: none
+            /* Chrome, Safari 対応 */
+            &::-webkit-scrollbar
+              display:none
+          +sp()
+            padding: 0 16px
+            height: 455px
+            overflow: hidden
+            transition: .5s height ease-in
+            &.open
+              height: auto
+          .main__cardContainer
+            position: relative
+            display: flex
+            gap:20px
+            width: 100%
+            height: 100%
+            box-sizing: content-box
+            +sp()
+              display: block
+              height: auto
+            .main__timelineCard
+              flex-shrink: 0
+              padding: 8px 16px 16px
+              background-color: cardBgColor
+              border-radius: 10px
+              box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
+              &.-small
+                width: 160px
+              &.-large
+                width: 336px
+                .largeCardContent
+                  display: flex
+                  gap: 16px
+                  +sp()
+                    display: grid
+              +sp()
+                height: auto
+                margin-bottom: 20px
+                &.-small
+                  width: auto
+                &.-large
+                  width: auto
+
+              .titleTxtYear
+                width: 160px
+                text-align: left
+                font-size: 3.2rem
+                line-height: 1.5
+                background: linear-gradient(347deg,#2996d3,#2996d3 45%,#ff53bb 70%,#ff53bb)
+                opacity:90% // 必要なければ削除
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                +sp()
+                  margin-bottom: 8px
+              .cardContent
+                flex: 1
+                +sp()
+                  display: flex
+                .imageBox
+                  display: flex
+                  justify-content: center
+                  +sp()
+                    align-items: center
+                .timeConnect
+                  text-align: center
+                  padding: 12px
+                  +sp()
+                    padding: 4px 7px
+                  .timeCircle
+                    position: relative
+                    display: inline-block
+                    width: 15px
+                    height: 15px
+                    border-radius: 8px
+                    background-color: annivPink
+                    &::after
+                      position: absolute
+                      top: 7px
+                      left: 7px
+                      height: 1px
+                      width: 220px
+                      background-color: annivPink
+                      content: ""
+                    &.-short::after
+                      width: 178px
+                    &.-last::after
+                      width: 0px
+                    +sp()
+                      &::after
+                        display: none
+                      &.-short::after
+                        display: none
+                      &.-last::after
+                        height: 0px
+                      .lineSp
+                        content: ""
+                        background-color: annivPink
+                        position: absolute
+                        top: 7px
+                        left: 7px
+                        width: 1px
+                        height: 0px
+                .titlTxtMonth
+                  font-size: 1.4rem
+                  line-height: 1.5
+                  +sp()
+                    text-align: left
+                    padding-left: 5px
+                    margin-bottom: 6px
+                .timelineTxtBox
+                  height: 130px
+                  display: flex
+                  align-items: center
+                  +sp()
+                    height: auto
+                  .timelineTxt
+                    font-size: 1.4rem
+                    line-height: 1.3
+                    +sp()
+                      font-size: 1.2rem
+                      text-align: left
+        .timelineButton
+          width: auto
+          &.open
+            display: none
+          button
+            content:'もっと見る'
+            position: relative;
+            border: none;
+            background-color: inherit;
+            cursor: pointer;
+            text-align: center;
+            font-size:1.6rem;
+            line-height: 1.4
+            padding: 20px 10px 0 0
+          .chevron-down
+            display: inline-block
+            //vertical-align: middle
+            color: grayTxtColor
+            line-height: 1
+            width: 12px
+            height:12px
+            border: 1px solid currentColor
+            border-left: 0
+            border-bottom: 0
+            box-sizing: border-box
+            transform: translateY(-25%) rotate(135deg)
+            &.open
+              transform: rotate(-45deg)
+        
+
+
+
+
+    // numbers
+    .main__numbers
+      background-image: url('../../../../../cnt/topics/campaign/anniversary/img/numbersBgImg.png')
+      background-repeat: no-repeat
+      background-position: center
+      background-size: cover
+      .main__numbersBox
+        text-align: center
+        margin: 0 auto
+        +pc()
+          width: pcWidth
+          padding: 30px 0px 80px
+        +sp()
+          padding: 16px 0px 60px
+        .main__cardContainer
+          display: flex
+          gap: 24px
+          +sp()
+            display: block
+            padding: 0 16px
+          .main__cardBoxSmall
+            width: 25%
+            +sp()
+              width: 100%
+          .main__cardBoxLarge
+            width: 50%
+            +sp()
+              width: 100%
+          .fukidashi
+            background-color: annivPink
+            height: 66px
+            width: 100%
+            margin-bottom: 32px
+            +sp()
+              margin-bottom: 24px
+            &::after
+              content: ""
+              position: relative
+              top: 21px
+              width: 0;
+              height: 0;
+              border-style: solid;
+              border-color: annivPink transparent transparent transparent;
+              border-width: 19px 16.5px 0px 16.5px;
+              transform: rotate(45deg)
+              +sp()
+                top: 17px
+                border-width: 15px 14px 0px 14px
+            .titleBox
+              height: 50px
+              font-size: 1.8rem
+              line-height: 1.4
+              font-weight: 600
+              color: white
+              padding: 8px 0
+          .main__cardWrapper
+            //background-color: grayBgColor
+            display: flex
+            gap: 24px
+            +sp()
+              display: block
+            .main__card // 2枚時限定
+              width: 50%
+              +sp()
+                width: auto
+                margin-bottom: 24px
+          .main__card
+            padding: 20px 20px 0 20px
+            +sp()
+              display: flex
+              gap: 10px
+              margin-bottom: 24px
+              padding: 20px
+            .numbersTxt
+              font-size: 1.6rem
+              line-height: 1.3
+              +sp()
+                font-size: 1.4rem
+                text-align: left
+            .numbersDetail
+              font-size: 2.6rem
+              font-weight: 600
+              line-height: 1.3
+              +sp()
+                text-align: left
+              span.gradTxt
+                color: annivPink
+                font-size: 3.9rem
+                +sp()
+                  font-size: 3.0rem
+                  &.-point
+                    font-size: 3.5rem
+                  &.-thanx
+                    font-size: 3.8rem
+                &.-large
+                  font-size: 5.2rem
+            .numbersInfo
+              font-size: 1.1rem
+              line-height: 1.5
+              &.user
+                margin-bottom: 17px
+                +sp()
+                  margin-bottom: 0
+              +sp()
+                text-align: left
+
+    // ranking
+    .main__ranking
+      background: linear-gradient(#FBECF5 5%, #E6F3FC 95%)
+      min-height: 637px
+      width: auto
+      //display: grid
+      //justify-content: center
+      .main__rankingBox
+        text-align: center
+        margin: 0 auto
+        +pc()
+          width: pcWidth
+          padding: 30px 0px 80px
+        +sp()
+          padding: 16px 0px 60px
+        .main__rankingCardWrapper
+          //background-color: #fff
+          display: flex
+          gap: 40px
+          margin-bottom: 40px
+          +sp()
+            display: block
+            padding: 0 16px
+          .main__rankingCardBox
+            flex: 1
+            +sp()
+              margin-bottom: 24px
+            .fukidashi
+              background-color: annivPink
+              height: 41px
+              width: 100%
+              margin-bottom: 24px
+              &::after
+                content: ""
+                position: relative
+                top: 21px
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-color: annivPink transparent transparent transparent;
+                border-width: 19px 16.5px 0px 16.5px;
+                transform: rotate(45deg)
+                +sp()
+                  top: 17px
+                  border-width: 15px 14px 0px 14px
+              .titleBox
+                height: 25px
+                font-size: 1.8rem
+                line-height: 1.4
+                font-weight: 600
+                color: white
+                padding: 8px 0
+            .main__cardWrapper
+              display: grid
+              gap: 24px
+              .main__card
+                height: 290px
+                display: grid
+                justify-content: center
+                align-content: flex-start
+                padding: 0
+                gap: 16px
+                +sp()
+                  height: auto
+                  padding: 0px 16px 24px
+                img
+                  width: 100%
+                .textWrapper
+                  display: flex;
+                  width: 312px;
+                  min-height: 97px;
+                  align-items: center;
+                  +sp()
+                    width: auto
+                  .ribbon
+                    width: 55px
+                    display: inline-flex
+                    height: 100px
+                    flex-direction: column
+                    +sp()
+                      height: 112px
+                    .ribbon-top
+                      display: flex;
+                      padding: 11px 10px 8px 10px;
+                      flex-direction: column;
+                      justify-content: center;
+                      align-items: center;
+                      gap: 3px;
+                      flex: 1 0 0;
+                      background-color: blueBgColor
+                      font-size: 1.4rem
+                      font-weight: 600
+                      line-height: normal
+                      color: white
+                      img
+                        width: auto
+                    .ribbon-bottom
+                      background-color: blueBgColor
+                      height: 15px
+                      width: 55px
+                      &::after
+                        content: ""
+                        position: relative
+                        top: -12px
+                        width: 0;
+                        height: 0;
+                        border-style: solid;
+                        border-color: transparent transparent #fff transparent;
+                        border-width: 0px 27.5px 15px 27.5px; 
+                  .textBox
+                    display: flex;
+                    width: 100%
+                    padding: 16px 8px 6px 8px;
+                    flex-direction: column;
+                    .titleTxt
+                      font-size: 2.2rem
+                      font-weight: 600
+                      line-height: 1.1
+                      text-align: center
+                      //color: annivPink
+                      margin-bottom: 6px
+                      &.-uppercase
+                        text-transform: uppercase
+                      +sp()
+                        font-size: 2.0rem
+                    .descTxt
+                      font-size: 1.4rem
+                      line-height: normal
+                      text-align: center
+                      +sp()
+                        font-size: 1.2rem
+      .main__rankingTxt
+        font-size: 1.1rem
+
+                       
+    // salon comment
+    .main__saloncomment
+      background-image: url('../../../../../cnt/topics/campaign/anniversary/img/numbersBgImg.png')
+      background-repeat: no-repeat
+      background-position: center
+      background-size: cover
+      .main__saloncommentBox
+        text-align: center
+        margin: 0 auto
+        +pc()
+          width: pcWidth
+          padding: 30px 0px 80px
+        +sp()
+          padding: 16px 0px 60px
+        .saloncommentContainer //コンテナ
+          width: 950px
+          margin: 0 auto
+          display: flex
+          gap: 24px
+          +sp()
+            width: auto
+            display: block
+            padding: 0 16px
+          .main__card
+            position: relative
+            display: grid  
+            justify-content: center   
+            width: 50%
+            height: 233px
+            padding: 40px
+            &::after
+              content: ""
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 143px
+              width: 130px
+              clip-path: polygon(0 42%, 64% 0, 100% 0%, 0% 70%)
+              background-color: annivPink
+            +sp()
+              width: auto
+              height: auto
+              margin-bottom: 24px
+              padding: 30px
+              gap: 27px
+              &::after
+                height: 70px
+                width: 65px
+                clip-path: polygon(0 42%, 64% 0, 100% 0%, 0% 70%)
+            .textBox
+              text-align: center
+              .titleTxt
+                font-size: 1.8rem
+                line-height: normal
+                +sp()
+                  font-size: 1.4rem
+                span
+                  font-size: 2.4rem
+                  font-weight: 600
+                  +sp()
+                    font-size: 2.0rem
+              .captionTxt
+                font-size: 1.6rem
+                line-height: normal
+                margin-bottom: 6px
+                padding: 0 58px
+                +sp()
+                  font-size: 1.2rem
+                  padding: 0 16px
+              .descTxt
+                text-align: left
+                font-size: 1.8rem
+                line-height: 1.6
+                +sp()
+                  font-size: 1.4rem
+
+
+    // logo
+    .main__logo
+      background: linear-gradient(#FBECF5 5%, #E6F3FC 95%)
+      min-height: 637px
+      width: auto
+      .main__logoBox
+        margin: 0 auto
+        text-align: center
+        +pc()
+          width: pcWidth
+          padding: 30px 0px 80px
+        +sp()
+          padding: 16px 0px 60px
+        .main__logoContent
+          display: grid
+          justify-content: center
+          gap: 24px
+          +sp()
+            display: block
+            padding: 40px 16px 0
+          .descTxt
+            font-size: 1.8rem
+            line-height: 1.9
+            +sp()
+              font-size: 1.4rem
+              line-height: 1.6
+              margin-bottom: 24px
+            .captionTxt
+              font-size: 1.2rem
+          .cardBox
+            margin: 0 auto
+            .main__card
+              width: 232px
+              padding: 30px 40px
+              +sp()
+                width: auto
+                margin: 0 auto 24px
+              .titleTxt
+                font-size: 1.4rem
+                font-weight: 600
+                line-height: 1.4
+                margin-bottom: 6px
+              .conceptTxt
+                font-size: 2.4rem
+                line-height: 1.4
+                background: linear-gradient(#ff53bb 20%,#2996d3 80%)
+                opacity:90% // 必要なければ削除
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+          .triangle
+            width: 0px;
+            height: 0px;
+            border-style: solid;
+            border-width: 14px 16.5px 0 16.5px;
+            border-color: #ff53bb transparent transparent transparent;
+            transform: rotate(0deg);
+            margin: 0 auto
+            +sp()
+              margin-bottom: 24px
+            &.-right
+              transform: rotate(-90deg);
+              margin: auto 0
+              +sp()  
+                transform: rotate(0deg)
+                margin: 0 auto 24px
+          .imageBox
+            display: flex
+            gap: 10px
+            &.-large
+              justify-content: center
+              gap: 24px
+              +sp()
+                margin: 0 auto
+                img
+                  width: 90%
+                  margin-bottom: 24px
+            +sp()
+              display: block
+              margin-bottom: 14px
+              img
+                width: 48%
+                height: auto
+                margin-bottom: 10px
+                &:nth-child(even)
+                  margin-left: 10px
+          .videoBox
+            background-color: #e3e3e3
+            margin: 0 auto 40px
+            +sp()
+              margin: 0 auto
+            video
+              width: 646px
+              height: 361px
+              +sp()  
+                width: 100%
+                height: auto
+
+
+    // RB introduction
+    .main__RBintroduction
+      background: linear-gradient(#FBECF5 5%, #E6F3FC 95%)
+      min-height: 637px
+      width: auto
+      .main__RBintroductionBox
+        margin: 0 auto
+        text-align: center
+        +pc()
+          width: pcWidth
+          padding: 30px 0px 80px
+        +sp()
+          padding: 16px 0px 60px
+        .main__introductionContent
+          width: 950px
+          display: grid
+          margin: 0 auto 32px
+          +sp()
+            display: block
+            width: auto
+            padding: 16px 16px 0
+        .main__card
+          padding: 40px 0
+          +sp()
+            padding: 24px 16px
+          .titleBox
+            margin: 0 auto 32px
+            display: flex
+            width: 600px
+            justify-content: center
+            gap: 24px
+            +sp()
+              width: auto
+              margin-bottom: 24px
+              justify-content: center
+              img
+                width: 50px
+                height: 50px
+            .titleTxt
+              margin-bottom: 8px
+              +sp()
+                margin-bottom: 0
+          .imageBox
+            display: flex
+            justify-content: center
+            gap: 16px
+            margin-bottom: 32px
+            img
+              width: auto
+              height: auto
+            +sp()
+              display: block
+              margin: 24px 0
+              img
+                width: 100%
+                height: auto
+              &.appBnr img
+                width: 100%
+                height: auto
+            &.appLink
+                width:160px
+                margin: 0 auto
+                img
+                  width: 100%
+                  height: auto
+            .imageColumn
+              display: flex
+              gap:16px
+              +sp()
+                gap: 8px
+                &:first-child
+                  margin-bottom: 8px
+                &:last-child
+                  justify-content: center
+                img
+                  width: 31.333%
+                  height: auto
+            .qrcodeBox
+              display: grid
+              align-items: center
+              .titleTxt
+                font-size: 2.0rem
+                font-weight: 400
+                line-height: 1.4
+                margin-bottom: 0
+              img
+                margin: 0 auto
+
+      .titleTxt
+        font-size: 2.4rem
+        font-weight: 600
+        line-height: 1.4
+        margin: 0 auto 32px
+        +sp()
+          font-size: 1.8rem
+          margin: 0 auto 24px
+      .captionTxt
+        font-size: 1.8rem
+        line-height: 1.6
+        &.-small
+          font-size: 1.4rem
+          line-height: 1.5
+        +sp()
+          font-size: 1.4rem
+      .descTxt
+        font-size: 1.8rem
+        line-height: 1.6
+        +sp()
+          font-size: 1.4rem
+          &:first-child
+            margin-bottom: 8px
+        .-small
+          font-size: 1.6rem
+          line-height: normal
+          margin-bottom: 8px
+          +sp()
+            font-size: 1.2rem
+            line-height: 1.4
+      .notationTxt
+        font-size: 1.1rem
+        line-height: normal
+
+    // Scroll snap(SP horizontal)
+    .carousel
+      scroll-snap-type: x mandatory
+      scroll-behavior: smooth
+    .carousel-item
+      scroll-snap-align: start
+      display: flex
+      align-items: center
+      justify-content: center
+      flex: none
+
+    // main内共通アイテム
+    // animation
+    .fade-in 
+      opacity: 0
+      animation-delay: 1s
+      animation-name: fadeIn
+      animation-duration: 1.5s
+      animation-fill-mode: forwards
+    .slideInContent
+      opacity: 0
+    .slide-in
+      opacity: 1
+      animation-name: slideIn
+      animation-duration: 1s
+
+    // element  
+    .main__titleTxt
+      font-weight: 600
+      line-height: 1.4
+      text-align: center
+      +pc()
+        font-size: 2.6rem
+        margin-bottom: 25px
+      +sp()
+        font-size: 2.1rem
+        margin-bottom: 20px
+        padding: 0 16px
+    .main__titleLine
+      width: 79%
+      height: 1px
+      background: linear-gradient(270deg, rgba(41, 150, 211, 1) 20%,rgba(255, 83, 187, 1) 40%)
+      +sp()
+        width: 76%
+    .main__captionTxt
+      line-height: 1.4
+      padding-bottom: 6px
+      text-align: center
+      +pc()
+        font-size: 1.8rem
+        padding-top: 80px
+      +sp()
+        font-size: 1.6rem
+        padding-top: 60px
+    .main__commentTxt
+      line-height: 1.3
+      +pc()
+        font-size: 1.4rem
+      +sp()
+        font-size: 1.2rem
+        padding: 0 16px
+        
+    .main__numbersTxt
+      text-align: center
+      font-size: 1.4rem
+      line-height: 1.3
+    .main__card // 使う場合は生かし
+      align-items: center
+      vertical-align: middle
+      background-color: cardBgColor
+      padding: 24px
+      border-radius: 10px
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
+    .pinkTxt
+      color: annivPink
+    .gradTxt
+      background: linear-gradient(162deg,#FF53BB 45%, #2996D3 65%)
+      opacity:90% // 必要なければ削除
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    .-uppercase
+      text-transform: uppercase
+    .-bold
+      font-weight: 600
+    #sp-commentPagination
+      display: flex
+      gap: 7px
+      justify-content: center
+      margin-bottom: 16px
+    #pc-timelinePagination
+      width: pcWidth
+      display: flex
+      gap: 8px
+      justify-content: center
+      div
+        cursor: pointer
+    .paginationBullet
+      display: inline-block
+      height: 8px
+      width: 8px
+      border-radius: 4px
+      background-color: pageBullet
+      &.active
+        background-color: pageBulletOn
+
+
+
+
+//fade in
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+//slide in
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}

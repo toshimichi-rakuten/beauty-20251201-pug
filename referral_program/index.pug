@@ -1,0 +1,905 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- template / ver 3.2.1 / 更新日時：2025.1.7 / jqueryのバージョンを3.4.1から3.7.1に変更
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20250317'
+    var meta = {
+      title: '楽天ビューティ友達紹介キャンペーン',
+      description: 'お友達・ご家族に楽天ビューティを紹介＋条件達成で、紹介した方は楽天ポイントを500ポイント、紹介された方には1,000ポイントを進呈！',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/referral_program/',
+      directory: 'referral_program', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/referral_program/img/share.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #Referral
+    //- 終了対応
+    #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー不要', //- エントリー不要は自動的に青色になります
+            //'初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+            '美容室限定',
+            '対象者限定',
+            'ネット予約・施術完了',
+          ],
+        }
+      +campaignTag(taglist)
+      
+    #Referral
+      //- ID、class名は自由
+      section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+        //- Use h1
+        h1.main__title
+          img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+          img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+        .main__terms
+          .main__termsBox
+            p.main__termsTxt
+              | 対象条件：
+              span.main__receiveTxt
+                | 【紹介された方】楽天ビューティを一度も利用されたことがない方／美容室のネット予約・施術完了／1回の施術料金が5,000円(税込)以上
+            p.main__termsTxt
+              | 予約期限：2025年3月31日 9:59まで ／ 施術期限：2025年4月30日 23:59まで
+            p.main__termsTxt.-small
+              | ※進呈するポイント（期間限定ポイント）には上限や条件があります。キャンペーン詳細は
+              a.main__termsLink(href='#Detail')
+                | こちら
+        //- アンカーメニュー
+        ul.referral__menu
+          li.referral__menu__list.-send
+            a.referral__link(href='#Send' data-ratid='cpn_referral_program_Send' data-ratevent='click' data-ratparam='all')
+                p.referral__termsTxt
+                  | 紹介する方
+          li.referral__menu__list.-receive
+            a.referral__link(href='#Receive' data-ratid='cpn_referral_program_Receive' data-ratevent='click' data-ratparam='all')
+                p.referral__termsTxt
+                  | 紹介された方
+          li.referral__menu__list.-search
+            a.referral__link(href='#Shopsearch' data-ratid='cpn_referral_program_Shopsearch' data-ratevent='click' data-ratparam='all')
+                p.referral__termsTxt
+                  | 美容室を探す
+
+      //- 紹介する方
+      section#Send.flow(data-ratid='cpn_' + meta.directory + '_Send' data-ratevent='appear' data-ratparam='all')
+        .titleWrap.-send
+          h2.titleWrap--title 紹介する方
+        .flow__wrapper
+          p.flow__caption.-send
+            | 紹介する方は楽天ビューティを
+            br.-sp
+            | 利用したことがなくてもOK！
+          p.flow__caption.-send
+            | 紹介方法を選んで紹介メッセージを送付して
+            br.-sp
+            | ポイントGET！
+          ul.flow__tab
+            li.flow__tabMenuSend.-active(data-ratid='cpn_referral_program_Nav-send-line' data-ratevent='click' data-ratparam='all')
+              img.flow__tabImg(src='/cnt/topics/campaign/referral_program/img/img_icon_line.png' + parameter, alt='LINE' width='24' height='24')
+              span.-sp
+                | LINE
+              span.-pc
+                | LINEで紹介
+            li.flow__tabMenuSend(data-ratid='cpn_referral_program_Nav-send-x' data-ratevent='click' data-ratparam='all')
+              img.flow__tabImg(src='/cnt/topics/campaign/referral_program/img/img_icon_x.png' + parameter, alt='X' width='24' height='24')
+              span.-sp
+                | X
+              span.-pc
+                | Xで紹介
+            li.flow__tabMenuSend(data-ratid='cpn_referral_program_Nav-send-mail' data-ratevent='click' data-ratparam='all')
+              img.flow__tabImg(src='/cnt/topics/campaign/referral_program/img/img_icon_mail.png' + parameter, alt='mail' width='24' height='24')
+              span.-sp
+                | メール
+              span.-pc
+                | メールで紹介
+
+          //- 紹介する方 Line
+          .flow__tabContents
+            .flow__tabContentsItemSend.-show
+              ul.flow__boxWrap
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-send
+                      | Step 1
+                  .flow__box1.-pc
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_send_step1_line_qr.png' + parameter, alt='Step1' width='160' height='160')
+                  .flow__box2.-pc
+                    p.flow__txt
+                      | スマートフォンで
+                      br
+                      | 二次元コードを読み取る
+                  .flow__box2.flow__iconBtn.-sp
+                    p.flow__txt.-excludeApp
+                      //- 終了対応 sp
+                      if endflag == true
+                        .send__boxBtn.-end.-sp.-excludeApp
+                          | 終了しました
+                      else
+                        | LINEで紹介するボタンをタップ
+                        a.send__boxBtn.-green.-sp.-excludeApp(href='https://refer.rakuten.co.jp/invitation/line?campaign=RBeauty' target='_blank' rel='noopener noreferrer' data-ratid='cpn_referral_program_send__boxBtn-line' data-ratevent='click' data-ratparam='all')
+                          img(src='/cnt/topics/campaign/referral_program/img/img_send_step1_line_button.png' + parameter, alt='Line' width='32' height='32')
+                          span.flow__iconText
+                            | LINEで紹介する
+                    p.flow__txt.-app
+                      //- Appは直接URLで飛ばす
+                      //- 終了対応 app
+                      if endflag == true 
+                        .send__boxBtn.-end.-app
+                          | 終了しました
+                      else
+                        .line__box2.-app
+                          p.line__boxTxt
+                            | 下記のURLをコピーしてスマートフォンのブラウザで開く
+                          .line__form
+                            textarea#CopyTxt.line__formTxt(name='copytxt' rows='2' cols='30')
+                              | https://refer.rakuten.co.jp/invitation/line?campaign=RBeauty
+                            button#CopyBtn.line__formButton(data-url='https://refer.rakuten.co.jp/invitation/line?campaign=RBeauty')
+                              img.line__formIcon(src='img/img_send_step1_app_button.png' alt='URLをコピーする' width='16' height='16')
+                              | URLをコピーする
+                          //- success message
+                          .line__message
+                            p.line__messageTxt
+                              i.icon-check
+                              | URLをコピーしました
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-send
+                      | Step 2
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_send_step2_login.png' + parameter, alt='Step2' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 楽天会員にログイン後
+                      br
+                      | LINEに遷移
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-send
+                      | Step 3
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_send_step3_app.png' + parameter, alt='Step3' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 送りたい方を選択して
+                      br
+                      | メッセージを送信
+
+            //- 紹介する方 x
+            .flow__tabContentsItemSend
+              ul.flow__boxWrap
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-send
+                      | Step 1
+                  .flow__box1.-pc
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_send_step1_x_qr.png' + parameter, alt='Step1' width='160' height='160')
+                  .flow__box2.-pc
+                    p.flow__txt
+                      | スマートフォンで
+                      br
+                      | 二次元コードを読み取る
+                  .flow__box2.flow__iconBtn.-sp
+                    p.flow__txt
+                      //- 終了対応 sp
+                      if endflag == true
+                        .send__boxBtn.-sp.-end
+                          | 終了しました
+                      else
+                        | Xで紹介するボタンをタップ
+                        a.send__boxBtn.-black.-sp(href='https://refer.rakuten.co.jp/invitation/twitter?campaign=RBeauty' target='_blank' rel='noopener noreferrer' data-ratid='cpn_referral_program_send__boxBtn-x' data-ratevent='click' data-ratparam='all')
+                          img(src='/cnt/topics/campaign/referral_program/img/img_send_step1_x_button.png' + parameter, alt='ｘ' width='32' height='32')
+                          span.flow__iconText
+                            | Xで紹介する
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-send
+                      | Step 2
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_send_step2_login.png' + parameter, alt='Step2' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 楽天会員にログイン
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-send
+                      | Step 3
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_send_step3_share.png' + parameter, alt='Step3' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | Xでシェア
+
+            //- 紹介する方 mail
+            .flow__tabContentsItemSend
+              ul.flow__boxWrap
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-send
+                      | Step 1
+                  .flow__box1
+                  .flow__box2.-pc
+                    .flow__iconBtn
+                      img.flow__boxIcon(src='/cnt/topics/campaign/referral_program/img/img_send_step1_mail.png' + parameter, alt='Step1' width='160' height='160')
+                      if endflag == true
+                        .send__boxBtn.-end
+                          | 終了しました
+                      else
+                        a.send__boxBtn.-red(href='https://refer.rakuten.co.jp/invitation/mail?campaign=RBeauty' target='_blank' rel='noopener noreferrer' data-ratid='cpn_referral_program_send__boxBtn-mail' data-ratevent='click' data-ratparam='all')
+                          img(src='/cnt/topics/campaign/referral_program/img/img_send_step1_mail_button.png' + parameter, alt='mail' width='24' height='24')
+                          span.flow__iconText
+                            | メールで紹介
+                    p.flow__txt
+                      | メールで紹介するボタンをクリック
+
+                  .flow__box2.flow__iconBtn.-sp
+                    p.flow__txt
+                      //- 終了対応 sp
+                      if endflag == true
+                        .send__boxBtn.-sp.-end
+                          | 終了しました
+                      else
+                        | メールで紹介するボタンをタップ
+                        a.send__boxBtn.-red.-sp(href='https://refer.rakuten.co.jp/invitation/mail?campaign=RBeauty' target='_blank' rel='noopener noreferrer' data-ratid='cpn_referral_program_send__boxBtn-line' data-ratevent='click' data-ratparam='all')
+                          img(src='/cnt/topics/campaign/referral_program/img/img_send_step1_mail_button.png' + parameter, alt='mail' width='24' height='24')
+                          span.flow__iconText
+                            | メールで紹介する
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-send
+                      | Step 2
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_send_step2_login.png' + parameter, alt='Step2' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 楽天会員にログイン
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-send
+                      | Step 3
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_send_step3_mail.png' + parameter, alt='Step3' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 相手の名前、
+                      br
+                      | メールアドレスを入力して送信
+
+          //- 紹介する方 panda
+          .flow__panda.-send
+            .flow__box
+              p.flow__caption.-normal
+                | 紹介された方が楽天ビューティの美容室で
+                br
+                | ネット予約・施術完了すると
+              p.flow__caption.-send
+                span.flow__txt.-xxlarge
+                  | 500
+                span 
+                  | ポイント
+              p.flow__caption.-normal
+                | プレゼント！
+            .flow__box
+              p
+                img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_send_panda.png' + parameter, alt='お買いものパンダ' width='245' height='auto')
+    
+          ul.howto__attentionBox
+            li.howto__attentionTxt X・LINEのご利用はスマートフォン、タブレットのみの利用になります。事前にX・LINEをインストールされていない場合、X・LINEでの紹介がご利用いただけません。
+            li.howto__attentionTxt 進呈される楽天ポイントは期間限定ポイントになります。キャンペーン詳細は
+              a.main__termsLink(href='#Detail')
+                | こちら
+              | 。
+
+      //- 紹介された方
+      section#Receive.flow(data-ratid='cpn_' + meta.directory + '_Receive' data-ratevent='appear' data-ratparam='all')
+        .titleWrap.-receive
+          h2.titleWrap--title 紹介された方
+        .flow__wrapper
+          p.flow__caption.-receive
+            | 受信したメッセージから
+            br.-sp
+            | 美容室をネット予約 & 施術完了して
+            br.-sp
+            | ポイントGET！
+          ul.flow__tab
+            li.flow__tabMenuReceive.-active(data-ratid='cpn_referral_program_Nav-receive-line' data-ratevent='click' data-ratparam='all')
+              img.flow__tabImg(src='/cnt/topics/campaign/referral_program/img/img_icon_line.png' + parameter, alt='LINE' width='24' height='24')
+              span.-sp
+                | LINE
+              span.-pc
+                | LINEで紹介
+            li.flow__tabMenuReceive(data-ratid='cpn_referral_program_Nav-receive-x' data-ratevent='click' data-ratparam='all')
+              img.flow__tabImg(src='/cnt/topics/campaign/referral_program/img/img_icon_x.png' + parameter, alt='X' width='24' height='24')
+              span.-sp
+                | X
+              span.-pc
+                | Xで紹介
+            li.flow__tabMenuReceive(data-ratid='cpn_referral_program_Nav-receive-mail' data-ratevent='click' data-ratparam='all')
+              img.flow__tabImg(src='/cnt/topics/campaign/referral_program/img/img_icon_mail.png' + parameter, alt='mail' width='24' height='24')
+              span.-sp
+                | メール
+              span.-pc
+                | メールで紹介
+
+          //- 紹介する方 Line
+          .flow__tabContents
+            .flow__tabContentsItemReceive.-show
+              ul.flow__boxWrap
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-receive
+                      | Step 1
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_receive_step1_line.png' + parameter, alt='Step1' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt.-pc
+                      | 受信したメッセージの
+                      br
+                      | 「美容室予約はこちら」をクリック
+                    p.flow__txt.-sp
+                      | 受信したメッセージの「美容室予約はこちら」をクリック
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-receive
+                      | Step 2
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_receive_step2_login.png' + parameter, alt='Step2' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 楽天会員にログイン
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-receive
+                      | Step 3
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_receive_step3_reservation.png' + parameter, alt='Step3' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 楽天ビューティで
+                      br
+                      | 美容室をネット予約
+                    p.flow__txt.-small
+                      | ※ネット予約できるサロンが対象
+            //- 紹介する方 x
+            .flow__tabContentsItemReceive
+              ul.flow__boxWrap
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-receive
+                      | Step 1
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_receive_step1_x.png' + parameter, alt='Step1' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt.-pc
+                      | シェアされたメッセージの
+                      br
+                      | 「美容室予約はこちら」をクリック
+                    p.flow__txt.-sp
+                      | シェアされたメッセージの「美容室予約はこちら」をクリック
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-receive
+                      | Step 2
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_receive_step2_login.png' + parameter, alt='Step2' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 楽天会員にログイン
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-receive
+                      | Step 3
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_receive_step3_reservation.png' + parameter, alt='Step3' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 楽天ビューティで
+                      br
+                      | 美容室をネット予約
+                    p.flow__txt.-small
+                      | ※ネット予約できるサロンが対象
+
+            //- 紹介する方 mail
+            .flow__tabContentsItemReceive
+              ul.flow__boxWrap
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-receive
+                      | Step 1
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_receive_step1_mail.png' + parameter, alt='Step1' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt.-pc
+                      | 受信したメッセージの
+                      br
+                      | 「美容室予約はこちら」をクリック
+                    p.flow__txt.-sp
+                      | 受信したメッセージの「美容室予約はこちら」をクリック
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-receive
+                      | Step 2
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_receive_step2_login.png' + parameter, alt='Step2' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 楽天会員にログイン
+                li.flow__box
+                  .flow__box0
+                    p.flow__boxTitle.-receive
+                      | Step 3
+                  .flow__box1
+                    img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_receive_step3_reservation.png' + parameter, alt='Step3' width='160' height='160')
+                  .flow__box2
+                    p.flow__txt
+                      | 楽天ビューティで
+                      br
+                      | 美容室をネット予約
+                    p.flow__txt.-small
+                      | ※ネット予約できるサロンが対象
+
+          //- Panda
+          .flow__panda.-receive
+            .flow__box
+              p.flow__caption.-normal
+                | キャンペーン期間内に
+                br
+                | 来店&施術完了で
+              p.flow__caption 
+                span.flow__txt.-xxlarge.-receive
+                  | 1,000
+                span 
+                  | ポイント
+                br
+              p.flow__caption.-normal
+                | プレゼント！
+                span.flow__txt.-small 
+                  | ※1
+            .flow__box
+              img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_receive_panda.png' + parameter, alt='お買いものパンダ' width='245' height='auto')
+          ul.howto__attentionBox
+            li.howto__attentionTxt 1　5,000 円(税込)以上の予約・施術が対象となります。
+            li.howto__attentionTxt X・LINEのご利用はスマートフォン、タブレットのみの利用になります。事前にX・LINEをインストールされていない場合、X・LINEでの紹介がご利用いただけません。
+            li.howto__attentionTxt 進呈される楽天ポイントは期間限定ポイントになります。キャンペーン詳細は
+              a.main__termsLink(href='#Detail')
+                | こちら
+              | 。
+
+
+    //- Area Search
+    section#Shopsearch.searchArea(data-ratid='cpn_' + meta.directory + '_Shopsearch' data-ratevent='appear' data-ratparam='all')
+      .titleWrap.-search
+        h2.titleWrap--title 美容室を探す
+      .flow__wrapper
+        p.flow__caption.-search
+          | 紹介された方は美容室のネット予約
+          br.-sp
+          | ＋施術完了でポイントゲット！
+
+      .search--container
+        .search--icon
+          img(src='/cnt/topics/campaign/referral_program/img/img_search_panda.png' + parameter, alt='美容室を探す' width='' height='100%')
+        h3.titleWrap--subtitle 美容室を探す
+        //- プロパティをつけると検索内容をカスタマイズできます
+        //- https://git.rakuten-it.com/projects/RBEAUT/repos/rbeautyuicomponent/browse/src/components/ShopSearch/readme.md
+        #shopSearch(default-genre-id="", default-prefectures-id="13", search-style="hide_genre", search-type="")
+          include ../../../../_common/pug/Module/Common/_shopSearchList
+
+
+    //- Review
+    section#Review.review(data-ratid='cpn_' + meta.directory + '_Review' data-ratevent='appear' data-ratparam='all')
+      .titleWrap.-search
+        h2.titleWrap--title 楽天ビューティをご愛用いただいている利用者様の声
+      .review__tabContents
+        ul.review__boxWrap
+          li.review__box
+            p.review__boxTitle
+              | とにかく便利！
+            .review__box0
+              .flow__box1
+                img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_review_1.png' + parameter, alt='利用者イメージ' width='160' height='160')
+              .flow__box2
+                p.flow__txt
+                  | 忘れちゃった前回とかもわかるし、予約しやすいので、これからも使います。
+          li.review__box
+            p.review__boxTitle
+              | サロン予約でポイ活！
+            .review__box0
+              .flow__box1
+                img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_review_2.png' + parameter, alt='利用者イメージ' width='160' height='160')
+              .flow__box2
+                p.flow__txt
+                  | 楽天ポイントも使えて予約もできるので嬉しいです！
+          li.review__box
+            p.review__boxTitle
+              | 近くのサロンを検索！
+            .review__box0
+              .flow__box1
+                img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_review_3.png' + parameter, alt='利用者イメージ' width='160' height='160')
+              .flow__box2
+                p.flow__txt
+                  | 自宅近くのサロンが探しやすくてとても良いです。
+          li.review__box
+            p.review__boxTitle
+              | おトクにサロン予約！
+            .review__box0
+              .flow__box1
+                img.flow__boxImg(src='/cnt/topics/campaign/referral_program/img/img_review_4.png' + parameter, alt='Step3' width='160' height='160')
+              .flow__box2
+                p.flow__txt
+                  | クーポンやポイント利用で割引ができました。ありがとうございます。
+      ul.howto__attentionBox
+        li.howto__attentionTxt 2024年楽天ビューティアプリストアに投稿されたレビューを抜粋。クーポンご利用には条件があります。
+   
+    //- 楽天ビューティを使うメリット
+    section#Merit.merit(data-ratid='cpn_' + meta.directory + '_Merit' data-ratevent='appear' data-ratparam='all')
+      .titleWrap.-search
+        h2.titleWrap--title 楽天ビューティを使うメリット
+      .merit__wrapper
+        //- merit1
+        .merit__box 
+          .merit__boxTitle
+            | メリット1
+          //- pc
+          .merit__boxSubTitle.-pc
+            .merit__boxImg
+              img.merit__boxImg(src='/cnt/topics/campaign/referral_program/img/img_merit_coin.png' + parameter, alt='ポイントイメージ' width='70' height='70')
+            div
+              p.merit__boxTxt.-large ポイントが貯まる！使える！楽天のサロン予約
+              p.merit__boxTxt おトクに、キレイに。楽天ビューティ。
+          //- sp
+          .merit__boxSubTitle.-sp
+            .merit__boxTxt
+              img.merit__boxImg(src='/cnt/topics/campaign/referral_program/img/img_merit_coin.png' + parameter, alt='ポイントイメージ' width='70' height='70')
+              p.merit__boxTxt.-large ポイントが貯まる！使える！
+                  br.-sp
+                  | 楽天のサロン予約
+            p.merit__boxTxt おトクに、キレイに。楽天ビューティ。
+          //- pic
+          .merit__boxImgWrap
+            img(src='/cnt/topics/campaign/referral_program/img/img_merit_hair.png' + parameter, alt='ヘアイメージ' width='110' height='auto')
+            img(src='/cnt/topics/campaign/referral_program/img/img_merit_nail.png' + parameter, alt='ネイルイメージ' width='110' height='auto')
+            img(src='/cnt/topics/campaign/referral_program/img/img_merit_eyelash.png' + parameter, alt='まつげイメージ' width='110' height='auto')
+            img(src='/cnt/topics/campaign/referral_program/img/img_merit_esthe.png' + parameter, alt='エステイメージ' width='110' height='auto')
+            img(src='/cnt/topics/campaign/referral_program/img/img_merit_relax.png' + parameter, alt='リラクイメージ' width='110' height='auto')
+          p.merit__boxTxt.description ヘア・ネイル・まつげ・エステ・リラク・マッサージサロンの検索・予約が可能
+            br
+            | ネット予約・施術完了するたびに
+            span.-bold
+              |100円につき1ポイント
+            | が貯まる！
+        
+        //- merit2
+        .merit__box 
+          .merit__boxTitle
+            | メリット2
+          //- pc
+          .merit__boxSubTitle.-pc
+            .merit__boxImg
+              img.merit__boxImg(src='/cnt/topics/campaign/referral_program/img/img_merit_deal.png' + parameter, alt='楽天スーパーディールロゴ' width='127' height='60')
+            div
+              p.merit__boxTxt.-large ポイント高還元メニューも豊富！
+              p.merit__boxTxt スーパーDEALメニューでさらにおトクにサロンを予約！
+          img.merit__boxImg.-pc(src='/cnt/topics/campaign/referral_program/img/img_merit_menu.png' + parameter, alt='楽天スーパーディールメニューイメージ')
+          //- sp
+          .merit__boxSubTitle.-sp
+            .merit__boxTxt
+              img.merit__boxImg.-dealLogo(src='/cnt/topics/campaign/referral_program/img/img_merit_deal.png' + parameter, alt='楽天スーパーディールロゴ' width='127' height='60')
+              p.merit__boxTxt.-large ポイント高還元
+                  br.-sp
+                  | メニューも豊富！
+            p.merit__boxTxt スーパーDEALメニューでさらに
+              br
+              | おトクにサロンを予約！
+            img.merit__boxImg.-deal.-sp(src='/cnt/topics/campaign/referral_program/img/img_merit_menu_sp.png' + parameter, alt='楽天スーパーDEALメニューイメージ')
+          a.merit__Btn(href="https://beauty.rakuten.co.jp/cnt/topics/campaign/superdeal/?l-id=rb_referral_program_superdeal") 
+            | スーパーDEALメニューを見る
+        //- merit3
+        .merit__box 
+          .merit__boxTitle
+            | メリット3
+          //- pc
+          .merit__boxSubTitle.-pc
+            .merit__boxImg
+              img.merit__boxImg(src='/cnt/topics/campaign/referral_program/img/img_merit_app.png' + parameter, alt='アプリアイコン' width='70' height='70')
+            div
+              p.merit__boxTxt.-large アプリから予約でさらにポイントアップ！
+              p.merit__boxTxt ※本キャンペーンとの併用については
+                a.main__termsLink(href='#Detail')
+                  | キャンペーン詳細
+                |をご確認ください。
+          //- sp
+          .merit__boxSubTitle.-sp
+            .merit__boxTxt
+              img.merit__boxImg(src='/cnt/topics/campaign/referral_program/img/img_merit_app.png' + parameter, alt='アプリアイコン' width='70' height='70')
+              p.merit__boxTxt.-large アプリから予約で
+                  br.-sp
+                  | さらにポイントアップ！
+            .howto__attentionBox.-appdl
+              p.howto__attentionTxt 本キャンペーンとの併用については
+                a.main__termsLink(href='#Detail')
+                  | キャンペーン詳細
+                |をご確認ください。
+          .downloadapp
+            ul.app__cpn
+              li.app__cpnBanner
+                a.app__link(href='https://app.adjust.com/1ifdl1tv?redirect=https://beauty.rakuten.co.jp/cnt/topics/campaign/app2x/?l-id=wi_bty_appappeal_App2x')
+                  img.app__img(src='/cnt/topics/campaign/referral_program/img/img_appdl_banner.png' + parameter, alt='アプリで予約＆条件達成で最大ポイント3倍' width='600' height='151')
+              li.downloadapp__container
+                  .downloadapp__app-device.-pc
+                    img.downloadapp__app-device--img(src='/cnt/topics/campaign/referral_program/img/img_appdl_device.png' + parameter, width='100%' height='auto' alt="アプリ画面イメージ") 
+                  .downloadapp__app-link
+                    h4.downloadapp__app-link--title.-pc
+                      | ダウンロードはこちら
+                    .downloadapp__app-link--button
+                      a.-pc(href='https://app.adjust.com/1lm4mwze?engagement_type=fallback_click' target="_blank")
+                        img.-pc(src='/cnt/topics/campaign/referral_program/img/img_appdl_qr.png' + parameter, alt='QRコード')
+                      a.-sp(href='https://app.adjust.com/1lm4mwze?engagement_type=fallback_click' target="_blank")
+                        img.-desktop(src='/cnt/topics/campaign/referral_program/img/img_appdl_qr.png' + parameter,  width='188' height='188' + parameter, alt='QR')
+                        img.-iphone(src='/cnt/common/images/cpn-parts/btn_dl_appstore.svg' + parameter, alt='アプリストアからダウンロード')
+                        img.-android(src='/cnt/common/images/cpn-parts/btn_dl_googleplay.svg' + parameter, alt='グーグルプレイで手に入れよう')
+
+    //- QA
+    section#QA.qa(data-ratid='cpn_' + meta.directory + '_QA' data-ratevent='appear' data-ratparam='all')
+      .titleWrap.-search
+        h2.titleWrap--title よくあるご質問
+      .qa__listBox
+        //-
+          QA内容（質問の数だけ自動で増えます）
+          リッチリザルトの中ではHTMLタグ <h1>～<h6> <br> <ol> <ul> <li> <a> <p> <div> <b> <strong> <i> <em> が利用できます。
+        -
+          QAList = [
+            {
+              click_name: '条件について',
+              question: '紹介する側（紹介者）は楽天ビューティを使ったことがないと紹介できませんか？',
+              answer: '楽天ビューティを使ったことが無い方もご紹介いただけます。※どなたでも紹介可能',
+            },
+            {
+              click_name: '条件について',
+              question: '紹介回数に上限はありますか？',
+              answer: 'ありません。',
+            },
+            {
+              click_name: '条件について',
+              question: '電話で予約・施術完了した場合は対象になりますか？',
+              answer: '対象外となります。',
+            },
+            {
+              click_name: '条件について',
+              question: '友達も同じ人へ紹介していた場合、どちらがキャンペーン対象者になりますか？',
+              answer: '紹介された方（被紹介者）が対象美容室をネット予約された日の直前のアクセスが採用されるため、どちらのリンクを予約直前にアクセスしたかを被紹介者の方へご確認ください。※楽天ビューティ側では、キャンペーン対象か否かについての個別のご質問にはご回答し兼ねます',
+            },
+          ]
+          QAListBtn = {
+            btnTxt: 'よくあるご質問一覧を見る',
+            btnUrl: 'https://beauty.faq.rakuten.net/user/s/',
+          }
+
+        //- よくあるご質問セット
+        +QAset()
+
+    //- barter
+    section#Banner.banner
+      .banner__box
+        p.banner__txt
+          | その他の紹介キャンペーン
+        .banner__boxInner
+          a.banner__link(href='https://event.rakuten.co.jp/group/invitation/?scid=wi_bty_memd_friendsportal_01')
+            img.banner__img(src='img/img_barterbnr.png' + parameter, alt='ポイントザクザク！楽天グループのお友達紹介キャンペーン')
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle 
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 予約期間
+              td.detail__tableBlockBody 2025年3月3日(月) 10:00～2025年3月31日(月) 9:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 施術期間
+              td.detail__tableBlockBody 2025年3月3日(月) 10:00～2025年4月30日(水) 23:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記①～③の手順をすべて満たした方が対象となります。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li ① (紹介する方) LINE/メール/ X(旧Twitter)でメッセージを送信
+                  li.detail__tableBlockList--li ② (紹介された方) 受信したメッセージに記載の「美容室予約はこちら」からアクセスし楽天会員ログイン
+                  li.detail__tableBlockList--li ③ ログイン後、予約・施術期間中に、遷移先の楽天ビューティの美容室予約ページからネット予約＆施術完了（5,000円(税込)以上）
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜紹介する方＞
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 過去、楽天ビューティを利用したことが無い方もご紹介することができます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜紹介された方＞
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li ネット予約は、楽天ビューティサイト/ アプリ経由の予約が対象となります。
+                  li.detail__tableBlockList--li ネット予約には楽天会員登録が必要です。楽天会員には
+                    a.detail__tableBlockTxt--link(href='https://www.rakuten.co.jp/myrakuten/help/')
+                      | こちら
+                    | から登録（無料）できます。
+                  li.detail__tableBlockList--li 紹介された方が対象美容室をネット予約された日の直前のアクセスが採用されます。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、クーポン割引「後」の価格が5,000円(税込)以上の場合に対象となります。
+                  li.detail__tableBlockList--li ポイント利用の場合、ポイント利用分込みで5,000(税込)円以上の場合に対象となります。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 進呈対象外 ※
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li 紹介された方が下記に該当する場合
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 美容室以外のジャンルの予約・施術完了/5,000円未満の施術/ 予約のみで施術完了していない方
+                  li.detail__tableBlockList--li 本キャンペーン開始日以前に楽天ビューティのネット予約・施術完了履歴がある方
+                  li.detail__tableBlockList--li 美容室、リラク、まつげ、ネイル、マッサージ　いずれかのジャンルでネット予約・来店されたことのある方
+                  li.detail__tableBlockList--li 1つの楽天IDを使用して複数の方がネット予約・来店された場合
+                  li.detail__tableBlockList--li 紹介した方より送信されたメール、メッセージに記載のリンク先のページを経由せずにネット予約された場合
+                  li.detail__tableBlockList--li 他の方から送られた紹介メッセージ内のリンクを経由してネット予約された場合
+                  li.detail__tableBlockList--li 送信された「美容室予約はこちら」からアクセスした際の楽天IDとご予約時の楽天IDが異なる場合
+                  li.detail__tableBlockList--li 楽天会員を退会されている場合
+                  li.detail__tableBlockList--li 紹介した方、紹介された方が同一人物である場合
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 1名のご紹介・条件達成につき、それぞれ下記の楽天ポイントが付与されます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt 紹介した方　　500ポイント
+                p.detail__tableBlockTxt 紹介された方　1,000ポイント
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 特典は紹介した方と紹介された方、それぞれに進呈いたします。
+                  li.detail__tableBlockList--li 進呈される楽天ポイントは期間限定ポイントになります。
+                  li.detail__tableBlockList--li ご紹介キャンペーン該当の有無に関しては楽天ポイント進呈をもって代えさせていただきます。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント進呈予定日
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 2025年5月末頃
+                p.detail__tableBlockTxt 獲得した特典ポイントは、
+                  a.detail__tableBlockTxt--link(href='https://point.rakuten.co.jp/history/')
+                    | 楽天PointClubのポイント実績
+                  | でご確認いただけます。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li 特典ポイントは、期間限定ポイントで進呈されます。
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li ポイント進呈日から6ヶ月間有効な期間限定ポイントとして進呈されます。
+                  li.detail__tableBlockList--li 期間限定ポイントは、有効期限までにポイントを利用いただいた場合でも、有効期限以降にキャンセルや金額修正などを行なった場合には返還されません。
+                  li.detail__tableBlockList--li 期間限定ポイントの詳細はこちらでご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li ネット予約に関して
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 一部ネット予約が行えない美容室がございます。また、美容室の予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                  li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の来店期間内で施術完了された場合は、ポイント進呈の対象となります。
+                  li.detail__tableBlockList--li 電話予約や直接来店、対象美容室のWebページ等からの直接予約は対象外となります。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li キャンペーンに関して
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li キャンペーンの条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li その他ご不明な点は
+                    a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/')
+                      | こちら
+                    | よりお問い合わせください。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt 紹介方法に関して
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li X(旧Twitter)・LINE のご利用はスマートフォン、タブレットのみの利用になります。ご利用の機種によっては X(旧Twitter)・LINE での紹介がご利用いただけない場合がございます。あらかじめご了承ください。
+                  li.detail__tableBlockList--li 事前にX(旧Twitter)・LINEをインストールされていない場合、X(旧Twitter)・LINEでの紹介がご利用いただけません。
+                  li.detail__tableBlockList--li 紹介先の宛先を誤ってメッセージを送られた際に生じるトラブルの責任は負いかねます。
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  script(src="/cnt/common/js/area-search/shopSearch.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+
+  script(src='/cnt/topics/campaign/referral_program/js/main.js', defer)
+
+
+  //- テキストコピーボタン
+  script.
+    window.onload = (function() {
+      $('#CopyBtn').on('click', function(){
+        // コピーする文章の取得
+        let text = $('#CopyTxt').text();
+        // テキストエリアの作成
+        let $textarea = $('<textarea></textarea>');
+        // テキストエリアに文章を挿入
+        $textarea.text(text);
+        //　テキストエリアを挿入
+        $(this).append($textarea);
+        //　テキストエリアを選択
+        $textarea.select();
+        // コピー
+        document.execCommand('copy');
+        // テキストエリアの削除
+        $textarea.remove();
+        // フラッシュメッセージ表示
+        $('.line__message').fadeIn("slow", function () {
+            $(this).delay(2000).fadeOut("slow");
+        });
+      });
+    });
+
+
+
+
+  //- 以上テンプレ/////////////////////////////

@@ -1,0 +1,1142 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+pinkColor = #ff2da0
+navColor = #fff
+scarletColor = #e92083
+
+mobileColor = #ff008c
+rosePinkColor = #fff2f9
+prussianBlueColor = #495273
+carmineColor = #cc0070
+coralRedColor = #ffcce8
+ultramarineBlueColor = #0072bf
+orientalBluedColor = #00568f
+
+whiteColor = #fff
+
+pcWidth = 1216px
+
+//------------------------------
+
+#App2x // #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  navHeightPc = 97px
+  navHeightSp = 62px
+
+  #EntryBox,
+  #DownloadApp,
+  #MobilePlan,
+  #Profit,
+  #Detail,
+  #Detail_1,
+  #Detail_2
+    display: block
+    +pc()
+      padding-top: (navHeightPc + 0)
+      margin-top: -(navHeightPc + 0)
+    +sp()
+      padding-top: (navHeightSp + 0)
+      margin-top: -(navHeightSp + 0)
+
+  .textLink
+    color: secondColor
+    text-decoration: underline
+    &:hover
+      text-decoration: none
+
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  // content
+  .article__wrap
+    +pc()
+      width: 950px
+      margin: 40px auto 0
+    +sp()
+      width: calc(100% - 32px)
+      margin: 24px auto 0
+    .article--title
+      text-align: center
+      font-weight: bold
+      +pc()
+        font-size: 2rem
+        line-height: 1.4
+      +sp()
+        font-size: 1.4rem
+        line-height: 1.5
+
+  // main
+  .main
+    .main__title
+      display: block
+      width: pcWidth
+      margin: 0 auto
+      line-height: 1
+      font-size: 1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+      // PC画像, リンク
+      .main__pc
+        position: relative
+        .main__pc__button
+          display: block
+          position: absolute
+          width: 120px
+          height: 120px
+          top: 85px
+          right: 224px
+      // SP画像
+      .main__app
+        .main__appWebBlocks
+          position: relative
+          // qr用設定
+          .main__app__button__wrap__qr
+            +sp()
+              position: relative
+              width: 211px
+              margin: 0 auto
+              padding: 15px 0 14px
+            .main__app__button__qr
+              +sp()
+                position: absolute
+                display: block
+                width: 154px
+                height: 154px
+                top: 34px
+                left: 59px
+          // ios用設定
+          .main__app__button__wrap__ios
+            +sp()
+              position: relative
+              width: 197px
+              margin: 0 auto
+              padding: 15px 0 14px
+            .main__app__button__ios
+              +sp()
+                position: absolute
+                display: block
+                width: 140px
+                height: 53px
+                top: 34px
+                left: 59px
+          // amdroid用設定
+          .main__app__button__wrap__android
+            +sp()
+              position: relative
+              width: 230px
+              margin: 0 auto
+              padding: 15px 0 14px
+            .main__app__button__android
+              +sp()
+                position: absolute
+                display: block
+                width: 174px
+                height: 54px
+                top: 34px
+                left: 58px
+    .main__terms
+      text-align: center
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+        padding: 10px 10px 26px
+      +sp()
+        padding: 10px 10px 16px
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsList__wrap
+          display: flex
+          justify-content: center
+          +sp()
+            flex-direction: column
+          .main__termsList
+            font-weight: bold
+            line-height: 1.5
+            +pc()
+              font-size: 1.6rem
+            +sp()
+              font-size: 1.2rem
+            &:last-of-type
+              +pc()
+                padding-left: 1.5rem
+        .main__stepsection
+          +pc()
+            width: 884px
+            margin: 10px auto 0
+          +sp()
+            max-width: 355px
+            margin: 8px auto 0
+        .main__termsTxt__wrap
+          text-align: left
+          +pc()
+            width: 840px
+            margin: 16px auto 0
+          +sp()
+            margin: 8px auto 0
+          .main__termsTxt
+            color:grayTxtColor
+            line-height 1.5
+            +pc()
+              display: inline-block
+              font-size: 1.2rem
+            +sp()
+              display: block
+              font-size: 1rem
+          .main__termsLink
+            color:secondColor
+            text-decoration: underline
+            &:hover
+              text-decoration: none
+
+  //- nav-menu
+  .nav-menu
+    position: sticky
+    top: 0
+    z-index: 100
+    background: pinkColor
+    box-sizing: border-box
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .nav-menu-inner
+      display: flex
+      justify-content: center
+      width: 100%
+      margin: 0 auto
+      +pc()
+        width: 1088px
+      +sp()
+        width: 100%
+      .nav-menu-list
+        position: relative
+        width: 25%
+        box-sizing: border-box
+        color: navColor
+        font-weight: bold
+        line-height: 1.5
+        +pc()
+          height: 97px
+          font-size: 1.8rem
+        +sp()
+          height: 62px
+          font-size: 1.2rem
+        &:first-of-type::before
+          +pc()
+            display: inline-block
+            position: absolute
+            top: 48px
+            left: -16px
+            width: 30px
+            height: 1px
+            transform: rotate(90deg)
+            background-color: navColor
+            border-right: 1px solid navColor
+            content: ''
+        &:not(:last-child)::after
+          display: inline-block
+          position: absolute
+          width: 30px
+          height: 1px
+          transform: rotate(90deg)
+          background-color: navColor
+          border-right: 1px solid navColor
+          content: ''
+          +pc()
+            top: 48px
+            right: -16px
+          +sp()
+            top: 31px
+            right: -16px
+        &:last-of-type::after
+          +pc()
+            display: inline-block
+            position: absolute
+            width: 30px
+            height: 1px
+            transform: rotate(90deg)
+            background-color: navColor
+            border-right: 1px solid navColor
+            content: ''
+            +pc()
+              top: 48px
+              right: -16px
+            +sp()
+              top: 31px
+              right: -19px
+        .nav-menu-button
+          display: flex
+          justify-content: center
+          position: relative
+          width: 100%
+          height: 100%
+          box-sizing: border-box
+          text-align: center
+          line-height: 1.5
+          +pc()
+            align-items: center
+            padding: 12px 0
+          +sp()
+            align-items: center
+            padding: 8px 0
+          &::before
+            content: ""
+            position: absolute
+            left: 50%
+            border-top: solid 1px navColor
+            border-right: solid 1px navColor
+            transform: translateX(-50%) rotate(135deg)
+            +pc()
+              bottom: 15px
+              width: 10px
+              height: 10px
+            +sp()
+              bottom: 12px
+              width: 8px
+              height: 8px
+          &:hover,
+          &:hover::before
+            +pc()
+              cursor: pointer
+              opacity: .8
+          .nav-menu-text
+            display: block
+            flex-grow: 0
+            color: navColor
+            font-weight: bold
+            line-height: 1.4
+            +pc()
+              padding: 0 0 16px
+              font-size: 1.8rem
+            +sp()
+              margin: 0 2px
+              padding: 0 0 12px
+              font-size: 1.2rem
+              line-height: 1.1
+  .mainInfo__wrap
+    +pc()
+      margin: 20px auto 70px
+    +sp()
+      width: calc(100% - 32px)
+      margin: 16px auto 40px
+    .mainInfo
+      text-align: center
+      line-height: 1.5
+      +pc()
+        font-size: 1.4rem
+      +sp()
+        font-size: 1.2rem
+      .mainInfo--bold
+        font-weight: bold
+
+  // entry btn
+  .entrybox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .entrybox__inner
+      +sp()
+        width: calc(100% - 32px)
+        margin: 0 auto
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+    .entryBox__article
+      overflow: hidden
+      background: rosePinkColor
+      border-radius: 16px
+      +pc()
+        width: 950px
+        margin: 60px auto 0
+      +sp()
+        width: calc(100% - 32px)
+        margin: 40px auto 0
+      .entryBox__article--title
+        padding: 16px
+        background: mobileColor
+        box-sizing: border-box
+        color: whiteColor
+        text-align: center
+        line-height: 1.4
+        +pc()
+          font-size: 2.4rem
+        +sp()
+          font-size: 1.8rem
+        .entryBox__article--title--bold
+
+          font-weight: bold
+      .entryBox__article__container
+        text-align: center
+        +pc()
+          padding: 32px
+        +sp()
+          padding: 16px
+        .entryBox__article--feature
+          display: inline-block
+          position: relative
+          font-weight: bold
+          line-height: 1.4
+          +pc()
+            font-size: 2rem
+          +sp()
+            font-size: 1.6rem
+          &::before
+            content: "|"
+            position: absolute
+            font-weight: normal
+            transform: rotate(-45deg)
+            +pc()
+              top: 0
+              left: -2.25rem
+            +sp()
+              top: 22px
+              left: -1.75rem
+          &::after
+            content: "|"
+            position: absolute
+            font-weight: normal
+            transform: rotate(45deg)
+            +pc()
+              top: 0
+              right: -2.25rem
+            +sp()
+              top: 22px
+              right: -1.75rem
+        .entryBox__article--app-button
+          display: flex
+          align-items: center
+          justify-content: center
+          margin: 16px auto 0
+          background: mobileColor
+          border-radius: 44px
+          box-sizing: border-box
+          color: whiteColor
+          font-weight: bold
+          +pc()
+            width: 600px
+            padding: 26px
+            font-size: 2.8rem
+            line-height: 1.3
+          +sp()
+            width: 100%
+            padding: 10px
+            font-size: 1.6rem
+            line-height: 1.4
+        .entryBox__article--summary
+          display: inline-block
+          position: relative
+          font-weight: bold
+          line-height: 1.4
+          +pc()
+            font-size: 2rem
+          +sp()
+            font-size: 1.6rem
+          &::before
+            content: "|"
+            position: absolute
+            font-weight: normal
+            transform: rotate(-45deg)
+            +pc()
+              top: 0
+              left: -2.25rem
+            +sp()
+              top: 22px
+              left: -1.75rem
+          &::after
+            content: "|"
+            position: absolute
+            font-weight: normal
+            transform: rotate(45deg)
+            +pc()
+              top: 0
+              right: -2.25rem
+            +sp()
+              top: 22px
+              right: -1.75rem
+          &.-aux
+            +pc()
+              margin-top: 32px
+            +sp()
+              margin-top: 16px
+            &::before
+              +sp()
+                top: 0
+            &::after
+              +sp()
+                top: 0
+        .entryBox__article--shop-button
+          display: flex
+          align-items: center
+          justify-content: center
+          margin: 16px auto 0
+          background: whiteColor
+          border: 1px solid mobileColor
+          border-radius: 44px
+          box-sizing: border-box
+          color: mobileColor
+          font-weight: bold
+          +pc()
+            width: 268px
+            padding: 13.5px
+            font-size: 1.8rem
+            line-height: 1.3
+          +sp()
+            width: 100%
+            padding: 16px
+            font-size: 1.6rem
+            line-height: 1.4
+        .entryBox__article--info
+          +pc()
+            margin-top: 32px
+            text-align: center
+            font-size: 1.2rem
+            line-height: 1.5
+          +sp()
+            margin-top: 16px
+            text-align: left
+            font-size: 1rem
+            line-height: 1.8
+
+  // アプリをダウンロード
+  .downloadapp
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .downloadapp__container
+      display: flex
+      justify-content: center
+      border-radius: 16px
+      box-sizing: border-box
+      +pc()
+        margin-top: 40px
+        background: grayBgColor
+      +sp()
+        flex-direction: column
+        margin-top: 24px
+      .downloadapp__app-device
+        +pc()
+          margin-right: 60px
+          padding-top: 24px
+          text-align: right
+        +sp()
+          width: 194px
+          margin: auto
+        .downloadapp__app-device--img
+          +pc()
+            width: 280px
+      .downloadapp__app-link
+        +pc()
+          width: 250px
+        +sp()
+          margin: 16px auto 0
+        .downloadapp__app-link--title
+          +pc()
+            display: inline-block
+            position: relative
+            margin: 44px 0 0 24px
+            font-size: 2rem
+            font-weight: bold
+            line-height: 1.4
+            &::before
+              content: "|"
+              position: absolute
+              top: 0
+              left: -1.75rem
+              font-weight: normal
+              transform: rotate(-45deg)
+            &::after
+              content: "|"
+              position: absolute
+              top: 0
+              right: -1.75rem
+              font-weight: normal
+              transform: rotate(45deg)
+        .downloadapp__app-link--button
+          +pc()
+            width: 188px
+            height: 188px
+            margin: 24px auto 0
+          +sp()
+            text-align: center
+          img
+            &.-desktop
+              width: 180px
+              margin: auto
+            &.-iphone
+              width: 164px
+              margin: auto
+            &.-android
+              width: 203px
+              margin: auto
+
+  // アプリからサロン予約
+  .reservationapp
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .article__wrap
+      &.-app
+        width: auto
+        margin: 24px auto 0
+      // Search Area
+      .searchArea
+        background: grayBgColor
+        +sp()
+          margin: 24px auto 0
+
+        //- Search Area Component / ()内に色を入れる
+        @import passStr + '_common/stylus/Module/Common/_searchArea'
+        searchArea(mobileColor)
+      .reservationapp__menu__wrap
+        +sp()
+          overflow: hidden
+        .reservationapp__menu
+          display: flex
+          +pc()
+            width: 950px
+            margin: 40px auto 0
+          +sp()
+            width: 280px
+          .reservationapp__list
+            position: relative
+            width: 280px
+            background: grayBgColor
+            box-sizing: border-box
+            text-align: center
+            +pc()
+              position: relative
+              margin-right: 55px
+              padding: 16px 16px 0
+              border-radius: 16px
+              &:nth-of-type(-n+2)::after
+                +pc()
+                  position: absolute
+                  top: 50%
+                  right: -36px
+                  width: 0
+                  height: 0
+                  border-top: 13px solid transparent
+                  border-left: 13px solid grayTagColor
+                  border-bottom: 13px solid transparent
+                  transform: translateY(-50%)
+                  content: ''
+              &:last-of-type
+                +pc()
+                  margin-right: 0
+                +sp()
+                  margin-right: 0
+            +sp()
+              margin-right: 32px
+              padding: 16px 16px 0
+              border-radius: 14px
+            .conditionsBeauty__menu--list__img
+              height: 160px
+            .reservationapp__list--title
+              display: flex
+              align-items: center
+              justify-content: center
+              +pc()
+                font-size: 1.6rem
+                line-height: 1
+              +sp()
+                font-size: 1.4rem
+                line-height: 1.5
+              .reservationapp__list--title-icon
+                display: flex
+                align-items: center
+                justify-content: center
+                margin-right: 8px
+                background: prussianBlueColor
+                border-radius: 16px
+                box-sizing: border-box
+                color: whiteColor
+                font-weight: bold
+                line-height: 1
+                +pc()
+                  width: 27px
+                  height: 27px
+                  font-size: 1.4rem
+                +sp()
+                  width: 18px
+                  height: 18px
+                  font-size: 1rem
+            .reservationapp__list__caption
+              +pc()
+                width: 152px
+                margin: 24px auto 0
+              +sp()
+                width: 126px
+                margin: 26px auto 0
+            .reservationapp__list__caption-min
+              +pc()
+                width: 152px
+                margin: 19px auto 0
+              +sp()
+                width: 126px
+                margin: 5px auto 0
+        .reservationapp--info
+          text-align: center
+          +pc()
+            padding-top: 40px
+            font-size: 1.2rem
+            line-height: 1.5
+          +sp()
+            padding-top: 24px
+            font-size: 1rem
+            line-height: 1.8
+
+        //- SP用 splide スライダー
+        .splide
+          +sp()
+            width: 280px
+            margin: 24px auto
+        .splide__track
+          +sp()
+            overflow: hidden
+        .splide__arrow.splide__arrow--next:disabled
+          display: none !important
+        .splide__pagination
+          bottom: -26px
+        .splide__arrow:disabled
+          display: none !important
+        .splide__pagination__page
+          width: 6px
+          height: 6px
+          background #ccc
+        .splide__pagination__page.is-active
+          width: 6px
+          height: 6px
+          background grayTagColor
+          transform: scale(1)
+        .splide__arrow
+          display: block
+          position: absolute !important
+          top: 50% !important
+          width: 0 !important
+          height: 0 !important
+          background: transparent !important
+          border-radius: 0 !important
+          transform: translateY(-50%) !important
+          content: '' !important
+          &.splide__arrow--next
+            right: -25px !important
+            border-top: 15px solid transparent !important
+            border-left: 15px solid grayTagColor !important
+            border-bottom: 15px solid transparent !important
+          &.splide__arrow--prev
+            left: -25px !important
+            border-top: 15px solid transparent !important
+            border-right: 15px solid grayTagColor !important
+            border-bottom: 15px solid transparent !important
+          svg
+            display: none
+
+  //- 施術完了
+  .resultapp
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .resultapp__wrap
+      +pc()
+        width: 1013px
+        margin: 40px auto 0
+      +sp()
+        margin: 24px auto 0
+        width: calc(100% - 32px)
+      .resultapp__img
+        margin: auto
+        +pc()
+          width: 100%
+        +sp()
+          max-width: 345px
+      .resultapp--info
+        +pc()
+          padding-top: 40px
+          text-align: center
+          font-size: 1.2rem
+          line-height: 1.5
+        +sp()
+          padding-top: 24px
+          text-align: left
+          font-size: 1rem
+          line-height: 1.8
+        .flow__link
+          color: secondColor
+          &:hover
+            opacity: .8
+
+  // 最強プラン
+  .mobile__plan
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .mobile__plan__wrap
+      text-align: center
+      +pc()
+        width: 1032px
+        margin: 60px auto 0
+      +sp()
+        width: 100%
+        margin: 0 auto
+      .mobile__plan--title
+        display: inline-block
+        position: relative
+        font-weight: bold
+        +pc()
+          font-size: 3.2rem
+        +sp()
+          font-size: 1.6rem
+        &::before
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(-45deg)
+          +pc()
+            left: -2.5rem
+          +sp()
+            left: -1.75rem
+        &::after
+          content: "|"
+          position: absolute
+          top: 0
+          font-weight: normal
+          transform: rotate(45deg)
+          +pc()
+            right: -2.5rem
+          +sp()
+            right: -1.75rem
+      .mobile__plan__section
+        +pc()
+          margin-top: 40px
+        +sp()
+          margin-top: 24px
+        .mobile__plan__detail
+          margin: auto
+          +pc()
+            width: 1032px
+          +sp()
+            width: 100%
+        .mobile__plan__menu
+          display: flex
+          margin: 24px auto 0
+          +pc()
+            width: 1000px
+          +sp()
+            flex-direction: column
+            width: calc(100% - 32px)
+          .mobile__plan__list
+            +pc()
+              width: 492px
+              margin-right: 16px
+            +sp()
+              width: 100%
+              margin-bottom: 24px
+            &:last-of-type
+              +pc()
+                margin-right: 0
+              +sp()
+                margin-bottom: 0
+            .mobile__plan--button
+              display: flex
+              align-items: center
+              justify-content: center
+              width: 100%
+              background: mobileColor
+              border: 1px solid mobileColor
+              border-radius: 44px
+              box-sizing: border-box
+              color: whiteColor
+              font-weight: bold
+              line-height: 1.4
+              +pc()
+                padding: 16px 24px
+                font-size: 1.8rem
+              +sp()
+                padding: 16px
+                font-size: 1.6rem
+              &:hover
+                background: carmineColor
+                border: 1px solid carmineColor
+            .mobile__plan--sim-button
+              display: flex
+              align-items: center
+              justify-content: center
+              width: 100%
+              background: whiteColor
+              border: 1px solid mobileColor
+              border-radius: 44px
+              box-sizing: border-box
+              color: mobileColor
+              font-weight: bold
+              line-height: 1.4
+              +pc()
+                padding: 16px 24px
+                font-size: 1.8rem
+              +sp()
+                padding: 16px
+                font-size: 1.6rem
+              &:hover
+                background: coralRedColor
+        .mobile__plan__info
+          margin: 24px auto 0
+          text-align: left
+          line-height: 1.8
+          +pc()
+            width: 1000px
+            font-size: 1.2rem
+          +sp()
+            width: calc(100% - 32px)
+            font-size: 1rem
+          .link__text
+            color: ultramarineBlueColor
+            text-decoration: underline
+            &:hover
+              color: orientalBluedColor
+              text-decoration: underline
+              text-decoration-thickness: 2px
+
+  //- お得で便利
+  .profit
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .profit__liad--wrap
+      width: 100%
+      text-align: center
+      .profit__liad--title
+        display: inline-block
+        position: relative
+        padding: 30px 0
+        color: scarletColor
+        font-size: 3.2rem
+        font-weight: bold
+        line-height: 1.3
+        +sp()
+          padding: 16px 0
+          font-size: 1.8rem
+          line-height: 1.5
+        &::before
+          content: "|"
+          position: absolute
+          left: -2.75rem
+          font-weight: normal
+          transform: rotate(-45deg)
+          +sp()
+            left: -1.75rem
+        &::after
+          content: "|"
+          position: absolute
+          right: -2.75rem
+          font-weight: normal
+          transform: rotate(45deg)
+          +sp()
+            right: -1.75rem
+        &.-auxiliary
+          &::before
+            +sp()
+              left: -2.5rem
+              bottom: 10px
+              font-size: 3rem
+          &::after
+            +sp()
+              right: -2.5rem
+              bottom: 10px
+              font-size: 3rem
+    .profit__menu
+      width: 100%
+      .profit__menu__wrap
+        &.-standard
+          background: linear-gradient(90deg, #fff 0%, #fff 50%, #f7f7f7 50%, #f7f7f7 100%)
+          +sp()
+            background: grayBgColor 
+        &.-reverse
+          background: linear-gradient(90deg, #f7f7f7 0%, #f7f7f7 50%, #fff 50%, #fff 100%)
+          +sp()
+            background: grayBgColor 
+        .profit__menu__content
+          display: flex
+          align-items: center
+          width: 800px
+          margin: 0 auto
+          padding: 60px 0
+          +pc()
+            justify-content: space-between
+          +sp()
+            flex-flow: column
+            width: calc(100% - 32px)
+            margin: 0 auto
+            padding: 24px 0
+          &.-standard
+            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(247,247,247,1) 100%)
+            +sp()
+              background: grayBgColor 
+          &.-reverse
+            background: linear-gradient(90deg, rgba(247,247,247,1) 0%, rgba(255,255,255,1) 100%)
+            +sp()
+              background: grayBgColor 
+          .profit__menu__content__img
+            +pc()
+              width: 320px
+            +sp()
+              height: 250px
+              margin-top: 16px
+            img
+              +pc()
+                width: 100%
+              +sp()
+                height: 100%
+          .profit__menu__content__item
+            width: 448px
+            +sp()
+              width: 100%
+            .profit__menu__content__item--title
+              position: relative
+              margin-bottom: 40px
+              padding-bottom: 29px
+              font-size: 3.2rem
+              font-weight: bold
+              text-align: center
+              line-height: 1.5
+              &::after
+                position: absolute
+                bottom: 0
+                left: 50%
+                width: 90px
+                height: 5px
+                background: scarletColor
+                border-radius: 6px
+                transform: translateX(-50%)
+                content: ''
+              +sp()
+                font-size: 1.4rem
+                margin-bottom: 26px
+                padding-bottom: 15px
+                &::after
+                  width: 40px
+            .profit__menu__content__item--text
+              font-size: 2.4rem
+              line-height: 1.5
+              +sp()
+                font-size: 1.4rem
+
+  // QA
+  .qa
+    +pc()
+      width: pcWidth
+      margin: 0 auto 60px
+    +sp()
+      margin-bottom: 40px
+    .qa__listBox
+
+      // よくあるご質問セット(iconColor,bgColor,hoverColor)
+      QAset(secondColor,grayBgColor,grayBgColor)
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+
+    .detail__caption--bold
+      font-weight: bold
+      .detail__captionLink
+        color: secondColor
+        text-decoration: underline
+        &:hover
+          text-decoration: none
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)
+
+  // banner
+  .banner
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .banner__box
+      text-align: center
+      box-sizing: border-box
+      +pc()
+        width: 800px
+        height: auto
+        margin: 0 auto
+      +sp()
+        width: auto
+        max-width: 680px
+        margin: 0 8px
+      .banner__link
+        display: block
+        margin: 0 auto
+        +pc()
+          transition: opacity .2s ease-out
+          &:hover
+            opacity: 0.8
+        +sp()
+          width: auto
+          max-width: 640px
+        .banner__img
+          width: 100%
+          height: auto
+
+  // Popask
+  .popask
+    +pc()
+      margin: 0 auto
+      padding: 40px 0 0
+    +sp()
+      margin-bottom: 32px
+      padding: 0

@@ -1,0 +1,198 @@
+extends ../../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var meta = {
+      title: '楽天スーパーDEAL掲載店舗大募集！',
+      description: '楽天スーパーDEAL掲載店舗大募集！',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/info/dealap/',
+      og_image: 'https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png?202101',//- default (It can change if you need)
+    }
+  - var css = 'css/main.css?v20250228'
+
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav
+  +grobalNav()
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'スーパーDEAL掲載店舗大募集！',
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+
+  //---------------------------------// Common
+
+  mixin dealFormBtn()
+    a.dealContentBtn(href='https://beauty.rakuten.co.jp/member/deal_entry_form.php')
+      img.-pc(src='images/btn1.png' alt='お申し込みはこちら')
+      img.-sp(src='images/btn2_sp.png' alt='お申し込みはこちら')
+    ul.dealContentBtnBox
+      li.dealContentBtnBoxTxt
+        | 申込期限：掲載開始月の前月 20日 17:59まで
+      li.dealContentBtnBoxTxt--small
+        | (20日が土日祝の場合は前営業日17:59までとなります)
+      li.dealContentBtnBoxTxt--small
+        | ※一部地域にて手数料条件が異なる場合がございます
+      li.dealContentBtnBoxTxt
+        | 楽天ビューティサポートデスク：
+        br.-sp
+        | 050-5305-0990
+        span.-pc
+          | ｜
+        br.-sp
+        | 受付：年中無休 9:00〜18:00
+
+  //---------------------------------// layout
+
+  #DealForm
+    .dealFormOuter
+      .dealFormWrapper
+        // コンテンツここから
+        .dealContentTtl
+          iframe.dealvideo(src="https://www.youtube.com/embed/up0rtJ9VnjQ?si=6F0ohuZIrL8Bt9S3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen='')
+          p.dealContentTtlTxt--white.-sp
+            | 全エリア&amp;全ジャンルのサロンが対象
+          .dealContentTtlWrapper
+            .dealContentTtlImg
+              img.dealContentTtlImgIcon(src='images/main_icon.png' alt='参加費無料')
+            .dealContentTtlTxt
+              p.dealContentTtlTxt--white.-pc
+                | 全エリア&amp;全ジャンルのサロンが対象
+              h1.dealContentTtlTxt--yellow
+                | 6月〜掲載店舗大募集！
+              p.dealContentTtlTxtDue
+                | 申込期限：掲載開始月の前月20日17:59まで
+                span.dealContentTtlTxtDue--small
+                  | (20日が土日祝の場合は前営業日17:59までとなります)
+                  br 
+                  | ※一部地域にて手数料条件が異なる場合がございます
+        .dealContentIntro1
+          p.dealContentIntro1ImgBox
+            a.dealContentIntro1ImgBoxLink(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/superdeal/?scid=wi_bty_dealsalon' target='_blank')
+              img.-pc(src='images/cap1_1.png?20250324' alt='楽天ビューティが楽天スーパーDEALに掲載中')
+              img.-sp(src='images/cap1_1_sp.png?20250324' alt='楽天ビューティが楽天スーパーDEALに掲載中')
+          a.dealContentBtn(href='https://beauty.rakuten.co.jp/member/deal_entry_form.php')
+            img.-pc(src='images/btn1.png' alt='お申し込みはこちら')
+            img.-sp(src='images/btn1_sp.png' alt='お申し込みはこちら')
+          p.dealContentIntro1ImgBox
+            img.-pc(src='images/cap1_2.png?20250324' alt='楽天スーパーDEALメニュー予約数')
+            img.-sp(src='images/cap1_2_sp.png?20250324' alt='楽天スーパーDEALメニュー予約数')
+        .dealContentIntro2
+          p.dealContentIntro2ImgBox--1
+            a.dealContentIntro2ImgBoxLink(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/superdeal/?scid=wi_bty_dealsalon' target='_blank')
+              img.-pc(src='images/cap1_3.png' alt='豊富なメニューを掲載中')
+              img.-sp(src='images/cap1_3_sp.png' alt='豊富なメニューを掲載中')
+          p.dealContentIntro2ImgBox--2.-sp
+            img(src='images/cap1_4_sp.png' alt='掲載店舗様を大募集')
+
+        .dealContentData
+          p.dealContentDataImgBox--1
+            img.-pc(src='images/cap1_4.png' alt='楽天スーパーDEALは初回メニューの利用比率が高い')
+            img.-sp(src='images/cap1_5_sp.png' alt='楽天スーパーDEALで平均単価がアップ')
+
+          //- DEAL申し込みボタン
+          +dealFormBtn()
+
+        h2.dealContentAboutTitle
+          img.-pc(src='images/ttl_2.png' alt='楽天スーパーDEALとは？')
+          img.-sp(src='images/ttl_2_sp.png' alt='楽天スーパーDEALとは？')
+        .dealContentAbout
+          p.dealContentAboutImgBox--1
+            img.-pc(src='images/cap2_1.png?202402' alt='楽天会員様限定で高ポイント還元の商品がそろう楽天の企画ページです。')
+            img.-sp(src='images/cap2_1_sp.png?202402' alt='楽天会員様限定で高ポイント還元の商品がそろう楽天の企画ページです。')
+          p.dealContentAboutImgBox--2.-sp
+            img(src='images/cap2_2_sp.png?202402' alt='お客様にお得なメニューを提供')
+
+          //- DEAL申し込みボタン
+          +dealFormBtn()
+
+        h2.dealContentPRTitle
+          img.-pc(src='images/ttl_3.png?20250324' alt='楽天スーパーDEALエリアPR枠')
+          img.-sp(src='images/ttl_3_sp.png?20250324' alt='楽天スーパーDEALエリアPR枠')
+        .dealContentPR
+          p.dealContentPRImgBox
+            img.-pc(src='images/cap3_1.png?201905' alt='メリット1、エリア上位に固定表示。メリット2、メルマガ配信。')
+            img.-sp(src='images/cap3_1_sp.png?201905' alt='メリット1、エリア上位に固定表示。メリット2、メルマガ配信。')
+
+          //- DEAL申し込みボタン
+          +dealFormBtn()
+
+        h2.dealContentTermsTitle
+          img.-pc(src='images/ttl_4.png' alt='掲載条件')
+          img.-sp(src='images/ttl_4_sp.png' alt='掲載条件')
+        .dealContentTerms
+          .dealContentTermsBox
+            p.dealContentTermsBoxTtl ＜参加費用＞
+            p.dealContentTermsBoxTxt 無料
+          .dealContentTermsBox
+            p.dealContentTermsBoxTtl ＜広告手数料＞
+            p.dealContentTermsBoxTxt
+              | 楽天ポイント還元分の原資：10～35%
+              br
+              | 楽天スーパーDEAL手数料：
+              span.dealContentTermsBoxTxt--strikethrough
+                |10%
+              br
+              span.dealContentTermsBoxTxt--red.-arrow
+                | キャンペーン中につき
+              span.dealContentTermsBoxTxt--red
+                br
+                | 　　初回限定メニュー：5%
+                br
+                | 　　制限なしメニュー：0%
+              br
+              | ※キャンペーンの終了日は未定です。
+              br
+              | ※一部地域にて手数料条件が異なる場合がございます
+          .dealContentTermsBox
+            p.dealContentTermsBoxTtl ＜楽天スーパーDEALメニュー掲載条件＞
+            p.dealContentTermsBoxTxt ネット予約導入店舗様
+          .dealContentTermsBox
+            ul.dealContentTermsBoxTxtList
+              li.dealContentTermsBoxTxtList--li 最低2メニュー、最高3メニューまで掲載可能
+              li.dealContentTermsBoxTxtList--li
+                span.dealContentTermsBoxTxt--red
+                  | 割引対象については利用回数が「初回」のメニューが1件必須、「制限なし」のメニューが1件必須
+              li.dealContentTermsBoxTxtList--li メニュー内容、販売価格は現在掲載しているスペシャルメニュー、または通常メニューと同様の内容で登録
+          .dealContentTermsBox
+            p.dealContentTermsBoxTtl ＜注意事項＞
+            ul.dealContentTermsBoxTxtList
+              li.dealContentTermsBoxTxtList--liAttention 申込み頂いた内容によっては掲載出来ない可能性もありますのでご了承ください
+              li.dealContentTermsBoxTxtList--liAttention 現在登録されている販売価格に対して楽天ポイント還元率を設定
+              li.dealContentTermsBoxTxtList--liAttention 楽天スーパーDEAL申込後～掲載終了までは元となる通常メニューまたはスペシャルメニューは編集・削除ができません。
+              li.dealContentTermsBoxTxtList--liAttention 任意の3メニュー目は初回 / 制限なし どの対象のメニューでも可
+              li.dealContentTermsBoxTxtList--liAttention 楽天ポイント還元率は最小10％、最大35％まで設定可 （※キャンペーンによって還元率が変更される場合があります）
+              li.dealContentTermsBoxTxtList--liAttention 掲載期間は2ヶ月となりますが、申込み時に申込みフォーム内の「掲載期間自動更新設定」の項目を「自動更新する（有効）」に設定した場合、掲載期間満了後も2ヶ月毎の自動更新となります。
+              li.dealContentTermsBoxTxtList--liAttention 自動更新を希望しない場合は「掲載期間自動更新設定」の項目を「自動更新しない（無効）」に設定してください。
+              li.dealContentTermsBoxTxtList--liAttention 申込み時に「自動更新する（有効）」に設定した場合で、自動更新の停止を希望するときは、自動更新停止申請を行ってください。
+              li.dealContentTermsBoxTxtList--liAttention 自動更新停止申請の受付期間は、停止希望月の3ヶ月前の21日00:00から前月 20 日 17:59（20 日が土日祝の場合は前営業日の 17:59）までです。
+        ul.dealContentCm
+          li.dealContentCmTxt--bold ■クライアントマネージャーログイン画面■
+          li.dealContentCmTxt
+            | クライアントマネージャーログイン画面は
+            a.dealContentCmTxt--link(href='https://beauty.rakuten.co.jp/member/login.php' target='_blank') こちら
+            | 。
+          li.dealContentCmTxt
+            | クライアントマネージャーのログインID/パスワードが不明な場合は
+            a.dealContentCmTxt--link(href='https://beauty.rakuten.co.jp/support.php' target='_blank') こちら
+            | よりお問い合わせください。
+          li.dealContentCmTxt--bold
+            | 楽天ビューティサポートTEL :
+            span.-sp
+              br
+            | 050-5305-0990 （年中無休 9:00～18:00）
+
+
+block js
+  //- jsの記述はここに書く

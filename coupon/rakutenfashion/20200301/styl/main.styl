@@ -1,0 +1,154 @@
+passStr = '../../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f2f2f2
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+
+pcWidth = 1216px
+pcInnerWidth = 1000px
+
+//------------------------------
+
+#RakutenFashion　// #RakutenFashionはページ固有の名前に置換してください
+
+  text-align: center
+  font-size: 1.4rem
+  line-height: 1.5
+  a
+    img
+      transition: opacity .2s ease-out
+      &:hover
+        opacity: 0.8
+
+  // main
+  .main__title
+    width:100%
+    background: grayTagColor
+    font-size: 2.4rem
+    line-height: 2.4
+    color:white
+    margin-bottom: 32px
+    +sp()
+      margin: 0
+      font-size: 1.6rem
+      line-height: 1.3
+      padding: 8px 0
+  // logo用
+  .main__contentsBox--logo
+    display: block
+    width: pcInnerWidth
+    margin: 0 auto 32px
+    border: 4px solid grayBgColor
+    +sp()
+      width: 100%
+      margin:0 auto
+      border: none
+    &:last-of-type
+      margin: 0 auto
+      +sp()
+        margin:0 auto 24px
+    .contentsBox__main
+      display: block
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      .title__img
+        width: 700px
+        +sp()
+          width:100%
+  .main__contentsBox
+    width: pcInnerWidth
+    margin: 0 auto 60px
+    +sp()
+      width: 100%
+      margin:0 auto 24px
+    &:last-of-type
+      margin: 0 auto
+      +sp()
+        margin:0 auto 24px
+    .contentsBox__main
+      display: block
+      margin: 0 auto 8px
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      .title__img
+        width:100%
+    .contentsBox__title
+      font-size: 2rem
+      line-height 2
+      border-bottom:4px double grayLineColor
+      margin-bottom:24px
+      +sp()
+        font-size: 1.6rem
+        line-height 2.5
+        margin-bottom:16px
+    .contentsBox__products
+      .products__inner
+        display: flex
+        flex-wrap: wrap
+        justify-content: stretch
+        +sp()
+          padding: 0 8px
+        .inner__wrapper
+          +pc()
+            display: block
+            width: ((pcInnerWidth - 16px * 5)/6)
+            margin-bottom: 24px
+            margin-right: 16px
+            &:nth-of-type(6n)
+              margin-right: 0
+          +sp()
+            display: block
+            width: auto
+            max-width: (100% / 3)
+            margin: 0
+            padding: 0 4px 8px
+            box-sizing: border-box
+          .wrapper__box
+            .box__imgBox
+              border: 1px solid grayBgColor
+              box-sizing: border-box
+              .imgBox__link
+                display: block
+                .link__img
+                  width: 100%
+            .box__txtBox
+              .txtBox__link
+                margin: 8px 0
+                line-height:1.3
+                display: block
+    .contentsBox__moreBtn
+      display: block
+      width: 100%
+      margin: 0 auto
+      font-size: 1.8rem
+      line-height: 3
+      border:1px solid grayLineColor
+      color:grayTagColor
+      +sp()
+        width: auto
+        font-size: 1.4rem
+        margin: 0 8px
+      .moreBtn__txt
+        //
+      transition: color .2s ease-out
+      transition: background-color .2s ease-out
+      &:hover
+        color: #fff
+        background-color:grayLineColor

@@ -1,0 +1,240 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+pcWidth = 1216px
+
+smokePinkColor = #c0347a
+pcInnerWidth = 1032px
+pcBtnWidth = 960px
+
+//------------------------------
+
+#Review　// #Reviewはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // main
+  .main
+    margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      width:pcInnerWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+          &.-red
+            color: redColor
+        .main__termsLink
+          color:secondColor
+
+  // Review Btn
+  .reviewBox
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+    // ボタンセット(bgColor,txtColor)
+    btnSet(smokePinkColor,#fff)
+    // override
+    .btnSet__link
+      +pc()
+        margin:0 auto 16px
+        width:pcBtnWidth
+        padding:48px 0
+      +sp()
+        margin:10px
+        padding:16px 0
+      .btnSet__txt
+        +pc()
+          font-size:3.6rem
+        +sp()
+          line-height: 1.5
+
+    .reviewTxt
+      text-align: center
+      +pc()
+        font-size: 1.4rem
+      +sp()
+        font-size: 1.2rem
+
+  // RB link
+  .rbLink
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .titleWrap
+      +pc()
+        margin-bottom: 40px
+      .titleWrap--title
+        //
+    .rbLinkWrap
+      display:flex
+      //
+      +pc()
+        justify-content: center
+        //
+        width: pcInnerWidth
+        margin: 0 auto
+      +sp()
+        flex-wrap: wrap
+        justify-content: center
+        //
+        width: auto
+        margin: 0 8px
+      .rbLinkBox
+        +pc()
+          margin-right: 40px
+        +sp()
+          margin: 8px
+        &:last-of-type
+          +pc()
+            margin: 0
+        .rbLinkImgBox
+          display block
+          +pc()
+            width: 150px
+          +sp()
+            width: auto
+            max-width: 130px
+          &:hover
+            opacity: 0.8
+          .rbLinkImg
+            width: 100%
+
+  // ポイントゲットの流れ
+  .pointFlow
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .titleWrap
+      +sp()
+        // override
+        margin: 16px 0 0
+      .titleWrap--title
+        //
+    .pointFlowWrap
+      display:flex
+      //
+      +pc()
+        justify-content: center
+        //
+        width: pcInnerWidth
+        margin: 0 auto 40px
+      +sp()
+        flex-direction: column
+        //
+        width: auto
+      .pointFlowBox
+        position: relative
+        text-align: center
+        +pc()
+          margin-right: 100px
+        +sp()
+          margin: 0 10px 32px
+          padding: 8px 16px 8px 8px
+          border: 1px solid grayLineColor
+          box-sizing: border-box
+          //
+          display flex
+          align-items: center
+        &::after
+          content:''
+          position: absolute
+          +pc()
+            arrowFill(right,24px,grayLineColor)
+            top: calc((100% - 48px)/2)
+            right: -((100px + 24px)/2)
+          +sp()
+            arrowFill(bottom,16px,grayLineColor)
+            bottom: -((40px + 10px)/2)
+            right: calc((100% - 32px)/2)
+        &:last-of-type
+          +pc()
+            margin-right: 0
+          +sp()
+            margin-bottom: 16px
+          &::after
+            content: none
+        .pointFlowImgBox
+          +pc()
+            margin-bottom: 16px
+          +sp()
+            flex-shrink: 0
+            //
+            width: 50%
+            max-width: 228px
+          .pointFlowImg
+            width: 100%
+        .pointFlowTxtBox
+          +sp()
+            width: 100%
+          .pointFlowTxt
+            font-weight: bold
+            line-height: 1.5
+            +pc()
+              font-size: 2.4rem
+            +sp()
+              font-size: 1.4rem
+
+  // Campaign Deatail
+  .detail
+    .detail__caption
+      color: redColor
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)

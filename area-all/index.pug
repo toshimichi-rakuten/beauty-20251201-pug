@@ -1,0 +1,314 @@
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  - param = "?v20250109"
+  -
+    var meta = {
+      title: "【地域別クーポン】地元の美容室予約をおトクに！キャンペーン・特集一覧",
+      description: "美容室予約に使える割引クーポンやキャンペーンが続々。地元の美容室・ヘアサロンをおトクに予約して、地元を応援しよう！",
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/area-all/",
+      og_image: "https://beauty.rakuten.co.jp/cnt/topics/campaign/area-all/img/share.png" + param,//- default (シェア画像があれば変更)
+    }
+  - var css = "css/main.css" + param
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #AreaCampaignListPage
+
+    //- main
+    section#Main.main
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + param, alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + param, alt=meta.title)
+
+    //- text
+    h2.description_text
+      | あなたの地元で使えるクーポンやキャンペーンなど、
+      br.brsp
+      | 美容室をおトクに予約できる企画が盛りだくさん！
+
+    //- nav
+    nav#Navigation.navigation
+      h3.navigation__title
+        | あなたの地元を選ぶ
+      ul.navigation__btnWrap
+        li.navigation__btnBox
+          a.navigation__btnLink(href='#Tokyo')
+            span.navigation__btnTxt 東京都
+        li.navigation__btnBox
+          a.navigation__btnLink(href='#Sendai')
+            span.navigation__btnTxt 仙台市
+        li.navigation__btnBox
+          a.navigation__btnLink(href='#Kobe')
+            span.navigation__btnTxt 神戸市
+        li.navigation__btnBox
+          a.navigation__btnLink(href='#Fukuoka')
+            span.navigation__btnTxt 福岡市
+        li.navigation__btnBox
+          a.navigation__btnLink(href='#Saitama')
+            span.navigation__btnTxt.-small さいたま市
+        li.navigation__btnBox
+          a.navigation__btnLink(href='#Sapporo')
+            span.navigation__btnTxt 札幌市
+        li.navigation__btnBox
+          a.navigation__btnLink(href='#Hiroshima')
+            span.navigation__btnTxt 広島市
+
+    //- 東京
+    section#Tokyo.tokyo
+      .title__wrapper
+        h3.title__box
+          img.title__img(src="img/tokyo_logo.svg" alt="東京プロジェクト")
+          span.title__txt
+            | 東京都のサロン対象
+            br
+            span.title__txt--small
+              | キャンペーン・特集一覧
+
+      .notes__wrapper
+        .notes__inner
+          ul.notes__list
+            li.notes__detail ラ・クーポンとは楽天のクーポンの総称です。
+            li.notes__detail 電話予約はポイントの対象になりませんのでご注意ください。
+
+      #CampaignTokyo.cpn_lists
+        //- キャンペーン&特集一覧
+        include ../../../../_common/pug/Module/Common/_campaignList
+        +campaignListAreaAll('Tokyo','東京')
+
+    //- 仙台
+    section#Sendai.sendai
+      .title__wrapper
+        h3.title__box
+          img.title__img(src="img/sendai_logo.svg" alt="仙台プロジェクト")
+          span.title__txt
+            | 仙台市のサロン対象
+            br
+            span.title__txt--small
+              | キャンペーン・特集一覧
+
+      .notes__wrapper
+        .notes__inner
+          ul.notes__list
+            li.notes__detail ラ・クーポンとは楽天のクーポンの総称です。
+            li.notes__detail 電話予約はポイントの対象になりませんのでご注意ください。
+
+      #CampaignSendai.cpn_lists
+        //- キャンペーン&特集一覧
+        include ../../../../_common/pug/Module/Common/_campaignList
+        +campaignListAreaAll('Sendai','仙台')
+
+
+    //- 神戸
+    section#Kobe.kobe
+      .title__wrapper
+        h3.title__box
+          img.title__img(src="img/kobe_logo.svg" alt="神戸プロジェクト")
+          span.title__txt
+            | 神戸市のサロン対象
+            br
+            span.title__txt--small
+              | キャンペーン・特集一覧
+
+      .notes__wrapper
+        .notes__inner
+          ul.notes__list
+            li.notes__detail ラ・クーポンとは楽天のクーポンの総称です。
+            li.notes__detail 電話予約はポイントの対象になりませんのでご注意ください。
+
+      #CampaignKobe.cpn_lists
+        //- キャンペーン&特集一覧
+        include ../../../../_common/pug/Module/Common/_campaignList
+        +campaignListAreaAll('Kobe','神戸')
+
+
+    //- 福岡
+    section#Fukuoka.fukuoka
+      .title__wrapper
+        h3.title__box
+          img.title__img(src="img/fukuoka_logo.svg" alt="福岡プロジェクト")
+          span.title__txt
+            | 福岡市のサロン対象
+            br
+            span.title__txt--small
+              | キャンペーン・特集一覧
+
+      .notes__wrapper
+        .notes__inner
+          ul.notes__list
+            li.notes__detail ラ・クーポンとは楽天のクーポンの総称です。
+            li.notes__detail 電話予約はポイントの対象になりませんのでご注意ください。
+
+      #CampaignFukuoka.cpn_lists
+        //- キャンペーン&特集一覧
+        include ../../../../_common/pug/Module/Common/_campaignList
+        +campaignListAreaAll('Fukuoka','福岡')
+
+
+    //- 埼玉
+    section#Saitama.saitama
+      .title__wrapper
+        h3.title__box
+          img.title__img(src="img/saitama_logo.svg" alt="さいたまプロジェクト")
+          span.title__txt
+            | さいたま市のサロン対象
+            br
+            span.title__txt--small
+              | キャンペーン・特集一覧
+
+      .notes__wrapper
+        .notes__inner
+          ul.notes__list
+            li.notes__detail ラ・クーポンとは楽天のクーポンの総称です。
+            li.notes__detail 電話予約はポイントの対象になりませんのでご注意ください。
+
+      #CampaignSaitama.cpn_lists
+        //- キャンペーン&特集一覧
+        include ../../../../_common/pug/Module/Common/_campaignList
+        +campaignListAreaAll('Saitama','さいたま')
+
+
+    //- 札幌
+    section#Sapporo.sapporo
+      .title__wrapper
+        h3.title__box
+          img.title__img(src="img/sapporo_logo.svg" alt="札幌プロジェクト")
+          span.title__txt
+            | 札幌市のサロン対象
+            br
+            span.title__txt--small
+              | キャンペーン・特集一覧
+
+      .notes__wrapper
+        .notes__inner
+          ul.notes__list
+            li.notes__detail ラ・クーポンとは楽天のクーポンの総称です。
+            li.notes__detail 電話予約はポイントの対象になりませんのでご注意ください。
+
+      #CampaignSapporo.cpn_lists
+        //- キャンペーン&特集一覧
+        include ../../../../_common/pug/Module/Common/_campaignList
+        +campaignListAreaAll('Sapporo','札幌')
+
+    //- 広島
+    section#Hiroshima.hiroshima
+      .title__wrapper
+        h3.title__box
+          img.title__img(src="img/hiroshima_logo.svg" alt="広島プロジェクト")
+          span.title__txt
+            | 広島市のサロン対象
+            br
+            span.title__txt--small
+              | キャンペーン・特集一覧
+
+      .notes__wrapper
+        .notes__inner
+          ul.notes__list
+            li.notes__detail ラ・クーポンとは楽天のクーポンの総称です。
+            li.notes__detail 電話予約はポイントの対象になりませんのでご注意ください。
+
+      #CampaignHiroshima.cpn_lists
+        //- キャンペーン&特集一覧
+        include ../../../../_common/pug/Module/Common/_campaignList
+        +campaignListAreaAll('Hiroshima','広島')
+
+
+    //- 日本応援キャンペーン
+    section#Empower.empower
+      ul.empower__wrap
+        li.empower__box
+          a.empower__link(href='https://corp.rakuten.co.jp/event/empowerjapan/?scid=wi_corp_empowerjapan_beauty')
+            img.empower__img(src='img/bn_empowerJP_640x160.png' + param, alt='未来につなごう。にっぽんのいいもの 日本応援 楽天グループのお得な応援特集！')
+        li.empower__box
+          h2.c-heading__title
+            span.-pc ＼
+            | 日々のお出かけで地域のお店を応援！
+            span.-pc ／
+          p.empower__txt
+            | 日本に溢れる沢山の“いいもの”を 守りたい。今と未来の作り手を応援してゆくため、日本各地の名産品をお得に購入できるキャンペーンをはじめ、地域・店舗・生産者の方々を応援できるお得な特集を各種紹介しています。この機会に、ぜひご参加ください！
+
+
+    //- その他のキャンペーン一覧
+    section#Campaign.campaign
+      .c-heading--huge
+        h3.c-heading__title その他のキャンペーン
+        p.c-heading__subTitle キャンペーンや特典、ラ・クーポンを利用して、サロン予約をもっとお得に！
+
+      .cpn_lists
+        //- キャンペーン一覧
+        include ../../../../_common/pug/Module/Common/_campaignList
+        +campaignList()
+
+
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + param, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    const campaignlist = true;
+    const campaignlistsendai = true;
+    const campaignlistkobe = true;
+    const campaignlistfukuoka = true;
+    const campaignlistsaitama = true;
+    const campaignlistsapporo = true;
+    const campaignlisthiroshima = true;
+    const campaignlisttokyo = true;
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- scroll位置の調整（jQuery）
+  script.
+    window.onload = function (e) {
+      var anc = location.hash
+      var target = $(anc == "#" || anc == "" ? 'html' : anc);
+      var position = target.offset().top;
+
+      $.when(
+        $("html, body").animate({
+          scrollTop: position
+        }, 10, "swing"),
+        e.preventDefault(),
+      ).done(function() {
+        var diff = target.offset().top;
+        if (diff === position) {
+        } else {
+          $("html, body").animate({
+            scrollTop: diff
+          }, 10, "swing");
+        }
+      });
+    }

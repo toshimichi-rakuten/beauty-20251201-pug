@@ -1,0 +1,134 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    meta(name='robots', content='noindex,nofollow')
+    link(href='css/main.css', rel="stylesheet", type="text/css")
+    title Change Parameter
+  body
+    .formBox
+      h1.formBoxTitle Raku Lab用
+      label.formBoxSubtitle CloudinaryにアップしたURLをコピペ
+      form.formBoxForm(action="" data-role="cloudinary")
+        ul.formBoxUl--bgGray
+          - for (var i=1; i<=10; i++)
+            if(i == 1)
+              - var titleStr = '看板用';
+              p.formBoxSubtitleSmall !{titleStr}
+            else if(i == 2)
+              - var titleStr = '本文用';
+              p.formBoxSubtitleSmall !{titleStr}
+            li.formBoxLi
+              input.formBoxInput(type="text" name = `${'test' + i}` id=`${'base' + i}` placeholder='')
+        ul.formBoxUl
+          li.formBoxLi
+            button.formBoxButton(type="button" value="変換" id='change_btn') Change URL
+        ul.formBoxUl--bgGray
+          - for (var j=1; j<=10; j++)
+            if(j == 1)
+              - var titleStr = '看板用';
+              p.formBoxSubtitleSmall !{titleStr}
+            else if(j == 2)
+              - var titleStr = '本文用';
+              p.formBoxSubtitleSmall !{titleStr}
+            li.formBoxLi
+              input.formBoxInput(type="text" name = `${'test' + j}` id=`${'result' + j}` placeholder='')
+//- js
+script.
+  document.getElementById("change_btn").onclick = function() {
+    for (var i=1; i<=10; i++) {
+      passChange(i);
+    }
+    //- console.log("押されたよ");
+  };
+
+  function passChange(num) {
+    //- console.log(num);
+
+    // １．切り出す元となるテキスト取得
+    var str = document.getElementById('base' + num).value;
+    //- console.log(str);
+
+    // ２．切り出す基準となるテキスト取得
+    var cut_str_1 = '/rakulab/';
+    var cut_str_2_1 = '/stl'; // hair style
+    var cut_str_2_2 = '/nd'; // nail design
+    var cut_str_2_3 = '/s'; // saloh ID
+    var cut_str_3 = 'https://res.cloudinary.com/vivivi/image/upload/v';
+    //- console.log(cut_str_3);
+
+    // ３．基準となる文字列の位置を取得
+    var index1 = str.indexOf(cut_str_1);
+    if(str.indexOf(cut_str_2_1) > 0){
+      var index2 = str.indexOf(cut_str_2_1)
+    } else if(str.indexOf(cut_str_2_2) > 0){
+      var index2 = str.indexOf(cut_str_2_2)
+    } else if(str.indexOf(cut_str_2_3) > 0){
+      var index2 = str.indexOf(cut_str_2_3)
+    } else {
+      var index2 = -1;
+    }
+    var index3 = str.indexOf(cut_str_3);
+    //- console.log('index3',index3);
+
+    //- cut_str_1の文字列にマッチした時
+    if(index1 > 0){
+      //- console.log('index1');
+      // ４-1．基準文字列から後の文字列を切り出して表示
+      strSave = str.slice(index1);
+      // ４-2．基準文字列から前の文字列を切り出して表示
+      strChange = str.substring(0, index1);
+      if(num == 1)
+        strChange = 'https://cloudinary-a.akamaihd.net/vivivi/image/upload';
+      else
+        //- rakulab/フォルダに入っていれば効くのでv1/つき
+        strChange = 'https://cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,q_auto:good,w_1000/v1';
+      //- console.log(str);
+      str = strChange + strSave;
+      document.getElementById('result'+ num).value = str;
+
+    //- cut_str_2_nの文字列にマッチ、かつ下記パラメータが含まれていた時
+    } else if (index2 > 0 && str.indexOf('t_beauty,f_auto,dpr_2.0,q_auto:good') > 0){
+      //- console.log('index2');
+      // ４-1．基準文字列から後の文字列を切り出して表示
+      strSave = str.slice(index2);
+      //- console.log(strSave);
+      // ４-2．基準文字列から前の文字列を切り出して表示
+      strChange = str.substring(0, index2);
+      if(num == 1)
+        strChange = 'https://cloudinary-a.akamaihd.net/vivivi/image/upload';
+      else
+        //- スタイル画像は基本的にフォルダに入っていない=v1/は効かないのでつけない
+        strChange = 'https://cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,q_auto:good,w_1000';
+      //- console.log(str);
+      str = strChange + strSave;
+      document.getElementById('result'+ num).value = str;
+
+    //- cut_str_3の文字列にマッチした時
+    } else if (index3 >= 0){
+      //- console.log('index3');
+      // ４-1．基準文字列から後の文字列を切り出して表示
+      strSave = str.slice(index3);
+      //- console.log('strSave',strSave);
+      //- res.cloudinary.com/vivivi/image/upload/v0000000000 まで削除
+      strSave = strSave.slice(58);
+      //- console.log('strSave',strSave);
+      // ４-2．基準文字列から前の文字列を切り出して表示
+      strChange = str.substring(0, index3);
+      if(num == 1)
+        strChange = 'https://cloudinary-a.akamaihd.net/vivivi/image/upload';
+      else
+        //- フォルダに入っていない場合はv1/は効かないのでつけない
+        strChange = 'https://cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,q_auto:good,w_1000';
+      //- console.log(str);
+      str = strChange + strSave;
+      document.getElementById('result'+ num).value = str;
+
+    //- 文字列にマッチしなかった時
+    } else {
+      str = 'URLが入ってないか、間違ってるみたいです'
+      document.getElementById('result'+ num).placeholder = str;
+    }
+  }

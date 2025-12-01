@@ -1,0 +1,566 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- template / ver 3.2.1 / 更新日時：2025.1.7 / jqueryのバージョンを3.4.1から3.7.1に変更
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20250325'
+    var meta = {
+      title: 'Rakuten Beauty×Vissel神戸合同企画！',
+      description: 'Rakuten Beauty×Vissel神戸合同企画！ エントリー＆ヘアサロンの予約・施術で合計30名様に試合観戦ペアチケット or 公式グッズが当たる！',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/kobe_vissel/',
+      directory: 'kobe_vissel', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/kobe_vissel/img/share.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #Pagename
+
+    //- 終了対応
+    #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー必要', //- エントリー不要は自動的に青色になります
+            '美容室限定',
+            'ネット予約・施術完了',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+      .main__terms
+        .main__termsBox
+          p.main__termsTxt
+            | 対象条件：期間中のエントリーが必要／ヘアサロンのネット予約／期間中の施術完了／1回の施術料金が3,000円(税込)以上
+          p.main__termsTxt
+            | エントリー・予約期間：2025年3月3日 10:00 ～ 2025年4月1日 9:59
+          p.main__termsTxt
+            | 施術期間：2025年3月3日 10:00 ～ 2025年4月6日 23:59
+          p.main__termsTxt.-small
+            | ※本キャンペーンは予告なく変更・中止される可能性があります。
+          p.main__termsTxt.-small
+            | ※キャンペーン詳細は
+            a.main__termsLink(href='#Detail')
+              | こちら
+            | 。
+
+    //- Entry Btn
+    section#EntryBox.entryBox(data-ratid='cpn_' + meta.directory + '_EntryBox' data-ratevent='appear' data-ratparam='all')
+
+      //- 終了対応
+      if endflag == true
+        //- ボタンセット(url,txt,endflag)
+        +btnSet('',btnTxt,true)
+      else
+
+        //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+        //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+        // ReX Campaign Entry Button: Mounting points
+        // mounting point for button 1
+        #rex-ceb-01
+        // ReX Campaign Entry Button: Configuration
+        script
+          | var rexButtons = {language: 'ja', buttons: [{"code":"/rbeauty/vissel202503","theme":"red","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","below":{"isCheckboxMandatory":true,"isChecked":true,"checkboxText":"エントリーしてメルマガを購読する","html":""},"ids":["rex-ceb-01"]}]}
+        // ReX Campaign Entry Button: Script
+        script(src='https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js' defer='')
+
+        //- メルマガパーミッション
+        include ../../../../_common/pug/Module/Common/_mailPermissionTxt
+        +mailPermissionTxt()
+
+    //- flow
+    section#Flow.flow(data-ratid='cpn_' + meta.directory + '_Flow' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title キャンペーンの流れ
+      .flow__wrapper
+        p.flow__caption 
+          | キャンペーン期間中に
+          a.flow__link(href='#EntryBox')
+            | エントリー
+          | ＋
+          a.flow__link(href='#SearchArea')
+            | ヘアサロンのネット予約
+          | ・施術完了された方に
+          br
+          | 抽選で合計30名様に
+          a.flow__link(href='#Prize')
+            | 試合観戦ペアチケット or 公式グッズ
+          | をプレゼント！
+        ul.flow__boxWrap
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 1
+            .flow__box1
+              img.flow__boxImg(src='img/img_step1.png' + parameter, alt='Step1' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 1
+              p.flow__txt
+                a.flow__link(href='#EntryBox')
+                  | エントリー
+                | する
+                br
+                | （予約後でもOK！）
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 2
+            .flow__box1
+              img.flow__boxImg(src='img/img_step2.png' + parameter, alt='Step2' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 2
+              p.flow__txt
+                | 4月1日(火)9:59までに
+                br
+                a.flow__link(href='#SearchArea')
+                  | ヘアサロン
+                | のネット予約
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 3
+            .flow__box1
+              img.flow__boxImg(src='img/img_step3.png' + parameter, alt='Step3' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 3
+              p.flow__txt
+                | 4月6日(日)23:59までに
+                br
+                | 施術完了
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 4
+            .flow__box1
+              img.flow__boxImg(src='img/img_step4.png' + parameter, alt='Step4' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 4
+              p.flow__txt
+                | 発送をもって当選者発表
+              p.flow__txt.-small
+                | ※賞品や発送に関する詳細は
+                br
+                a.flow__link_cpn(href='#Detail')
+                  | こちら
+      ul.flow__attention
+        li.flow__txt.-small
+          | キャンペーン期間内であれば、ネット予約・施術と応募の順番は問いません。
+        li.flow__txt.-small
+          | 当選者の発表は賞品の発送またはポイント進呈をもって代えさせていただきます。(チケット当選者のみ別途当選メール有。)詳細は
+          a.flow__infolink(href='#Detail')
+            | こちら
+          | 。
+        li.flow__txt.-small
+          | 住所不備等による賞品の再送は行いませんので、登録の情報に誤りや変更がないか必ずご確認ください。楽天会員情報の確認・変更は
+          a.flow__infolink(href='https://my.rakuten.co.jp/')
+            | こちら
+          | 。
+
+    //- prize
+    section#Prize.prize(data-ratid='cpn_' + meta.directory + '_Prize' data-ratevent='appear' data-ratparam='all')
+      h3.prize--title 試合観戦ペアチケット or 公式グッズが
+        br.-sp
+        | 抽選で当たる！
+      .prize--container
+        .prize--desc--wrap
+          p.prize--desc--text
+            | 新シーズンスタート！
+            br.-sp
+            | お家観戦も楽しめるグッズをご用意！
+          .prize--desc--icon
+            img(src='img/icon_movi1.png' + parameter, alt='©2005 VISSEL KOBE' width='' height='')
+              
+        //-A賞 
+        .prize--item--wrap-main
+          .prize--item--container      
+            .prize--item--box
+              .prize--item--img
+                img.img--prize1.-pc(src='img/img_prize1.jpg' + parameter, alt='A賞 試合観戦ペアチケット@ノエビアスタジアム神戸' width='' height='')
+                img.img--prize1.-sp(src='img/img_prize1-sp.jpg' + parameter, alt='A賞 試合観戦ペアチケット@ノエビアスタジアム神戸' width='' height='')
+              .prize--item--detail
+                .prize--item--title
+                  p.prize--item--title--award A賞
+                  p.prize--item--title--text 3組6名様
+            .prize--text--box
+              p.prize--text--title 【VIP席で観戦！試合観戦ペアチケット
+               br.-sp
+               | @ノエビアスタジアム神戸】
+              p.prize--text--subtitle 下記いずれか １組2名ずつ当選
+              span.detail-date 
+               | 5月3日(土祝) 15:00 vsファジアーノ岡山
+               br
+               | 5月17日(土) 14:00 vsガンバ大阪
+               br
+               | 6月15日(日) 18:00 vs名古屋グランパス
+
+        //-B-C賞
+        ul.prize--item--wrap
+          li.prize--item--container
+            .prize--item--box
+              .prize--item--img
+                img.img--prize2(src='img/img_prize2.png' + parameter, alt='B賞 2025 【レプリカ】ユニフォーム（1st）' width='' height='')
+              .prize--item--detail
+                .prize--item--title
+                  p.prize--item--title--award B賞
+                  p.prize--item--title--text 2名様
+            .prize--text--box
+              | 2025【レプリカ】ユニフォーム（1st）
+              br
+              span.detail #12VISSEL KOBE いずれもMサイズ
+
+          li.prize--item--container
+            .prize--item--box
+              .prize--item--img
+                img.img--prize3(src='img/img_prize3.png' + parameter, alt='C賞 ジェラートピケコラボ ロゴハーフパンツ' width='' height='')
+              .prize--item--detail
+                .prize--item--title
+                  p.prize--item--title--award C賞
+                  p.prize--item--title--text 6名様
+            .prize--text--box
+              | ジェラートピケコラボ ロゴハーフパンツ
+              br
+              span.detail クリムゾンレッド M-Lサイズ
+              
+        //-D-E-F賞
+        ul.prize--item--wrap-three
+          li.prize--item--container
+            .prize--item--box
+              .prize--item--img
+                img.img--prize4(src='img/img_prize4.png' + parameter, alt='D賞 サーモビアタンブラー' width='' height='')
+              .prize--item--detail
+                .prize--item--title
+                  p.prize--item--title--award D賞
+                  p.prize--item--title--text 6名様
+            .prize--text--box
+              | サーモビアタンブラー
+              br
+              span.detail ※色は変更になる場合があります。
+
+          li.prize--item--container
+            .prize--item--box
+              .prize--item--img
+                img.img--prize5(src='img/img_prize5.png' + parameter, alt='E賞 【お買いものパンダ｜VISSEL KOBE】タオルマフラー' width='' height='')
+              .prize--item--detail
+                .prize--item--title
+                  p.prize--item--title--award E賞
+                  p.prize--item--title--text 6名様
+            .prize--text--box
+              | 【お買いものパンダ｜VISSEL KOBE】
+              br.-sp
+              | タオルマフラー
+
+          li.prize--item--container
+            .prize--item--box
+              .prize--item--img
+                img.img--prize6(src='img/img_prize6.png' + parameter, alt='F賞 500ポイント' width='' height='')
+              .prize--item--detail
+                .prize--item--title
+                  p.prize--item--title--award F賞
+                  p.prize--item--title--text 10名様
+            .prize--text--box
+              | 500ポイント
+
+        ul.prize--info
+          li ※賞の選択はできません。
+          li ※最新の試合日程はJリーグ公式サイト又はヴィッセル神戸オフィシャルサイトをご確認ください。
+          li ※チケットは二次元バーコード（QR）を用いたeチケットです。ご自宅へ送付するチケット取得ガイドをもとに来場者登録をお願いいたします。
+          li ※やむを得ない事情により試合日程に変更がある場合はメールまたは郵送にてご連絡を致します。
+  
+    //-ソシオクラブ
+    section#Prize-vip.prize-vip(data-ratid='cpn_' + meta.directory + '_Prizevip' data-ratevent='appear' data-ratparam='all')
+      .prize-vip-wrapper
+        .prize-vip-title
+          .prize-vip-title-warp
+            img.ashirai1(src="img/ashirai-1.png" + parameter)
+            .title-addtext A賞当選で体験できる!
+            img.ashirai2(src="img/ashirai-2.png" + parameter)
+          p.title-text-wrapper
+            span.span プレミアム
+            span.span ・
+            span.span ソシオ
+            span.span ・
+            span.span クラブ
+            span.text-wrapper を
+            span.span ご紹介
+            
+        .prize-vip-container
+          .prize-vip-socioclub
+            .vip-title-wrap
+              .vip-title
+               span.span プレミアム
+               span.span ・
+               span.span ソシオ
+               span.span ・
+               span.span クラブ
+              img.tour(src="img/ribon.png" + parameter)
+            .vip-content
+              img.socioclub-mainpic(src="img/club-main.png" + parameter, alt="プレミアム・ソシオ・クラブ")
+              .vip-content-text-wrap
+                .frame
+                  .h
+                    p.socio-text
+                      span.text-wrapper 国内TOPクラスの
+                      span.span VIP席
+                      span.text-wrapper
+                    img.fukidashi(src="img/fukidashi.png" + parameter)
+                  .div VIP専用入口より入場可能
+                ul.vip-content-text-sociolist
+                  li
+                    .frame
+                      .group
+                        .div
+                          img.element(src="img/01.png" + parameter)
+                          .line
+                          .text-wrapper 座席はスタジアム全体を見渡せる
+                            br
+                            | メインスタンド中央に！
+                      img.club(src="img/club-01.jpg" + parameter, alt="座席エリア")
+                  li
+                    .frame
+                      .group
+                        .div
+                          img.element(src="img/02.png" + parameter)
+                          .line
+                          .text-wrapper ゆったりお座りいただける
+                            br
+                            | 革張りシート
+                      img.club(src="img/club-02.jpg" + parameter, alt="VIPシート")
+                  li
+                    .frame
+                      .group
+                        .div
+                          img.element(src="img/03.png" + parameter)
+                          .line
+                          .text-wrapper 季節に応じたお食事やアルコール
+                            br
+                            | ・ソフトドリンク付き
+                      img.club(src="img/club-03.jpg" + parameter, alt="フード・ドリンク")
+
+    //- Area Search
+    section#SearchArea.searchArea(data-ratid='cpn_' + meta.directory + '_SearchArea' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title 対象のヘアサロン
+      .searchArea--container
+        .searchArea--desc--icon
+          img(src='img/icon_movi2.png' + parameter, alt='©2005 VISSEL KOBE' width='' height='')
+        a.searchArea--button(href="https://beauty.rakuten.co.jp/?l-id=rb_kobe_visssel_lp_search")
+          | 対象ヘアサロンはこちら
+        p.searchArea--info
+          | ※ネット予約できるヘアサロンが対象です。
+
+    //- app DL
+    section#App.app.-excludeApp(data-ratid='cpn_' + meta.directory + '_App' data-ratevent='appear' data-ratparam='all')
+
+      //- app DL parts(app2x, adjustUrl, QRCodeURL)
+      //- 
+        1.狭域追加設定：app2xを表示
+        2.DL用のAdjust URLとQRコードは基本変えずに運用でマーケと合意済み。変更したい場合は第2引数にadjustUrl、第3引数にQRCodeの画像URLを入れると変更可能
+        3.例：+appDL('app2x','https://app.adjust.com/1ifdl1tv','/cnt/common/images/cpn-parts/btn_dl_qr.svg')
+
+      //- appInfoFlag 注意文の表示/非表示 trueで表示、falseで非表示
+      - var appInfoFlag = true
+      +appDL('app2x')
+
+      //- banner
+    section#Banner.banner(data-ratid='cpn_' + meta.directory + '_Banner' data-ratevent='appear' data-ratparam='all')
+      .banner__box
+        p.banner__txt
+          | ここでしか読めないヴィッセル神戸の記事をおとどけ！
+          br.-pc
+          | 楽天のスポーツメディア
+        .banner__boxInner
+          a.banner__link(href="https://syncsports.corp.rakuten.net?scid=wi_bty_2503cplp_bnrm")
+            img.banner__img(src='img/syncsports-beauty_640x160.jpg' + parameter, alt='楽天のスポーツメディア' width='640' height='160')
+
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle 【MAQUIA】限定ラ・クーポン
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead エントリー・予約期間
+              td.detail__tableBlockBody 2025年3月3日(月) 10:00～2025年4月1日(火) 9:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 施術期間
+              td.detail__tableBlockBody 2025年3月3日(月) 10:00～2025年4月6日(日) 23:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li エントリーをされた方
+                  li.detail__tableBlockList--li 予約期間中に楽天ビューティ掲載のヘアサロンで3,000円以上(税込)のネット予約をされた方
+                  li.detail__tableBlockList--li 施術期間中に施術を完了された方
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li エントリーには楽天会員登録が必要です。楽天会員でない方は、エントリーと同時に楽天会員登録(無料)ができます。
+                  li.detail__tableBlockList--li エントリー履歴は
+                    a.detail__tableBlockTxt--link(href="https://oubo.rakuten.co.jp/list?spk=f1636b")
+                      | こちら
+                    | から確認できます。
+                  li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、
+                    span.detail__tableBlockTxt--red クーポン割引後
+                    | の価格が 3,000 円(税込)以上の場合に対象となります。
+                  li.detail__tableBlockList--li ネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約や直接来店で施術完了された場合は、当キャンペーンの対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の来店期間内で施術完了された場合は、当キャンペーンの対象となります。
+                  li.detail__tableBlockList--li 期間内の予約・施術完了であればエントリーと予約・施術完了どちらが先でも対象となります。
+                  li.detail__tableBlockList--li 楽天グループの役職員及び関係者は応募できません。
+
+            tr.detail__tableBlock
+            th.detail__tableBlockHead 特典内容
+            td.detail__tableBlockBody
+                p.detail__tableBlockTxt 抽選で合計30名様にヴィッセル神戸試合観戦ペアチケットまたは公式グッズを進呈
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt A賞 試合観戦ペアチケット@ノエビアスタジアム神戸（3組6名様）
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li-brank 下記いずれか、1組2名ずつ当選。
+                  li.detail__tableBlockList--li-brank 5月3日(土祝) 15:00 vsファジアーノ岡山
+                  li.detail__tableBlockList--li-brank 5月17日(土) 14:00 vsガンバ大阪
+                  li.detail__tableBlockList--li-brank 6月15日(日) 18:00 vs名古屋グランパス
+                p.detail__tableBlockTxt B賞 2025【レプリカ】ユニフォーム（1st）(#12 VISSEL KOBE Mサイズ)（2名様）
+                p.detail__tableBlockTxt C賞 ジェラートピケコラボ ロゴハーフパンツ(クリムゾンレッド Mサイズ) （3名様）
+                p.detail__tableBlockTxt D賞 サーモビアタンブラー(ブラウン) (6名様)
+                p.detail__tableBlockTxt E賞 【お買いものパンダ｜VISSEL KOBE】タオルマフラー (6名様)
+                p.detail__tableBlockTxt F賞 500ポイント（10名様）
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 賞の選択はできません。
+                  li.detail__tableBlockList--li 最新の試合日程はJリーグ公式サイト又はヴィッセル神戸オフィシャルサイトをご確認ください。
+                  li.detail__tableBlockList--li チケットは二次元バーコード（QR）を用いたeチケットです。ご自宅へ送付するチケット取得ガイドをもとに来場者登録をお願いいたします。
+                  li.detail__tableBlockList--li 特典は楽天会員情報にご登録の住所宛てに発送いたします(国内のみ)。ご登録の情報に誤りや変更がないか、必ずご確認ください。楽天会員情報の確認・変更は
+                    a.detail__tableBlockTxt--link(href='https://my.rakuten.co.jp/')
+                      | こちら
+                    | 。
+                  li.detail__tableBlockList--li 楽天会員情報の登録不備や宛先不明などで連絡がとれない場合、当選は無効とさせていただき、特典の再送及び繰り上げ当選は行いませんのでご注意ください。
+                  li.detail__tableBlockList--li 特典の転売、特典獲得権の譲渡は禁止です。
+                  li.detail__tableBlockList--li その他のキャンペーンとの併用はできません。一番特典の大きいキャンペーンが適用されます。
+                    a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/')
+                      | キャンペーン一覧はこちら
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典発送・進呈予定日 チケット
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 当選メール：2025年4月25日(金)頃
+                p.detail__tableBlockTxt チケット取得ガイド：試合の二週間前頃
+                p.detail__tableBlockTxt 公式グッズ：2025年5月16日(金)頃
+                p.detail__tableBlockTxt 楽天ポイント：2025年4月30日(水)
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 公式グッズは特典の発送をもって、楽天ポイントはポイント進呈をもって当選の発表にかえさせていただきます。
+                  li.detail__tableBlockList--li ※	獲得した特典ポイントは、
+                  a.detail__tableBlockTxt--link(href='https://point.rakuten.co.jp/history/')
+                    | 楽天PointClubのポイント実績
+                  | でご確認いただけます。
+                  li.detail__tableBlockList--li 当選に関わる個別のお問い合わせについては、対応しておりません。
+                  li.detail__tableBlockList--li 都合により特典の発送が遅れる場合もございます。予めご了承ください。
+
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 一部ネット経由の予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li キャンペーンのエントリー及び条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li 「QRコード」は、株式会社デンソーウェーブの登録商標です。　
+                  li.detail__tableBlockList--li その他ご不明な点は
+                    a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/')
+                      | こちら
+                    | よりお問い合わせください。
+
+    //- Other Campaign
+    section#Campaign.campaign(data-ratid='cpn_' + meta.directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title その他のキャンペーン
+
+      include ../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  script(src="/cnt/common/js/area-search/shopSearch.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く

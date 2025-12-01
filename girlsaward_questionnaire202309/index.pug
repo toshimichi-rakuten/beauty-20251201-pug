@@ -1,0 +1,142 @@
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var meta = {
+      title: "ケラスターゼについてのアンケート",
+      description: "ケラスターゼについてのアンケート",
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/girlsaward_questionnaire202309/",
+      og_image: "https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png?202101",//- default (It can change if you need)
+    }
+  - var css = "css/main.css?v20250109"
+
+block addHead
+  meta(name='robots', content='noindex,nofollow')
+
+  //- enen js
+  script(type="text/javascript").
+    <!--
+    function isChecked(el) {
+    if (el.length) {
+    for (var i = 0; i < el.length; i++) {
+    if (el[i].checked) {
+    return true;
+    }
+    }
+    } else {
+    if (el.checked) {
+    return true;
+    }
+    }
+    return false;
+    }
+    
+    function checkForm() {
+    var el;
+    var obj = document.enenForm;
+    
+    el = obj.elements['answers[39777_271183]'];
+    if (!isChecked(el)) {
+    alert("「ケラスターゼを知っていましたか？」を選択してください。");
+    return false;
+    }
+    
+    el = obj.elements['answers[39777_271184]'];
+    if (!isChecked(el)) {
+    alert("「美容院(サロン)でケラスターゼの施術を受けたことはありますか？」を選択してください。");
+    return false;
+    }
+    
+    el = obj.elements['answers[39777_271185]'];
+    if (!isChecked(el)) {
+    alert("「これまでケラスターゼ製品を使ったことはありますか？」を選択してください。");
+    return false;
+    }
+    
+    }
+    // -->
+
+block nav
+  //- grobalNav
+  +grobalNav()
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'ケラスターゼについてのアンケート',
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+
+  #girlsaward_questionnaire202309
+
+    #mainArea
+      h1.main_ttl
+        | ケラスターゼについてのアンケート
+      .request_area
+        form(action='https://form.rakuten.co.jp/ans/apply/39777', name='enenForm', method='POST', onsubmit='return checkForm()')
+          table(border='1')
+            tr
+              td ケラスターゼを知っていましたか？【必須】
+              td
+                label(for="a751343")
+                  input#a751343(type="radio", name="answers[39777_271183]", value="751343")
+                  | はい、知っていました。
+                label(for="a751344")
+                  input#a751344(type="radio", name="answers[39777_271183]", value="751344")
+                  | いいえ、知りませんでした。
+            tr
+              td 美容院(サロン)でケラスターゼの施術を受けたことはありますか？【必須】
+              td
+                label(for="a751345")
+                  input#a751345(type="radio", name="answers[39777_271184]", value="751345")
+                  | はい、受けたことがあります。
+                label(for="a751346")
+                  input#a751346(type="radio", name="answers[39777_271184]", value="751346")
+                  | いいえ、受けたことがありません。
+            tr
+              td これまでケラスターゼ製品を使ったことはありますか？【必須】
+              td
+                label(for="a751347")
+                  input#a751347(type="radio", name="answers[39777_271185]", value="751347")
+                  | はい、使ったことがあります。
+                label(for="a751348")
+                  input#a751348(type="radio", name="answers[39777_271185]", value="751348")
+                  | いいえ、使ったことはありません。
+          .readme
+            h3 【個人情報について】
+            ol
+              li 楽天グループでは、お預かりした個人情報は個人情報保護方針に定める個人情報の利用目的の範囲内で利用します。
+              li 個人情報保護方針についてはこちら&emsp;
+                br.-sp
+                a(href="https://beauty.rakuten.co.jp/kiyaku.php")
+                  | https://beauty.rakuten.co.jp/kiyaku.php
+            h3 【問合せ先】
+            ol
+              li 楽天ビューティお客様サポート&emsp;
+                br.-sp
+                a(href="https://beauty.faq.rakuten.net/user/s/ask")
+                  | https://beauty.faq.rakuten.net/user/s/ask
+          .girlsaward_questionnaire202309__submitBox
+            input(type='hidden', name='c', value='楽天')
+            input(type='hidden', name='l', value='ja')
+            input#button.girlsaward_questionnaire202309__submitBtn(type='submit', value='送信')
+
+
+block js
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+  script.
+    $('#permissionCheck').change(function() {
+      // チェックが入っていたら有効化
+      if ( $(this).is(':checked') ){
+        // ボタンを有効化
+        $('#button').prop('disabled', false);
+      } else {
+        // ボタンを無効化
+        $('#button').prop('disabled', true);
+      }
+    });

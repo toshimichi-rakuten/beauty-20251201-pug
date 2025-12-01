@@ -1,0 +1,1 @@
+"use strict";var supportScroll="onscroll"in window&&!/(gle|ing)bot/.test(navigator.userAgent);if(!1!==supportScroll){var trigger=new ScrollTrigger.default;trigger.add("[data-trigger-list]",{once:!0,offset:{element:{y:10}}})}document.querySelectorAll(".awardOutline__content__link.no-link").forEach((function(e){e.addEventListener("click",(function(e){e.preventDefault()}))}));

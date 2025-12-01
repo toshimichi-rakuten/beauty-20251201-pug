@@ -1,0 +1,195 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+
+lavenderColor = #8FA3CD
+lightBlueColor = #83BFCE
+beigeColor = #D4BC7C
+
+lightPink = #FF66BA
+
+pcWidth = 1216px
+couponWidth = 430px // 3つ並列にする場合は357px以内にする
+
+//------------------------------
+
+#CouponTemplate
+
+  // main
+  .main
+    margin: 0 auto 40px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      background-color: lightPink
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+        +pc()
+          width 760px
+    .main__terms
+      text-align: center
+      //
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+        padding: 10px 40px
+      +sp()
+        padding: 10px
+      .main__termsBox
+        width: 100% //IE対応
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.2rem
+          &.-small
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+          &.-pink
+            color: mainColor
+            font-weight: bold
+        .main__termsLink
+          color:secondColor
+          text-decoration: underline
+          &:hover
+            text-decoration: none
+
+  //- ラ・クーポン
+  .coupon
+    width:100%
+    // text-align: center
+
+    // 事前
+    .couponAdd
+      +pc()
+        margin-bottom:60px
+        //
+        display: flex
+        flex-direction: column
+        justify-content: center
+      +sp()
+        padding 0 10px 40px
+        box-sizing: border-box
+
+      // ボタンセット(bgColor,txtColor)
+      btnSet(Colors.CrimsonRed.color,#fff)
+
+      .coupon__terms
+        +pc()
+          display: flex
+          flex-direction: column
+          //
+          width: auto
+          height:auto
+          margin: 16px auto
+          &:last-of-type
+            margin: 0 auto
+        +sp()
+          margin: 0 auto
+        .coupon__termsTxt
+          font-size: 1.4rem
+          line-height 1.5
+          color:grayTxtColor
+          +sp()
+            font-size: 1.2rem
+          .coupon__termsLink
+            color:secondColor
+
+    // 獲得
+    .couponGet
+      background-color: grayBgColor
+
+      .coupon__title
+        text-align: center
+        font-weight: bold
+        +pc()
+          font-size: 1.8rem;
+          line-height: 1.4;
+          padding: 40px 0 16px
+        +sp()
+          padding: 12px 0 6px;
+          font-size: 1.4rem;
+          line-height: 1.5;
+
+      // 非遷移クーポン
+      // couponOneClickSet(couponWidth,couponColor)
+      @import passStr + '_common/stylus/Module/Common/_couponOneClick'
+      couponOneClickSet(couponWidth,lightPink)
+
+      .couponOneClickSetWrap
+        .couponOneClickSetSummary .couponOneClickSetTitle
+          display: none
+        .couponOneClickSet .couponBox .couponBoxBottom .couponOneClickTerms .couponOneClickTermsAttention .couponOneClickTermsAttentionTxt
+          &.-b
+            font-weight: bold
+
+  // Search Area
+  .searchArea
+    background: grayBgColor
+    +pc()
+      display: block
+      padding: 32px 0
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Search Area Component / ()内に色を入れる
+    @import passStr + '_common/stylus/Module/Common/_searchArea'
+    searchArea(lightPink)
+
+  // banner
+  .banner
+    margin: 0 auto 60px
+    +sp()
+      margin-bottom: 40px
+      padding:  0 16px
+    .banner__link
+      display: block
+      width: auto
+      max-width: 640px
+      margin: 0 auto
+      transition: opacity .2s ease-out
+      &:hover
+        opacity: 0.8
+      .banner__img
+        width: 100%
+        height: auto
+
+    // Search Area Component / ()内に色を入れる
+    @import passStr + '_common/stylus/Module/Common/_searchArea'
+    searchArea(mainColor)
+
+  // Campaign Deatail
+  .detail
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)

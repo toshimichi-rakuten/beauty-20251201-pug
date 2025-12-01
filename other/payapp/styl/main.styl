@@ -1,0 +1,1210 @@
+passStr = '../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+roseRedColor = #ffe9f8
+lightBlueColor = #dcf3ff
+chromeYellowColor = #fff5cc
+peacockBlueColor = #1b95ad
+turquoiseBlueColor = #ceebf0
+cherryPinkColor = #ff41be
+shellPinkColor = #fbeaea
+skyBlueColor = #e3f7fa
+
+whiteColor = #fff
+blackColor = #000
+
+pcWidth = 1216px
+
+//------------------------------
+
+#Payapp // #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  // アンカー
+  navHeightPc = 63px
+  navHeightSp = 62px
+
+  #Step1,
+  #Step2,
+  #ConditionsBeauty,
+  #ConditionsCertificate,
+  #Step3,
+  #Beauty,
+  #Pay,
+  #Detail
+    display: block
+    +pc()
+      padding-top: (navHeightPc + 0)
+      margin-top: -(navHeightPc + 0)
+    +sp()
+      padding-top: (navHeightSp + 0)
+      margin-top: -(navHeightSp + 0)
+
+  a,
+  .global-nav__list
+    &:hover
+      opacity: .8
+
+  // link
+  .info__link
+    color: secondColor
+
+  // main
+  .main
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: peacockBlueColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color: whiteColor
+          font-weight: bold
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+          &.-small
+            color: whiteColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+          &.-secondary
+            +pc()
+              display: inline-block
+              margin-left: 1.25rem
+            +sp()
+              display: block
+        .main__termsLink
+          color:secondColor
+    .main__step__container
+      +pc()
+        width: 660px
+        margin: 20px auto 0
+      +sp()
+        width: calc(100% - 16px)
+        margin: 8px auto 0
+    .main__step__info
+      text-align: left
+      .text--bold
+        font-weight: bold
+      +pc()
+        width: 656px
+        margin: 20px auto 0
+        font-size: 1.4rem
+        line-height: 1.8
+      +sp()
+        width: calc(100% - 32px)
+        margin: 10px auto 0
+        font-size: 1.2rem
+        line-height: 1.4
+      .main__termsLink
+        color: secondColor
+
+  // ナビゲーション
+  .navigation
+    position: sticky
+    z-index: 10
+    top: 0
+    width: 100%
+    background: grayBgColor
+    +pc()
+      height: 63px
+    +sp()
+      height: 62px
+    .global-nav
+      display: flex
+      align-items: center
+      justify-content: center
+      +pc()
+        width: 950px
+        margin: auto
+      +sp()
+        width: 100%
+      .global-nav__list
+        position: relative
+        width: calc(100% / 4)
+        &:nth-child(-n+3)::after
+          position: absolute
+          right: 0
+          border-right: 1px solid grayTagColor
+          content: ''
+          +pc()
+            top: 8px
+            height: 47px
+          +sp()
+            top: 7px
+            height: 46px
+        .global-nav__link
+          display: block
+          position: relative
+          width: 100%
+          color: blackColor
+          text-align: center
+          line-height: 1.4
+          box-sizing: border-box
+          +pc()
+            height: 63px
+            padding-top: 17.5px
+            font-size: 1.4rem
+          +sp()
+            height: 62px
+            padding-top: 19.5px
+            font-size: 1.2rem
+          &::after
+            position: absolute
+            display: inline-block
+            bottom: 8px
+            left: 0
+            right: 0
+            margin: auto
+            border: 1px solid currentColor
+            border-left: 0
+            border-bottom: 0
+            box-sizing: border-box
+            color: peacockBlueColor
+            transform: translateY(-25%) rotate(135deg)
+            content: ''
+            +pc()
+              width: 11.5px
+              height: 11.5px
+            +sp()
+              width: 9px
+              height: 9px
+          &.-nav__position
+            +sp()
+              padding-top: 8px
+
+  // title
+  .contentStep--title
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 100%
+    height: 66px
+    background: turquoiseBlueColor
+    color: grayTxtColor
+    font-size: 3.2rem
+    font-weight: bold
+    line-height: 1.3
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+  .conditionsBox--title
+    font-weight: bold
+    text-align: center
+    line-height: 1.4
+    +pc()
+      margin-bottom: 40px
+      font-size: 2.4rem
+    +sp()
+      margin-bottom: 24px
+      font-size: 2rem
+    .title-beauty
+      color: cherryPinkColor
+    .title-pay
+      color: redColor
+    &.-achievementBox
+      line-height: 1.7
+      +pc()
+        margin-bottom: 20px
+      +sp()
+        margin-bottom: 12px
+        font-size: 1.8rem
+    .title-achievement
+      color: peacockBlueColor
+      line-height: 1.1
+      +pc()
+        font-size: 3.2rem
+      +sp()
+        font-size: 2.2rem
+      .title-achievement-point
+        +pc()
+          font-size: 4rem
+        +sp()
+          font-size: 3.2rem
+
+  // entry btn
+  .entryBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+  .entryBox__container
+    +sp()
+      margin: 0 16px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+  // 条件達成
+  .conditionsBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+  .conditionsBox__section
+    background: roseRedColor
+    .conditionsBox--title
+      display: flex
+      align-items: center
+      justify-content: center
+      padding: 12px 0
+      background: cherryPinkColor
+      color: whiteColor
+      font-weight: bold
+      line-height: 1.4
+      +pc()
+        font-size: 3.2rem
+      +sp()
+        font-size: 2.2rem
+    .conditionsBox__section__title-beauty
+      margin: 0 auto 24px
+      padding-top: 40px
+      +pc()
+        width: 325px
+      +sp()
+        width: calc(100% - 132px)
+    .conditionsBox__section__title-pay
+      margin: 0 auto 24px
+      padding-top: 40px
+      +pc()
+        width: 255px
+      +sp()
+        width: calc(100% - 160px)
+    .conditionsBox__section__wrap
+      overflow: hidden
+      +pc()
+        padding-bottom: 40px
+      +sp()
+        padding-bottom: 33.5px
+      .conditionsBox__section__lead
+        text-align: center
+        font-weight: bold
+        +pc()
+          padding-bottom: 43px
+          font-size: 2.4rem
+          line-height: 1.6
+        +sp()
+          padding-bottom: 24px
+          font-size: 1.8rem
+          line-height: 1.4
+    &.-beauty
+      background: whiteColor
+    &.-pay
+      background: shellPinkColor
+      .conditionsBox__section__lead
+        padding-bottom: 8px
+      .conditionsBox__section__info
+        padding-bottom: 24px
+        text-align: center
+        line-height: 1.6
+        +pc()
+          font-size: 1.4rem
+        +sp()
+          width: calc(100% - 48px)
+          margin: auto
+          font-size: 1.2rem
+
+    // Step2 条件詳細 ビューティー
+    .conditionsBeauty__menu
+      +pc()
+        display: flex
+        width: 950px
+        margin: auto
+        padding-bottom: 24px
+      +sp()
+        margin-left calc((100% - 280px) / 2) !important
+        padding-top: 22px !important
+        &:last-of-type
+          margin-left: 0
+          margin-right calc((100% - 280px) / 2) !important
+      .conditionsBeauty__menu--list
+        position: relative
+        margin-right: 36px
+        padding: 26px 20px 0
+        background: whiteColor
+        border-radius: 14px
+        box-sizing: border-box
+        text-align: center
+        +pc()
+          width: 294px
+        +sp()
+          width: 280px !important
+        &:nth-of-type(-n+2)::after
+          +pc()
+            position: absolute
+            top: 50%
+            right: -26px
+            width: 0
+            height: 0
+            border-top: 13px solid transparent
+            border-left: 13px solid grayTagColor
+            border-bottom: 13px solid transparent
+            transform: translateY(-50%)
+            content: ''
+        &:last-of-type
+          +pc()
+            margin-right: 0
+            padding: 26px 20px 7px
+          +sp()
+            padding: 32px 20px 14px
+          .conditionsBeauty__menu--list__img
+            +pc()
+              height: 150px
+            +sp()
+              height: 160px
+        .conditionsBeauty__menu--list--icon
+          position: absolute
+          left: 50%
+          transform: translate(-50%,0)
+          top: -21px
+          width: 43px
+          height: 43px
+          background: cherryPinkColor
+          border-radius: 50%
+          color: whiteColor
+          text-align: center
+          font-size: 1.8rem
+          font-weight: bold
+          line-height: 2.3
+        .conditionsBeauty__menu--list--lead
+          padding-bottom: 12px
+          text-align: center
+          font-weight: bold
+          line-height: 1.6
+          +pc()
+            font-size: 1.8rem
+          +sp()
+            font-size: 1.4rem
+        .conditionsBeauty__menu--list__img
+          +pc()
+            height: 144px
+          +sp()
+            height: 158px
+
+    // Step2 条件詳細 Pay
+    .conditionsBox__section__img
+      +pc()
+        width: 525px
+        margin: 0 auto 64px
+      +sp()
+        width: calc(100% - 96px)
+        margin: 0 auto 57.5px
+    .conditionsBox__section__download
+      .conditionsBox__download__lead
+        +pc()
+          display: flex
+          align-items: center
+          justify-content: center
+          margin-bottom: 24px
+      .conditionsBox__download__lead__icon
+        +pc()
+          width: 80px
+        +sp()
+          display: flex
+          align-items: center
+          width: 60px
+      .conditionsBox__download__lead__text
+        text-align: center
+        font-weight: bold
+        line-height: 1.4
+        +pc()
+          padding-left: 24px
+          font-size: 2.4rem
+        +sp()
+          margin-bottom: 8px
+          font-size: 2rem
+      .conditionsBox__download__unit
+        display: flex
+        justify-content: center
+        text-align: center
+        +sp()
+          width: calc(100% - 108.5px)
+          margin: auto
+      .conditionsBox__download__app
+        +pc()
+          width: 190px
+        +sp()
+          display: flex
+          align-items: center
+          width: 190px
+          margin-left: 16px
+      .conditionsBox__download__googleplay
+        +pc()
+          width: 236px
+          margin-left: 40px
+        +sp()
+          display: flex
+          align-items: center
+          width: 190px
+          margin-left: 16px
+      .conditionsBox__download__qr
+        +pc()
+          width: 160px
+          margin-top: 14px
+      .conditionsBox__download__desktop
+        +sp()
+          display: flex
+          align-items: center
+          justify-content: center
+        .conditionsBox__download__desktop--icon
+          +sp()
+            width: 60px
+            margin-right: 10px
+        .conditionsBox__download__desktop--caption
+          +sp()
+            font-size: 2rem
+            font-weight: bold
+            text-align: center
+            line-height: 1.4
+      .conditionsBox__download__desktop--info
+        +sp()
+          width: calc(100% - 32px)
+          margin: 8px auto 0
+          font-size: 1.4rem
+          text-align: center
+          line-height: 1.8
+      .conditionsBox__download__app-container__wrap
+        +sp()
+          width: calc(100% - 32px)
+          margin: auto
+        .conditionsBox__download__app-container
+          +sp()
+            display: flex
+            align-items: center
+            justify-content: center
+            width: 100%
+            margin-top: 8px
+          .conditionsBox__download__app-container--text
+            +sp()
+              width: 50%
+              display: flex
+              align-items: center
+              justify-content: center
+              padding: 6px 12px
+              background: grayBgColor
+              border-radius: 4px 0 0 4px
+              box-sizing: border-box
+              font-size: 1.4rem
+              line-height: 1.8
+          .conditionsBox__download__app-container--link
+            +sp()
+              width: 50%
+              display: flex
+              align-items: center
+              justify-content: center
+              padding: 6px 12px
+              background: whiteColor
+              border-radius: 0 4px 4px 0
+              box-sizing: border-box
+              font-size: 1.4rem
+              line-height: 1.8
+      .conditionsBox__download__desktop-app
+        +sp()
+          display: flex
+          flex-direction: column
+          align-items: center
+          justify-content: center
+          margin-top: 16px
+        .conditionsBox__download__desktop-app--button
+          +sp()
+            display: block
+            margin-bottom: 16px
+
+    .conditionsBox__section__method
+      width: 100%
+      padding-top: 40px
+      background: whiteColor
+      .conditionsBox__section__method__wrap
+        margin: auto
+        background: skyBlueColor
+        border-radius: 14px
+        +pc()
+          width: 860px
+          padding: 32px 20px
+        +sp()
+          width: calc(100% - 32px)
+          padding: 20px 0
+        .conditionsBox__method__title
+          background: whiteColor
+          text-align: center
+          font-weight: bold
+          line-height: 1.4
+          +pc()
+            margin-bottom: 24px
+            font-size: 2.4rem
+          +sp()
+            width: calc(100% - 40px)
+            margin: 0 auto 35px
+            font-size: 2rem
+          .conditionsBox__method__title__text
+            +pc()
+              padding: 30px 10px
+            +sp()
+              padding: 20px 10px
+            .method__text__beauty
+              color: cherryPinkColor
+            .method__text__pay
+              color: redColor
+            .conditionsBox__method__title__text__emphasis
+              display: inline-block
+              position: relative
+              +pc()
+                font-size: 3.2rem
+              +sp()
+                font-size: 2.4rem
+                line-height: 1.3
+              &::before
+                content: "|"
+                position: absolute
+                top: 0
+                left: -2.5rem
+                font-weight: normal
+                transform: rotate(-45deg)
+                +sp()
+                  left: -1.75rem
+              &::after
+                content: "|"
+                position: absolute
+                top: 0
+                right: -2.5rem
+                font-weight: normal
+                transform: rotate(45deg)
+                +sp()
+                  right: -1.75rem
+        .conditionsBox__method__caption
+          margin: auto
+          +pc()
+            width: 470px
+            margin-bottom: 24px
+          +sp()
+            width: calc(100% - 25px)
+            margin-bottom: 35px
+        .conditionsBox__method__info
+          margin: auto
+          text-align: center
+          +pc()
+            width: 584px
+          +sp()
+            width: calc(100% - 64px)
+          .conditionsBox__method__info--text
+            line-height: 1.8
+            +pc()
+              font-size: 1.8rem
+            +sp()
+              font-size: 1.4rem
+          .conditionsBox__method__info--text--lead
+            line-height: 1.8
+            +pc()
+              padding-top: 24px
+              font-size: 1.4rem
+            +sp()
+              padding-top: 20px
+              font-size: 1.2rem
+
+    //- Step2 splide スライダー
+    .splide
+      +sp()
+        width: 280px
+        margin: 0 auto 24px
+    .splide__track
+      +sp()
+        overflow: visible !important
+    .splide__arrow.splide__arrow--next:disabled
+      display: none !important
+    .splide__pagination
+      bottom: -26px
+    .splide__arrow:disabled
+      display: none !important
+    .splide__pagination__page
+      width: 6px
+      height: 6px
+      background #ccc
+    .splide__pagination__page.is-active
+      width: 6px
+      height: 6px
+      background grayTagColor
+      transform: scale(1)
+    .splide__arrow
+      display: block
+      position: absolute !important
+      top: 50% !important
+      width: 0 !important
+      height: 0 !important
+      background: transparent !important
+      border-radius: 0 !important
+      transform: translateY(-50%) !important
+      content: '' !important
+      &.splide__arrow--next
+        right: -25px !important
+        border-top: 15px solid transparent !important
+        border-left: 15px solid grayTagColor !important
+        border-bottom: 15px solid transparent !important
+      &.splide__arrow--prev
+        left: -25px !important
+        border-top: 15px solid transparent !important
+        border-right: 15px solid grayTagColor !important
+        border-bottom: 15px solid transparent !important
+      svg
+        display: none
+
+  //- 検索ボタン
+  .conditionsBox__search
+    margin: auto
+    +pc()
+      width: 600px
+    +sp()
+      padding-top: 24px
+      width: calc(100% - 32px)
+    .conditionsBox__search--button
+      display: block
+      margin: auto
+      background: cherryPinkColor
+      border-radius: 44px
+      color: whiteColor
+      text-align: center
+      font-weight: bold
+      line-height: 1.5
+      +pc()
+        padding: 16px 24px
+        font-size: 3rem
+      +sp()
+        padding: 16px 24px
+        box-sizing: border-box
+        font-size: 1.6rem
+      &.-first-button
+        margin-bottom: 24px
+        background: CyanColor
+      &.-secondary-button
+        background: MarineBlueColor
+    .conditionsBox__search--button--info
+      padding-top: 8px
+      text-align: center
+      line-height: 1.8
+      +pc()
+        font-size: 1.4rem
+      +sp()
+        font-size: 1.2rem
+    .conditionsBox__search--title
+      margin-bottom: 8px
+      font-weight: bold
+      text-align: center
+      line-height: 1.4
+      +pc()
+        font-size: 1.8rem
+      +sp()
+        font-size: 1.4rem
+
+  // 条件達成
+  .achievementBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .achievementBox__point
+      +pc()
+        width: 354px
+        margin: 0 auto 20px
+      +sp()
+        width: calc(100% - 139px)
+        margin: 0 auto 12px
+    .achievementBox--info
+      +pc()
+        font-size: 1.4rem
+        text-align: center
+        line-height: 1.6
+      +sp()
+        width: calc(100% - 32px)
+        margin: auto
+        font-size: 1.2rem
+        line-height: 1.8
+
+  //- 楽天ビューティーのメリット
+  .beautyintro
+    .beautyintro__wrap
+      padding-bottom: 40px
+      +pc()
+        width: 950px
+        margin: 64px auto 0
+      +sp()
+        width: calc(100% - 32px)
+        margin: 44px auto 0
+      .beautyintro__container
+        position: relative
+        width: 100%
+        background: grayBgColor
+        border-radius: 14px
+        box-sizing: border-box
+        text-align: center
+        +pc()
+          margin-bottom: 48px
+          padding: 50px 16px 40px
+        +sp()
+          margin-bottom: 56px
+          padding: 32px 16px 24px
+        &:last-of-type
+          margin-bottom: 0
+        .beautyintro__title
+          position: absolute
+          left: 50%
+          transform: translate(-50%,0)
+          background: cherryPinkColor
+          border-radius: 40px
+          box-sizing: border-box
+          color: whiteColor
+          text-align: center
+          font-weight: bold
+          line-height: 1.4
+          +pc()
+            top: -24px
+            width: 151px
+            padding: 8px 20px
+            font-size: 2.4rem
+          +sp()
+            top: -19px
+            width: 122px
+            padding: 8px 24px
+            font-size: 1.6rem
+        .beautyintro__lead__wrap
+          display: flex
+          justify-content: center
+          align-items: center
+          .beautyintro__lead__icon__point
+            +pc()
+              margin-right: 14px
+              width: 52px
+            +sp()
+              margin-right: 12px
+              width: 49px
+          .beautyintro__lead__icon__deal
+            width: 95px
+            margin-right: 14px
+          .beautyintro__lead__icon__appicon
+            width: 45px
+            margin-right: 12px
+          .beautyintro__lead--lead
+            font-weight: bold
+            text-align: center
+            line-height: 1.4
+            +pc()
+              font-size: 2.4rem
+            +sp()
+              font-size: 1.8rem
+        .beautyintro__lead--lead--text
+          font-weight: normal
+          text-align: center
+          line-height: 1.6
+          +pc()
+            font-size: 1.8rem
+          +sp()
+            padding-top: 16px
+            font-size: 1.4rem
+        .beautyintro__lead--lead--info
+          font-size: 1.2rem
+          line-height: 1.4
+          +pc()
+            padding-top: 21.5px
+            text-align: center
+          +sp()
+            padding-top: 16px
+            text-align: left
+        .beautyintro__menu
+          display: flex
+          align-items: center
+          justify-content: center
+          +pc()
+            margin-top: 32px
+          +sp()
+            flex-wrap: wrap
+            margin-top: 15.5px
+          .beautyintro__menu__list
+            +pc()
+              width: 110px
+              margin-right: 16px
+              &:last-of-type
+                margin-right: 0
+            +sp()
+              width: 92px
+              margin-right: 7.5px
+              &:nth-child(-n+3)
+                margin-bottom: 7.5px
+              &:nth-child(3n),
+              &:last-of-type
+                margin-right: 0
+        .beautyintro__menu--info
+          text-align: center
+          line-height: 1.6
+          +pc()
+            padding-top: 32px
+            font-size: 1.8rem
+          +sp()
+            padding-top: 16px
+            font-size: 1.4rem
+          .beautyintro__menu--info--bold
+            font-weight: bold
+        .beautyintro__menu__img
+          +pc()
+            width: 600px
+            margin: 32px auto 0
+          +sp()
+            width: calc(100% - 87px)
+            margin: 16px auto 0
+        .beautyintro__menu__button__wrap
+          +pc()
+            width: 600px
+            margin: 32px auto 0
+          +sp()
+            width: calc(100% - 32px)
+            margin: 16px auto 0
+          .beautyintro__menu__button
+            display: inline-block
+            width: 100%
+            padding: 16px 24px
+            background: cherryPinkColor
+            border-radius: 44px
+            box-sizing: border-box
+            color: whiteColor
+            text-align: center
+            font-weight: bold
+            line-height: 1.5
+            +pc()
+              font-size: 3rem
+            +sp()
+              font-size: 1.6rem
+        .beautyintro__menu__app__wrap
+          +pc()
+            width: 632px
+            margin: 32px auto 0
+          +sp()
+            width: 100%
+            margin: 16px auto 0
+          .beautyintro__menu__app__banner
+            display: inline-block
+            width: 100%
+        .beautyintro__menu__app__link__wrap
+          +pc()
+            width: 632px
+            margin: 32px auto 0
+          +sp()
+            width: 61%
+            margin: 16px auto 0
+          .beautyintro__menu__app__article
+            +pc()
+              display: flex
+              align-items: center
+              justify-content: center
+              width: 530px
+              margin: auto
+            .beautyintro__menu__app__img
+              +pc()
+                width: 268px
+                margin-right: 12px
+            .beautyintro__menu__app__qr
+              +pc()
+                width: 250px
+                text-align: center
+              .beautyintro__menu__app__qr--text
+                +pc()
+                  display: inline-block
+                  position: relative
+                  margin-top: 24px
+                  font-size: 2rem
+                  font-weight: bold
+                  line-height: 1.4
+                  &::before
+                    content: "|"
+                    position: absolute
+                    top: 0
+                    left: -1.5rem
+                    font-weight: normal
+                    transform: rotate(-45deg)
+                  &::after
+                    content: "|"
+                    position: absolute
+                    top: 0
+                    right: -1.5rem
+                    font-weight: normal
+                    transform: rotate(45deg)
+              .beautyintro__menu__app__qr__img
+                +pc()
+                  display: block
+                  width: 192px
+                  margin: 24px auto 0
+          .beautyintro__menu__app__button
+            +sp()
+              display: block
+              width: 100%
+
+  //- 楽天ペイアプリのメリット
+  .payappintro
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .payappintro__section
+      .payappintro--title
+        background: redColor
+        color: whiteColor
+        font-weight: bold
+        text-align: center
+        line-height: 1.4
+        +pc()
+          margin-bottom: 16px
+          padding: 20px
+          font-size: 3.2rem
+        +sp()
+          margin-bottom: 24px
+          padding: 12px
+          font-size: 2.2rem
+      .payappintro__contents__wrap
+        background: grayBgColor
+        +pc()
+          width: 950px
+          margin: 60px auto 0
+          padding: 40px 20px
+        +sp()
+          width: calc(100% - 32px)
+          margin: 44px auto 0
+          padding: 20px 0
+        .payappintro__contents--title
+          margin-bottom: 40px
+          text-align: center
+          font-weight: bold
+          line-height: 1.3
+          +pc()
+            font-size: 2.4rem
+          +sp()
+            font-size: 2rem
+          .payappintro__contents--title--red
+            color: redColor
+        .payappintro__contents__section
+          display: flex
+          +pc()
+            width: 860px
+            margin: auto
+          +sp()
+            flex-direction: column
+          .payappintro__contents__section--title
+            margin-bottom: 16px
+            display: inline-block
+            color: redColor
+            font-weight: bold
+            line-height: 1.3
+            +pc()
+              font-size: 2.4rem
+            +sp()
+              font-size: 1.5rem
+          .payappintro__contents__charge
+            margin: auto
+            text-align: center
+            +pc()
+              width: 411px
+            +sp()
+              width: calc(100% - 40px)
+            .payappintro__contents__charge__container
+              margin: auto
+              +pc()
+                width: 384px
+              +sp()
+                width: 100%
+              .payappintro__contents__charge__banner
+                display: block
+                margin-bottom: 24px
+              .payappintro__contents__charge__lead
+                position: relative
+                width: 100%
+                margin-bottom: 16px
+                background: whiteColor
+                box-sizing: border-box
+                line-height: 1.4
+                +pc()
+                  padding: 11px 12px
+                  font-size: 2rem
+                +sp()
+                  padding: 12px 12px 10px
+                  font-size: 1.4rem
+                &::before
+                  position: absolute
+                  top: -10px
+                  right: 0
+                  left: 0
+                  width: 0
+                  height: 0
+                  margin: 0 auto
+                  border-style: solid
+                  border-right: 10px solid transparent
+                  border-left: 10px solid transparent
+                  border-bottom: 11px solid whiteColor
+                  border-top: 0
+                  content: "";
+          .payappintro__contents__back
+            text-align: center
+            +pc()
+              width: 398px
+              margin-left: 50px
+            +sp()
+              width: 100%
+              margin-top: 40px
+            .payappintro__contents__back__img
+              margin: 0 auto 24px
+              +pc()
+                width: 343px
+              +sp()
+                width: calc(100% - 27px)
+            .payappintro__contents__back__btn
+              margin: auto
+              +pc()
+                width: 398px
+              +sp()
+                width: calc(100% - 40px)
+              .payappintro__contents__back__btn--info
+                margin-top: 10px
+                padding-left: 1.1em
+                text-indent: -1.1em
+                text-align: left
+                +pc()
+                  font-size: 1.4rem
+                  line-height: 1.6
+                +sp()
+                  font-size: 1rem
+                  line-height: 1.4
+          .payappintro__contents--title
+            display: inline-block
+            color: redColor
+            font-weight: bold
+            line-height: 1.3
+            +pc()
+              font-size: 2.4rem
+            +sp()
+              font-size: 1.5rem
+          .payappintro__contents--title--charge-icon
+            +pc()
+              width: 18px
+              height: 31px
+            +sp()
+              width: 18px
+              height: 19px
+          .payappintro__contents--title--back-icon
+            +pc()
+              width: 18px
+              height: 62px
+            +sp()
+              width: 18px
+              height: 38px
+          .payappintro__contents--button
+            display: flex
+            justify-content: center
+            align-items: center
+            position: relative
+            padding: 11px
+            background: whiteColor
+            border: 1px solid redColor
+            border-radius: 30px
+            box-sizing: border-box
+            color: redColor
+            &::after
+              position: absolute
+              right: 13px
+              background-image: url(../img/img_button_icon.svg)
+              background-size: contain
+              background-repeat: no-repeat
+              line-height: 1.3
+              content: "";
+              +pc()
+                width: 20px
+                height: 20px
+              +sp()
+                width: 16px
+                height: 16px
+            +pc()
+              font-size: 2.4rem
+            +sp()
+              font-size: 1.6rem
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .detail__headline
+      display: inline-block
+      padding: 0 4px
+      background: rgba(0, 0, 0, .08)
+      font-weight: bold
+    .detail__indent
+      padding-left: 1em
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

@@ -1,0 +1,332 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//-------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+
+pcWidth = 1216px
+
+//-------------------------
+
+#AreaCampaignListPage// #Pagenameはページ固有の名前に置換してください
+
+  display:block
+  +pc()
+    width:pcWidth
+    margin:40px auto 0
+  +sp()
+    width: 100%
+    margin:0 auto
+  .c-heading--huge
+    +pc()
+      background:grayBgColor
+      border-left:4px solid secondColor
+      padding:0 16px
+      padding-left:20px
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 16px
+  .c-heading__title
+    +pc()
+      display:inline-block
+      padding:11px 0
+      min-width:5px
+      font-size:2rem
+      font-weight:700
+      line-height:1.4
+    +sp()
+      border-left:6px solid secondColor
+      padding:8px
+      font-size:1.4rem
+      font-weight:700
+  .c-heading__subTitle
+    +pc()
+      display:inline-block
+      margin-left:16px
+      font-size:1.2rem
+      vertical-align:center
+    +sp()
+      display:none
+  .titleWrap--subtitle
+    +pc()
+      text-align: center
+
+  // main
+  .main
+    margin-bottom: 24px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+  // text
+  .description_text
+    +pc()
+      font-size: 1.8rem
+      font-weight: bold
+      line-height: 1.5
+      text-align: center
+      margin-bottom: 60px
+      .brsp
+        display:none
+    +sp()
+      font-size: 1.2rem
+      font-weight: bold
+      line-height: 1.6
+      text-align: center
+      margin: 0 0px 40px 0
+      padding: 0 10px
+
+  // navi
+  .navigation
+    +pc()
+      margin-bottom: 80px
+    +sp()
+      margin: 0 8px 40px
+    .navigation__title
+      text-align: center
+      color:grayTxtColor
+      font-weight: bold
+      line-height: 1.5
+      +pc()
+        font-size: 3rem
+        margin-bottom: 24px
+      +sp()
+        font-size: 1.8rem
+        margin-bottom: 16px
+    .navigation__btnWrap
+      text-align: center
+      box-sizing: border-box
+      //
+      display:flex
+      +pc()
+        justify-content: center
+      +sp()
+        flex-wrap:wrap
+      .navigation__btnBox
+        +pc()
+          width: 100%
+          margin-right: 8px
+        +sp()
+          width: calc((100% - 4px)/2)
+          margin: 0 4px 4px 0
+          // 2の倍数
+          &:nth-of-type(2n)
+            margin-right: 0
+          // 最後から1個
+          &:nth-last-of-type(-n+1)
+            margin-bottom: 0
+        &:last-of-type
+          margin: 0
+        .navigation__btnLink
+          position: relative
+          background: secondColor
+          box-sizing: border-box
+          //
+          display:flex
+          justify-content: center
+          align-items: center
+          +pc()
+            padding: 20px
+            border-radius: 8px
+          +sp()
+            height: 50px //IE対応
+            padding: 8px
+            border-radius: 4px
+          &:hover
+            opacity: .8
+          .navigation__btnTxt
+            position: relative
+            color: #fff
+            font-weight: bold
+            box-sizing: border-box
+            +pc()
+              font-size: 1.8rem
+              line-height: 1.5
+              margin-right: 16px
+            +sp()
+              font-size: calc(3.5vw + 40%)
+              line-height: 1.5
+              margin-right: 8px
+            &::after
+              content:''
+              position: absolute
+              box-sizing: border-box
+              arrowLine(bottom,1px,8px,#fff)
+              top:calc((100% - 8px)/2)
+              right:-16px
+            &.-small
+              +sp()
+                font-size: calc(3.5vw + 30%)
+
+  // エリアごとのCPN一覧
+  .sendai
+  .kobe
+  .fukuoka
+  .saitama
+  .sapporo
+  .hiroshima
+  .tokyo
+    +pc()
+      margin-bottom: 134px
+    +sp()
+      margin-bottom: 80px
+    // title
+    .title__wrapper
+      display: flex
+      justify-content: center
+      //
+      background: grayBgColor
+      box-sizing: border-box
+      +pc()
+        width: pcWidth
+        margin: 0 auto 24px
+        padding: 16px 0
+      +sp()
+        width:100%
+        margin: 0 auto 16px
+        padding: 8px 0
+      .title__box
+        display: flex
+        align-items: center
+        .title__img
+          +pc()
+            width: 90px
+            margin-right: 16px
+          +sp()
+            width: 60px
+            margin-right: 8px
+        .title__txt
+          font-weight bold
+          +pc()
+            font-size: 3rem
+            margin-top: 4px
+          +sp()
+            font-size: 1.8rem
+            line-height: 1.2
+            margin-top: 2px
+          &--small
+            +pc()
+              font-size: 2rem
+            +sp()
+              font-size: 1.4rem
+
+    // 注意書き
+    .notes__wrapper
+      box-sizing: border-box
+      width:auto
+      +pc()
+        text-align center
+        font-size:1.4rem
+        margin: 0 auto 24px
+      +sp()
+        text-align left
+        font-size:1.2rem
+        margin: 0 auto 16px
+        padding:0 8px 0 16px
+      .notes__inner
+        .notes__list
+          width:100%
+          color:#333
+          list-style:none
+          line-height:1.5
+          +pc()
+            max-width: 1000px
+            margin: 0 auto
+          .notes__detail
+            display: inline-block
+            list-style:none
+            padding-left:1rem
+            +pc()
+              &:nth-of-type(odd)
+                margin-right:8px
+            +sp()
+              margin-bottom: 2px
+            &::before
+              content:'※'
+              display: inline-block
+              text-indent: -1rem
+              vertical-align: middle
+
+    //- キャンペーン&特集一覧
+    .cpn_lists
+      margin: 0 auto 16px
+      +sp()
+        margin: 0 auto 8px
+
+      @import passStr + '_common/stylus/Module/Common/_campaignList'
+      //- ()の中にPCのwidthを入れる。SPは何もしなくてもwidth:autoになる
+      campaignList(pcWidth)
+
+  // 日本応援キャンペーン
+  .empower
+    +pc()
+      margin-bottom: 134px
+    +sp()
+      margin-bottom: 80px
+    .empower__wrap
+      display: flex
+      +pc()
+        align-items: center
+      +sp()
+        flex-direction: column-reverse
+      .empower__box
+        +pc()
+          flex-shrink: 0
+          //
+          display: block
+          width: 600px
+          margin-right: 40px
+        +sp()
+          height: 100% //IE対応
+        &:last-of-type
+          margin: 0
+          +pc()
+            flex-shrink: 1
+        .empower__link
+          display: block
+          +sp()
+            margin: 0 8px
+          &:hover
+            opacity: .8
+          .empower__img
+            width: 100%
+        .c-heading__title
+          +sp()
+            margin: 0 0 10px
+        .empower__txt
+          line-height: 1.8
+          +pc()
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.2rem
+            margin: 0 16px 16px
+
+  // その他のキャンペーン一覧
+  .campaign
+    //- キャンペーン一覧
+    .cpn_lists
+      margin-bottom: 0
+      +sp()
+        margin: 0 auto 16px
+
+      @import passStr + '_common/stylus/Module/Common/_campaignList'
+      //- ()の中にPCのwidthを入れる。SPは何もしなくてもwidth:autoになる
+      campaignList(pcWidth)

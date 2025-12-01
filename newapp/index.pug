@@ -1,0 +1,528 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- template / ver 3.2.2 / 更新日時：2025.4.7 / 楽天ビューティとはコンテンツ追加
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20250508'
+    var meta = {
+      title: '【初めてのアプリ予約限定】条件達成でもれなく500ポイントもらえる！',
+      description: '初めてアプリから予約＆施術すると500ポイントもらえる！楽天ビューティで電話・WEB予約したことがある方もアプリ予約が初めてなら対象',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/newapp/',
+      directory: 'newapp', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/newapp/img/share.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #Pagename
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー必要', //- エントリー不要は自動的に青色になります
+            'アプリの初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+            'アプリ予約・施術完了',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      //- h1.main__title
+      //-   img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+      //-   img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+        a.main__title__link.-pc(href='https://app.adjust.com/1l7wo3x8?engagement_type=fallback_click' target='_blank' rel="noopener")
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+        .main__title__btn__wrap.-sp.-excludeApp
+          a.main__title__btn(href='https://app.adjust.com/1l7wo3x8?engagement_type=fallback_clickc' target='_blank' rel="noopener")
+            img.main__title__btnImg.-excludeApp.-desktop.-sp(src='img/btn_qr.svg' + parameter, alt='QRコード')
+            img.main__title__btnImg.-excludeApp.-iphone(src='img/btn_appstore.png' + parameter, alt='APP Storeからダウンロード')
+            img.main__title__btnImg.-excludeApp.-android(src='img/btn_googleplay.png' + parameter, alt='Google Playで手に入れよう')
+      .main__terms
+        .main__termsBox
+          p.main__termsTxt
+            | エントリー・予約期間：5月1日 10:00 ～ 6月2日 9:59
+            span.-pc ／ 
+            br.-sp
+            | 施術期間：5月1日 10:00 ～ 6月30日 23:59
+      .main__terms_img
+        img.main__termsImg.-excludeApp.-pc(src='img/terms.png' + parameter, alt=meta.title)
+        img.main__termsImg.-excludeApp.-sp(src='img/terms_sp.png' + parameter, alt=meta.title)
+        img.main__termsImg.-app(src='img/terms_app.png' + parameter, alt=meta.title)
+
+      .main__terms_small
+        p.main__termsTxt.-small
+          | ※1）施術完了後でも期間内のエントリーであれば対象になります。
+        //- エントリー後も対象の場合
+        p.main__termsTxt.-small
+          | ※2）予約期間中に初めて楽天ビューティのアプリ経由で3,500円以上(税込)予約された方が対象。
+          span.terms_red
+            | 楽天ビューティのWebページからのネット予約や電話予約をしたことがある方も、アプリからの予約が初めての場合はキャンペーン対象となります。
+        p.main__termsTxt.-small
+          | ※進呈するポイント（期間限定ポイントを含む）には上限や条件があります。
+        p.main__termsTxt.-small
+          | ※本キャンペーンは予告なく変更・中止される可能性があります。キャンペーン詳細は
+          a.main__termsLink(href='#Detail')
+            | こちら
+
+    //- Entry Btn
+    section#EntryBox.entryBox(data-ratid='cpn_' + meta.directory + '_EntryBox' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title Step1　まずはエントリー
+      .article__wrap 
+        //- 終了対応
+        if endflag == true
+          //- ボタンセット(url,txt,endflag)
+          +btnSet('',btnTxt,true)
+        else
+
+          //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+          //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+          // ReX Campaign Entry Button: Mounting points
+          // mounting point for button 1
+          #rex-ceb-01
+          // ReX Campaign Entry Button: Configuration
+          script
+            | var rexButtons = {language: 'ja', buttons: [{"code":"/newapp2505","theme":"red","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","below":{"isCheckboxMandatory":true,"isChecked":true,"checkboxText":"エントリーしてメルマガを購読する","html":""},"ids":["rex-ceb-01"]}]}
+          // ReX Campaign Entry Button: Script
+          script(src='https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js' defer='')
+
+          //- メルマガパーミッション
+          include ../../../../_common/pug/Module/Common/_mailPermissionTxt
+          +mailPermissionTxt()
+
+    //- アプリをダウンロード PC/SP用
+    section.downloadapp.-excludeApp(data-ratid='cpn_' + meta.directory + '_DownloadApp' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title Step2　アプリをダウンロード
+      .article__wrap
+        h3.article--title
+          img.downloadappImg.-pc(src='img/title_step2_pc.png' + parameter, alt='アプリがもっと便利に!')
+          img.downloadappImg.-sp(src='img/title_step2_sp.png' + parameter, alt='アプリがもっと便利に!')
+        .downloadapp__container
+          .downloadapp__app-device
+            img.downloadapp__app-device--img(src='img/app_device.png' + parameter, width='100%' height='auto')
+          .downloadapp__app-link
+            h4.downloadapp__app-link--title.-pc
+              | ダウンロードはこちら
+            .downloadapp__app-link--button
+              a.-pc(href='https://app.adjust.com/1l7wo3x8?engagement_type=fallback_click' target="_blank")
+                img.-pc(src='img/QR.png' + parameter, alt='QRコード')
+              a.-sp(href='https://app.adjust.com/1l7wo3x8?engagement_type=fallback_click' target="_blank")
+                img.-desktop(src='img/QR_sp.png' + parameter, alt='QRコード')
+                img.-iphone(src='img/btn_appstore.png' + parameter, alt='APP Storeからダウンロード')
+                img.-android(src='img/btn_googleplay.png' + parameter, alt='Google Playで手に入れよう')
+            .downloadapp__app-link--serch
+              a.-pc(href='https://app.adjust.com/1l7wo3x8?engagement_type=fallback_click' target="_blank")
+                img.-pc(src='img/serch.png' + parameter, alt='QRコード')
+
+    
+    //- サロン予約
+    section.reservationapp(data-ratid='cpn_' + meta.directory + '_ReservationApp' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title.-excludeApp Step3　アプリから初めてのサロン予約
+        h2.titleWrap--title.-app Step2　アプリから初めてのサロン予約
+      //- APP以外
+      .article__wrap.-excludeApp
+        h3.article--title
+          img.downloadappImg.-pc(src='img/title_step3_pc.png' + parameter, alt='電話・WEB予約をしたことがある方も対象！')
+          img.downloadappImg.-sp(src='img/title_step3_sp.png' + parameter, alt='電話・WEB予約をしたことがある方も対象！')
+        h3.article--title
+          | 6月2日9:59までにアプリで
+          br.-sp
+          | 合計3,500円(税込)以上のメニューを予約 
+        .reservationapp__menu__wrap
+          //- PC用リスト
+          ul.reservationapp__menu.-pc
+            li.reservationapp__list
+              p.reservationapp__list--title
+                span.reservationapp__list--title-icon
+                  | 1
+                | まずはログイン！
+              .reservationapp__list__caption
+                img(src='img/reservation1.png' + parameter, alt='まずはログイン！' width='100%' height='auto')
+            li.reservationapp__list
+              p.reservationapp__list--title
+                span.reservationapp__list--title-icon
+                  | 2
+                | サロンを検索して
+                br
+                | 日時やメニューを選択
+              .reservationapp__list__caption-min
+                img(src='img/reservation2.png' + parameter, alt='サロンを検索して日時やメニューを選択' width='100%' height='auto')
+            li.reservationapp__list
+              p.reservationapp__list--title
+                span.reservationapp__list--title-icon
+                  | 3
+                | 予約完了！
+              .reservationapp__list__caption
+                img(src='img/reservation3.png' + parameter, alt='予約完了！' width='100%' height='auto')
+          //- SP用リスト スライダー
+          .splide.-sp
+            .splide__track
+              ul.splide__list.reservationapp__menu.-sp
+                li.splide__slide.reservationapp__list
+                  p.reservationapp__list--title
+                    span.reservationapp__list--title-icon
+                      | 1
+                    | まずはログイン！
+                  .reservationapp__list__caption
+                    img(src='img/reservation1.png' + parameter, alt='まずはログイン！' width='100%' height='auto')
+                li.splide__slide.reservationapp__list
+                  p.reservationapp__list--title
+                    span.reservationapp__list--title-icon
+                      | 2
+                    | サロンを検索して
+                    br
+                    | 日時やメニューを選択
+                  .reservationapp__list__caption-min
+                    img(src='img/reservation2.png' + parameter, alt='サロンを検索して日時やメニューを選択' width='100%' height='auto')
+                li.splide__slide.reservationapp__list
+                  p.reservationapp__list--title
+                    span.reservationapp__list--title-icon
+                      | 3
+                    | 予約完了！
+                  .reservationapp__list__caption
+                    img(src='img/reservation3.png' + parameter, alt='予約完了！' width='100%' height='auto')
+                    
+          p.reservationapp--info ※画像はイメージです。一部実際の画面と異なることがあります。
+
+      //- APPのみ
+      .article__wrap.-app
+        h3.article--title
+          img.downloadappImg.-sp(src='img/title_step3_sp.png' + parameter, alt='電話・WEB予約をしたことがある方も対象！')
+        h3.article--title
+          | 6月2日9:59までにアプリで
+          br.-sp
+          | 合計3,500円(税込)以上のメニューを予約
+        .searchArea
+          //- プロパティをつけると検索内容をカスタマイズできます
+          //- https://git.rakuten-it.com/projects/RBEAUT/repos/rbeautyuicomponent/browse/src/components/ShopSearch/readme.md
+          #shopSearch(default-genre-id="1", default-prefectures-id="13", search-style="default", search-type="?l-id=newapp_lp_search" data-ratid="newapp_shop_search" data-ratevent="click" data-ratparam='all')
+            include ../../../../_common/pug/Module/Common/_shopSearchList
+
+    //- 施術完了
+    section.resultapp(data-ratid='cpn_' + meta.directory + '_ResultApp' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title.-excludeApp Step4　施術完了
+        h2.titleWrap--title.-app Step3　施術完了
+      .article__wrap
+        h3.article--title
+          | 6月30日23:59までに施術完了!
+      .resultapp__wrap
+        .resultapp__img
+          img.-pc(src='img/result_point_pc.png' + parameter, alt='条件達成でもれなく500ポイントもらえる！' width='100%' height='auto')
+          img.-sp(src='img/result_point_sp.png' + parameter, alt='条件達成でもれなく500ポイントもらえる！' width='100%' height='auto')
+        .resultapp__info
+          p.resultapp--info--text ※特典ポイントは、期間限定ポイントとして進呈されます。
+          p.resultapp--info--text ※期間限定ポイントの詳細は
+            a.textLink(href='https://ichiba.faq.rakuten.net/detail/000006532?scid=su_2312') 
+              | こちら    
+            |をご確認ください。 
+          p.resultapp--info--text ※ポイント進呈予定日：2025年7月末頃までに進呈いたします。
+            br.-sp
+            | 詳細は
+            a.textLink(href='#Detail')
+              | こちら  
+
+
+
+    //- aboutRB
+    //- コンテンツ選択：DEAL訴求(deal) or グループ訴求(group)
+    - var aboutFlag = 'group'
+    
+    section#AboutRB.aboutRB(data-ratid='cpn_' + meta.directory + '_aboutRB' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title 楽天ビューティを使うメリット♪
+      article.aboutRB__set
+        ul.aboutRB__wrap
+          li.aboutRB__box
+            .aboutRB__meritHeader メリット1
+            dl.aboutRB__contents.aboutRB__point
+              dt.aboutRB__subtitles
+                .aboutRB__subtitleIcon
+                  img.aboutRB__img(src='/cnt/common/images/cpn-parts/rb_merit_coin.png' + parameter, alt='コイン画像' width='70' height='70')
+                .aboutRB__subtitleTxts
+                  h4.aboutRB__subtitle ポイントが貯まる！使える！楽天のサロン予約
+                  p.aboutRB__caption おトクに、キレイに。楽天ビューティ。
+              dd.aboutRB__picts
+                figure.aboutRB__pictBox
+                  img.aboutRB__img(src='/cnt/common/images/cpn-parts/rb_merit_hair.png' + parameter, alt='ヘア' width='110' height='110')
+                  img.aboutRB__img(src='/cnt/common/images/cpn-parts/rb_merit_nail.png' + parameter, alt='ネイル' width='110' height='110')
+                  img.aboutRB__img(src='/cnt/common/images/cpn-parts/rb_merit_eyelash.png' + parameter, alt='まつげ' width='110' height='110')
+                  img.aboutRB__img(src='/cnt/common/images/cpn-parts/rb_merit_esthe.png' + parameter, alt='エステ' width='110' height='110')
+                  img.aboutRB__img(src='/cnt/common/images/cpn-parts/rb_merit_relax.png' + parameter, alt='リラク' width='110' height='110')
+              dd.aboutRB__bottom
+                p.aboutRB__txt
+                  | ヘア・ネイル・まつげ・エステ・リラク・マッサージサロンの検索・予約が可能
+                p.aboutRB__txt
+                  | ネット予約・施術完了するたびに
+                  span.aboutRB__txt.-bold
+                   | 100円につき
+                  | 1ポイントが貯まる！
+          //- if aboutFlag == 'deal'
+          //-   li.aboutRB__box
+          //-     .aboutRB__meritHeader メリット2
+          //-     dl.aboutRB__contents.aboutRB__deal
+          //-       dt.aboutRB__subtitles
+          //-         .aboutRB__subtitleIcon
+          //-           img.aboutRB__img(src='/cnt/common/images/cpn-parts/logo_deal.svg' + parameter, alt='スーパーDEALロゴ' width='auto' height='60')
+          //-         .aboutRB__subtitleTxts
+          //-           h4.aboutRB__subtitle ポイント高還元メニューも豊富！
+          //-           p.aboutRB__caption スーパーDEALメニューでさらにおトクにサロンを予約！
+          //-       dd.aboutRB__picts
+          //-         figure.aboutRB__dealBox
+          //-           img.aboutRB__img.-pc(src='/cnt/common/images/cpn-parts/rb_merit_menu.png' + parameter, alt='メニュー画像' width='600' height='136')
+          //-           img.aboutRB__img.-sp(src='/cnt/common/images/cpn-parts/rb_merit_menu_sp.png' + parameter, alt='メニュー画像' width='256' height='134')
+          //-       dd.aboutRB__bottom
+          //-         -
+          //-           var btnUrl = '/cnt/topics/campaign/superdeal/?l-id=wi_bty_aboutRB_superdeal'
+          //-           var btnTxt = 'スーパーDEALメニューを見る'
+          //-         //- ボタンセット(url,txt,endflag)
+          //-         +btnSet(btnUrl, btnTxt)
+          if aboutFlag == 'group'
+            li.aboutRB__box
+              .aboutRB__meritHeader メリット2
+              dl.aboutRB__contents.aboutRB__group
+                dt.aboutRB__subtitles
+                  .aboutRB__subtitleTxts
+                    h4.aboutRB__subtitle 楽天のサービスを横断でキャンペーン実施中！
+                dd.aboutRB__picts
+                  figure.aboutRB__dealBox
+                    img.aboutRB__img.-pc(src='/cnt/common/images/cpn-parts/rb_merit_group.png' + parameter, alt='楽天のサービスを横断でキャンペーン実施中！' width='600')
+                    img.aboutRB__img.-sp(src='/cnt/common/images/cpn-parts/rb_merit_group_sp.png' + parameter, alt='楽天のサービスを横断でキャンペーン実施中！' width='300')
+                dd.aboutRB__bottom
+                  p.aboutRB__txt.-bold 併用するといつものサロン予約がよりおトクに！
+                  p.aboutRB__attention ※各キャンペーンにはエントリーなどの条件がございます。
+                    br
+                    | ※各キャンペーンは予告なく変更・中止される可能性がございます。
+          li.aboutRB__box
+            .aboutRB__meritHeader メリット3
+            dl.aboutRB__contents.aboutRB__app
+              dt.aboutRB__subtitles
+                .aboutRB__subtitleIcon
+                  img.aboutRB__img(src='/cnt/common/images/rb_icon_app.svg' + parameter, alt='楽天ビューティアプリアイコン' width='70' height='70')
+                .aboutRB__subtitleTxts
+                  h4.aboutRB__subtitle.-excludeApp アプリから予約でさらにポイントアップ！
+                  h4.aboutRB__subtitle.-app キャンペーンにエントリーで
+                    br
+                    | さらにポイントアップ！
+              dd.aboutRB__banner
+                a.aboutRB__link(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/app2x/?l-id=wi_bty_app2x_' + meta.directory)
+                  img.aboutRB__img(src='/cnt/common/banner/campaign/bnr_common_640x160.png' + parameter, alt='アプリで予約&条件達成でポイント最大3倍' width='600' height='150')
+              dd.aboutRB__bottom
+                ul.aboutRB__dl
+                  li.aboutRB__dlPicbox.-desktop
+                    figure.aboutRB__dlPic
+                      img.aboutRB__img(src='/cnt/common/images/cpn-parts/img_appdl.png' + parameter, alt='アプリ画面' width='248' height='248')
+                  li.aboutRB__dlbtnbox
+                    h3.aboutRB__dlTitle.-desktop ダウンロードはこちら
+                    //- !!!!Adjust URL（キャンペーンごとに差し替え）
+                    a.aboutRB__link(href='https://app.adjust.com/1l7wo3x8?engagement_type=fallback_click')
+                      //- !!! Adjust QR（キャンペーンごとに差し替え）
+                      img.aboutRB__img.-desktop(src='img/QR.png' + parameter, alt='アプリのダウンロードはこちら' width='188' height='188')
+                      img.aboutRB__img.-iphone(src='/cnt/common/images/cpn-parts/btn_dl_appstore.svg' + parameter, alt='App Storeからダウンロード')
+                      img.aboutRB__img.-android(src='/cnt/common/images/cpn-parts/btn_dl_googleplay.svg' + parameter, alt='Goole Playで手に入れよう')
+                p.aboutRB__attention_app ※本キャンペーンとの併用については
+                  a.aboutRB__link(href="#Detail") キャンペーン詳細
+                  | をご確認ください。
+
+
+    //- //- banner
+    //- section#Banner.banner(data-ratid='cpn_' + meta.directory + '_Banner' data-ratevent='appear' data-ratparam='all')
+    //-   .banner__box
+    //-     p.banner__txt
+    //-       | こちらもチェック！
+    //-       br.-sp
+    //-       | アプリからご予約でポイントGET！
+    //-     .banner__boxInner
+    //-       a.banner__link(href='/cnt/topics/campaign/app2x/?l-id=rb_xxxx_app2x')
+            img.banner__img(src='//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto,q_auto:good/v1/banner/app2x/640x160.png' + parameter, alt='楽天ビューティ紹介キャンペーン' width='640' height='160')
+
+    //- //- Area Search
+    //- section#SearchArea.searchArea(data-ratid='cpn_' + meta.directory + '_SearchArea' data-ratevent='appear' data-ratparam='all')
+    //-   h3.titleWrap--subtitle 対象サロンを探す
+
+    //-   //- プロパティをつけると検索内容をカスタマイズできます
+    //-   //- https://git.rakuten-it.com/projects/RBEAUT/repos/rbeautyuicomponent/browse/src/components/ShopSearch/readme.md
+    //-   #shopSearch(default-genre-id="", default-prefectures-id="13", search-style="", search-type="")
+    //-     include ../../../../_common/pug/Module/Common/_shopSearchList
+
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead エントリー・予約期間
+              td.detail__tableBlockBody 2025年5月1日(木) 10:00～2025年6月2日(月) 9:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 施術期間
+              td.detail__tableBlockBody 2025年5月1日(木) 10:00～2025年6月30日(月) 23:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li エントリーをされた方
+                  li.detail__tableBlockList--li 予約期間中に初めて楽天ビューティのアプリ経由で3,500円以上(税込)予約された方
+                  li.detail__tableBlockList--li 施術期間中に施術を完了された方
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 
+                    span.detail__tableBlockTxt--red
+                      |  楽天ビューティのWebページからのネット予約や電話予約をしたことがある方も、アプリからの予約が初めての場合はキャンペーン対象となります。
+                  li.detail__tableBlockList--li エントリーには楽天会員登録が必要です。楽天会員でない方は、エントリーと同時に楽天会員登録(無料)ができます。
+                  li.detail__tableBlockList--li
+                    | エントリー履歴は
+                    a.detail__tableBlockTxt--link(href='https://oubo.rakuten.co.jp/list?spk=f1636b') こちら
+                    | から確認できます。
+                  li.detail__tableBlockList--li アプリ経由の予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li
+                    | 楽天発行の割引クーポン利用の場合は、
+                    span.detail__tableBlockTxt--red クーポン割引後
+                    | の価格が3,500円(税込)以上の場合に対象となります。
+                  li.detail__tableBlockList--li 電話予約や直接来店、Webページからのネット予約は対象外となります。
+                  li.detail__tableBlockList--li アプリ経由の予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約や直接来店で施術完了された場合は、ポイント進呈の対象外となります。
+                  li.detail__tableBlockList--li アプリ経由の予約後、来店日時が変更になった場合でも、対象の来店期間内で施術完了された場合は、ポイント進呈の対象となります。
+                  li.detail__tableBlockList--li 期間内の予約・施術完了であればエントリーと予約・施術完了どちらが先でも対象となります。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 楽天ポイント500ポイントが進呈されます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ※ 現在実施中のキャンペーンとの併用が可能です(一部併用が出来ないキャンペーンもございます)。
+                  a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/') キャンペーン一覧はこちら
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント進呈予定日
+              td.detail__tableBlockBody 2025年7月末頃
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt
+                  | ※ 獲得した特典ポイントは、
+                  a.detail__tableBlockTxt--link(href='https://point.rakuten.co.jp/history/') 楽天PointClubのポイント実績
+                  | でご確認いただけます。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt ポイント進呈日から6ヶ月間有効な期間限定ポイントとして進呈されます。
+                p.detail__tableBlockList--li 
+                  | 期間限定ポイントの詳細は
+                  a.detail__tableBlockTxt--link(href='https://ichiba.faq.rakuten.net/detail/000006532') こちら
+                  | をご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 一部アプリ経由の予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                  li.detail__tableBlockList--li
+                    | 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/') 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li キャンペーンのエントリー及び条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li 「QRコード」は、株式会社デンソーウェーブの登録商標です。
+                  li.detail__tableBlockList--li
+                    | その他ご不明な点は
+                    a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/') こちら
+                    | よりお問い合わせください。
+                  li.detail__tableBlockList--li 本キャンペーンは楽天グループ株式会社「楽天ビューティ」が主催しているものであり、Apple Inc., Apple Japan合同会社によるものではありません。
+
+    //- Other Campaign
+    section#Campaign.campaign(data-ratid='cpn_' + meta.directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title その他のキャンペーン
+
+      include ../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  script(src="/cnt/common/js/area-search/shopSearch.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く
+  link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css")
+  script(src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js", defer)
+  script.
+    document.addEventListener('DOMContentLoaded', function() {
+      new Splide( '.splide.-sp', { // SP用のクラスを指定
+        type   : 'slide',
+        perPage: 1, // SPでは一度に1枚表示
+        gap    : '1rem',
+        autoplay: false, // 自動再生を停止
+        // arrows: false, // 矢印を非表示 (削除)
+      } ).mount();
+    });

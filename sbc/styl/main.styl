@@ -1,0 +1,31 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+
+pcWidth = 1216px
+
+//------------------------------
+
+//　追加分
+.globalNav__link
+  color: grayTxtColor !important
+  &:hover
+    color: secondColor !important
+    text-decoration: none !important
+    transition-duration: .2s !important
+
+.step-lead-sm
+  font-size: 1.6rem
+.rule-toggle
+  -webkit-tap-highlight-color:rgba(0,0,0,0)

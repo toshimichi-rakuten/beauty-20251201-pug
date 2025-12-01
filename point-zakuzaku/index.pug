@@ -1,0 +1,252 @@
+//- テンプレートは最新のものをフォルダごと複製して使用してください
+//- 外注用テンプレートにも反映：https://rak.app.box.com/folder/94629540317?s=wt6ydhlrtv2zc1bhbfpqc9x80dsztsmx
+//- ver.2.7.1 / 更新日時：2022.11.10 / 全員対象タグ削除
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20240606'
+    var meta = {
+      title: '毎月ずーっとおトクにポイントザクザクチャレンジ！ネット予約＆施術で！500ポイントプレゼント',
+      description: '楽天ポイントカードで開催中の「【楽天ポイントカード】毎月開催ずーっとおトクにポイントザクザクチャレンジ！」よりエントリーを完了された方のみが対象となります。',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/point-zakuzaku/',
+      og_image: 'https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png' + parameter,//- default (シェア画像があれば変更)
+    }
+  -
+    var terms = {
+      due_reserve: '2023年7月3日(月) 10:00～2023年8月1日(火) 9:59',
+      due_go: '2023年7月3日(月) 10:00～2023年8月1日(火) 23:59',
+      //- Dezie「特典内容」のポイント進呈日（〜頃までに）
+      point_start: '2023年10月31日(火)',
+      //- Dezie「特典内容」のポイント利用期限（〜までご利用いただける）
+      point_end: '2023年12月31日(日)',
+      //- 最低利用金額＋条件
+      price: '上記期間中の5,000円（税込）以上のネット予約＆施術',
+    }
+  - var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Zakuzaku はページ固有の名前に置換してください
+  #Zakuzaku
+
+    //- 終了対応
+    #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'このキャンペーンは終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    section#CpnTags
+      -
+        var taglist = {
+          tag: [
+            'ネット予約・施術完了', //- エントリー必要表記は全事業なしで統一（PP法務からのFB）
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#Main.main
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+      //- navigation
+      nav.mainNav
+        h2.zakusaku__title3 美容室・ネイル・まつげ・エステ・リラクサロンが対象！
+
+        //- 終了対応
+        if endflag == true
+          //- ボタンセット(url,txt,endflag)
+          +btnSet('', btnTxt, true)
+        else
+          //- ボタンセット(url,txt)
+          -
+            var btnUrl = '/?l-id=rb_point-zakuzaku_hair-top'
+            var btnTxt = '対象サロンを探す'
+          +btnSet(btnUrl, btnTxt)
+
+      //- terms
+      .main__terms
+        .main__termsBox
+          p.main__termsTxt.-small
+            | ※楽天ポイントカードで開催中の「
+            a.main__termsLink(href='//pointcard.rakuten.co.jp/campaign/entire/zakuzaku/')
+              | 【楽天ポイントカード】毎月開催 ずーっとおトクにポイントザクザクチャレンジ！
+            | 」よりエントリーを完了された方のみが対象となります。
+          p.main__termsTxt.-small
+            | ※対象期間中に楽天ビューティよりネット予約＆来店して施術を完了された方が対象となります。
+          p.main__termsTxt.-small
+            | ※進呈するポイント（期間限定ポイント）には条件があります。必ず
+            a.main__termsLink(href='#Detail')
+              | キャンペーン詳細
+            | をご確認ください。
+      .main__termsBg
+        .main__termsBox
+          p.main__termsTxt
+            | キャンペーン対象期間及び予約期間：
+            | !{terms.due_reserve}
+          p.main__termsTxt
+            | 対象の施術期間：
+            | !{terms.due_go}
+          p.main__termsTxt
+            | 対象条件：
+            | !{terms.price}
+
+    //- contents
+    section#Contents.contents
+      h2.zakusaku__title2
+        | 期間中、対象サロンの
+        br.-sp
+        | ネット予約＆施術で
+        br
+        | 500ポイントプレゼント！
+      p.zakusaku__txt
+        | ※楽天ビューティに掲載中の美容室・ネイル・まつげ・エステ・リラクサロンが対象
+        br
+        | ※ラ・クーポン併用不可
+      ul.contents__Box
+        li.contents__BoxTop
+          img.zakusaku__img.-pc(src='img/img_waku1_top.png' + parameter, alt='特典1 楽天ビューティ 山分け条件達成方法')
+          img.zakusaku__img.-sp(src='img/img_waku1_top_sp.png' + parameter, alt='特典1 楽天ビューティ 山分け条件達成方法')
+        li.contents__BoxTitle
+          h3.zakusaku__title2
+            | 楽天ビューティで
+            br.-sp
+            | 行きたいサロンを探す
+        li.contents__BoxNav
+
+          //- 終了対応
+          if endflag == true
+            //- ボタンセット(url,txt,endflag)
+            +btnSet('', btnTxt, true)
+          else
+            //- ボタンセット(url,txt)
+            -
+              var btnUrl = '/?l-id=rb_point-zakuzaku_hair-top'
+              var btnTxt = '対象サロンを探す'
+            +btnSet(btnUrl, btnTxt)
+
+        li.contents__BoxBottom
+          img.zakusaku__img.-pc(src='img/img_waku1_bottom.png' + parameter, alt='期間中に対象のサロンにネット予約＆施術で500ポイントプレゼント')
+          img.zakusaku__img.-sp(src='img/img_waku1_bottom_sp.png' + parameter, alt='期間中に対象のサロンにネット予約＆施術で500ポイントプレゼント')
+      ul.contents__Box
+        li.contents__BoxTop
+          img.zakusaku__img.-pc(src='img/img_waku2_top.png' + parameter, alt='さらに楽天ビューティ アプリならもっとおトク')
+          img.zakusaku__img.-sp(src='img/img_waku2_top_sp.png' + parameter, alt='さらに楽天ビューティ アプリならもっとおトク')
+        li.contents__BoxBanner
+          a.contents__BoxLink(href='/cnt/topics/campaign/app2x/?l-id=rb_point-zakuzaku_app2x')
+            img.zakusaku__img(src='../../../common/banner/campaign/bnr_common_640x160.png' + parameter, alt='アプリから予約でポイント最大3倍')
+        li.contents__BoxTxts
+          p.zakusaku__txt.-bold 対象条件：エントリーが必要 / 3,000円(税込)以上のアプリ経由のネット予約のみ / 当月中の施術完了
+          p.zakusaku__txt.-small ※楽天が提供するサービスにおける通常の付与率との比較となります。
+          p.zakusaku__txt.-small ※進呈するポイント（期間限定ポイントを含む）には上限や条件があります。
+        li.contents__BoxBottom
+          img.zakusaku__img.-pc(src='img/img_waku2_bottom.png' + parameter, alt='枠線')
+          img.zakusaku__img.-sp(src='img/img_waku2_bottom_sp.png' + parameter, alt='枠線')
+
+    //- Campaign Detail
+    section#Detail.detail
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle 【MAQUIA】限定ラ・クーポン
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead キャンペーン対象期間及び予約期間
+              td.detail__tableBlockBody !{terms.due_reserve}
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象の施術期間
+              td.detail__tableBlockBody !{terms.due_go}
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典
+              td.detail__tableBlockBody キャンペーン期間中に「
+                a.detail__tableBlockTxt--link(href='https://pointcard.rakuten.co.jp/campaign/entire/zakuzaku/')
+                  | 【楽天ポイントカード】毎月開催ずーっとおトクにポイントザクザクチャレンジ！
+                | (2023/7/3~2023/8/1)」にエントリーのうえ、当ページに記載の楽天ビューティの条件を達成された方に500ポイント進呈いたします。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典ポイント
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt--bold 500ポイントを進呈
+                p.detail__tableBlockTxt
+                  | !{terms.point_start}
+                  | 頃までに、
+                  | !{terms.point_end}
+                  | までご利用いただける期間限定ポイントで進呈いたします。
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 特典ポイントをご利用いただける期間が短いのでご注意ください。
+                  li.detail__tableBlockList--li 期間限定ポイントの詳細は
+                    a.detail__tableBlockTxt--link(href='https://ichiba.faq.rakuten.net/detail/000006532')
+                      | こちら
+                    | でご確認ください。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 1倍(楽天ビューティの通常のネット予約分)は、施術完了月の翌月11日頃に付与されます。
+                  li.detail__tableBlockList--li ネット予約時のメニュー、またはスペシャルメニューの金額を基準としてポイントを付与されます。
+                  li.detail__tableBlockList--li ネット予約後にメニューが変更になり金額が変わった場合は、変更後の金額に対してポイントを付与されます。
+                  li.detail__tableBlockList--li ポイントを利用してネット予約された場合は、ポイント差引「前」の金額に対して、特典ポイントが計算されます。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 以下の条件を満たした楽天会員の方が対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜キャンペーン対象＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li キャンペーン期間中に、「【楽天ポイントカード】毎月開催 ずーっとおトクにポイントザクザクチャレンジ！」よりエントリーを完了された方
+                  li.detail__tableBlockList--li 各特典において、以下条件を達成された方
+                  li.detail__tableBlockList--li エントリー後に表示される楽天ビューティの条件を達成された方
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li エントリー、楽天ビューティからの予約＆来店の順序は問いません。
+                  li.detail__tableBlockList--li 特典1の特典付与は、楽天ポイントカードで開催中の「【楽天ポイントカード】毎月開催 ずーっとおトクにポイントザクザクチャレンジ！」よりエントリーを完了された方のみが対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜達成条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 対象期間中に、楽天ビューティよりネット予約＆来店して施術を完了された方（最低利用金額5,000円以上（税込））
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 他キャンペーンとの併用は可能ですが、楽天発行の割引クーポン併用は不可です。
+                  li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li 電話予約や直接来店の予約は対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約で施術完了された場合は、ポイント付与の対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の施術期間内で施術完了された場合は、ポイント付与の対象となります。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 一部ネット予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えなかったり、お断りする場合もございます。
+                  li.detail__tableBlockList--li 本企画は、予告無く変更・中止されることがございます。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+
+
+
+block js
+  //- jsはここに書く

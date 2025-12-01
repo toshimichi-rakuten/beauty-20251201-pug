@@ -1,0 +1,147 @@
+@import ('../../../../../_common/stylus/Base/_init')
+
+// Config ------------------------------
+$width-lp-content = 1000px
+$font-lora = 'Lora', serif
+$color-main = #2E2217
+$color-accent = #D3AF7F
+$color-emphasis = #C99858
+
+titleTextShadow()
+  text-shadow: 0 4px 4px rgba($color-main, .25), 0 3px 10px rgba($color-main, .2), 0 5px 15px rgba($color-main, .15)
+
+// Common ------------------------------
+#award
+  // Vue.js bind 読み込みまでのチラつき防止
+  [v-cloak]
+    display: none
+
+  // 画像の遅延ロード（lazyload）
+  .lazyload
+    opacity: 1
+    transition: opacity .15s easeInOutQuad
+
+  .lazyloading,
+  .lazyload:not([src])
+    opacity: 0
+
+  .container
+    +pc()
+      width: $width-lp-content
+
+  // リンク範囲を広げる
+  .stretched-link
+    transition: .2s ease-in-out
+
+    &::after
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      z-index: 3
+      background-color: rgba(0, 0, 0, 0)
+      content: ''
+      pointer-events: auto
+
+  // .stretched-link を適用した要素に複数のリンクがある場合
+  .ignore-stretched-link
+    position: relative
+    z-index: 4
+    display: block
+
+#award-content
+  display: block
+  margin-bottom: 80px
+  background-color: Colors.LightGray.color
+  // background-color: red
+
+  +sp()
+    margin-bottom: 40px
+
+#mainVisual
+  background: linear-gradient(180deg, #2C1504 0, #180A01 49.48%, #2C1504 100%)
+
+.mainVisual
+  display: flex
+  flex-direction: column
+  justify-content: center
+  height: 350px
+  background: url('../images/bg_mainvisual_pc.jpg?v20240227') no-repeat center / cover
+  color: $color-emphasis
+  text-align: center
+
+  +sp()
+    height: 260px
+    background: url('../images/bg_mainvisual_sp.jpg?v20240227') no-repeat center / cover
+
+  &__logo.is-top
+    margin-bottom: 0
+    width: auto
+
+    +pc()
+      opacity: 1
+
+      &:hover
+        opacity: 1
+
+    &:after
+      display: none
+
+    +sp()
+      max-width: 260px
+      width: 90%
+
+  &__logo.is-top &__logo__img
+    +sp()
+      max-width: 260px
+      width: 90%
+
+  &__logo
+    position: relative
+    display: block
+    margin: 0 auto 41px
+    min-height: 5px // - ie11対策
+    width: 377px
+
+    +sp()
+      width: 210px
+
+    +pc()
+      opacity: 1
+      transition: opacity .25s easeInOutQuad
+
+      &:hover
+        opacity: .7
+        transition-duration: .15s
+
+    &:after
+      position: absolute
+      bottom: -16px
+      left: 50%
+      display: block
+      margin-left: -8px
+      width: 16px
+      height: 1px
+      background-color: rgba($color-accent, .4)
+      content: ''
+
+  &__title
+    margin: 0 0 10px
+    font-weight: bold
+    font-size: 1.8rem
+
+    +sp()
+      font-size: 1.4rem
+
+  &__label
+    font-size: 7rem
+    font-family: $font-lora
+
+    +sp()
+      font-size: 4rem
+
+// Top ------------------------------
+@import ('./_top')
+// Best Salon & Stylist -------------
+@import ('./_list')

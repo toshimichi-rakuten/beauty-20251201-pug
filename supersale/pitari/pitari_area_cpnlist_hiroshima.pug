@@ -1,0 +1,23 @@
+#CampaignHiroshima
+  section#RbCpm.rbcpm
+    h3.rbcpm--title
+      span.rbcpm--title--catch
+        | このほかにも！
+      br
+      | 楽天ビューティには
+      br.-sp
+      | おトクキャンペーンがいっぱい！
+    .rbcpm__article__wrap
+      p.rbcpm__article--title
+        | 広島市対象！
+        br
+        | お得なキャンペーン開催中
+    .cpnList
+      //- Campaign List AreaAll (PITARI用)
+      //- 自己バナー非表示をなくしたPITARI特化ver
+      //- jsonが空orエラーの時非表示にしたい親要素に#Campaign[Areaname]をつけておく
+      include ../../../../../_common/pug/Module/Common/_campaignList
+      +campaignListAreaAllPitari('Hiroshima','広島')
+
+script.
+  readJsonHiroshima();

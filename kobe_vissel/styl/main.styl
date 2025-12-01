@@ -1,0 +1,1201 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+crimsonRedColor = #9B0020
+
+pcWidth = 1216px
+
+//------------------------------
+
+#Pagename　// #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // 汎用テキストリンク
+  .textLink
+    color: secondColor
+    text-decoration: underline
+    &:hover
+      text-decoration: none
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 24px
+      border-left: 4px solid crimsonRedColor
+    +sp()
+      margin-bottom: 8px
+    .titleWrap--title
+      +sp()
+        border-left: 6px solid crimsonRedColor
+
+  // main
+  .main
+    margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      text-align: center
+      padding: 10px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+        .main__termsLink
+          color: secondColor
+          text-decoration: underline
+          &:hover
+            text-decoration: none        
+
+  // entry btn
+  .entryBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin: 0 16px 40px
+
+    .CampaignEntryButton_campaignButton__n6hK5 .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem
+      background-color: crimsonRedColor
+      border-color: crimsonRedColor
+      &:hover
+        opacity: .8
+
+    .CampaignEntryButton_campaignButton__n6hK5 .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_red__2Uuem.disabled
+      background-color: #dfdfdf
+      border-color: #dfdfdf
+      color: #898989
+      cursor: not-allowed
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+    // ボタンセット(bgColor,txtColor)
+    btnSet(Colors.CrimsonRed.color,#fff)
+
+    .coupon__terms
+      +pc()
+        display: flex
+        flex-direction: column
+        //
+        width: auto
+        height:auto
+        margin: 16px auto
+        &:last-of-type
+          margin: 0 auto
+      +sp()
+        margin: 0 auto
+      .coupon__termsTxt
+        font-size: 1.4rem
+        line-height 1.5
+        color:grayTxtColor
+        +sp()
+          font-size: 1.2rem
+        .coupon__termsLink
+          color:secondColor
+
+  // 条件付きボタン
+  .couponBtn
+    text-align: center
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin: 0 16px 40px
+
+    // ボタンセット2(bgColor,txtColor)
+    btnSet2(redColor, #fff)
+
+    .coupon__terms
+      +pc()
+        display: flex
+        flex-direction: column
+        //
+        width: auto
+        height:auto
+        margin: 16px auto
+        &:last-of-type
+          margin: 0 auto
+      +sp()
+        margin: 0 auto
+      .coupon__termsTxt
+        font-size: 1.4rem
+        line-height 1.5
+        color:grayTxtColor
+        +sp()
+          font-size: 1.2rem
+        .coupon__termsLink
+          color:secondColor
+
+  // チェックボックス付きボタン
+  .couponBox
+    text-align: center
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin: 0 16px 40px
+    .couponCheckBtn
+      +sp()
+        margin-bottom: 16px
+
+      // ボタン+Check Boxセット(bgColor,txtColor)
+      btnCheckBoxSet(Colors.CrimsonRed.color, #fff)
+
+      // paermission text
+      @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+      mailPermissionTxt()
+
+  // UA Parser
+  .uaParserSample
+    .uaParserSampleBox
+      font-size: 1.4rem
+      line-height: 1.5
+      +pc()
+        width: pcWidth
+        margin: 0 auto 60px
+      +sp()
+        width: auto
+        margin: 0 16px 40px
+      .uaParserSampleBoxTxt
+          //
+
+  //- flow
+  .flow
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    // common
+    .flow__boxTitle
+      text-align: center
+      line-height: 1.5
+      font-weight: bold
+      color: grayTxtColor
+      +pc()
+        font-size: 2.4rem
+      +sp()
+        font-size: 1.6rem
+        margin-bottom: 8px
+    .flow__txt
+      text-align: center
+      line-height: 1.5
+      color: grayTxtColor
+      +pc()
+        font-size: 1.8rem
+        font-weight: bold
+      +sp()
+        font-size: 1.4rem
+      &.-small
+        margin-top: 8px
+        +pc()
+          font-size: 1.4rem
+          font-weight: normal
+        +sp()
+          font-size: 1.2rem
+    .flow__link
+      color: #9B0020 
+      &:hover
+        opacity: .8
+    .flow__link_cpn
+      color: secondColor
+      text-decoration: underline      
+      &:hover
+        opacity: .8   
+    .flow__boxImg
+      width: 100%
+      height: auto
+    // contents
+    .flow__wrapper
+      +pc()
+        margin-bottom: 24px
+      +sp()
+        background-color: grayBgColor
+        padding:24px 16px
+        box-sizing: border-box
+      .flow__caption
+        text-align: center
+        color: grayTxtColor
+        font-weight:bold
+        +pc()
+          font-size: 2rem
+          line-height: 1.5
+          margin-bottom: 40px
+        +sp()
+          font-size: 1.4rem
+          line-height: 1.5
+          margin-bottom: 16px
+      .flow__boxWrap
+        +pc()
+          display: flex
+          justify-content: space-between
+          //
+          width: 1160px
+          margin: 0 auto
+        .flow__box
+          display: flex
+          align-items: center
+          //
+          position: relative
+          background: grayBgColor
+          box-sizing: border-box
+          +pc()
+            flex-direction: column
+            //
+            width: 260px
+            padding: 16px
+            border-radius: 8px
+          +sp()
+            justify-content: center
+            // 
+            margin: 0 auto 16px
+          &::after
+            +pc()
+              content:''
+              position: absolute
+              top:calc((100% - 20px * 2) / 2)
+              right: -32px
+              arrowFill(right,20px,grayTagColor)
+          &:last-of-type
+            margin-bottom: 0
+            &::after
+              display: none
+          .flow__box0
+            +pc()
+              margin-bottom: 16px
+          .flow__box1
+            +pc()
+              width: 200px
+              height: 200px
+              margin-bottom: 16px
+            +sp()
+              flex-shrink: 0
+              //
+              width: 100px
+              height: 100px
+              margin-left: 8px
+          &:last-of-type
+            .flow__box1
+              &::after
+                border:none
+          .flow__box2
+            position: relative
+            width: 100%
+            +pc()
+              display: flex
+              flex-direction: column
+              align-items: center
+              // 
+              height: 100%
+            +sp()
+              max-width: 200px
+              margin: 0 8px
+            // override
+            .flow__txt
+              &.-small
+                +sp()
+                  color: grayTagColor
+            &::after
+              +sp()
+                z-index:100
+                content:''
+                position: absolute
+                left:calc((100% - 10px * 2) / 2)
+                bottom: -24px
+                arrowFill(bottom,10px,grayTagColor)
+          &:last-of-type
+            .flow__box2
+              &::after
+                border:none
+    .flow__attention
+      margin: 0 auto
+      +pc()
+        width: 1160px
+      +sp()
+        width: auto
+        margin: 16px 16px 0
+      // override
+      .flow__txt
+        text-align: left
+        line-height: 1.8
+        &::before
+          display:inline-block
+          margin:0
+          content:'※'
+          text-indent:-1.8rem
+          +sp()
+            text-indent:-1.6rem
+        +pc()
+          margin-left: 1.8rem // text-indent分
+        +sp()
+          margin-left: 1.6rem // text-indent分
+        &.-small
+          margin-top: 0
+      .flow__infolink
+        color: secondColor
+        text-decoration: underline
+        &:hover
+          opacity: .8
+
+
+
+//prize
+  .prize
+    background: crimsonRedColor
+    +pc()
+      padding-bottom: 60px
+    +sp()
+      padding-bottom: 40px
+    .prize--title
+      background: #D0B95B
+      color: grayTxtColor
+      text-align: center
+      font-weight: bold
+      +pc()
+        padding: 20px
+        font-size: 3.2rem
+        line-height: 1.3
+      +sp()
+        padding: 14px
+        font-size: 1.6rem
+        text-align: center
+        line-height: 1.4
+        
+    .prize--container
+      +pc()
+        padding: 24px 0 0
+      +sp()
+        padding: 16px 0 0
+        max-width: 500px   
+        margin: auto
+
+      .prize--desc--wrap
+        display: flex
+        justify-content: center
+        .prize--desc--text
+          color: #fff
+          font-weight: bold
+          text-align: center
+          +pc()
+            font-size: 2.2rem
+            line-height: 1.3
+            padding-left: 180px
+          +sp()
+            font-size: 1.2rem
+            line-height: 1.5
+        .prize--desc--icon
+          position: relative
+          +pc()
+            width: 180px
+          +sp()
+            width: 85px
+          img
+            position: absolute
+            width: 100%
+            +pc()
+              bottom: -38px
+              left: 120px
+            +sp()
+              bottom: 0
+              left: 0
+
+ //商品 A賞
+      .prize--item--wrap-main
+        margin: 0 auto
+        +pc()
+          width: 976px
+          padding-top: 60px
+        +sp()
+          padding: 24px 16px 0
+        .prize--item--container
+          background: #ffffff
+          border-radius: 26px
+          +pc()
+            width: 976px
+          .prize--item--box
+            +pc()
+              padding: 32px 39px 0
+            +sp()
+              padding: 24px 24px 0
+            .prize--item--img
+              width: 100%
+              height: auto
+              text-align: center
+              .img--prize1
+                margin: auto
+                +pc()
+                  width: 100%
+                +sp()
+                  width: 100%
+            .prize--item--detail
+                .prize--item--title
+                  display: flex
+                  align-items: center
+                  position: relative
+                  margin-top: 16px
+                  overflow hidden
+                  &::before
+                    position: absolute
+                    bottom: 0
+                    left: 5px
+                    width: 100%
+                    border: 3px solid crimsonRedColor
+                    content: ""
+                  .prize--item--title--award
+                    background: crimsonRedColor
+                    color: #ffe681
+                    text-align: center
+                    line-height: 1.4
+                    +pc()
+                      width: 110px
+                      padding: 6px 0 7px
+                      border-radius: 5px 5px 0 5px
+                      font-size: 2.2rem
+                    +sp()
+                      width: 80px
+                      padding: 4px 0 6px
+                      border-radius: 3px 3px 0 3px
+                      font-size: 1.6rem
+                  .prize--item--title--text
+                    color: crimsonRedColor
+                    text-align: center
+                    line-height: 1.4
+                    +pc()
+                      width: calc(100% - 110px)
+                      font-size: 2.2rem
+                      margin-left: -42px 
+                    +sp()
+                      position: relative
+                      top: -1px
+                      width: calc(100% - 80px)
+                      font-size: 1.6rem
+          .prize--text--box
+            text-align: center
+            font-weight: bold
+            line-height: 1.5
+            +pc()
+              padding: 16px 16px 32px
+              font-size: 2.1rem
+            +sp()
+              padding: 8px 4px 25px
+              font-size: 1.5rem
+
+            .prize--text--title
+              margin-bottom: 16px
+              font-weight: bold
+              +pc()
+                font-size: 2.1rem
+              +sp()
+                font-size: 1.5rem
+            .prize--text--subtitle
+                margin-bottom: 8px
+                font-weight: bold
+                text-decoration: underline
+                text-underline-offset: 4px
+                +pc()
+                  font-size: 2rem
+                +sp()
+                  font-size: 1.4rem
+            .detail-date
+              display: block
+              text-align: center
+              margin: 0 auto
+              +pc()
+                font-size: 1.8rem
+                line-height: 1.6
+                & > br
+                  margin-bottom: 2px
+              +sp()
+                font-size: 1.2rem
+                line-height: 1.6
+                & > br
+                  margin-bottom: 2px
+            
+
+// // //商品 B＆C賞
+      .prize--item--wrap
+        display: flex
+        margin: 0 auto
+        +pc()
+          flex-wrap: wrap
+          width: 976px
+          padding-top: 40px
+        +sp()
+          flex-flow: column
+          padding: 24px 16px 0
+        .prize--item--container
+          background: #ffffff
+          border-radius: 26px
+          +pc()
+            width: 468px
+            &:nth-of-type(-n+2)
+              margin-bottom: 40px
+            &:nth-of-type(odd)
+              margin-right: 40px
+          +sp()
+            &:nth-of-type(-n+3)
+              margin-bottom: 24px
+          .prize--item--box
+            +pc()
+              padding: 24px 39px 0
+            +sp()
+              padding: 16px 24px 0
+            .prize--item--img
+              width: 100%
+              height: auto
+              text-align: center
+              +pc()
+                height: 300px
+              +sp()
+                height: 200px 
+              +sp()
+                .img--prize2
+                  width: 198px
+                  max-width: 100% 
+                  height: auto
+                  object-fit: contain
+              +sp()
+                .img--prize3
+                  width: 198px
+                  max-width: 100% 
+                  height: auto
+                  object-fit: contain
+            .prize--item--detail
+              +pc()
+                padding-top: 16px
+              +sp()
+                padding-top: 16px
+              .prize--item--title
+                display: flex
+                align-items: center
+                position: relative
+                overflow hidden
+                &::before
+                  position: absolute
+                  bottom: 0
+                  left: 5px
+                  width: 100%
+                  border: 3px solid crimsonRedColor
+                  content: ""
+                .prize--item--title--award
+                  background: crimsonRedColor
+                  color: #ffe681
+                  text-align: center
+                  line-height: 1.4
+                  +pc()
+                    width: 110px
+                    padding: 6px 0 7px
+                    border-radius: 5px 5px 0 5px
+                    font-size: 2.2rem
+                  +sp()
+                    width: 80px
+                    padding: 4px 0 6px
+                    border-radius: 3px 3px 0 3px
+                    font-size: 1.6rem
+                .prize--item--title--text
+                  color: crimsonRedColor
+                  text-align: center
+                  line-height: 1.4
+                  +pc()
+                    width: calc(100% - 110px)
+                    font-size: 2.2rem
+                  +sp()
+                    position: relative
+                    top: -1px
+                    width: calc(100% - 80px)
+                    font-size: 1.6rem
+          .prize--text--box
+            text-align: center
+            font-weight: bold
+            line-height: 1.5
+            +pc()
+              padding: 0 16px 24px
+              padding-top: 8px
+              font-size: 2.1rem
+            +sp()
+              padding: 0 16px 16px
+              padding-top: 8px
+              font-size: 1.5rem
+            .detail
+              +pc()
+                font-size: 1.8rem
+              +sp()
+                font-size: 1.2rem 
+            .prize--text--info
+              font-weight: normal
+              line-height: 1.5
+              +pc()
+                padding-top: 22px
+                font-size: 1.4rem
+              +sp()
+                padding-top: 16px
+                font-size: 1rem  
+
+// // //商品 D＆E＆F賞
+          .prize--item--wrap-three
+            display: flex
+            flex-wrap: wrap
+            justify-content: center
+            margin: 0 auto
+            +pc()
+              width: 976px
+              padding-top: 0px
+            +sp()
+              flex-flow: column
+              padding: 0px 16px 0
+
+            .prize--item--container
+              background: #ffffff
+              border-radius: 26px
+              +pc()
+                width: calc(33.333% - 20px) 
+                margin-bottom: 40px
+                &:not(:nth-of-type(3n))
+                  margin-right: 30px
+              +sp()
+                width: 100%
+                margin-bottom: 24px
+
+              .prize--item--box
+                +pc()
+                  padding: 24px 39px 0
+                +sp()
+                  padding: 16px 24px 0
+
+                .prize--item--img
+                  width: 100%
+                  height: auto
+                  text-align: center
+
+              .prize--item--detail
+                +pc()
+                  padding-top: 8px
+                +sp()
+                  padding-top: 16px
+              .prize--item--title
+                display: flex
+                align-items: center
+                position: relative
+                overflow hidden
+
+                &::before
+                  position: absolute
+                  bottom: 0
+                  left: 5px
+                  width: 100%
+                  border: 2px solid crimsonRedColor
+                  content: ""
+                .prize--item--title--award
+                  background: crimsonRedColor
+                  color: #ffe681
+                  text-align: center
+                  line-height: 1
+                  +pc()
+                    width: 80px
+                    padding: 6px 0 7px
+                    border-radius: 5px 5px 0 5px
+                    font-size: 2rem
+                  +sp()
+                    width: 80px
+                    padding: 4px 0 6px
+                    border-radius: 3px 3px 0 3px
+                    font-size: 1.6rem
+                .prize--item--title--text
+                  color: crimsonRedColor
+                  text-align: center
+                  line-height: 1
+                  +pc()
+                    width: calc(100% - 110px)
+                    font-size: 2rem
+                  +sp()
+                    position: relative
+                    top: -1px
+                    width: calc(100% - 80px)
+                    font-size: 1.6rem
+
+              .prize--text--box
+                text-align: center
+                font-weight: bold
+                line-height: 1.2
+                +pc()
+                  padding: 0 16px 24px
+                  padding-top: 8px
+                  font-size: 1.8rem
+                +sp()
+                  padding: 0 16px 16px
+                  padding-top: 8px
+                  font-size: 1.5rem
+                .detail
+                  +pc()
+                    font-size: 1.2rem
+                  +sp()
+                    font-size: 1.2rem
+                .prize--text--info
+                  font-weight: normal
+                  line-height: 1.5
+                  +pc()
+                    padding-top: 22px
+                    font-size: 1.4rem
+                  +sp()
+                    padding-top: 16px
+                    font-size: 1rem  
+
+      .prize--info
+        margin: 0 auto
+        color: #fff
+        line-height: 1.5
+        +pc()
+          width: 970px
+          font-size: 1.4rem
+        +sp()
+          width: calc(100% - 32px)
+          font-size: 1.2rem        
+
+
+// スタジアムツアー＆ソシオクラブ
+
+    .prize-vip-wrapper
+      background: #333333
+      +pc()
+        margin-bottom: 60px
+      +sp()
+        margin-bottom: 40px
+      .prize-vip-title
+        background: #333333
+        color: #ffffff
+        text-align: center
+        font-weight: bold
+        +pc()
+          padding: 60px 20px 0px
+          font-size: 3.0rem
+          line-height: 1.8
+        +sp()
+          padding: 40px 14px 0px
+          font-size: 1.9rem
+          text-align: center
+          line-height: 1.4
+        .prize-vip-title-warp
+          display: flex
+          justify-content: center
+          gap: 8px
+          .ashirai1
+            position: relative
+            right: -2px
+            width: 1em
+            height: 1em
+            +pc()
+              top: 18px
+            +sp()
+              top: 8px
+          .ashirai2
+            position: relative
+            left: -2px
+            width: 1em
+            height: 1em
+            +pc()
+              top: 16px
+            +sp()
+              top: 8px                   
+        .title-text-wrapper
+          text-align: center
+          font-family: "Rakuten Sans JP", 'Noto Sans JP', sans-serif
+          font-weight: 800
+          background: linear-gradient(92deg, #D4C37F 20.08%, #FFF8DE 35.32%, #D4C37F 48.73%)
+          background-clip: text
+          -webkit-background-clip: text
+          -webkit-text-fill-color: transparent
+          font-style: oblique
+          line-height: 1.4
+          padding: 8px
+          +pc()
+            font-size: 1.2em
+          +sp()
+            font-size: 2.1rem
+          .span
+            display: inline
+            letter-spacing: -0.05em 
+            &:nth-child(2) 
+              margin-left: -0.2em 
+              margin-right: -0.2em 
+            &:nth-child(4) 
+              margin-left: -0.2em 
+              margin-right: -0.2em 
+          .text-wrapper
+            background: linear-gradient(92deg, #D4C37F 20.08%, #FFF8DE 35.32%, #D4C37F 48.73%)
+            background-clip: text
+            -webkit-background-clip: text
+            -webkit-text-fill-color: transparent
+            line-height: 1.4
+            font-weight: 800
+            +pc()
+              font-size: 0.8em
+            +sp()
+              font-size: 1.7rem
+//ソシオクラブ
+      .prize-vip-container
+        margin: 0 auto
+        font-family: "Rakuten Sans JP", 'Noto Sans JP', sans-serif
+        +pc()
+          width: 976px
+          padding: 60px 0 60px
+        +sp()
+          padding: 16px 16px 40px
+        .prize-vip-socioclub
+          background: #ffffff
+          border-radius: 26px
+          border: 8px solid #D0B95B
+          +pc()
+            width: 976px
+            margin-bottom: 40px
+            padding-top: 60px
+          +sp()
+            margin-bottom: 35px
+            padding-top: 35px
+            border: 4px solid #D0B95B
+          .vip-title-wrap
+            text-align: center
+            position: relative
+            .tour
+              +sp()
+                max-width: 90%
+          .vip-title
+            position: absolute
+            color: #ffffff
+            top: 40%
+            left: 50%
+            transform: translate(-50%,-50%)
+            font-family: Rakuten Sans JP
+            font-style: oblique
+            font-weight: 900
+            .span
+             display: inline
+             letter-spacing: -0.05em 
+             &:nth-child(2) 
+               margin-left: -0.1em 
+               margin-right: -0.1em 
+             &:nth-child(4) 
+               margin-left: -0.1em 
+               margin-right: -0.1em 
+            +pc()
+              font-size: 2.4rem
+            +sp()
+              font-size: 1.4rem
+          .vip-content
+            display: flex
+            flex-direction: column
+            align-items: center
+            gap: 60px
+            position: relative    
+            padding: 60px 0 60px 
+            +pc()
+              padding: 60px 110px 60px
+            +sp()
+              gap: 40px
+              padding: 24px 28px 24px
+            .socioclub-mainpic
+              width: 100%
+            .vip-content-text-wrap
+              display: inline-flex
+              flex-direction: column
+              align-items: center
+              position: relative
+              +pc()
+                gap: 32px
+              +sp()
+                gap: 24px
+
+              .frame
+                display: inline-flex
+                flex-direction: column
+                align-items: center
+                gap: 16px
+                position: relative
+                flex: 0 0 auto          
+                .h 
+                  display: flex
+                  flex-direction: column
+                  width: 100%
+                  align-items: center
+                  gap: 4px
+                  position: relative
+                  flex: 0 0 auto
+                  .socio-text
+                    position: relative
+                    width: fit-content
+                    font-weight: bold
+                    color: transparent
+                    text-align: center
+                    line-height: 1.4
+                    white-space: nowrap
+                    +pc()
+                      font-size: 1.9em
+                    +sp()
+                      font-size: 1.6rem
+                    .text-wrapper 
+                      color: #000000
+                    .span 
+                      color: #9b0020
+                  .fukidashi 
+                    position: relative                   
+                    margin-left: -10.1px
+                    margin-right: -10.1px
+                    +pc()
+                      width: 220px
+                    +sp()
+                      width: 180px
+                .div 
+                  position: relative
+                  width: fit-content
+                  font-weight: bold
+                  line-height: 1.4
+                  white-space: nowrap
+                  +pc()
+                    font-size: 1.6em  
+                  +sp()
+                    font-size: 1.4rem  
+              .vip-content-text-sociolist
+                display: flex
+                justify-content: space-between
+                +sp()
+                  flex-direction: column
+                  gap: 24px
+              .frame 
+                display: flex
+                flex-direction: column
+                width: 240px
+                align-items: center
+                gap: 8px
+                padding: 8px
+                position: relative
+                .group 
+                  position: relative
+                  width: 238.28px
+                  height: 41.12px
+                  .div 
+                    position: relative
+                    width: 238px
+                    height: 41px
+                    .element 
+                      position: absolute
+                      top: 8px
+                    .line 
+                      position:absolute;
+                      left:42px
+                      top:12%
+                      background:#333333
+                      width:0.5px
+                      height:70%
+                    .text-wrapper 
+                      position: absolute
+                      width: 190px
+                      top: 1px
+                      left: 48px
+                      font-weight: bold
+                      color: #000000
+                      letter-spacing: 0
+                      line-height: 18.7px
+                      +pc()
+                        font-size: 0.8em  
+                      +sp()
+                        font-size: 1.3rem 
+                    .club 
+                      position: relative
+                      +pc()
+                        width: 210px
+                        height: 210px
+                      +sp()
+                        width: 200px
+                        height: 200px
+ // Search Area
+  .searchArea
+    +pc()
+      display: block
+      padding-bottom: 70px
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .searchArea--container
+      position: relative
+      margin: 0 auto
+      +pc()
+        width: 700px
+      +sp()
+        width: calc(100% - 41px)
+        padding-bottom: 4px
+      .searchArea--desc--icon
+        position: absolute
+        z-index: 5
+        top: 0
+        pointer-events: none
+        +pc()
+          right: 23px
+          height: 208px
+        +sp()
+          right: 0
+          height: 98px
+        img
+          height 100%
+      .searchArea--button
+        display: inline-block
+        background: crimsonRedColor
+        border-radius: 44px
+        color: #fff
+        text-align: center
+        +pc()
+          width: 600px
+          padding: 20px 0
+          font-size: 3.6rem
+          line-height: 1.3
+        +sp()
+          width: 88%
+          padding: 16px 0
+          font-size: 2rem
+          line-height: 1.5
+        &:hover
+          opacity: .8
+      .searchArea--info
+        text-align: center
+        +pc()
+          width: 600px
+          padding-top: 24px
+          font-size: 2rem
+          font-weight: bold
+          line-height: 1.4
+        +sp()
+          width: 88%
+          padding-top: 12px
+          font-size: 1.2rem
+          line-height: 1.8
+
+    // Search Area Component / ()内に色を入れる
+    @import passStr + '_common/stylus/Module/Common/_searchArea'
+    searchArea(mainColor)
+
+  
+  // app DL
+  .app
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFE8E8)
+
+  // banner
+  .banner
+    margin: 0 auto 60px
+    +sp()
+      margin-bottom: 40px
+    .banner__box
+      text-align: center
+      background-color: grayBgColor
+      box-sizing: border-box
+      +pc()
+        width: 890px
+        margin: 0 auto
+        padding: 24px
+      +sp()
+        width: auto
+        margin: 0 8px
+        padding: 10px 16px 16px
+      .banner__txt
+        font-weight: bold
+        line-height: 1.5
+        +pc()
+          font-size 2rem
+          padding-bottom: 24px
+        +sp()
+          font-size 1.4rem
+          padding-bottom: 8px
+      .banner__boxInner
+        background-color: #fff
+        box-sizing: border-box
+        +pc()
+          padding: 24px
+        +sp()
+          padding: 16px
+        .banner__link
+          display: block
+          width: auto
+          max-width: 640px
+          margin: 0 auto
+          transition: opacity .2s ease-out
+          &:hover
+            opacity: 0.8
+          .banner__img
+            width: 100%
+            height: auto
+
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .detail__tableBlockList--none
+    .detail__tableBlockList--li-brank 
+      padding-left: 16px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

@@ -1,0 +1,1297 @@
+passStr = '../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+pinkColor = #df205f
+
+lavenderColor = #8FA3CD
+lightBlueColor = #83BFCE
+beigeColor = #D4BC7C
+
+pcWidth = 1216px
+couponWidth = 430px // 3つ並列にする場合は357px以内にする
+
+//------------------------------
+
+#CouponTemplate
+
+  // main
+  .main
+    margin: 0 auto 40px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      text-align: center
+      //
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+        padding: 10px 40px
+      +sp()
+        padding: 10px
+      .main__termsBox
+        width: 100% //IE対応
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.2rem
+          &.-small
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+        .main__termsLink
+          color:secondColor
+          text-decoration: underline
+          &:hover
+            text-decoration: none
+
+  //- ラ・クーポン
+  .coupon
+    width:100%
+    // text-align: center
+
+    // 事前
+    .couponAdd
+      +pc()
+        margin-bottom:60px
+        //
+        display: flex
+        flex-direction: column
+        justify-content: center
+      +sp()
+        padding 0 10px 40px
+        box-sizing: border-box
+
+      // ボタンセット(bgColor,txtColor)
+      btnSet(Colors.CrimsonRed.color,#fff)
+
+      .coupon__terms
+        +pc()
+          display: flex
+          flex-direction: column
+          //
+          width: auto
+          height:auto
+          margin: 16px auto
+          &:last-of-type
+            margin: 0 auto
+        +sp()
+          margin: 0 auto
+        .coupon__termsTxt
+          font-size: 1.4rem
+          line-height 1.5
+          color:grayTxtColor
+          +sp()
+            font-size: 1.2rem
+          .coupon__termsLink
+            color:secondColor
+
+    // 獲得
+    .couponGet
+
+      // 非遷移クーポン
+      // couponOneClickSet(couponWidth,couponColor)
+      @import passStr + '_common/stylus/Module/Common/_couponOneClick'
+      couponOneClickSet(couponWidth,pinkColor)
+
+
+  //- 検索UI
+  // JSに影響する記述 ----------------------- //
+  $loader-size = 60px
+  $loader-size = 60px
+
+  #salonFilterSection
+    .is-hidden
+      display: none
+
+    .loader,
+    .loader:after
+      display: none
+
+    &.is-loading
+      .loader,
+      .loader:after
+        display: block
+
+      #salonFilter,
+      #salonList
+        display: none
+
+    .loader,
+    .loader:after
+      box-sizing: border-box
+      width: $loader-size
+      height: $loader-size
+      border-radius: 50%
+
+    .loader
+      position: relative
+      margin: $loader-size auto
+      border-top: 3px solid rgba(#333, .1)
+      border-right: 3px solid rgba(#333, .1)
+      border-bottom: 3px solid rgba(#333, .1)
+      border-left: 3px solid rgba(#333, .2)
+      text-indent: -9999em
+      font-size: 10px
+      transform: translateZ(0)
+      animation: loading 1.1s infinite linear
+
+    #salonList
+      opacity: 0
+      transition: opacity 0s ease-out
+
+      &.is-loading
+        opacity: 1
+        transition-delay: .3s
+        transition-duration: .35s
+
+      .position-relative
+        position: relative
+
+      .stretched-link
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+        tap-highlight-color: rgba(0, 0, 0, 0)
+
+        &::after
+          position: absolute
+          top: 0
+          right: 0
+          bottom: 0
+          left: 0
+          z-index: 1
+          background-color: rgba(0, 0, 0, 0)
+          content: ''
+          pointer-events: auto
+
+      .not-stretched-link
+        position: relative
+        z-index: 2
+
+  @keyframes loading
+    0%
+      transform: rotate(0)
+
+    100%
+      transform: rotate(360deg)
+
+  // レイアウト関連 --------------------- //
+  #salonFilter
+    position: relative
+    margin-bottom: 20px
+    padding: 40px 16px
+    background-color: Colors.LightGray.color
+    text-align: center
+    box-sizing: border-box
+    +pc()
+      padding 30px 0
+    +sp()
+      padding 16px
+
+    &:after
+      position: absolute
+      bottom: -40px
+      left: 50%
+      margin-left: -20px
+      border: 20px solid transparent
+      border-top: 20px solid Colors.LightGray.color
+      content: ''
+      +sp()
+        bottom -32px
+
+    .filter-heading
+      font-weight: bold
+      line-height: 1.5
+      +pc()
+        font-size 2.4rem
+        margin-bottom:16px
+      +sp()
+        font-size:1.8rem
+        margin:0 auto 16px
+
+    .filter-select
+      position: relative
+      display: inline-block
+
+      &:after
+        position: absolute
+        right: 16px
+        bottom: 16px
+        border: 6px solid transparent
+        border-top: 6px solid Colors.DarkGray.color
+        content: ''
+
+      +pc()
+        margin: 4px
+        width: 360px
+
+      +sp()
+        margin-bottom:8px
+        width: 100%
+
+    .filter-select__item
+      overflow: hidden
+      box-sizing: border-box
+      padding-right: 44px
+      padding-left: 16px
+      width: 100%
+      height: 54px
+      border: 1px solid Colors.MediumGray.color
+      border-radius: 4px
+      background-color: #fff
+      text-overflow: ellipsis
+      white-space: nowrap
+      font-weight: bold
+      font-size: 2rem
+      line-height: @height
+      line-height: 1
+      cursor: pointer
+      appearance: none
+      +sp()
+        height: 48px
+        font-size: 1.8rem
+
+      option
+        line-height: 1
+
+      &::-ms-expand
+        display: none
+
+      &:disabled
+        color: grayTagColor
+        background-color: Colors.LightGray.color
+        cursor: auto
+
+    .filter-button-list
+      margin: 0 auto
+      padding: 0
+      list-style: none
+      font-size: 0
+      +pc()
+        width: 800px
+
+      .filter-button-list-item
+
+        +pc()
+          display: inline-block
+          margin: 8px
+
+        +sp()
+          display: block
+          margin-bottom: 8px
+
+      .filter-list-button
+        border: 1px solid Colors.Secondary.color
+        border-radius: 4px
+        background-color: Colors.Secondary.color
+        color: #fff
+        font-size: 1.6rem
+        line-height: 1
+        cursor: pointer
+
+        +pc()
+          padding: 14px 16px
+          Transition(color, .25s)
+
+          &:hover
+            opacity: .8
+            transition-duration: .15s
+
+          &.is-selected:hover
+            // background-color: lighten(Colors.Secondary.color, 40)
+
+        +sp()
+          width:100%
+          padding: 8px 16px
+          font-size: 1.4rem
+
+        &.is-selected
+          background-color: #fff
+          color: Colors.Secondary.color
+
+    .filter-button
+      box-sizing: border-box
+      padding: 0 16px
+      width: 200px
+      height: 54px
+      border: none
+      border-radius: 4px
+      background-color: mainColor
+      color: #fff
+      font-weight: bold
+      font-size: 2rem
+      line-height: @height
+      line-height: 1
+      cursor: pointer
+
+      +pc()
+        margin: 0 4px
+        Transition(background-color, .25s)
+
+        &:hover
+          background-color: lighten(mainColor, 7)
+          transition-duration: .15s
+
+      +sp()
+        margin: 0 0 8px
+        width: 100%
+        height: 48px
+        font-size: 1.8rem
+
+      &:disabled
+        background-color: Colors.MediumGray.color
+        color: Colors.DarkGray.color
+        cursor: auto
+
+  #salonList
+    +pc()
+      margin: 0 auto (40px - 12px)
+      width: pcWidth
+
+      .salonList
+        display: flex
+        flex-wrap: wrap
+        margin: 0 -12px
+
+    +sp()
+      padding-right: 16px
+      padding-left: 16px
+
+      .salonList
+        width: 100%
+
+    .salonList__item
+      overflow: hidden
+      box-sizing: border-box
+      border: 1px solid Colors.MediumGray.color
+      border-radius: 8px
+      background-color: #fff
+      text-align: left
+
+      +sp()
+        margin: 0 auto 16px
+        width: 100%
+
+      +pc()
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        margin: 12px
+        width: ((pcWidth + 24) / 3) - 24
+
+      &.has-divide
+        justify-content: normal
+
+      .salonList__content
+        +pc()
+          &:hover
+            .salonList__image
+              transform: scale(1.05)
+
+            .salonList__link
+              color: #45A9BC
+
+      .salonList__link
+        display: block
+        color: #333
+        text-decoration: none
+
+      .salonList__button
+        display: block
+        text-align: center
+        font-size: 1.6rem
+        color: #fff
+        background: secondColor
+        padding: 10px 0
+        box-sizing: border-box
+        border-radius: 4px
+        +sp()
+          font-size: 1.4rem
+        &:hover
+          opacity: 0.8
+
+      .salonList__cover
+        overflow: hidden
+        +pc()
+          height: 200px
+
+        +sp()
+          height: 160px
+
+      .salonList__image
+        width: 100%
+        height: auto
+        vertical-align: top
+
+        +pc()
+          width: 101%
+          transition: transform .45s
+
+      .salonList__buttonArea
+        padding: 0 16px 16px
+        +sp()
+          padding: 0 8px 8px
+
+      .salonList__outline
+        line-height: 1.5
+        padding: 16px
+        +sp()
+          padding: 10px 10px 8px 10px
+
+      .salonList__detail
+        display: flex
+        //
+        margin-bottom: 16px
+        +pc()
+          align-items: flex-start
+        +sp()
+          align-items: center
+          //
+          margin-bottom: 8px
+
+      .salonList__menuIcon
+        flex-shrink:0
+        //
+        display: block
+        width: 60px
+        height: 60px
+        border-radius: 50%
+        +pc()
+          margin-right: 16px
+        +sp()
+          margin-right: 8px
+
+      .salonList__genre
+        display:flex
+        justify-content: center
+        align-items: center
+        //
+        width: 100%
+        height: 100%
+        border-radius: 50%
+        //
+        text-align: center
+        color: #fff
+        font-size: 1.1rem
+        font-weight: bold
+        padding: 8px
+        box-sizing: border-box
+        &.-no1
+          background: lavenderColor
+        &.-no2
+          background: lightBlueColor
+        &.-no3
+          background: beigeColor
+
+      .salonList__menuDetail
+        //
+
+      .salonList__salonName
+        margin: 0 0 8px
+        padding: 0
+        font-weight: bold
+        font-size: 1.6rem
+        +sp()
+          font-size: 1.4rem
+          margin: 0 0 4px
+
+      .salonList__area,
+      .salonList__station
+        display: block
+        margin: 0 0 4px
+        color: Colors.DarkGray.color
+        font-weight: bold
+        font-size: 1.2rem
+        +sp()
+          display: inline-block
+          margin: 0 0 2px
+
+        .icon
+          margin-right: 2px
+          font-size: 1.6rem
+
+      .salonList__area
+        margin-right: 16px
+
+      .salonList__station
+        margin-bottom: 0
+
+      .salonList__divide
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        align-items: stretch
+        //
+        line-height: 1.5
+        background: #fff
+        height 100%
+        border-top: 1px dashed Colors.MediumGray.color
+
+      .salonList__menuName
+        font-size: 1.6rem
+        font-weight: bold
+        color: secondColor
+        +sp()
+          font-size: 1.4rem
+
+      .salonList__target
+        display: inline-block
+        font-weight: normal
+        color:#fff
+        background:secondColor
+        line-height: 1
+        border-radius: 4px
+        border: 1px solid secondColor
+        box-sizing: border-box
+        +pc()
+          vertical-align: 1px
+          font-size: 1.2rem
+          margin-right: 8px
+          padding: 4px 8px
+        +sp()
+          vertical-align: 1px
+          font-size: 1.1rem
+          margin-right: 4px
+          padding: 4px 6px
+
+        &.is-all
+          background: #fff
+          color: secondColor
+
+      .salonList__menuPriceArea
+        margin-bottom: 16px
+        text-align: right
+        +sp()
+          margin-bottom: 8px
+
+        .salonList__menuTime
+          font-size: 1.2rem
+          margin-right: 8px
+          +sp()
+            font-size: 1.1rem
+
+        .salonList__menuPrice
+          font-size: 2rem
+          margin-right: 8px
+          +sp()
+            font-size: 1.8rem
+
+      .salonList__menuTermsArea
+        background: grayBgColor
+        padding: 4px 16px
+        margin-bottom: 16px
+        +sp()
+          margin-bottom: 8px
+
+        .salonList__menuTerm
+          font-size: 1.2rem
+          +sp()
+            font-size: 1.1rem
+
+      .salonList__description
+        font-size: 1.4rem
+        +sp()
+          font-size: 1.2rem
+
+  //- more search
+  // more btn(pcWidth,bgColor)
+  btnMore(pcInnerWidth,grayBgColor)
+
+  //- howto
+  .howto
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // ラ・クーポンの使い方セット
+    howtoCouponset()
+
+  // app DL
+  .app
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFE8E8)
+
+  // Campaign Deatail
+  .detail
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+
+
+
+  //------------------------------// ここからareaLPからの転用部分
+  // anchor link 位置調整
+  navHeightPc = 85px // PCのnavの高さ
+  navHeightSp = 75px // SPのnavの高さ
+  #Shoplist
+  #Detail
+  #QA
+    +pc()
+      padding-top: navHeightPc
+      margin-top: -(navHeightPc)
+    +sp()
+      padding-top: navHeightSp
+      margin-top: -(navHeightSp)
+  #Flow
+    +pc()
+      padding-top: navHeightPc + 60px
+      margin-top: -(navHeightPc + 60px)
+    +sp()
+      padding-top: navHeightSp + 40px
+      margin-top: -(navHeightSp + 40px)
+  #Campaign
+    +pc()
+      padding-top: navHeightPc - 25px
+    +sp()
+      padding-top: navHeightSp + 40px
+      margin-top: -(navHeightSp + 40px)
+
+  // common
+  .section--title
+    margin-bottom: 40px
+    font-size: 3.2rem
+    font-weight: bold
+    text-align: center
+    line-height: 1.3
+    +sp()
+      margin-bottom: 24px
+      font-size: 20px
+      line-height: 1.4
+    &.-min
+      margin-bottom: 24px
+      +sp()
+        margin-bottom: 16px
+  .section--sub-title
+    margin-bottom: 24px
+    font-size: 2rem
+    font-weight: bold
+    text-align: center
+    line-height: 1.4
+    +sp()
+      margin-bottom: 16px
+      font-size: 1.6rem
+  // navgation
+  .navigation
+    display: flex
+    justify-content: center
+    align-items: center
+    //
+    position: sticky
+    width: 100%
+    top: 0
+    z-index: 100
+    text-align: center
+    background: #fff
+    border-bottom: 1px solid grayLineColor
+    box-sizing: border-box
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    // 上の線（sticky時に消す用）
+    &::before
+      position: absolute
+      content:''
+      display block
+      width: 100%
+      border-top: 1px solid grayLineColor
+      top:-1px
+      left: 0 // for IE
+    .navigation__line
+      height: 30px
+      border-left:1px solid grayLineColor
+    .navigation__block
+      display: block
+      border: 1px solid blackColor
+      font-weight: bold
+      +pc()
+        width: 240px
+      +sp()
+        width: 100%
+      &:hover
+        color: pinkColor
+      .navigation__box
+        display: flex
+        justify-content: center
+        align-items: center
+        //
+        position: relative
+        +pc()
+          height 50px
+          margin: 10px 0 24px
+        +sp()
+          height: 55px
+          margin: 4px 2px 16px
+        &::after
+          // arrow line
+          content:''
+          position: absolute
+          arrowLine(bottom,1px,8px,grayTxtColor)
+          +pc()
+            top: 32px
+            bottom:-12px
+            right: calc((100% - (8px - 1px) * 2)/2)
+          +sp()
+            top: 48px
+            bottom:-8px
+            right: calc((100% - (8px - 3px) * 2)/2)
+        &:hover::after
+          arrowLine(bottom,1px,8px,pinkColor)
+        .navigation__txt
+          display: block
+          vertical-align: middle
+          line-height: 1.8
+          font-weight: bold
+          +pc()
+            font-size:1.6rem
+          +sp()
+            font-size:calc(1vw + 9px)
+            line-height: 1.4
+
+
+  // ShopList
+  .shoplist
+    margin-bottom: 60px
+    padding: 40px 0
+    background: grayBgColor
+    +sp()
+      margin-bottom: 40px
+      padding: 24px 16px
+    .shoplist__search
+      margin: 0 auto 40px
+      text-align: center
+      +sp()
+        width: 100%
+        margin: 0 auto 24px
+      .shoplist__search--info
+        margin: 0 auto 24px
+        font-size: 1.4rem
+        line-height: 1.5
+        +sp()
+          margin-bottom: 16px
+          font-size: 1.2rem
+          line-height: 1.8
+      .shoplist__search--wrap
+        +pc()
+          width: 460px * 2 + 24px
+          margin: 0 auto
+          // 
+          display: flex
+          flex-wrap: wrap
+          justify-content: center
+          gap: 24px
+
+        // ボタンセット(bgColor,txtColor)
+        btnSet(pinkColor, #fff)
+
+        // override
+        .btnSet__link
+          +pc()
+            width: 460px
+            margin: 0 auto
+          +sp()
+            margin: 0 auto 16px
+
+        // ボタンが1つだけの時　override
+        .shoplist__search--wrapBox
+          .btnSet__link
+            +pc()
+              width: 500px
+              margin: 0 auto
+
+        //- Search Area Component / ()内に色を入れる
+        @import passStr + '_common/stylus/Module/Common/_searchArea'
+        searchArea(pinkColor)
+
+        // override
+        #vue-container
+          .feature-search__form
+            padding: 0
+
+    .catalog__search
+      display: flex
+      flex-wrap: wrap
+      position: relative
+      width: 864px
+      margin: 0 auto
+      padding: 24px 40px
+      background: #fff
+      +sp()
+        width: 100%
+        padding: 0
+      .catalog__search__list
+        width: 160px
+        margin: 0 16px 16px 0
+        +pc()
+          &:nth-of-type(5),
+          &:nth-of-type(10)
+            margin: 0 0 16px 0
+          &:nth-of-type(n+11)
+            margin: 0 16px 0 0
+        +sp()
+          width: calc((100% - 24px) / 2)
+          margin: 8px 8px 0 8px
+          &:nth-child(even)
+            margin: 8px 0 0 0
+          &:last-of-type
+            margin-bottom: 8px
+        .catalog__search__list__item
+          display: flex
+          align-items: center
+          img
+            flex-grow: 0
+          .catalog__search__list__item--type
+            flex-grow: 1
+            margin-left: 8px
+            font-size: 1.2rem
+            line-height: 1.4
+    .catalog__more
+      +pc()
+        width: 500px
+        margin: 40px auto 0
+      +sp()
+        margin-top: 24px
+
+      // ボタンセット Small (width,bgColor,linecolor,txtColor,arrow(none/right/bottom))
+      btnSetSmall(auto,#fff,Colors.MediumGray.color,Colors.Black.color,none)
+  
+  //- flow
+  .flow
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    // common
+    .flow__boxTitle
+      text-align: center
+      line-height: 1.5
+      font-weight: bold
+      color: grayTxtColor
+      +pc()
+        font-size: 2.4rem
+      +sp()
+        font-size: 1.6rem
+        margin-bottom: 8px
+    .flow__txt
+      text-align: center
+      line-height: 1.5
+      color: grayTxtColor
+      +pc()
+        font-size: 1.8rem
+        font-weight: bold
+      +sp()
+        font-size: 1.4rem
+      &.-small
+        margin-top: 8px
+        +pc()
+          font-size: 1.4rem
+          font-weight: normal
+        +sp()
+          font-size: 1.2rem
+    .flow__link
+      color: secondColor
+      text-decoration: underline
+      &:hover
+        text-decoration: none
+    .flow__boxImg
+      width: 100%
+      height: auto
+    // contents
+    .flow__wrapper
+      +pc()
+        margin-bottom: 24px
+      +sp()
+        background-color: grayBgColor
+        padding:24px 16px
+        box-sizing: border-box
+      .flow__caption
+        text-align: center
+        color: grayTxtColor
+        font-weight:bold
+        +pc()
+          font-size: 2rem
+          line-height: 1.5
+          margin-bottom: 40px
+        +sp()
+          font-size: 1.4rem
+          line-height: 1.5
+          margin-bottom: 16px
+      .flow__boxWrap
+        +pc()
+          display: flex
+          justify-content: space-between
+          //
+          width: pcWidth
+          margin: 0 auto
+        .flow__box
+          display: flex
+          align-items: center
+          //
+          position: relative
+          background: grayBgColor
+          +pc()
+            flex-direction: column
+            //
+            width: 240px
+            padding: 16px
+            border-radius: 8px
+          +sp()
+            justify-content: center
+            // 
+            margin: 0 auto 16px
+          &::after
+            +pc()
+              content:''
+              position: absolute
+              top:calc((100% - 20px * 2) / 2)
+              right: -32px
+              arrowFill(right,20px,grayTagColor)
+          &:last-of-type
+            margin-bottom: 0
+            &::after
+              display: none
+          .flow__box0
+            +pc()
+              margin-bottom: 16px
+          .flow__box1
+            +pc()
+              width: 200px
+              height: 200px
+              margin-bottom: 16px
+            +sp()
+              flex-shrink: 0
+              //
+              width: 100px
+              height: 100px
+              margin-left: 8px
+          &:last-of-type
+            .flow__box1
+              &::after
+                border:none
+          .flow__box2
+            position: relative
+            width: 100%
+            +pc()
+              display: flex
+              flex-direction: column
+              align-items: center
+              // 
+              height: 100%
+            +sp()
+              max-width: 200px
+              margin: 0 8px
+            // override
+            .flow__txt
+              &.-small
+                +sp()
+                  color: grayTagColor
+            &::after
+              +sp()
+                z-index:10
+                content:''
+                position: absolute
+                left:calc((100% - 10px * 2) / 2)
+                bottom: -24px
+                arrowFill(bottom,10px,grayTagColor)
+          &:last-of-type
+            .flow__box2
+              &::after
+                border:none
+    .flow__attention
+      margin: 0 auto
+      +pc()
+        width: 1160px
+      +sp()
+        width: auto
+        margin: 16px 16px 0
+      // override
+      .flow__txt
+        text-align: left
+        line-height: 1.8
+        &::before
+          display:inline-block
+          margin:0
+          content:'※'
+          text-indent:-1.8rem
+          +sp()
+            text-indent:-1.6rem
+        +pc()
+          margin-left: 1.8rem // text-indent分
+        +sp()
+          margin-left: 1.6rem // text-indent分
+        &.-small
+          margin-top: 0
+
+
+  // RB introduction
+  .main__RBintroduction
+    background: #f7f7f7
+    width: auto
+    .section--title
+      padding-top: 40px
+    .main__RBintroductionBox
+      margin: 0 auto
+      text-align: center
+      padding-bottom: 40px
+      +pc()
+        width: pcWidth
+        margin-bottom: 60px
+      +sp()
+        padding: 16px 0px 24px
+        margin-bottom: 40px
+      .main__introductionContent
+        width: 950px
+        display: grid
+        margin: 0 auto 40px
+        +sp()
+          display: block
+          width: auto
+          padding: 0 16px
+          margin-bottom: 24px
+        &:last-child
+          margin-bottom: 0
+      .main__card
+        padding: 40px 0
+        +sp()
+          padding: 24px 16px
+        .titleBox
+          margin: 0 auto 32px
+          display: flex
+          width: 600px
+          justify-content: center
+          gap: 24px
+          +sp()
+            width: auto
+            margin-bottom: 24px
+            justify-content: center
+            img
+              width: 50px
+              height: 50px
+          .titleTxt
+            margin-bottom: 8px
+            +sp()
+              margin-bottom: 0
+        .imageBox
+          display: flex
+          justify-content: center
+          gap: 16px
+          margin-bottom: 32px
+          &.last
+            margin-bottom: 0
+          img
+            width: auto
+            height: auto
+            &.device
+              width: 308px
+          +sp()
+            display: block
+            margin: 24px 0
+            img
+              width: 100%
+              height: auto
+            &.appBnr img
+              width: 100%
+              height: auto
+          &.appLink
+              width:160px
+              margin: 0 auto
+              img
+                width: 100%
+                height: auto
+          .imageColumn
+            display: flex
+            gap:16px
+            +sp()
+              gap: 8px
+              &:first-child
+                margin-bottom: 8px
+              &:last-child
+                justify-content: center
+              img
+                width: 31.333%
+                height: auto
+          .qrcodeBox
+            display: grid
+            align-items: center
+            .titleTxt
+              font-size: 2.0rem
+              font-weight: 400
+              line-height: 1.4
+              margin-bottom: 0
+            img
+              margin: 0 auto
+
+    .titleTxt
+      font-size: 2.4rem
+      font-weight: 600
+      line-height: 1.4
+      margin: 0 auto 32px
+      +sp()
+        font-size: 1.8rem
+        margin: 0 auto 24px
+    .captionTxt
+      font-size: 1.8rem
+      line-height: 1.6
+      &.-small
+        font-size: 1.4rem
+        line-height: 1.5
+      +sp()
+        font-size: 1.4rem
+    .descTxt
+      font-size: 1.8rem
+      line-height: 1.6
+      +sp()
+        font-size: 1.4rem
+        &:first-child
+          margin-bottom: 8px
+      .-small
+        font-size: 1.6rem
+        line-height: normal
+        margin-bottom: 8px
+        +sp()
+          font-size: 1.2rem
+          line-height: 1.4
+    .notationTxt
+      font-size: 1.1rem
+      line-height: normal
+
+
+  // Anniversary main element  
+  .main__titleTxt
+    font-weight: 600
+    line-height: 1.4
+    text-align: center
+    +pc()
+      font-size: 2.6rem
+      margin-bottom: 25px
+    +sp()
+      font-size: 2.1rem
+      margin-bottom: 20px
+      padding: 0 16px
+  .main__titleLine
+    width: 79%
+    height: 1px
+    background: linear-gradient(270deg, rgba(41, 150, 211, 1) 20%,rgba(255, 83, 187, 1) 40%)
+    +sp()
+      width: 76%
+  .main__captionTxt
+    line-height: 1.4
+    padding-bottom: 6px
+    text-align: center
+    +pc()
+      font-size: 1.8rem
+      padding-top: 80px
+    +sp()
+      font-size: 1.6rem
+      padding-top: 60px
+  .main__commentTxt
+    line-height: 1.3
+    +pc()
+      font-size: 1.4rem
+    +sp()
+      font-size: 1.2rem
+      padding: 0 16px
+      
+  .main__numbersTxt
+    text-align: center
+    font-size: 1.4rem
+    line-height: 1.3
+  .main__card
+    align-items: center
+    vertical-align: middle
+    background-color: #fff
+    padding: 24px
+    border-radius: 10px
+    // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
+  .pinkTxt
+    color: annivPink
+  .gradTxt
+    background: linear-gradient(162deg,#FF53BB 45%, #2996D3 65%)
+    opacity:90% // 必要なければ削除
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  .-uppercase
+    text-transform: uppercase
+  .-bold
+    font-weight: 600
+  
+  // banner
+  .banner__box
+    +pc()
+      .banner__boxInner
+        width: 950px;
+        margin: 0 auto 60px;
+    +sp()
+      .banner__boxInner
+        width: calc(100vw - 32px);
+        margin: 0 16px 40px;
+
+  // QA
+  .qa
+    background: grayBgColor
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    // override
+    .area__title2
+      padding-top: 40px
+      font-size: 3.2rem
+      font-weight: bold
+      text-align: center
+      line-height: 1.3
+      +sp()
+        padding-top: 24px
+        font-size: 20px
+        line-height: 1.4
+    .qa__listBox
+
+      // よくあるご質問セット
+      QAset()
+      // override
+      .qaBoxWrap
+        padding-top: 0
+
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

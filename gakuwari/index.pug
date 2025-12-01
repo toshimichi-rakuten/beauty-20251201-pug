@@ -1,0 +1,355 @@
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  - param = "?v20250508"
+  -
+    var meta = {
+      title: "【毎月開催】楽天学割メンバー限定！美容室などのアプリ予約でポイント2倍♪",
+      description: "楽天学割メンバー限定！美容室などのアプリ予約でポイント2倍♪",
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/gakuwari/",
+      og_image: "https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png?202101",//- default (シェア画像があれば変更)
+    }
+  - var css = "css/main.css" + param
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Gakuwari はページ固有の名前に置換してください
+  #Gakuwari
+
+    //- 終了対応
+    //- #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー不要', //- エントリー不要は自動的に青色になります
+            '対象者限定',
+            'アプリ予約・施術完了',
+            '毎月開催',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    #Title.title
+      .titleLogo
+        img.titleLogoImg(src='img/logo_gakuwari_beauty.svg', alt='Rakuten 学割 x Rakuten BEAUTY')
+      h3.titleWrap--subtitle 楽天学割メンバー特典
+      ul.titleLabel
+        li.titleLabelBox
+          p.titleLabelBoxTxt 対象：
+        li.titleLabelBox
+          img.titleLabelBoxImg.-pc(src='img/label_hon_PC.png', alt='本メンバー')
+          img.titleLabelBoxImg.-sp(src='img/label_hon_SP.png', alt='本メンバー')
+
+    #Main.main
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.jpg' + param, alt='楽天学割メンバー限定！美容室などのアプリ予約でポイント2倍♪')
+        img.main__titleImg.-sp(src='img/main_sp.jpg' + param, alt='楽天学割メンバー限定！美容室などのアプリ予約でポイント2倍♪')
+      .main__terms
+        .main__termsBox
+          p.main__termsTxt
+            | 予約期間：2025年5月1日10:00～2025年6月2日9:59
+            br
+            | 施術期間：2025年5月1日10:00～2025年7月31日23:59
+          p.main__termsTxt
+            | 対象条件：楽天学割本メンバー／3,000円(税込)以上のアプリ予約／当月中の施術完了
+          p.main__termsTxt.-small
+            | ※本企画は、予告無く変更・中止されることがございます。
+          p.main__termsTxt.-small
+            | ※進呈するポイント（期間限定ポイントを含む）には上限や条件があります。
+          p.main__termsTxt.-small
+            | ※キャンペーン詳細は
+            a.main__termsLink(href='#Detail')
+              | こちら
+
+    //- salon
+    #Salon.salon
+      .titleWrap
+        h2.titleWrap--title 楽天ビューティを使ってみる
+      h3.titleWrap--subtitle まずは行きたいサロンを探そう！
+      .salonBoxWrapper
+        ul.salonBoxInner
+          li.salonBox
+            a.salonLink(href='/')
+              img.salonImg(src='img/rb_hair.png' alt='美容室')
+          li.salonBox
+            a.salonLink(href='/nail/')
+              img.salonImg(src='img/rb_nail.png' alt='ネイル・まつげ')
+          li.salonBox
+            a.salonLink(href='/esthe/')
+              img.salonImg(src='img/rb_esthe.png' alt='エステ')
+          li.salonBox
+            a.salonLink(href='/relax/')
+              img.salonImg(src='img/rb_relax.png' alt='リラク')
+
+    //- app DL
+    section#App.app.-excludeApp(data-ratid='cpn_' + meta.directory + '_App' data-ratevent='appear' data-ratparam='all')
+
+      //- app DL parts(app2x or app3x)
+      //- キャンペーン対象地域が宮城、兵庫のみの場合は'app3x'に変更推奨
+      //- appInfoFlag 注意文の表示/非表示 trueで表示、falseで非表示
+      - var appInfoFlag = false
+      +appDL('app2x')
+
+    //- service btn
+    #Service.service
+      h4.serviceTitle まだ楽天学割に登録していない人はこちらから
+      a.serviceBtnGakuwari(href='https://event.rakuten.co.jp/young/?scid=wi_bty_rgw_benefit') 楽天学割に登録する
+
+    //- about gakuwari
+    #AboutGakuwari.aboutGakuwari
+      ul.aboutGakuwari__box
+        li.titleWrap.accordion_btn
+          h2.titleWrap--title
+            | 楽天学割とは?
+          i.icon-plus
+        li.aboutGakuwari__contents.accordion_wrap
+          .explain_main
+            p.explain_logo
+              img(src="img/cmn_about/gakuwari_logo.png" alt="rakuten学割")
+            p.explain_age
+              img(src="img/cmn_about/explain_txt1.png" alt="学生でなくても使えます！15～25歳の方限定！")
+            p.explain_mes ショッピングもエンタメもおトクになる無料プログラム
+            .explain_list.boxsiz
+              .explain_list_box
+                p.explain_list_no おトク１
+                figure.explain_list_img
+                  img(src="img/cmn_about/explain_img1.png" alt="")
+                p.explain_list_mes
+                  | 楽天市場での
+                  br
+                  span 送料無料クーポン
+                  br
+                  | プレゼント！
+              .explain_list_box
+                p.explain_list_no おトク２
+                figure.explain_list_img
+                  img(src="img/cmn_about/explain_img2.png" + param, alt="")
+                p.explain_list_mes
+                  | 毎週水曜日10:00〜は
+                  br
+                  | 楽天市場・楽天ブックス
+                  br
+                  span ポイント3倍以上
+                p.explain_list_come ※要エントリー
+              .explain_list_box
+                p.explain_list_no おトク３
+                figure.explain_list_img
+                  img(src="img/cmn_about/explain_img3.png" + param, alt="")
+                p.explain_list_mes
+                  span ファッションや
+                  br
+                  span 日用品
+                  | に使える
+                  br
+                  | クーポンプレゼント
+              .explain_list_box
+                p.explain_list_no おトク４
+                figure.explain_list_img
+                  img(src="img/cmn_about/explain_img4.png" alt="")
+                p.explain_list_mes
+                  | アンケートなど
+                  br
+                  span 無料でポイント
+                  | が
+                  br
+                  | たまるチャンス多数
+            p.explain_mes2
+              | この他にもメンバーだけの特典やキャンペーンがいっぱい！
+              span ※特典には適用条件があります。
+            p.explain_btn
+              a(href="https://event.rakuten.co.jp/young/?scid=wi_bty_rgw_benefit")
+                img(src="img/cmn_about/explain_btn.png" alt="詳細はこちら")
+
+    //- pointget
+    #Pointget.pointget
+      .titleWrap
+        h2.titleWrap--title ポイントGETの流れ
+      .pointgetWrapper
+        ul.pointgetBoxInner
+          li.pointgetBox
+            img.pointgetImg.-pc(src='img/point_1.png' + param, alt='楽天ビューティのアプリでサロン予約')
+            img.pointgetImg.-sp(src='img/point_1_sp.png' + param, alt='楽天ビューティのアプリでサロン予約')
+          li.pointgetBox
+            img.pointgetImg.-pc(src='img/point_2.png' + param, alt='予約当日にお店に行く')
+            img.pointgetImg.-sp(src='img/point_2_sp.png' + param, alt='予約当日にお店に行く')
+          li.pointgetBox
+            img.pointgetImg.-pc(src='img/point_3.png' + param, alt='楽天ポイント特典ゲット')
+            img.pointgetImg.-sp(src='img/point_3_sp.png' + param, alt='楽天ポイント特典ゲット')
+
+    //- Campaign Detail
+    #Detail.detail
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle 【MAQUIA】限定クーポン
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 予約期間
+              td.detail__tableBlockBody 2025年5月1日10:00～2025年6月2日9:59
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 施術期間
+              td.detail__tableBlockBody 2025年5月1日10:00～2025年7月31日23:59
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li 予約期間中に楽天ビューティのアプリ経由で 3,000 円以上(税込)ネット予約された方
+                  li.detail__tableBlockList--li 施術期間中に施術を完了された方
+                  li.detail__tableBlockList--li 楽天学割 本メンバー登録をされた方
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 施術日の月末までに楽天学割 本メンバーに登録されていることが条件となります。
+                  li.detail__tableBlockList--li アプリ経由のネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、
+                    span.detail__tableBlockTxt--red
+                      | クーポン割引後
+                    | の価格が3,000円(税込)以上の場合に対象となります。 
+                  li.detail__tableBlockList--li 電話予約や直接来店は対象外となります。
+                  li.detail__tableBlockList--li アプリ経由のネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約や直接来店で施術完了された場合は、ポイント進呈の対象外となります。
+                  li.detail__tableBlockList--li アプリ経由のネット予約後、来店日時が変更になった場合でも、対象の施術期間内で施術完了された場合は、ポイント進呈の対象となります。
+                  li.detail__tableBlockList--li 対象条件は開催月毎に変更となる可能性がございます。
+              tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 楽天ビューティアプリ経由のネット予約に対し、通常の2倍(通常分含む)の特典ポイントが進呈されます。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜例＞
+                p.detail__tableBlockTxt 施術金額5,500円(税込)で楽天ビューティのネット予約後、施術対象期間内に施術完了した場合に獲得できるポイント
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜計算方法＞
+                p.detail__tableBlockTxt 5,500円(税込)の税抜価格：5,000円（税抜）
+                p.detail__tableBlockTxt 楽天ビューティの通常のネット予約分(1倍)＝50ポイント
+                p.detail__tableBlockTxt 本特典分(1倍)＝50ポイント
+                p.detail__tableBlockTxt 合計獲得ポイント：100ポイント
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 1倍(楽天ビューティの通常のネット予約分)は、施術完了月の翌月12日頃に進呈されます。残りの1倍(本特典分)は、後述の本特典ポイント進呈予定日に進呈されます。
+                  li.detail__tableBlockList--li アプリ経由のネット予約時のメニュー、またはスペシャルメニューの金額を基準としてポイントが進呈されます。
+                  li.detail__tableBlockList--li アプリ経由のネット予約後にメニューが変更になり金額が変わった場合は、変更後の金額に対してポイントが進呈されます。
+                  li.detail__tableBlockList--li ポイントを利用してネット予約された場合は、
+                    span.detail__tableBlockTxt--red
+                      | ポイント差引前
+                    | の金額に対して、特典ポイントが計算されます。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、
+                    span.detail__tableBlockTxt--red
+                      | クーポン割引後
+                    | の金額に対して、特典ポイントが計算されます。  
+                  li.detail__tableBlockList--li 現在実施中のキャンペーンとの併用が可能です(一部併用が出来ないキャンペーンもございます)。
+                    a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/')
+                      | キャンペーン一覧はこちら
+                  li.detail__tableBlockList--li 進呈対象のポイント倍率は、開催月毎に変更となる可能性がございます。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント進呈予定日 
+              td.detail__tableBlockBody 施術完了月の翌月末頃
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt 獲得した特典ポイントは、
+                  a.detail__tableBlockTxt--link(href='https://point.rakuten.co.jp/history/')
+                    | 楽天PointClubのポイント実績
+                  | でご確認いただけます。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt ポイント進呈日から6ヶ月間有効な期間限定ポイントとして進呈されます。
+                p.detail__tableBlockTxt 期間限定ポイントの詳細は
+                  a.detail__tableBlockTxt--link(href="https://ichiba.faq.rakuten.net/detail/000006532?scid=su_2312")
+                    | こちら
+                  | をご確認ください。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead キャンペーン対象外となる場合／その他注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 下記キャンペーンのポイント進呈対象者は、同時期に行われている当キャンペーンの対象外となります。<br>
+                    a.detail__tableBlockTxt--link(href="https://beauty.rakuten.co.jp/cnt/topics/campaign/sbc/")
+                      | ・スタート1000楽天ビューティで初めてのネット予約＆6,000円(税込)以上の施術完了で1,000ポイント！<br>
+                    a.detail__tableBlockTxt--link(href="https://beauty.rakuten.co.jp/cnt/topics/campaign/spu/")
+                      | ・SPU初利用ボーナス！エントリー＆楽天ビューティ初利用で300ポイントキャンペーン
+                  li.detail__tableBlockList--li 一部ネット予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li キャンペーンの条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li 「QRコード」は、株式会社デンソーウェーブの登録商標です。
+                  li.detail__tableBlockList--li 本キャンペーンは楽天グループ株式会社「楽天ビューティ」が主催しているものであり、Apple Inc., Apple Japan合同会社によるものではありません。
+                  li.detail__tableBlockList--li その他ご不明な点は
+                    a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/')
+                      | こちら
+                    | よりお問い合わせください。 
+    //- Campaign List
+    #Campaign.campaignLists
+      .titleWrap
+        h2.titleWrap--title おトクなキャンペーン実施中
+      include ../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+    //- gakuwari back btn
+    #BackBtn.backBtn
+      a.backBtnLink(href='https://event.rakuten.co.jp/young/?scid=wi_bty_rgw_benefit')
+        ul.backBtnLinkBox
+          li.backBtnLinkParts
+            img.backBtnImg(src='img/logo_gakuwari_wh.svg', alt='Rakuten学割')
+          li.backBtnLinkParts
+            | トップへ
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + param, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    const campaignlist = true;
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  script(src='/cnt/topics/campaign/gakuwari/js/main.js', defer)

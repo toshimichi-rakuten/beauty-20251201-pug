@@ -1,0 +1,212 @@
+[
+  {
+    "area": "五橋",
+    "shop_id": "s3000052074",
+    "shop_name": "はあとねいる仙台五橋店",
+    "station": "五橋駅",
+    "select1": "五橋"
+  },
+  {
+    "area": "榴岡",
+    "shop_id": "s3000052496",
+    "shop_name": "はあとねいる東口店",
+    "station": "宮城野通駅",
+    "select1": "榴岡"
+  },
+  {
+    "area": "中央",
+    "shop_id": "s3000051901",
+    "shop_name": "VEGETA",
+    "station": "広瀬通駅",
+    "select1": "中央"
+  },
+  {
+    "area": "中山",
+    "shop_id": "s2000049769",
+    "shop_name": "パラジェル認定サロン plus J 中山2号店",
+    "station": "JR仙山線 東北福祉大前駅 徒歩36分",
+    "select1": "中山"
+  },
+  {
+    "area": "中央",
+    "shop_id": "s9000044904",
+    "shop_name": "The Labo ungu",
+    "station": "JR東北本線 仙台駅 徒歩1分",
+    "select1": "中央"
+  },
+  {
+    "area": "国分町",
+    "shop_id": "s3000051299",
+    "shop_name": "Nails Reflection",
+    "station": "仙台市地下鉄南北線 広瀬通駅 徒歩3分",
+    "select1": "国分町"
+  },
+  {
+    "area": "錦町",
+    "shop_id": "s3000051052",
+    "shop_name": "nail salon ほの花",
+    "station": "仙台市地下鉄南北線 勾当台公園駅 徒歩6分",
+    "select1": "錦町"
+  },
+  {
+    "area": "中央",
+    "shop_id": "s5000016658",
+    "shop_name": "LENAHC ARIA",
+    "station": "JR東北本線 仙台駅 徒歩3分",
+    "select1": "中央"
+  },
+  {
+    "area": "昭和町",
+    "shop_id": "s7000033334",
+    "shop_name": "Hair Nail FLOWER",
+    "station": "地下鉄南北線・JR仙山線 北仙台駅 徒歩3分",
+    "select1": "仙台市"
+  },
+  {
+    "area": "南中山",
+    "shop_id": "s2000049768",
+    "shop_name": "plus J 南中山店",
+    "station": "JR仙山線 北山(宮城)駅 徒歩52分",
+    "select1": "南中山"
+  },
+  {
+    "area": "大和町",
+    "shop_id": "s9000043141",
+    "shop_name": "ネイルケア専門サロン éventail",
+    "station": "地下鉄東西線 薬師堂駅 徒歩9分",
+    "select1": "大和町"
+  },
+  {
+    "area": "泉中央",
+    "shop_id": "s2000049643",
+    "shop_name": "balance～シンプルネイル&アイラッシュ～泉中央店",
+    "station": "仙台市地下鉄南北線 泉中央駅 徒歩5分",
+    "select1": "泉中央"
+  },
+  {
+    "area": "本町",
+    "shop_id": "s2000049789",
+    "shop_name": "sofa nail & es eyelash",
+    "station": "仙台市地下鉄南北線・東西線 仙台駅 徒歩5分",
+    "select1": "本町"
+  },
+  {
+    "area": "長町南",
+    "shop_id": "s2000049644",
+    "shop_name": "balance～シンプルジェルネイル専門店～長町店",
+    "station": "仙台市地下鉄南北線 長町南駅 徒歩1分",
+    "select1": "長町南"
+  },
+  {
+    "area": "連坊小路",
+    "shop_id": "s2000049555",
+    "shop_name": "nail salon Blue Lotus",
+    "station": "仙台市地下鉄東西線 連坊駅 徒歩3分",
+    "select1": "連坊小路"
+  },
+  {
+    "area": "新田東",
+    "shop_id": "s2000049674",
+    "shop_name": "balance～シンプルネイル&アイラッシュ～新田東店",
+    "station": "JR仙石線 小鶴新田駅 徒歩8分",
+    "select1": "新田東"
+  },
+  {
+    "area": "東郡山",
+    "shop_id": "s1000046824",
+    "shop_name": "Meii NAIL",
+    "station": "JR東北本線 長町駅 徒歩30分",
+    "select1": "東郡山"
+  },
+  {
+    "area": "中央",
+    "shop_id": "s2000049742",
+    "shop_name": "Eimmy Yua",
+    "station": "JR各線 仙台駅 徒歩3分",
+    "select1": "中央"
+  },
+  {
+    "area": "本町",
+    "shop_id": "s2000049656",
+    "shop_name": "balance～シンプルジェルネイル専門店～仙台中央店",
+    "station": "仙台市地下鉄南北線 広瀬通駅 徒歩5分",
+    "select1": "本町"
+  },
+  {
+    "area": "本町",
+    "shop_id": "s0000045798",
+    "shop_name": "AMOUR",
+    "station": "仙台市地下鉄南北線 広瀬通駅 徒歩3分",
+    "select1": "本町"
+  },
+  {
+    "area": "岩切分台",
+    "shop_id": "s3000050113",
+    "shop_name": "reve by first 岩切店",
+    "station": "JR東北本線 岩切駅 徒歩5分",
+    "select1": "岩切分台"
+  },
+  {
+    "area": "一番町",
+    "shop_id": "s2000049666",
+    "shop_name": "ネイルサロンAMBER",
+    "station": "各線 仙台駅 徒歩10分",
+    "select1": "一番町"
+  },
+  {
+    "area": "なないろの里",
+    "shop_id": "s3000050649",
+    "shop_name": "Sorte【ネイル】",
+    "station": "仙台市地下鉄東西線 六丁の目駅 徒歩15分",
+    "select1": "なないろの里"
+  },
+  {
+    "area": "上谷刈",
+    "shop_id": "s2000049857",
+    "shop_name": "Nail&Relaxation Salon U",
+    "station": "仙台市地下鉄南北線 八乙女駅 徒歩8分",
+    "select1": "上谷刈"
+  },
+  {
+    "area": "泉中央",
+    "shop_id": "s2000049872",
+    "shop_name": "Jill eyelash&nail",
+    "station": "仙台市地下鉄南北線 泉中央駅 徒歩3分",
+    "select1": "泉中央"
+  },
+  {
+    "area": "上杉",
+    "shop_id": "s8000034837",
+    "shop_name": "REGRACE",
+    "station": "地下鉄南北線 北四番丁駅 徒歩1分",
+    "select1": "上杉"
+  },
+  {
+    "area": "支倉町",
+    "shop_id": "s3000050911",
+    "shop_name": "Le’a Nail&Eyes (ネイル)",
+    "station": "仙台市地下鉄南北線 北四番丁駅 徒歩10分",
+    "select1": "支倉町"
+  },
+  {
+    "area": "中央",
+    "shop_id": "s2000049623",
+    "shop_name": "Atelier LOTUS仙台駅前店",
+    "station": "仙台市地下鉄南北線 仙台駅 徒歩3分",
+    "select1": "中央"
+  },
+  {
+    "area": "二日町",
+    "shop_id": "s3000052703",
+    "shop_name": "studio tam",
+    "station": "仙台市地下鉄南北線 北四番丁駅 徒歩4分",
+    "select1": "二日町"
+  },
+  {
+    "area": "本町",
+    "shop_id": "s3000052791",
+    "shop_name": "nail&eye LinNe",
+    "station": "仙台市地下鉄南北線 広瀬通駅 徒歩4分",
+    "select1": "本町"
+  }
+]

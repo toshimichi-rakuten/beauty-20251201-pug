@@ -1,0 +1,1376 @@
+passStr = '../../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+
+cobaltBlueColor = #238ec5
+ceruleanblueColor = #248ec5
+prussianBlueColor = #26466d
+signalRedColor = #fc1c6d
+
+pcWidth = 1216px
+
+//------------------------------
+// Search Area Component / ()内に色を入れる
+@import passStr + '_common/stylus/Module/Common/_searchArea'
+searchArea(signalRedColor)
+
+#BankCampaign // #Pagenameはページ固有の名前に置換してください
+
+
+  navHeightPc = 74px
+  navHeightSp = 62px
+
+  #Entry,
+  #Flow,
+  #Beauty,
+  #Bank,
+  #Detail,
+  #Campaign
+    display: block
+    +pc()
+      padding-top: (navHeightPc + 0)
+      margin-top: -(navHeightPc + 0)
+    +sp()
+      padding-top: (navHeightSp + 0)
+      margin-top: -(navHeightSp + 0)
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    &.-entry
+      +pc()
+        border-left: 4px solid ceruleanblueColor
+      .titleWrap--title
+        &.-entry
+          +sp()
+            border-left: 6px solid ceruleanblueColor
+    &.-flow
+      +pc()
+        margin-bottom: 60px
+        border-left: 4px solid signalRedColor
+      +sp()
+        margin-bottom: 40px
+      .titleWrap--title
+        &.-flow
+          +sp()
+            border-left: 6px solid signalRedColor
+    &.-newFlow,
+    &.-bank
+      +pc()
+        margin-bottom: 60px
+        border-left: 4px solid redColor
+      +sp()
+        margin-bottom: 40px
+      .titleWrap--title
+        &.-newFlow,
+        &.-bank
+          +sp()
+            border-left: 6px solid redColor
+
+  // main
+  .main
+    margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 10px
+      margin: 0 auto 24px
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+        margin: 0 auto 60px
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          font-weight: bold
+          +pc()
+            display: inline-block
+            font-size: 1.6rem
+            &:first-of-type
+              padding-right: 1.3rem
+          +sp()
+            font-size: 1.3rem
+    .main__terms__summary__wrap
+      margin: auto
+      +pc()
+        width: 1044px
+      +sp()
+        width: 100%
+      .main__terms__summary
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100%
+        margin: 0 auto 16px
+        background: grayBgColor
+        box-sizing: border-box
+        +pc()
+          padding: 16px 60px
+          border-radius: 16px
+        +sp()
+          flex-direction: column
+          padding: 16px
+        .main__terms__summary__step
+          +pc()
+            width: 593px
+            margin-right: 36px
+          +sp()
+            width: 100%
+          .main__terms__summary__all
+            display: block
+            +sp()
+              margin-bottom: 16px
+          .main__terms__summary__new
+            display: block
+            +sp()
+              margin-bottom: 8px
+        .main__terms__summary__point
+          +pc()
+            width: 331px
+          +sp()
+            width: 100%
+      .main__terms__summary--info
+        +pc()
+          font-size: 1.2rem
+          line-height: 1.5
+        +sp()
+          width: calc(100% - 32px)
+          margin: auto
+          font-size: 1rem
+          line-height: 1.4
+        .main__terms__summary--info-bold
+          font-weight: bold
+        .main__termsLink
+          color:secondColor
+
+  // menu
+  .navigation
+    position: sticky
+    z-index: 10
+    top: 0
+    width: 100%
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .navigation__menu
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 100%
+      +pc()
+        height: 76px
+      +sp()
+        height: 62px
+      .navigation__menu__list
+        width: 25%
+        +sp()
+          border-top: 1px solid white
+          border-bottom: 1px solid white
+          border-right: 1px solid white
+          box-sizing: border-box
+          &:last-of-type
+            border-right: 0
+        .navigation__menu__list--button
+          display: flex
+          justify-content: center
+          position: relative
+          width: 100%
+          height: 100%
+          background: mainColor
+          box-sizing: border-box
+          text-align: center
+          +pc()
+            align-items: center
+            padding: 24px
+          +sp()
+            height: 60px
+            padding: 8px
+            &::after
+              position: absolute
+              bottom: 9px
+              width: 8px
+              height: 8px
+              border-top: solid 1px white
+              border-right: solid 1px white
+              transform: rotate(135deg)
+              content: ""
+          &.-entry
+            background: cobaltBlueColor
+            +sp()
+              padding: 16px 8px 8px
+          &.-flow
+            background: prussianBlueColor
+          &.-beauty
+            background: signalRedColor
+          &.-bank
+            background: redColor
+            +sp()
+              padding: 16px 8px 8px
+          .navigation__menuy--button-text
+            display: inline-block
+            position: relative
+            color: white
+            font-weight: bold
+            +pc()
+              padding-right: 36px
+              font-size: 2rem
+              line-height: 1.4
+            +sp()
+              font-size: 1.2rem
+              line-height: 1.4
+            &::after
+              +pc()
+                position: absolute
+                top: 4px
+                right: 4px
+                width: 12px
+                height: 12px
+                border-top: solid 2px white
+                border-right: solid 2px white
+                transform: rotate(135deg)
+                content: ""
+
+  // entry btn
+  .entryBox
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    .entryTitle--caption
+      display: flex
+      justify-content: center
+      align-items: center
+      font-weight: bold
+      line-height: 1.4
+      +pc()
+        margin-bottom: 40px
+        font-size: 2rem
+      +sp()
+        margin-bottom: 24px
+        font-size: 1.4rem
+      .entryTitle--caption-step
+        display: inline-block
+        background: ceruleanblueColor
+        box-sizing: border-box
+        color: white
+        text-align: center
+        font-weight: bold
+        line-height: normal
+        +pc()
+          width: 40px
+          height: 40px
+          margin-right: 16px
+          padding: 5px
+          border-radius: 98px
+          font-size: 2rem
+        +sp()
+          width: 27px
+          height: 27px
+          margin-right: 8px
+          padding: 3px
+          border-radius: 66px
+          font-size: 1.4rem
+      .entryTitle--caption-category
+        color: ceruleanblueColor
+    .entryBox__wrap
+      margin: auto
+      +pc()
+        width: pcWidth
+      +sp()
+        margin: auto
+        width: calc(100% - 32px)
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+    .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_light-blue__jGPbc
+      background-color: ceruleanblueColor
+      border-color: ceruleanblueColor
+      &:hover
+        opacity: .8
+    .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_light-blue__jGPbc.disabled
+      background-color: #dfdfdf
+      border-color: #dfdfdf
+    .CampaignEntryButton_rexButton__VH0Gh.CampaignEntryButton_light-blue__jGPbc.disabled.CampaignEntryButton_loading__lYu0i
+      background-color: ceruleanblueColor
+      border-color: ceruleanblueColor
+    .CampaignEntryButton_success__GLKNB
+      background: #ebf7ec !important
+      border-color: #ebf7ec !important
+      color: #047205
+    .Permission_checkbox__2N5q8:checked+.Permission_icon__uXZyD.Permission_light-blue__RBWZ2
+      background-color: ceruleanblueColor
+      border-color: ceruleanblueColor
+
+  //- flow
+  .flow__link
+    color: secondColor
+    &:hover
+      opacity: .8
+  .flow
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .flow__pop
+      display: flex
+      justify-content: center
+      +pc()
+        margin-bottom: 32px
+      +sp()
+        margin: 0 auto 20px
+        width: calc(100% - 16px)
+      .flow__pop__img
+        +pc()
+          width: 518px
+        +sp()
+          width: 100%
+        &:first-of-type
+          +pc()
+            margin-right: 60px
+          +sp()
+            margin-right: 8px
+
+    .flow-tab
+      display: flex
+      justify-content: space-btween
+      position: relative
+      box-sizing: border-box
+      list-style-type: none
+      +pc()
+        width: 1216px
+        margin: 0 auto 60px
+      +sp()
+        width: 100%
+        margin: 0 auto 40px
+      &::after
+        position: absolute
+        width: 100%
+        bottom: 1px
+        border-bottom: 2px solid grayLineColor
+        content: ""
+      .flow-tab__list
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 50%
+        background: grayBgColor
+        border: 2px solid grayBgColor
+        border-radius: 4px 4px 0 0
+        box-sizing: border-box
+        font-weight: bold
+        cursor: pointer
+        +pc()
+          padding: 21px
+          font-size: 2rem
+          line-height: 1.4
+        +sp()
+          padding: 14px
+          font-size: 1.4rem
+          line-height: 1.3
+        &.-active
+          position: relative
+          z-index: 1
+          background: white
+          border-left: 2px solid grayLineColor
+          border-top: 2px solid grayLineColor
+          border-right: 2px solid grayLineColor
+          border-bottom: 2px solid white
+          color: redColor
+        &:first-of-type
+          margin-right: 2px
+    .flow-tab__contents
+      width: 100%
+      .flow-tab__contents__item
+        display: none
+        +pc()
+          margin-bottom: 60px
+        +sp()
+          margin-bottom: 40px
+        &.-show 
+          display: block
+          animation: fadeIn 0.5s ease
+        @keyframes fadeIn
+          0%
+            opacity: 0
+          100%
+            opacity: 1
+        .flow-tab__contents__wrap
+          +pc()
+            width: 1216px
+            margin: auto
+          +sp()
+            width: 100%
+        .flow-tab__contents__logo
+          +pc()
+            width: 100%
+            max-width: 1216px
+            margin: 0 auto 60px
+          +sp()
+            width: 56%
+            margin: 0 auto 40px
+          &.-newFlow
+            +pc()
+              width: 328px
+              margin: 0 auto 60px
+            +sp()
+              width: 56%
+              margin: 0 auto 40px
+        .flow-tab__contents__article
+          position: relative
+          background: grayBgColor
+          box-sizing: border-box
+          text-align: center
+          +pc()
+            width: 1080px
+            margin: 0 auto 80px
+            border-radius: 16px
+          +sp()
+            width: 100%
+            margin: 0 auto 54px
+          &::after
+            position: absolute
+            left: 0
+            right: 0
+            width: 0
+            height: 0
+            margin: auto
+            border-style: solid
+            border-bottom: 0
+            content: ""
+            +pc()
+              bottom: -54px
+              border-right: 26px solid transparent
+              border-left: 26px solid transparent
+              border-top: 28px solid signalRedColor
+            +sp()
+              bottom: -37px
+              border-right: 18px solid transparent
+              border-left: 16px solid transparent
+              border-top: 18px solid signalRedColor
+          &.-newFlow
+            &::after
+              position: absolute
+              left: 0
+              right: 0
+              width: 0
+              height: 0
+              margin: auto
+              border-style: solid
+              border-bottom: 0
+              content: ""
+              +pc()
+                bottom: -54px
+                border-right: 26px solid transparent
+                border-left: 26px solid transparent
+                border-top: 28px solid redColor
+              +sp()
+                bottom: -37px
+                border-right: 18px solid transparent
+                border-left: 16px solid transparent
+                border-top: 18px solid redColor
+          .flow-tab__contents__article__wrap
+            +pc()
+              padding: 40px
+            +sp()
+              overflow: hidden
+              padding: 24px 16px
+          .flow-tab__contents__article--title
+            display: flex
+            justify-content: center
+            align-items: center
+            font-weight: bold
+            line-height: 1.4
+            +pc()
+              margin-bottom: 46px
+            +sp()
+              margin-bottom: 24px
+            &.-red
+              margin-bottom: 24px
+              .flow-tab__contents__article--title--icon
+                background: redColor
+              .flow-tab__contents__article--title--catch
+                color: redColor !important
+            .flow-tab__contents__article--title--icon
+              display: flex
+              justify-content: center
+              align-items: center
+              background: signalRedColor
+              color: white
+              box-sizing: border-box
+              line-height: 1
+              +pc()
+                width: 40px
+                height: 40px
+                margin-right: 16px
+                border-radius: 98px
+                font-size: 2rem
+              +sp()
+                width: 27px
+                height: 27px
+                margin-right: 8px
+                border-radius: 66px
+                font-size: 1.4rem
+            .flow-tab__contents__article--title--text
+              +pc()
+                font-size: 2rem
+              +sp()
+                font-size: 1.4rem
+              .flow-tab__contents__article--title--catch
+                color: signalRedColor
+              .flow-tab__contents__article--title--symbol
+                display: inline-block
+                +pc()
+                  padding-left: 0.5rem
+                  font-size: 1.2rem
+                +sp()
+                  padding-left: 0.3rem
+                  font-size: 1rem
+          // flow　メニュー スライダー込み
+          .flow-tab__contents__article__menu
+            +pc()
+              display: flex
+              width: 928px
+              margin: 0 auto 40px
+            +sp()
+              margin-left calc((100% - 280px) / 2) !important
+              &:last-of-type
+                margin-left: 0
+                margin-right calc((100% - 280px) / 2) !important
+            .flow-tab__contents__article__menu--list
+              display: flex
+              flex-flow: column
+              justify-content: center
+              position: relative
+              padding: 26px 20px 0
+              background: white
+              border-radius: 14px
+              box-sizing: border-box
+              text-align: center
+              +pc()
+                width: 280px
+                margin-right: 44px
+              +sp()
+                width: 280px !important
+                margin-right: 48px
+              &:nth-of-type(-n+2)::after
+                +pc()
+                  position: absolute
+                  top: 50%
+                  right: -30px
+                  width: 0
+                  height: 0
+                  border-top: 13px solid transparent
+                  border-left: 13px solid grayTagColor
+                  border-bottom: 13px solid transparent
+                  transform: translateY(-50%)
+                  content: ''
+              &:last-of-type
+                +pc()
+                  margin-right: 0
+                +sp()
+                  padding: 32px 20px 0
+              &.-newFlow
+                +sp()
+                  padding: 32px 20px 14px
+              .flow-tab__contents__article__menu--list--text
+                display: flex
+                justify-content: center
+                align-items: center
+                flex-grow: 1
+                margin-bottom: 16px
+                font-size: 1.4rem
+                line-height: 1.5
+                .flow-tab__contents__article__menu--list--icon
+                  display: flex
+                  justify-content: center
+                  align-items: center
+                  width: 27px
+                  height: 27px
+                  margin-right: 8px
+                  background: prussianBlueColor
+                  border-radius: 66px
+                  box-sizing: border-box
+                  color: white
+                  font-size: 1.4rem
+                  font-weight: bold
+                  line-height: -1
+                .flow-tab__contents__article__menu--list--lead
+                  flex-grow: 1
+                  padding-bottom: 12px
+                  text-align: center
+                  font-weight: bold
+                  line-height: 1.6
+                  +pc()
+                    font-size: 1.8rem
+                  +sp()
+                    font-size: 1.4rem
+              .flow-tab__contents__article__menu--list__img
+                flex-grow: 0
+                width: 149px
+                margin: auto
+                &.-newFlow
+                  +sp()
+                    width: 160px
+          // SP用スライダー
+          .splide
+            +sp()
+              width: 280px
+              margin: 0 auto 48px
+          .splide__track
+            +sp()
+              overflow: visible !important
+          .splide__arrow.splide__arrow--next:disabled
+            display: none !important
+          .splide__pagination
+            bottom: -26px
+            display: block !important
+          .splide__arrow:disabled
+            display: none !important
+          .splide__pagination__page
+            width: 6px
+            height: 6px
+            background #ccc
+          .splide__pagination__page.is-active
+            width: 6px
+            height: 6px
+            background grayTagColor
+            transform: scale(1)
+          .splide__arrow
+            display: block
+            position: absolute !important
+            top: 50% !important
+            width: 0 !important
+            height: 0 !important
+            background: transparent !important
+            border-radius: 0 !important
+            transform: translateY(-50%) !important
+            content: '' !important
+            &.splide__arrow--next
+              right: -30px !important
+              border-top: 15px solid transparent !important
+              border-left: 15px solid grayTagColor !important
+              border-bottom: 15px solid transparent !important
+            &.splide__arrow--prev
+              left: -30px !important
+              border-top: 15px solid transparent !important
+              border-right: 15px solid grayTagColor !important
+              border-bottom: 15px solid transparent !important
+            svg
+              display: none
+          .flow-tab__contents--info
+            +pc()
+              margin-bottom: 40px
+              font-size: 1.2rem
+              line-height: 1.5
+            +sp()
+              margin-bottom: 24px
+              font-size: 1rem
+              line-height: 1.4
+          .flow-tab__contents__card__wrap
+            margin: auto
+            background: white
+            border-radius: 16px
+            +pc()
+              width: 880px
+              margin-bottom: 40px
+              padding: 32px 40px
+            +sp()
+              width: calc(100% - 32px)
+              margin-bottom: 24px
+              padding: 24px 16px
+            .flow-tab__contents__card--title
+              margin-bottom: 24px
+              font-weight: bold
+              line-height: 1.4
+              +pc()
+                font-size: 2rem
+              +sp()
+                font-size: 1.4rem
+            .flow-tab__contents__card__img
+              margin: 0 auto 24px
+              +pc()
+                width: 880px
+              +sp()
+                width: 100%
+            .flow-tab__contents__card--text
+              +pc()
+                font-size: 1.2rem
+                line-height: 1.5
+              +sp()
+                font-size: 1rem
+                line-height: 1.4
+          .flow-tab__contents__card--caption__wrap
+            width: 100%
+            .flow-tab__contents__card--caption--title
+              margin-bottom: 8px
+              color: redColor
+              font-weight: bold
+              line-height: 1.4
+              +pc()
+                font-size: 1.8rem
+              +sp()
+                font-size: 1.4rem
+            .flow-tab__contents__card--caption
+              +pc()
+                font-size: 1.4rem
+                line-height: 1.5
+              +sp()
+                font-size: 1.2rem
+                line-height: 1.4
+            .flow-tab__contents__card--caption__bitton__wrap
+              +pc()
+                margin: 40px auto 0
+                width: 600px
+              +sp()
+                margin: 24px auto 0
+                width: 100%
+              .flow-tab__contents__card--caption--bitton
+                display: flex
+                justify-content: center
+                align-items: center
+                background: redColor
+                border-radius: 44px
+                box-sizing: border-box
+                color: white
+                +pc()
+                  height: 88px
+                  padding: 20px 40px
+                  font-size: 2.8rem
+                  line-height: 1.3
+                +sp()
+                  height: 65px
+                  padding: 16px 24px
+                  font-size: 1.8rem
+                  line-height: 1.5
+                &:hover
+                  opacity: 0.8
+              .flow-tab__contents__card--caption--bitton--info
+                +pc()
+                  margin-top: 24px
+                  font-size: 1.2rem
+                  line-height: 1.5
+                +sp()
+                  margin-top: 16px
+                  font-size: 1rem
+                  line-height: 1.4
+
+        .flow-tab__contents__achieve__wrap
+          position: relative
+          +pc()
+            margin-bottom: 82px
+          +sp()
+            margin-bottom: 56px
+          &::after
+            position: absolute
+            left: 0
+            right: 0
+            width: 0
+            height: 0
+            margin: auto
+            border-style: solid
+            border-bottom: 0
+            content: ""
+            +pc()
+              bottom: -54px
+              border-right: 26px solid transparent
+              border-left: 26px solid transparent
+              border-top: 28px solid ceruleanblueColor
+            +sp()
+              bottom: -37px
+              border-right: 18px solid transparent
+              border-left: 16px solid transparent
+              border-top: 18px solid ceruleanblueColor
+          &.-newFlow
+            &::after
+              +pc()
+                border-top: 28px solid signalRedColor
+              +sp()
+                border-top: 18px solid signalRedColor
+          .flow-tab__contents__achieve__img
+            +pc()
+              width: 490px
+              margin: 0 auto 24px
+            +sp()
+              width: 81.8%
+              margin: 0 auto 16px
+          .flow-tab__contents__achieve--info
+            text-align: center
+            +pc()
+              font-size: 1.2rem
+              line-height: 1.5
+            +sp()
+              width: calc(100% - 32px)
+              margin: auto
+              font-size: 1rem
+              line-height: 1.4
+        .flow-tab__contents__achieve__complete
+          +pc()
+            width: 1216px
+            margin: 0 auto 24px
+          +sp()
+            width: 100%
+            margin: 0 auto 16px
+        .flow-tab__contents__achieve__complete--info
+          text-align: center
+          +pc()
+            font-size: 1.2rem
+            line-height: 1.5
+          +sp()
+            width: calc(100% - 32px)
+            margin: auto
+            font-size: 1rem
+            line-height: 1.4
+          &.-newFlow
+            position: relative
+            +pc()
+              margin-bottom: 80px
+            +sp()
+              margin-bottom: 54px
+            &::after
+              position: absolute
+              left: 0
+              right: 0
+              width: 0
+              height: 0
+              margin: auto
+              border-style: solid
+              border-bottom: 0
+              content: ""
+              +pc()
+                bottom: -54px
+                border-right: 26px solid transparent
+                border-left: 26px solid transparent
+                border-top: 28px solid ceruleanblueColor
+              +sp()
+                bottom: -37px
+                border-right: 18px solid transparent
+                border-left: 16px solid transparent
+                border-top: 18px solid ceruleanblueColor
+        .flow-tab__contents__achieve__all-img
+          margin: auto
+          +pc()
+            width: 587px
+          +sp()
+            width: calc(100% - 85px)
+        .flow-tab__contents__bank__wrap
+          width: 100%
+          margin: auto
+          .flow-tab__contents__bank--title
+            font-weight: bold
+            line-height: 1.4
+            +pc()
+              margin-bottom: 40px
+              font-size: 2rem
+            +sp()
+              margin-bottom: 24px
+              font-size: 1.4rem
+          .flow-tab__contents__bank--button
+            display: flex
+            justify-content: center
+            align-items: center
+            background: redColor
+            border-radius: 44px
+            box-sizing: border-box
+            color: white
+            +pc()
+              width: 600px
+              height: 88px
+              padding: 20px
+              margin: 0 auto 24px
+              font-size: 3.2rem
+              line-height: 1.3
+            +sp()
+              width: 100%
+              height: 65px
+              padding: 16px
+              margin: 0 auto 16px
+              font-size: 2.2rem
+              line-height: 1.5
+            &:hover
+              opacity: 0.8
+          .flow-tab__contents__bank--info
+            +pc()
+              font-size: 1.2rem
+              line-height: 1.5
+            +sp()
+              font-size: 1rem
+              line-height: 1.4
+    .flow-tab__contents__achieve__result__wrap
+      +pc()
+        margin-bottom: 60px
+      +sp()
+        margin-bottom: 40px
+      .flow-tab__contents__achieve__result
+        text-align: center
+        font-weight: bold
+        +pc()
+          font-size: 3.2rem
+          line-height: 1.3
+        +sp()
+          width: calc(100% - 32px)
+          margin: auto
+          font-size: 1.6rem
+          line-height: 1.4
+        .flow-tab__contents__achieve__result--lead
+          display: inline-block
+          position: relative
+          &::before
+            content: "|"
+            position: absolute
+            top: 0
+            font-weight: normal
+            transform: rotate(-45deg)
+            +pc()
+              left: -2.5rem
+            +sp()
+              left: -1.75rem
+          &::after
+            content: "|"
+            position: absolute
+            top: 0
+            font-weight: normal
+            transform: rotate(45deg)
+            +pc()
+              right: -2.5rem
+            +sp()
+              right: -1.75rem
+        .flow-tab__contents__achieve__result--point
+          color: signalRedColor
+          .flow-tab__contents__achieve__result--point--text
+            +pc()
+              font-size: 5rem
+            +sp()
+              font-size: 3.2rem
+
+  //- beauty article
+  .beauty__article
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .beauty__article__wrap
+      +pc()
+        width: 950px
+        margin: 60px auto 0
+      +sp()
+        width: calc(100% - 32px)
+        margin: 40px auto 0
+      .beauty__article__logo
+        +pc()
+          width: 322px
+          margin: 0 auto 60px
+        +sp()
+          width: 60%
+          margin: 0 auto 40px
+      .beauty__article__section__wrap
+        width: 100%
+        border-radius: 14px
+        box-sizing: border-box
+        +pc()
+          margin-bottom: 40px
+          border: 8px solid grayBgColor
+        +sp()
+          margin-bottom: 24px
+          border: 4px solid grayBgColor
+        .beauty__article__section--title
+          display: flex
+          justify-content: center
+          align-items: center
+          background: grayBgColor
+          font-weight: bold
+          line-height: 1.4
+          +pc()
+            padding: 14px 16px 16px
+            font-size: 2.4rem
+          +sp()
+            padding: 11px 13px 13px
+            font-size: 1.6rem
+        .beauty__article__section
+          +pc()
+            padding: 32px 0 40px
+          +sp()
+            padding: 24px 16px
+          .beauty__article__section__heading
+            display: flex
+            justify-content: center
+            align-items: center
+            +pc()
+              margin-bottom: 32px
+            +sp()
+              margin-bottom: 24px
+            .beauty__article__section__heading--point-icon,
+            .beauty__article__section__heading--app-icon
+              +pc()
+                width: 70px
+                margin-right: 24px
+              +sp()
+                width: 14.5%
+                margin-right: 16px
+            .beauty__article__section__heading--deal-logo
+              +pc()
+                width: 126px
+                margin-right: 24px
+              +sp()
+                width: 24.4%
+                margin-right: 16px
+            .beauty__article__section__heading--title
+              text-align: center
+              font-weight: bold
+              line-height: 1.4
+              +pc()
+                font-size: 2.4rem
+              +sp()
+                font-size: 1.8rem
+          .beauty__article__section__heading--caption
+            +pc()
+              display: block
+              margin-top: 8px
+              font-size: 1.8rem
+              font-weight: normal
+              line-height: 1.6
+            +sp()
+              margin-bottom: 24px
+              font-size: 1.4rem
+              text-align: center
+              line-height: 1.6
+          .beauty__article__section__heading--summary
+            font-weight: normal
+            +pc()
+              display: block
+              margin-top: 8px
+              font-size: 1.4rem
+              line-height: 1.5
+            +sp()
+              margin-bottom: 24px
+              font-size: 1.2rem
+              text-align: center
+              line-height: 1.4
+          .beauty__article__section__heading__salon
+            width: 100%
+            +pc()
+              margin-bottom: 32px
+            +sp()
+              margin-bottom: 24px
+          .beauty__article__section__heading__deal
+            +pc()
+              width: 600px
+              margin: 0 auto 32px
+            +sp()
+              width: calc(100% - 32px)
+              margin: 0 auto 24px
+          .beauty__article__section__heading__banner
+            +pc()
+              width: 600px
+              margin: 0 auto 32px
+            +sp()
+              margin-bottom: 24px
+            &:hover
+              opacity: 0.8
+          .beauty__article__section__heading--info
+            text-align: center
+            line-height: 1.6
+            +pc()
+              font-size: 1.8rem
+            +sp()
+              font-size: 1.4rem
+            .beauty__article__section__heading--info-text
+              +sp()
+                &:first-of-type
+                  margin-bottom: 8px
+              .beauty__article__section__heading--info-text-bold
+                font-weight: bold
+          .beauty__article__section__heading--button
+            display: flex
+            justify-content: center
+            align-items: center
+            margin: auto
+            background: #ff41b4
+            border-radius: 44px
+            box-sizing: border-box
+            color: white
+            +pc()
+              width: 600px
+              height: 88px
+              padding: 20px
+              font-size: 3.2rem
+              line-height: 1.3
+            +sp()
+              width: 100%
+              height: 59px
+              padding: 16px
+              font-size: 1.8rem
+              line-height: 1.5
+            &:hover
+              opacity: 0.8
+          .beauty__article__section__heading__dll
+            display: flex
+            margin: auto
+            +pc()
+              width: 554px
+            +sp()
+              width: 188px
+              flex-direction: column
+            .beauty__article__section__heading__dll-device
+              width: 281px
+              +pc()
+                margin-right: 24px
+              +sp()
+                width: 188px
+                margin-bottom: 24px
+            .beauty__article__section__heading__dll-qr__wrap
+              display: flex
+              align-items: center
+              flex-direction: column
+              margin: auto
+              +pc()
+                width: 248px
+                padding: 20px 0
+                box-sizing: border-box
+              +sp()
+                width: 188px
+              .beauty__article__section__heading__dll-qr--title
+                display: inline-block
+                position: relative
+                margin-bottom: 24px
+                font-size: 2rem
+                font-weight: bold
+                font-size: 2rem
+                line-height: 1.4
+                &::before
+                  content: "|"
+                  position: absolute
+                  top: 0
+                  font-weight: normal
+                  transform: rotate(-45deg)
+                  +pc()
+                    left: -2.5rem
+                  +sp()
+                    left: -1.75rem
+                &::after
+                  content: "|"
+                  position: absolute
+                  top: 0
+                  font-weight: normal
+                  transform: rotate(45deg)
+                  +pc()
+                    right: -2.5rem
+                  +sp()
+                    right: -1.75rem
+              .beauty__article__section__heading__dll-qr
+                width 188px
+                margin: auto
+          .beauty__article__section__heading__dll-button
+            width: 100%
+            .iphone-button
+              +sp()
+                display: block
+                width: 53.3%
+                margin: auto
+            .android-button
+              +sp()
+                display: block
+                width: 65.9%
+                margin: auto
+  //- bank article
+  .bank__article
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .bank__article__wrap
+      +pc()
+        width: 950px
+        margin: 60px auto 0
+      +sp()
+        width: calc(100% - 16px)
+        margin: 40px auto 0
+      .bank__article__logo
+        +pc()
+          width: 328px
+          margin: 0 auto 60px
+        +sp()
+          width: 58.4%
+          margin: 0 auto 40px
+      .bank__article__section
+        display: flex
+        justify-content: center
+        flex-wrap: wrap
+        +sp()
+          margin-bottom: 8px
+        .bank__article__section__list
+          display: flex
+          flex-direction: column
+          border-radius: 8px
+          box-sizing: border-box
+          +pc()
+            width: 455px
+            margin-bottom: 40px
+            border: 8px solid grayBgColor
+          +sp()
+            width: 45%
+            margin-bottom: 8px
+            border: 4px solid grayBgColor
+          &:nth-of-type(odd)
+            +pc()
+              margin-right: 40px
+            +sp()
+              margin-right: 8px
+          &:nth-of-type(n+5)
+            margin-bottom: 0
+          .bank__article__section__list--title
+            background: grayBgColor
+            box-sizing: border-box
+            text-align: center
+            font-weight: bold
+            line-height: 1.4
+            +pc()
+              padding: 8px 8px 16px
+              font-size: 2.4rem
+            +sp()
+              padding: 9px 4px 13px
+              font-size: 1.6rem
+          .bank__article__section__list__section
+            display: flex
+            flex-direction: column
+            +pc()
+              padding: 24px
+            +sp()
+              flex-grow: 1
+              padding: 16px 8px
+            .bank__article__section__list__section--title
+              color: redColor
+              text-align: center
+              font-weight: bold
+              +pc()
+                margin-bottom: 24px
+                font-size: 2.4rem
+                line-height: 1.4
+              +sp()
+                display: flex
+                justify-content: center
+                align-items: center
+                flex-grow: 1
+                margin-bottom: 16px
+                font-size: 1.2rem
+                line-height: 1.5
+            .bank__article__section__list__section__img
+              margin: auto
+              +pc()
+                width: 256px
+              +sp()
+                width: calc(100% - 31.5px)
+            .bank__article__section__list__section--info
+              +pc()
+                margin-top: 24px
+                font-size: 1.2rem
+                text-align: center
+                line-height: 1.5
+              +sp()
+                margin-top: 16px
+                font-size: 1rem
+                line-height: 1.4
+  // Search Area
+  .searchArea__wrap
+    .searchArea--title
+      font-weight: bold
+      line-height: 1.4
+      +pc()
+        margin-bottom: 24px
+        font-size: 2rem
+      +sp()
+        margin-bottom: 16px
+        font-size: 1.8rem
+    #shopSearch
+      .feature-search__form
+        +pc()
+          width: auto !important
+        +sp()
+          padding: 0 !important
+        .feature-search__item select
+          border: 2px solid signalRedColor !important
+        .feature-search__buttonItem
+          background: signalRedColor !important
+    .searchArea--info
+      margin-top: 24px
+      +pc()
+        font-size: 1.2rem
+        line-height: 1.5
+      +sp()
+        font-size: 1rem
+        line-height: 1.4
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    .detail__headline
+      display: inline-block
+      padding: 0 4px
+      background: rgba(0, 0, 0, .08)
+      font-weight: bold
+    .detail__indent
+      padding-left: 1.3em
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)

@@ -1,0 +1,1678 @@
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20250206'
+    var meta = {
+      title: '今日行ける、明日行ける美容室・サロン特集♪当日予約も前日予約も大歓迎！',
+      description: '今日と明日行ける美容室、リラク・マッサージサロンを検索！当日予約も前日予約も受付中！ネットですぐに予約ができるから直前でも確実・安心。楽天ビューティなら楽天ポイントも貯まる使える♪',
+      keyword: '今日行ける、明日行ける、当日予約、前日予約、美容院、美容室、サロン、ヘアサロン、ネイル、リラク、エステ',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/today_tomorrow/',
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/today_tomorrow/ogp.png' + parameter,
+    }
+  - var css = 'css/main.css' + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  script(src="js/date.js", defer)
+  //- #Pagename はページ固有の名前に置換してください
+  #TodayTomorrow
+    //- MainVisual
+    #MainVisual
+       h1
+          img.-pc(src="img/mv_main_pc.png?v=2" + parameter, alt=meta.title)
+          img.-sp(src="img/main_sp.png?v=2" + parameter, alt=meta.title)
+
+    #TodayTomorrowContent
+    
+      .description 今日と明日行ける美容院、リラク・マッサージサロンを検索！当日予約も前日予約も受付中！
+        br
+        |ネットですぐに予約ができるから直前でも確実・安心。楽天ビューティなら楽天ポイントも貯まる使える♪
+
+      #TodayTomorrowContent--wrapper
+        //- Date Tab
+        input#Today.tab_date(type="radio", name="tab_date", checked)
+        label#tabToday.tab_item(for="Today") 今日<span>行ける</span><span class="date_icon"><span id="date_m1" class="date_m"></span><span id="date_d1" class="date_d"></span></span>     
+        input#Tomorrow.tab_date(type="radio", name="tab_date")
+        label#tabTomorrow.tab_item(for="Tomorrow") 明日<span>行ける</span><span class="date_icon"><span id="date_m2" class="date_m"></span><span id="date_d2" class="date_d"></span></span>
+
+        //- Today Search
+        .tab_content#TodayContent
+          mixin TodayGenre(genreClass,genreID,genre)
+            h2.GenreHead.TodayGenre(class=genreClass,id=genreID)
+              span 今日行ける
+              br
+              =genre
+
+          mixin SubGenre(anchor,genre)
+            a.subgenre.-sp(href=anchor)!=genre
+          
+          .SearchContent
+            //- Genre HairSalon
+            #SearchHairToday.genreArea.genreAreaToday
+              .GenreTab
+                +TodayGenre('GenreHair','GenreHairToday','美容室')
+                +SubGenre('#SearchRelaxToday','リラク')
+                +SubGenre('#SearchEstheToday','エステ')
+                +SubGenre('#SearchNailToday','ネイル<br>まつげ')
+
+              .genreBox
+                //- Genre Intro
+                .genreIntro
+                  img.genreIntro_image(src="img/image_hair.png", alt="ヘアサロン、美容室、美容院")
+                  p.genreIntro_txt 急な空き時間は美容院に行こう！カットでもカラーでもパーマでも当日予約大歓迎♪簡単検索で気軽に予約！
+
+                //- Area Search
+                .searchArea
+                  #shopSearch(default-genre-id="1", default-prefectures-id="13", search-style="hide_genre", search-type="today/?l-id=rb_todaylp_todayhair_searchresult")
+                    include ../../../../_common/pug/Module/Common/_shopSearchList
+
+            //- Genre Relax
+            #SearchRelaxToday.genreArea.genreAreaToday
+              .GenreTab
+                +SubGenre('#SearchHairToday','美容室')
+                +TodayGenre('GenreRelax','GenreRelaxToday','リラク')
+                +SubGenre('#SearchEstheToday','エステ')
+                +SubGenre('#SearchNailToday','ネイル<br>まつげ')
+                        
+              .genreBox
+                //- Genre Intro
+                .genreIntro
+                  img.genreIntro_image(src="img/image_relax.png", alt="リラクゼーショサロン、マッサージ")
+                  p.genreIntro_txt コリやむくみは気になったらすぐにケアしてリフレッシュ！すぐに施術してもらえるリラクゼーションサロンを検索。
+
+                //- Area Search
+                .searchArea.genreAreaToday
+                  #shopSearch2(default-genre-id="4", default-prefectures-id="13", search-style="hide_genre", search-type="today/?l-id=rb_todaylp_todayrelax_searchresult")
+                    include ../../../../_common/pug/Module/Common/_shopSearchList
+
+            //- Genre Esthe
+            #SearchEstheToday.genreArea.genreAreaToday
+              .GenreTab
+                +SubGenre('#SearchHairToday','美容室')
+                +SubGenre('#SearchRelaxToday','リラク')
+                +TodayGenre('GenreEsthe','GenreEstheToday','エステ')
+                +SubGenre('#SearchNailToday','ネイル<br>まつげ')
+
+              .genreBox
+                //- Genre Intro
+                .genreIntro
+                  img.genreIntro_image(src="img/image_esthe.png", alt="美容エステ、フェイシャルエステ、痩身エステ")
+                  p.genreIntro_txt フェイシャルもボディは早め＆こまめなケアが大切。予定が空いている今日、行けるエステサロンを探そう！
+
+                //- Area Search
+                .searchArea
+                  #shopSearch2(default-genre-id="3", default-prefectures-id="13", search-style="hide_genre", search-type="today/?l-id=rb_todaylp_todayesthe_searchresult")
+                    include ../../../../_common/pug/Module/Common/_shopSearchList
+
+            //- Genre Nail
+            #SearchNailToday.genreArea.genreAreaToday
+              .GenreTab
+                +SubGenre('#SearchHairToday','美容室')
+                +SubGenre('#SearchRelaxToday','リラク')
+                +SubGenre('#SearchEstheToday','エステ')
+                +TodayGenre('GenreNail','GenreNailToday','ネイルまつげ')
+
+              .genreBox
+                //- Genre Intro
+                .genreIntro
+                  img.genreIntro_image(src="img/image_nail.png", alt="ネイルサロン、まつ毛サロン")
+                  p.genreIntro_txt ジェルネイル・スカルプからまつ毛パーマ・エクステのサロンまで♪今日行けるサロンを探してみよう！
+
+                //- Area Search
+                .searchArea
+                  #shopSearch2(default-genre-id="2", default-prefectures-id="13", search-style="hide_genre", search-type="today/?l-id=rb_todaylp_todaynail_searchresult")
+                    include ../../../../_common/pug/Module/Common/_shopSearchList
+
+        //- Tomorrow Search
+        .tab_content#TomorrowContent
+          mixin TomorrowGenre(genreClass,genreID,genre)
+            h2.GenreHead.TomorrowGenre(class=genreClass,id=genreID)
+              span 明日行ける
+              br
+              =genre
+
+          mixin SubGenre(anchor,genre)
+            a.subgenre.-sp(href=anchor)!=genre
+          
+          .SearchContent
+            //- Genre HairSalon
+            #SearchHairTomorrow.genreArea.genreAreaTomorrow
+              .GenreTab
+                +TomorrowGenre('GenreHair','GenreHairTomorrow','美容室')
+                +SubGenre('#SearchRelaxTomorrow','リラク')
+                +SubGenre('#SearchEstheTomorrow','エステ')
+                +SubGenre('#SearchNailTomorrow','ネイル<br>まつげ')
+
+              .genreBox
+                //- Genre Intro
+                .genreIntro
+                  img.genreIntro_image(src="img/image_hair.png", alt="ヘアサロン、美容室、美容院")
+                  p.genreIntro_txt 急な空き時間は美容院に行こう！カットでもカラーでもパーマでも前日予約大歓迎♪簡単検索で気軽に予約！
+
+                //- Area Search
+                .searchArea
+                  #shopSearch2(default-genre-id="1", default-prefectures-id="13", search-style="hide_genre", search-type="tomorrow/?l-id=rb_todaylp_tomorrowhair_searchresult")
+                    include ../../../../_common/pug/Module/Common/_shopSearchList
+
+            //- Genre Relax
+            #SearchRelaxTomorrow.genreArea.genreAreaTomorrow
+              .GenreTab
+                +SubGenre('#SearchHairTomorrow','美容室')
+                +TomorrowGenre('GenreRelax','GenreRelaxTomorrow','リラク')
+                +SubGenre('#SearchEstheTomorrow','エステ')
+                +SubGenre('#SearchNailTomorrow','ネイル<br>まつげ')
+                                      
+              .genreBox
+                //- Genre Intro
+                .genreIntro
+                  img.genreIntro_image(src="img/image_relax.png", alt="リラクゼーショサロン、マッサージ")
+                  p.genreIntro_txt コリやむくみは気になったらすぐにケアしてリフレッシュ！すぐに施術してもらえるリラクゼーションサロンを検索。
+
+                //- Area Search
+                .searchArea.genreAreaTomorrow
+                  #shopSearch2(default-genre-id="4", default-prefectures-id="13", search-style="hide_genre", search-type="tomorrow/?l-id=rb_todaylp_tomorrowrelax_searchresult")
+                    include ../../../../_common/pug/Module/Common/_shopSearchList
+
+            //- Genre Esthe
+            #SearchEstheTomorrow.genreArea.genreAreaTomorrow
+              .GenreTab
+                +SubGenre('#SearchHairTomorrow','美容室')
+                +SubGenre('#SearchRelaxTomorrow','リラク')
+                +TomorrowGenre('GenreEsthe','GenreEstheTomorrow','エステ')
+                +SubGenre('#SearchNailTomorrow','ネイル<br>まつげ')
+                
+              .genreBox
+                //- Genre Intro
+                .genreIntro
+                  img.genreIntro_image(src="img/image_esthe.png", alt="美容エステ、フェイシャルエステ、痩身エステ")
+                  p.genreIntro_txt フェイシャルもボディは早め＆こまめなケアが大切。予定が空いている明日、行けるエステサロンを探そう！
+
+                //- Area Search
+                .searchArea
+                  #shopSearch2(default-genre-id="3", default-prefectures-id="13", search-style="hide_genre", search-type="tomorrow/?l-id=rb_todaylp_tomorrowesthe_searchresult")
+                    include ../../../../_common/pug/Module/Common/_shopSearchList
+
+            //- Genre Nail
+            #SearchNailTomorrow.genreArea.genreAreaTomorrow
+              .GenreTab
+                +SubGenre('#SearchHairTomorrow','美容室')
+                +SubGenre('#SearchRelaxTomorrow','リラク')
+                +SubGenre('#SearchEstheTomorrow','エステ')
+                +TomorrowGenre('GenreNail','GenreNailTomorrow','ネイルまつげ')
+
+              .genreBox
+                //- Genre Intro
+                .genreIntro
+                  img.genreIntro_image(src="img/image_nail.png", alt="ネイルサロン、まつ毛サロン")
+                  p.genreIntro_txt ジェルネイル・スカルプからまつ毛パーマ・エクステのサロンまで♪明日行けるサロンを探してみよう！
+
+                //- Area Search
+                .searchArea
+                  #shopSearch2(default-genre-id="2", default-prefectures-id="13", search-style="hide_genre", search-type="tomorrow/?l-id=rb_todaylp_tomorrownail_searchresult")
+                    include ../../../../_common/pug/Module/Common/_shopSearchList
+
+    //- app DL
+    section#App.app.-excludeApp(data-ratid='cpn_' + meta.directory + '_App' data-ratevent='appear' data-ratparam='all')
+
+      //- app DL parts(app2x or app3x)
+      //- appInfoFlag 注意文の表示/非表示 trueで表示、falseで非表示
+      - var appInfoFlag = false
+      //- キャンペーン対象地域が宮城、兵庫のみの場合は'app3x'に変更推奨
+      +appDL('app2x')
+
+
+    //- Other Campaign
+    #Campaign.campaign
+      .titleWrap
+        h2.titleWrap--title 開催中のキャンペーン
+
+      include ../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+    //- Prefecture Links
+    #PrefLinks.PrefLinks
+      .titleWrap
+        h2.titleWrap--title 今日行けるサロンを都道府県別で探す
+      .m-popularAreaList__column
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText 美容室
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/pre01/today/?l-id=rb_todaylp_todaypref_hair') 北海道
+              li.c-list__item
+                a(href='/pre04/today/?l-id=rb_todaylp_todaypref_hair') 宮城
+              li.c-list__item
+                a(href='/pre07/today/?l-id=rb_todaylp_todaypref_hair') 福島
+              li.c-list__item
+                a(href='/pre06/today/?l-id=rb_todaylp_todaypref_hair') 山形
+              li.c-list__item
+                a(href='/pre03/today/?l-id=rb_todaylp_todaypref_hair') 岩手
+              li.c-list__item
+                a(href='/pre05/today/?l-id=rb_todaylp_todaypref_hair') 秋田
+              li.c-list__item
+                a(href='/pre02/today/?l-id=rb_todaylp_todaypref_hair') 青森
+              li.c-list__item
+                a(href='/pre15/today/?l-id=rb_todaylp_todaypref_hair') 新潟
+              li.c-list__item
+                a(href='/pre20/today/?l-id=rb_todaylp_todaypref_hair') 長野
+              li.c-list__item
+                a(href='/pre17/today/?l-id=rb_todaylp_todaypref_hair') 石川
+              li.c-list__item
+                a(href='/pre16/today/?l-id=rb_todaylp_todaypref_hair') 富山
+              li.c-list__item
+                a(href='/pre18/today/?l-id=rb_todaylp_todaypref_hair') 福井
+              li.c-list__item
+                a(href='/pre13/today/?l-id=rb_todaylp_todaypref_hair') 東京
+              li.c-list__item
+                a(href='/pre14/today/?l-id=rb_todaylp_todaypref_hair') 神奈川
+              li.c-list__item
+                a(href='/pre11/today/?l-id=rb_todaylp_todaypref_hair') 埼玉
+              li.c-list__item
+                a(href='/pre12/today/?l-id=rb_todaylp_todaypref_hair') 千葉
+              li.c-list__item
+                a(href='/pre08/today/?l-id=rb_todaylp_todaypref_hair') 茨城
+              li.c-list__item
+                a(href='/pre10/today/?l-id=rb_todaylp_todaypref_hair') 群馬
+              li.c-list__item
+                a(href='/pre09/today/?l-id=rb_todaylp_todaypref_hair') 栃木
+              li.c-list__item
+                a(href='/pre19/today/?l-id=rb_todaylp_todaypref_hair') 山梨
+              li.c-list__item
+                a(href='/pre23/today/?l-id=rb_todaylp_todaypref_hair') 愛知
+              li.c-list__item
+                a(href='/pre22/today/?l-id=rb_todaylp_todaypref_hair') 静岡
+              li.c-list__item
+                a(href='/pre24/today/?l-id=rb_todaylp_todaypref_hair') 三重
+              li.c-list__item
+                a(href='/pre21/today/?l-id=rb_todaylp_todaypref_hair') 岐阜
+              li.c-list__item
+                a(href='/pre27/today/?l-id=rb_todaylp_todaypref_hair') 大阪
+              li.c-list__item
+                a(href='/pre28/today/?l-id=rb_todaylp_todaypref_hair') 兵庫
+              li.c-list__item
+                a(href='/pre26/today/?l-id=rb_todaylp_todaypref_hair') 京都
+              li.c-list__item
+                a(href='/pre29/today/?l-id=rb_todaylp_todaypref_hair') 奈良
+              li.c-list__item
+                a(href='/pre25/today/?l-id=rb_todaylp_todaypref_hair') 滋賀
+              li.c-list__item
+                a(href='/pre30/today/?l-id=rb_todaylp_todaypref_hair') 和歌山
+              li.c-list__item
+                a(href='/pre37/today/?l-id=rb_todaylp_todaypref_hair') 香川
+              li.c-list__item
+                a(href='/pre38/today/?l-id=rb_todaylp_todaypref_hair') 愛媛
+              li.c-list__item
+                a(href='/pre36/today/?l-id=rb_todaylp_todaypref_hair') 徳島
+              li.c-list__item
+                a(href='/pre39/today/?l-id=rb_todaylp_todaypref_hair') 高知
+              li.c-list__item
+                a(href='/pre34/today/?l-id=rb_todaylp_todaypref_hair') 広島
+              li.c-list__item
+                a(href='/pre33/today/?l-id=rb_todaylp_todaypref_hair') 岡山
+              li.c-list__item
+                a(href='/pre35/today/?l-id=rb_todaylp_todaypref_hair') 山口
+              li.c-list__item
+                a(href='/pre31/today/?l-id=rb_todaylp_todaypref_hair') 鳥取
+              li.c-list__item
+                a(href='/pre32/today/?l-id=rb_todaylp_todaypref_hair') 島根
+              li.c-list__item
+                a(href='/pre40/today/?l-id=rb_todaylp_todaypref_hair') 福岡
+              li.c-list__item
+                a(href='/pre43/today/?l-id=rb_todaylp_todaypref_hair') 熊本
+              li.c-list__item
+                a(href='/pre46/today/?l-id=rb_todaylp_todaypref_hair') 鹿児島
+              li.c-list__item
+                a(href='/pre42/today/?l-id=rb_todaylp_todaypref_hair') 長崎
+              li.c-list__item
+                a(href='/pre41/today/?l-id=rb_todaylp_todaypref_hair') 佐賀
+              li.c-list__item
+                a(href='/pre44/today/?l-id=rb_todaylp_todaypref_hair') 大分
+              li.c-list__item
+                a(href='/pre45/today/?l-id=rb_todaylp_todaypref_hair') 宮崎
+              li.c-list__item
+                a(href='/pre47/today/?l-id=rb_todaylp_todaypref_hair') 沖縄
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText リラク・マッサージサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/relax/pre01/today/?l-id=rb_todaylp_today_pref_relax') 北海道
+              li.c-list__item
+                a(href='/relax/pre04/today/?l-id=rb_todaylp_today_pref_relax') 宮城
+              li.c-list__item
+                a(href='/relax/pre07/today/?l-id=rb_todaylp_today_pref_relax') 福島
+              li.c-list__item
+                a(href='/relax/pre06/today/?l-id=rb_todaylp_today_pref_relax') 山形
+              li.c-list__item
+                a(href='/relax/pre03/today/?l-id=rb_todaylp_today_pref_relax') 岩手
+              li.c-list__item
+                a(href='/relax/pre05/today/?l-id=rb_todaylp_today_pref_relax') 秋田
+              li.c-list__item
+                a(href='/relax/pre02/today/?l-id=rb_todaylp_today_pref_relax') 青森
+              li.c-list__item
+                a(href='/relax/pre15/today/?l-id=rb_todaylp_today_pref_relax') 新潟
+              li.c-list__item
+                a(href='/relax/pre20/today/?l-id=rb_todaylp_today_pref_relax') 長野
+              li.c-list__item
+                a(href='/relax/pre17/today/?l-id=rb_todaylp_today_pref_relax') 石川
+              li.c-list__item
+                a(href='/relax/pre16/today/?l-id=rb_todaylp_today_pref_relax') 富山
+              li.c-list__item
+                a(href='/relax/pre18/today/?l-id=rb_todaylp_today_pref_relax') 福井
+              li.c-list__item
+                a(href='/relax/pre13/today/?l-id=rb_todaylp_today_pref_relax') 東京
+              li.c-list__item
+                a(href='/relax/pre14/today/?l-id=rb_todaylp_today_pref_relax') 神奈川
+              li.c-list__item
+                a(href='/relax/pre11/today/?l-id=rb_todaylp_today_pref_relax') 埼玉
+              li.c-list__item
+                a(href='/relax/pre12/today/?l-id=rb_todaylp_today_pref_relax') 千葉
+              li.c-list__item
+                a(href='/relax/pre08/today/?l-id=rb_todaylp_today_pref_relax') 茨城
+              li.c-list__item
+                a(href='/relax/pre10/today/?l-id=rb_todaylp_today_pref_relax') 群馬
+              li.c-list__item
+                a(href='/relax/pre09/today/?l-id=rb_todaylp_today_pref_relax') 栃木
+              li.c-list__item
+                a(href='/relax/pre19/today/?l-id=rb_todaylp_today_pref_relax') 山梨
+              li.c-list__item
+                a(href='/relax/pre23/today/?l-id=rb_todaylp_today_pref_relax') 愛知
+              li.c-list__item
+                a(href='/relax/pre22/today/?l-id=rb_todaylp_today_pref_relax') 静岡
+              li.c-list__item
+                a(href='/relax/pre24/today/?l-id=rb_todaylp_today_pref_relax') 三重
+              li.c-list__item
+                a(href='/relax/pre21/today/?l-id=rb_todaylp_today_pref_relax') 岐阜
+              li.c-list__item
+                a(href='/relax/pre27/today/?l-id=rb_todaylp_today_pref_relax') 大阪
+              li.c-list__item
+                a(href='/relax/pre28/today/?l-id=rb_todaylp_today_pref_relax') 兵庫
+              li.c-list__item
+                a(href='/relax/pre26/today/?l-id=rb_todaylp_today_pref_relax') 京都
+              li.c-list__item
+                a(href='/relax/pre29/today/?l-id=rb_todaylp_today_pref_relax') 奈良
+              li.c-list__item
+                a(href='/relax/pre25/today/?l-id=rb_todaylp_today_pref_relax') 滋賀
+              li.c-list__item
+                a(href='/relax/pre30/today/?l-id=rb_todaylp_today_pref_relax') 和歌山
+              li.c-list__item
+                a(href='/relax/pre37/today/?l-id=rb_todaylp_today_pref_relax') 香川
+              li.c-list__item
+                a(href='/relax/pre38/today/?l-id=rb_todaylp_today_pref_relax') 愛媛
+              li.c-list__item
+                a(href='/relax/pre36/today/?l-id=rb_todaylp_today_pref_relax') 徳島
+              li.c-list__item
+                a(href='/relax/pre39/today/?l-id=rb_todaylp_today_pref_relax') 高知
+              li.c-list__item
+                a(href='/relax/pre34/today/?l-id=rb_todaylp_today_pref_relax') 広島
+              li.c-list__item
+                a(href='/relax/pre33/today/?l-id=rb_todaylp_today_pref_relax') 岡山
+              li.c-list__item
+                a(href='/relax/pre35/today/?l-id=rb_todaylp_today_pref_relax') 山口
+              li.c-list__item
+                a(href='/relax/pre31/today/?l-id=rb_todaylp_today_pref_relax') 鳥取
+              li.c-list__item
+                a(href='/relax/pre32/today/?l-id=rb_todaylp_today_pref_relax') 島根
+              li.c-list__item
+                a(href='/relax/pre40/today/?l-id=rb_todaylp_today_pref_relax') 福岡
+              li.c-list__item
+                a(href='/relax/pre43/today/?l-id=rb_todaylp_today_pref_relax') 熊本
+              li.c-list__item
+                a(href='/relax/pre46/today/?l-id=rb_todaylp_today_pref_relax') 鹿児島
+              li.c-list__item
+                a(href='/relax/pre42/today/?l-id=rb_todaylp_today_pref_relax') 長崎
+              li.c-list__item
+                a(href='/relax/pre41/today/?l-id=rb_todaylp_today_pref_relax') 佐賀
+              li.c-list__item
+                a(href='/relax/pre44/today/?l-id=rb_todaylp_today_pref_relax') 大分
+              li.c-list__item
+                a(href='/relax/pre45/today/?l-id=rb_todaylp_today_pref_relax') 宮崎
+              li.c-list__item
+                a(href='/relax/pre47/today/?l-id=rb_todaylp_today_pref_relax') 沖縄
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText エステサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/esthe/pre01/today/?l-id=rb_todaylp_today_pref_esthe') 北海道
+              li.c-list__item
+                a(href='/esthe/pre04/today/?l-id=rb_todaylp_today_pref_esthe') 宮城
+              li.c-list__item
+                a(href='/esthe/pre07/today/?l-id=rb_todaylp_today_pref_esthe') 福島
+              li.c-list__item
+                a(href='/esthe/pre06/today/?l-id=rb_todaylp_today_pref_esthe') 山形
+              li.c-list__item
+                a(href='/esthe/pre03/today/?l-id=rb_todaylp_today_pref_esthe') 岩手
+              li.c-list__item
+                a(href='/esthe/pre05/today/?l-id=rb_todaylp_today_pref_esthe') 秋田
+              li.c-list__item
+                a(href='/esthe/pre02/today/?l-id=rb_todaylp_today_pref_esthe') 青森
+              li.c-list__item
+                a(href='/esthe/pre15/today/?l-id=rb_todaylp_today_pref_esthe') 新潟
+              li.c-list__item
+                a(href='/esthe/pre20/today/?l-id=rb_todaylp_today_pref_esthe') 長野
+              li.c-list__item
+                a(href='/esthe/pre17/today/?l-id=rb_todaylp_today_pref_esthe') 石川
+              li.c-list__item
+                a(href='/esthe/pre16/today/?l-id=rb_todaylp_today_pref_esthe') 富山
+              li.c-list__item
+                a(href='/esthe/pre18/today/?l-id=rb_todaylp_today_pref_esthe') 福井
+              li.c-list__item
+                a(href='/esthe/pre13/today/?l-id=rb_todaylp_today_pref_esthe') 東京
+              li.c-list__item
+                a(href='/esthe/pre14/today/?l-id=rb_todaylp_today_pref_esthe') 神奈川
+              li.c-list__item
+                a(href='/esthe/pre11/today/?l-id=rb_todaylp_today_pref_esthe') 埼玉
+              li.c-list__item
+                a(href='/esthe/pre12/today/?l-id=rb_todaylp_today_pref_esthe') 千葉
+              li.c-list__item
+                a(href='/esthe/pre08/today/?l-id=rb_todaylp_today_pref_esthe') 茨城
+              li.c-list__item
+                a(href='/esthe/pre10/today/?l-id=rb_todaylp_today_pref_esthe') 群馬
+              li.c-list__item
+                a(href='/esthe/pre09/today/?l-id=rb_todaylp_today_pref_esthe') 栃木
+              li.c-list__item
+                a(href='/esthe/pre19/today/?l-id=rb_todaylp_today_pref_esthe') 山梨
+              li.c-list__item
+                a(href='/esthe/pre23/today/?l-id=rb_todaylp_today_pref_esthe') 愛知
+              li.c-list__item
+                a(href='/esthe/pre22/today/?l-id=rb_todaylp_today_pref_esthe') 静岡
+              li.c-list__item
+                a(href='/esthe/pre24/today/?l-id=rb_todaylp_today_pref_esthe') 三重
+              li.c-list__item
+                a(href='/esthe/pre21/today/?l-id=rb_todaylp_today_pref_esthe') 岐阜
+              li.c-list__item
+                a(href='/esthe/pre27/today/?l-id=rb_todaylp_today_pref_esthe') 大阪
+              li.c-list__item
+                a(href='/esthe/pre28/today/?l-id=rb_todaylp_today_pref_esthe') 兵庫
+              li.c-list__item
+                a(href='/esthe/pre26/today/?l-id=rb_todaylp_today_pref_esthe') 京都
+              li.c-list__item
+                a(href='/esthe/pre29/today/?l-id=rb_todaylp_today_pref_esthe') 奈良
+              li.c-list__item
+                a(href='/esthe/pre25/today/?l-id=rb_todaylp_today_pref_esthe') 滋賀
+              li.c-list__item
+                a(href='/esthe/pre30/today/?l-id=rb_todaylp_today_pref_esthe') 和歌山
+              li.c-list__item
+                a(href='/esthe/pre37/today/?l-id=rb_todaylp_today_pref_esthe') 香川
+              li.c-list__item
+                a(href='/esthe/pre38/today/?l-id=rb_todaylp_today_pref_esthe') 愛媛
+              li.c-list__item
+                a(href='/esthe/pre36/today/?l-id=rb_todaylp_today_pref_esthe') 徳島
+              li.c-list__item
+                a(href='/esthe/pre39/today/?l-id=rb_todaylp_today_pref_esthe') 高知
+              li.c-list__item
+                a(href='/esthe/pre34/today/?l-id=rb_todaylp_today_pref_esthe') 広島
+              li.c-list__item
+                a(href='/esthe/pre33/today/?l-id=rb_todaylp_today_pref_esthe') 岡山
+              li.c-list__item
+                a(href='/esthe/pre35/today/?l-id=rb_todaylp_today_pref_esthe') 山口
+              li.c-list__item
+                a(href='/esthe/pre31/today/?l-id=rb_todaylp_today_pref_esthe') 鳥取
+              li.c-list__item
+                a(href='/esthe/pre32/today/?l-id=rb_todaylp_today_pref_esthe') 島根
+              li.c-list__item
+                a(href='/esthe/pre40/today/?l-id=rb_todaylp_today_pref_esthe') 福岡
+              li.c-list__item
+                a(href='/esthe/pre43/today/?l-id=rb_todaylp_today_pref_esthe') 熊本
+              li.c-list__item
+                a(href='/esthe/pre46/today/?l-id=rb_todaylp_today_pref_esthe') 鹿児島
+              li.c-list__item
+                a(href='/esthe/pre42/today/?l-id=rb_todaylp_today_pref_esthe') 長崎
+              li.c-list__item
+                a(href='/esthe/pre41/today/?l-id=rb_todaylp_today_pref_esthe') 佐賀
+              li.c-list__item
+                a(href='/esthe/pre44/today/?l-id=rb_todaylp_today_pref_esthe') 大分
+              li.c-list__item
+                a(href='/esthe/pre45/today/?l-id=rb_todaylp_today_pref_esthe') 宮崎
+              li.c-list__item
+                a(href='/esthe/pre47/today/?l-id=rb_todaylp_today_pref_esthe') 沖縄 
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText ネイル・まつげサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/nail/pre01/today/?l-id=rb_todaylp_today_pref_nail') 北海道
+              li.c-list__item
+                a(href='/nail/pre04/today/?l-id=rb_todaylp_today_pref_nail') 宮城
+              li.c-list__item
+                a(href='/nail/pre07/today/?l-id=rb_todaylp_today_pref_nail') 福島
+              li.c-list__item
+                a(href='/nail/pre06/today/?l-id=rb_todaylp_today_pref_nail') 山形
+              li.c-list__item
+                a(href='/nail/pre03/today/?l-id=rb_todaylp_today_pref_nail') 岩手
+              li.c-list__item
+                a(href='/nail/pre05/today/?l-id=rb_todaylp_today_pref_nail') 秋田
+              li.c-list__item
+                a(href='/nail/pre02/today/?l-id=rb_todaylp_today_pref_nail') 青森
+              li.c-list__item
+                a(href='/nail/pre15/today/?l-id=rb_todaylp_today_pref_nail') 新潟
+              li.c-list__item
+                a(href='/nail/pre20/today/?l-id=rb_todaylp_today_pref_nail') 長野
+              li.c-list__item
+                a(href='/nail/pre17/today/?l-id=rb_todaylp_today_pref_nail') 石川
+              li.c-list__item
+                a(href='/nail/pre16/today/?l-id=rb_todaylp_today_pref_nail') 富山
+              li.c-list__item
+                a(href='/nail/pre18/today/?l-id=rb_todaylp_today_pref_nail') 福井
+              li.c-list__item
+                a(href='/nail/pre13/today/?l-id=rb_todaylp_today_pref_nail') 東京
+              li.c-list__item
+                a(href='/nail/pre14/today/?l-id=rb_todaylp_today_pref_nail') 神奈川
+              li.c-list__item
+                a(href='/nail/pre11/today/?l-id=rb_todaylp_today_pref_nail') 埼玉
+              li.c-list__item
+                a(href='/nail/pre12/today/?l-id=rb_todaylp_today_pref_nail') 千葉
+              li.c-list__item
+                a(href='/nail/pre08/today/?l-id=rb_todaylp_today_pref_nail') 茨城
+              li.c-list__item
+                a(href='/nail/pre10/today/?l-id=rb_todaylp_today_pref_nail') 群馬
+              li.c-list__item
+                a(href='/nail/pre09/today/?l-id=rb_todaylp_today_pref_nail') 栃木
+              li.c-list__item
+                a(href='/nail/pre19/today/?l-id=rb_todaylp_today_pref_nail') 山梨
+              li.c-list__item
+                a(href='/nail/pre23/today/?l-id=rb_todaylp_today_pref_nail') 愛知
+              li.c-list__item
+                a(href='/nail/pre22/today/?l-id=rb_todaylp_today_pref_nail') 静岡
+              li.c-list__item
+                a(href='/nail/pre24/today/?l-id=rb_todaylp_today_pref_nail') 三重
+              li.c-list__item
+                a(href='/nail/pre21/today/?l-id=rb_todaylp_today_pref_nail') 岐阜
+              li.c-list__item
+                a(href='/nail/pre27/today/?l-id=rb_todaylp_today_pref_nail') 大阪
+              li.c-list__item
+                a(href='/nail/pre28/today/?l-id=rb_todaylp_today_pref_nail') 兵庫
+              li.c-list__item
+                a(href='/nail/pre26/today/?l-id=rb_todaylp_today_pref_nail') 京都
+              li.c-list__item
+                a(href='/nail/pre29/today/?l-id=rb_todaylp_today_pref_nail') 奈良
+              li.c-list__item
+                a(href='/nail/pre25/today/?l-id=rb_todaylp_today_pref_nail') 滋賀
+              li.c-list__item
+                a(href='/nail/pre30/today/?l-id=rb_todaylp_today_pref_nail') 和歌山
+              li.c-list__item
+                a(href='/nail/pre37/today/?l-id=rb_todaylp_today_pref_nail') 香川
+              li.c-list__item
+                a(href='/nail/pre38/today/?l-id=rb_todaylp_today_pref_nail') 愛媛
+              li.c-list__item
+                a(href='/nail/pre36/today/?l-id=rb_todaylp_today_pref_nail') 徳島
+              li.c-list__item
+                a(href='/nail/pre39/today/?l-id=rb_todaylp_today_pref_nail') 高知
+              li.c-list__item
+                a(href='/nail/pre34/today/?l-id=rb_todaylp_today_pref_nail') 広島
+              li.c-list__item
+                a(href='/nail/pre33/today/?l-id=rb_todaylp_today_pref_nail') 岡山
+              li.c-list__item
+                a(href='/nail/pre35/today/?l-id=rb_todaylp_today_pref_nail') 山口
+              li.c-list__item
+                a(href='/nail/pre31/today/?l-id=rb_todaylp_today_pref_nail') 鳥取
+              li.c-list__item
+                a(href='/nail/pre32/today/?l-id=rb_todaylp_today_pref_nail') 島根
+              li.c-list__item
+                a(href='/nail/pre40/today/?l-id=rb_todaylp_today_pref_nail') 福岡
+              li.c-list__item
+                a(href='/nail/pre43/today/?l-id=rb_todaylp_today_pref_nail') 熊本
+              li.c-list__item
+                a(href='/nail/pre46/today/?l-id=rb_todaylp_today_pref_nail') 鹿児島
+              li.c-list__item
+                a(href='/nail/pre42/today/?l-id=rb_todaylp_today_pref_nail') 長崎
+              li.c-list__item
+                a(href='/nail/pre41/today/?l-id=rb_todaylp_today_pref_nail') 佐賀
+              li.c-list__item
+                a(href='/nail/pre44/today/?l-id=rb_todaylp_today_pref_nail') 大分
+              li.c-list__item
+                a(href='/nail/pre45/today/?l-id=rb_todaylp_today_pref_nail') 宮崎
+              li.c-list__item
+                a(href='/nail/pre47/today/?l-id=rb_todaylp_today_pref_nail') 沖縄 
+
+    //- Prefecture Links
+    #PrefLinks.PrefLinks
+      .titleWrap
+        h2.titleWrap--title 明日行けるサロンを都道府県別で探す
+      .m-popularAreaList__column
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText 美容室
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/pre01/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 北海道
+              li.c-list__item
+                a(href='/pre04/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 宮城
+              li.c-list__item
+                a(href='/pre07/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 福島
+              li.c-list__item
+                a(href='/pre06/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 山形
+              li.c-list__item
+                a(href='/pre03/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 岩手
+              li.c-list__item
+                a(href='/pre05/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 秋田
+              li.c-list__item
+                a(href='/pre02/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 青森
+              li.c-list__item
+                a(href='/pre15/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 新潟
+              li.c-list__item
+                a(href='/pre20/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 長野
+              li.c-list__item
+                a(href='/pre17/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 石川
+              li.c-list__item
+                a(href='/pre16/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 富山
+              li.c-list__item
+                a(href='/pre18/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 福井
+              li.c-list__item
+                a(href='/pre13/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 東京
+              li.c-list__item
+                a(href='/pre14/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 神奈川
+              li.c-list__item
+                a(href='/pre11/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 埼玉
+              li.c-list__item
+                a(href='/pre12/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 千葉
+              li.c-list__item
+                a(href='/pre08/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 茨城
+              li.c-list__item
+                a(href='/pre10/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 群馬
+              li.c-list__item
+                a(href='/pre09/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 栃木
+              li.c-list__item
+                a(href='/pre19/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 山梨
+              li.c-list__item
+                a(href='/pre23/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 愛知
+              li.c-list__item
+                a(href='/pre22/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 静岡
+              li.c-list__item
+                a(href='/pre24/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 三重
+              li.c-list__item
+                a(href='/pre21/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 岐阜
+              li.c-list__item
+                a(href='/pre27/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 大阪
+              li.c-list__item
+                a(href='/pre28/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 兵庫
+              li.c-list__item
+                a(href='/pre26/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 京都
+              li.c-list__item
+                a(href='/pre29/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 奈良
+              li.c-list__item
+                a(href='/pre25/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 滋賀
+              li.c-list__item
+                a(href='/pre30/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 和歌山
+              li.c-list__item
+                a(href='/pre37/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 香川
+              li.c-list__item
+                a(href='/pre38/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 愛媛
+              li.c-list__item
+                a(href='/pre36/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 徳島
+              li.c-list__item
+                a(href='/pre39/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 高知
+              li.c-list__item
+                a(href='/pre34/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 広島
+              li.c-list__item
+                a(href='/pre33/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 岡山
+              li.c-list__item
+                a(href='/pre35/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 山口
+              li.c-list__item
+                a(href='/pre31/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 鳥取
+              li.c-list__item
+                a(href='/pre32/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 島根
+              li.c-list__item
+                a(href='/pre40/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 福岡
+              li.c-list__item
+                a(href='/pre43/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 熊本
+              li.c-list__item
+                a(href='/pre46/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 鹿児島
+              li.c-list__item
+                a(href='/pre42/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 長崎
+              li.c-list__item
+                a(href='/pre41/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 佐賀
+              li.c-list__item
+                a(href='/pre44/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 大分
+              li.c-list__item
+                a(href='/pre45/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 宮崎
+              li.c-list__item
+                a(href='/pre47/tomorrow/?l-id=rb_tomorrowlp_tomorrowpref_hair') 沖縄
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText リラク・マッサージサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/relax/pre01/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 北海道
+              li.c-list__item
+                a(href='/relax/pre04/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 宮城
+              li.c-list__item
+                a(href='/relax/pre07/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 福島
+              li.c-list__item
+                a(href='/relax/pre06/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 山形
+              li.c-list__item
+                a(href='/relax/pre03/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 岩手
+              li.c-list__item
+                a(href='/relax/pre05/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 秋田
+              li.c-list__item
+                a(href='/relax/pre02/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 青森
+              li.c-list__item
+                a(href='/relax/pre15/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 新潟
+              li.c-list__item
+                a(href='/relax/pre20/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 長野
+              li.c-list__item
+                a(href='/relax/pre17/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 石川
+              li.c-list__item
+                a(href='/relax/pre16/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 富山
+              li.c-list__item
+                a(href='/relax/pre18/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 福井
+              li.c-list__item
+                a(href='/relax/pre13/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 東京
+              li.c-list__item
+                a(href='/relax/pre14/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 神奈川
+              li.c-list__item
+                a(href='/relax/pre11/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 埼玉
+              li.c-list__item
+                a(href='/relax/pre12/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 千葉
+              li.c-list__item
+                a(href='/relax/pre08/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 茨城
+              li.c-list__item
+                a(href='/relax/pre10/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 群馬
+              li.c-list__item
+                a(href='/relax/pre09/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 栃木
+              li.c-list__item
+                a(href='/relax/pre19/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 山梨
+              li.c-list__item
+                a(href='/relax/pre23/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 愛知
+              li.c-list__item
+                a(href='/relax/pre22/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 静岡
+              li.c-list__item
+                a(href='/relax/pre24/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 三重
+              li.c-list__item
+                a(href='/relax/pre21/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 岐阜
+              li.c-list__item
+                a(href='/relax/pre27/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 大阪
+              li.c-list__item
+                a(href='/relax/pre28/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 兵庫
+              li.c-list__item
+                a(href='/relax/pre26/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 京都
+              li.c-list__item
+                a(href='/relax/pre29/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 奈良
+              li.c-list__item
+                a(href='/relax/pre25/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 滋賀
+              li.c-list__item
+                a(href='/relax/pre30/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 和歌山
+              li.c-list__item
+                a(href='/relax/pre37/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 香川
+              li.c-list__item
+                a(href='/relax/pre38/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 愛媛
+              li.c-list__item
+                a(href='/relax/pre36/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 徳島
+              li.c-list__item
+                a(href='/relax/pre39/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 高知
+              li.c-list__item
+                a(href='/relax/pre34/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 広島
+              li.c-list__item
+                a(href='/relax/pre33/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 岡山
+              li.c-list__item
+                a(href='/relax/pre35/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 山口
+              li.c-list__item
+                a(href='/relax/pre31/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 鳥取
+              li.c-list__item
+                a(href='/relax/pre32/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 島根
+              li.c-list__item
+                a(href='/relax/pre40/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 福岡
+              li.c-list__item
+                a(href='/relax/pre43/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 熊本
+              li.c-list__item
+                a(href='/relax/pre46/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 鹿児島
+              li.c-list__item
+                a(href='/relax/pre42/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 長崎
+              li.c-list__item
+                a(href='/relax/pre41/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 佐賀
+              li.c-list__item
+                a(href='/relax/pre44/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 大分
+              li.c-list__item
+                a(href='/relax/pre45/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 宮崎
+              li.c-list__item
+                a(href='/relax/pre47/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_relax') 沖縄
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText エステサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/esthe/pre01/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 北海道
+              li.c-list__item
+                a(href='/esthe/pre04/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 宮城
+              li.c-list__item
+                a(href='/esthe/pre07/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 福島
+              li.c-list__item
+                a(href='/esthe/pre06/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 山形
+              li.c-list__item
+                a(href='/esthe/pre03/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 岩手
+              li.c-list__item
+                a(href='/esthe/pre05/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 秋田
+              li.c-list__item
+                a(href='/esthe/pre02/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 青森
+              li.c-list__item
+                a(href='/esthe/pre15/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 新潟
+              li.c-list__item
+                a(href='/esthe/pre20/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 長野
+              li.c-list__item
+                a(href='/esthe/pre17/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 石川
+              li.c-list__item
+                a(href='/esthe/pre16/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 富山
+              li.c-list__item
+                a(href='/esthe/pre18/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 福井
+              li.c-list__item
+                a(href='/esthe/pre13/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 東京
+              li.c-list__item
+                a(href='/esthe/pre14/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 神奈川
+              li.c-list__item
+                a(href='/esthe/pre11/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 埼玉
+              li.c-list__item
+                a(href='/esthe/pre12/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 千葉
+              li.c-list__item
+                a(href='/esthe/pre08/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 茨城
+              li.c-list__item
+                a(href='/esthe/pre10/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 群馬
+              li.c-list__item
+                a(href='/esthe/pre09/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 栃木
+              li.c-list__item
+                a(href='/esthe/pre19/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 山梨
+              li.c-list__item
+                a(href='/esthe/pre23/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 愛知
+              li.c-list__item
+                a(href='/esthe/pre22/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 静岡
+              li.c-list__item
+                a(href='/esthe/pre24/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 三重
+              li.c-list__item
+                a(href='/esthe/pre21/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 岐阜
+              li.c-list__item
+                a(href='/esthe/pre27/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 大阪
+              li.c-list__item
+                a(href='/esthe/pre28/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 兵庫
+              li.c-list__item
+                a(href='/esthe/pre26/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 京都
+              li.c-list__item
+                a(href='/esthe/pre29/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 奈良
+              li.c-list__item
+                a(href='/esthe/pre25/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 滋賀
+              li.c-list__item
+                a(href='/esthe/pre30/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 和歌山
+              li.c-list__item
+                a(href='/esthe/pre37/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 香川
+              li.c-list__item
+                a(href='/esthe/pre38/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 愛媛
+              li.c-list__item
+                a(href='/esthe/pre36/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 徳島
+              li.c-list__item
+                a(href='/esthe/pre39/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 高知
+              li.c-list__item
+                a(href='/esthe/pre34/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 広島
+              li.c-list__item
+                a(href='/esthe/pre33/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 岡山
+              li.c-list__item
+                a(href='/esthe/pre35/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 山口
+              li.c-list__item
+                a(href='/esthe/pre31/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 鳥取
+              li.c-list__item
+                a(href='/esthe/pre32/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 島根
+              li.c-list__item
+                a(href='/esthe/pre40/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 福岡
+              li.c-list__item
+                a(href='/esthe/pre43/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 熊本
+              li.c-list__item
+                a(href='/esthe/pre46/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 鹿児島
+              li.c-list__item
+                a(href='/esthe/pre42/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 長崎
+              li.c-list__item
+                a(href='/esthe/pre41/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 佐賀
+              li.c-list__item
+                a(href='/esthe/pre44/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 大分
+              li.c-list__item
+                a(href='/esthe/pre45/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 宮崎
+              li.c-list__item
+                a(href='/esthe/pre47/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_esthe') 沖縄 
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText ネイル・まつげサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/nail/pre01/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 北海道
+              li.c-list__item
+                a(href='/nail/pre04/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 宮城
+              li.c-list__item
+                a(href='/nail/pre07/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 福島
+              li.c-list__item
+                a(href='/nail/pre06/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 山形
+              li.c-list__item
+                a(href='/nail/pre03/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 岩手
+              li.c-list__item
+                a(href='/nail/pre05/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 秋田
+              li.c-list__item
+                a(href='/nail/pre02/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 青森
+              li.c-list__item
+                a(href='/nail/pre15/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 新潟
+              li.c-list__item
+                a(href='/nail/pre20/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 長野
+              li.c-list__item
+                a(href='/nail/pre17/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 石川
+              li.c-list__item
+                a(href='/nail/pre16/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 富山
+              li.c-list__item
+                a(href='/nail/pre18/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 福井
+              li.c-list__item
+                a(href='/nail/pre13/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 東京
+              li.c-list__item
+                a(href='/nail/pre14/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 神奈川
+              li.c-list__item
+                a(href='/nail/pre11/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 埼玉
+              li.c-list__item
+                a(href='/nail/pre12/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 千葉
+              li.c-list__item
+                a(href='/nail/pre08/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 茨城
+              li.c-list__item
+                a(href='/nail/pre10/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 群馬
+              li.c-list__item
+                a(href='/nail/pre09/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 栃木
+              li.c-list__item
+                a(href='/nail/pre19/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 山梨
+              li.c-list__item
+                a(href='/nail/pre23/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 愛知
+              li.c-list__item
+                a(href='/nail/pre22/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 静岡
+              li.c-list__item
+                a(href='/nail/pre24/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 三重
+              li.c-list__item
+                a(href='/nail/pre21/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 岐阜
+              li.c-list__item
+                a(href='/nail/pre27/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 大阪
+              li.c-list__item
+                a(href='/nail/pre28/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 兵庫
+              li.c-list__item
+                a(href='/nail/pre26/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 京都
+              li.c-list__item
+                a(href='/nail/pre29/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 奈良
+              li.c-list__item
+                a(href='/nail/pre25/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 滋賀
+              li.c-list__item
+                a(href='/nail/pre30/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 和歌山
+              li.c-list__item
+                a(href='/nail/pre37/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 香川
+              li.c-list__item
+                a(href='/nail/pre38/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 愛媛
+              li.c-list__item
+                a(href='/nail/pre36/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 徳島
+              li.c-list__item
+                a(href='/nail/pre39/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 高知
+              li.c-list__item
+                a(href='/nail/pre34/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 広島
+              li.c-list__item
+                a(href='/nail/pre33/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 岡山
+              li.c-list__item
+                a(href='/nail/pre35/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 山口
+              li.c-list__item
+                a(href='/nail/pre31/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 鳥取
+              li.c-list__item
+                a(href='/nail/pre32/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 島根
+              li.c-list__item
+                a(href='/nail/pre40/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 福岡
+              li.c-list__item
+                a(href='/nail/pre43/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 熊本
+              li.c-list__item
+                a(href='/nail/pre46/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 鹿児島
+              li.c-list__item
+                a(href='/nail/pre42/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 長崎
+              li.c-list__item
+                a(href='/nail/pre41/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 佐賀
+              li.c-list__item
+                a(href='/nail/pre44/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 大分
+              li.c-list__item
+                a(href='/nail/pre45/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 宮崎
+              li.c-list__item
+                a(href='/nail/pre47/tomorrow/?l-id=rb_tomorrowlp_tomorrow_pref_nail') 沖縄 
+
+    //- Tokyo Links
+    #TokyoLinks.PrefLinks
+      .titleWrap
+        h2.titleWrap--title 今日行けるサロンを東京都内で探す
+      .m-popularAreaList__column
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText 美容室
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/area1301/today/?l-id=rb_todaylp_todayshinjyuku_hair') 新宿
+              li.c-list__item
+                a(href='/area1303/today/?l-id=rb_todaylp_todayikebukuro_hair') 池袋
+              li.c-list__item
+                a(href='/area1306/today/?l-id=rb_todaylp_todayginza_hair') 銀座・新橋・有楽町
+              li.c-list__item
+                a(href='/area1336/today/?l-id=rb_todaylp_todayomotesando_hair') 表参道・青山
+              li.c-list__item
+                a(href='/area1335/today/?l-id=rb_todaylp_todayharajuku_hair') 原宿
+              li.c-list__item
+                a(href='/area1302/today/?l-id=rb_todaylp_todayshibuya_hair') 渋谷
+              li.c-list__item
+                a(href='/area1308/today/?l-id=rb_todaylp_todayebisu_hair') 恵比寿・代官山・中目黒
+              li.c-list__item
+                a(href='/area1312/today/?l-id=rb_todaylp_todayjiyugaoka_hair') 自由が丘・学芸大学
+              li.c-list__item
+                a(href='/area1307/today/?l-id=rb_todaylp_todayroppongi_hair') 六本木・麻布十番
+              li.c-list__item
+                a(href='/area1325/today/?l-id=rb_todaylp_todaykitasenjyu_hair') 北千住・町屋・亀有
+              li.c-list__item
+                a(href='/area1329/today/?l-id=rb_todaylp_todaykinshichou_hair') 錦糸町・小岩・青砥
+              li.c-list__item
+                a(href='/area1317/today/?l-id=rb_todaylp_todaykichijyoji_hair') 吉祥寺・荻窪・三鷹
+              li.c-list__item
+                a(href='/area1331/today/?l-id=rb_todaylp_todaytachikawa_hair') 立川・国立・国分寺
+              li.c-list__item
+                a(href='/area1318/today/?l-id=rb_todaylp_todayhachioji_hair') 八王子・日野・昭島
+              li.c-list__item
+                a(href='/area1315/today/?l-id=rb_todaylp_todaynakano_hair') 中野・高円寺・阿佐ヶ谷
+              li.c-list__item
+                a(href='/area1321/today/?l-id=rb_todaylp_todayshinagawa_hair') 品川・大森・蒲田
+              li.c-list__item
+                a(href='/area1310/today/?l-id=rb_todaylp_todayueno_hair') 上野・日本橋・浅草
+              li.c-list__item
+                a(href='/area1326/today/?l-id=rb_todaylp_todaynippori_hair') 日暮里・駒込・千駄木
+              li.c-list__item
+                a(href='/area1337/today/?l-id=rb_todaylp_todayakabane_hair') 赤羽・十条・王子
+              li.c-list__item
+                a(href='/area1323/today/?l-id=rb_todaylp_todaykasai_hair') 葛西・西葛西・門前仲町
+              li.c-list__item
+                a(href='/area1320/today/?l-id=rb_todaylp_todaymachida_hair') 町田
+              li.c-list__item
+                a(href='/area1314/today/?l-id=rb_todaylp_todaysangenchaya_hair') 三軒茶屋・用賀・二子玉川
+              li.c-list__item
+                a(href='/area1309/today/?l-id=rb_todaylp_todayshimokitazawa_hair') 下北沢・代々木上原
+              li.c-list__item
+                a(href='/area1332/today/?l-id=rb_todaylp_todayitabashi_hair') 板橋・成増・巣鴨
+              li.c-list__item
+                a(href='/area1327/today/?l-id=rb_todaylp_todaymeguro_hair') 目黒・戸越・武蔵小山
+              li.c-list__item
+                a(href='/area1333/today/?l-id=rb_todaylp_todaytanashi_hair') 田無・小平・久米川
+              li.c-list__item
+                a(href='/area1316/today/?l-id=rb_todaylp_todayooizumigakuen_hair') 大泉学園・江古田・練馬
+              li.c-list__item
+                a(href='/area1338/today/?l-id=rb_todaylp_todayhigashikurume_hair') 東久留米・ひばりヶ丘
+              li.c-list__item
+                a(href='/area1319/today/?l-id=rb_todaylp_todaychofu_hair') 調布・府中
+              li.c-list__item
+                a(href='/area1334/today/?l-id=rb_todaylp_todaytama_hair') 多摩・聖蹟桜ヶ丘・稲城
+              li.c-list__item
+                a(href='/area1330/today/?l-id=rb_todaylp_todaykyodo_hair') 経堂・成城学園・狛江
+              li.c-list__item
+                a(href='/area1322/today/?l-id=rb_todaylp_todayiidabashi_hair') 飯田橋・四谷・御茶ノ水
+              li.c-list__item
+                a(href='/area1328/today/?l-id=rb_todaylp_todaysasazuka_hair') 笹塚・下高井戸・千歳烏山
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText リラク・マッサージサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/relax/area1301/today/?l-id=rb_todaylp_todayshinjyuku_relax') 新宿
+              li.c-list__item
+                a(href='/relax/area1303/today/?l-id=rb_todaylp_todayikebukuro_relax') 池袋
+              li.c-list__item
+                a(href='/relax/area1306/today/?l-id=rb_todaylp_todayginza_relax') 銀座・新橋・有楽町
+              li.c-list__item
+                a(href='/relax/area1336/today/?l-id=rb_todaylp_todayomotesando_relax') 表参道・青山
+              li.c-list__item
+                a(href='/relax/area1335/today/?l-id=rb_todaylp_todayharajuku_relax') 原宿
+              li.c-list__item
+                a(href='/relax/area1302/today/?l-id=rb_todaylp_todayshibuya_relax') 渋谷
+              li.c-list__item
+                a(href='/relax/area1308/today/?l-id=rb_todaylp_todayebisu_relax') 恵比寿・代官山・中目黒
+              li.c-list__item
+                a(href='/relax/area1312/today/?l-id=rb_todaylp_todayjiyugaoka_relax') 自由が丘・学芸大学
+              li.c-list__item
+                a(href='/relax/area1307/today/?l-id=rb_todaylp_todayroppongi_relax') 六本木・麻布十番
+              li.c-list__item
+                a(href='/relax/area1325/today/?l-id=rb_todaylp_todaykitasenjyu_relax') 北千住・町屋・亀有
+              li.c-list__item
+                a(href='/relax/area1329/today/?l-id=rb_todaylp_todaykinshichou_relax') 錦糸町・小岩・青砥
+              li.c-list__item
+                a(href='/relax/area1317/today/?l-id=rb_todaylp_todaykichijyoji_relax') 吉祥寺・荻窪・三鷹
+              li.c-list__item
+                a(href='/relax/area1331/today/?l-id=rb_todaylp_todaytachikawa_relax') 立川・国立・国分寺
+              li.c-list__item
+                a(href='/relax/area1318/today/?l-id=rb_todaylp_todayhachioji_relax') 八王子・日野・昭島
+              li.c-list__item
+                a(href='/relax/area1315/today/?l-id=rb_todaylp_todaynakano_relax') 中野・高円寺・阿佐ヶ谷
+              li.c-list__item
+                a(href='/relax/area1321/today/?l-id=rb_todaylp_todayshinagawa_relax') 品川・大森・蒲田
+              li.c-list__item
+                a(href='/relax/area1310/today/?l-id=rb_todaylp_todayueno_relax') 上野・日本橋・浅草
+              li.c-list__item
+                a(href='/relax/area1326/today/?l-id=rb_todaylp_todaynippori_relax') 日暮里・駒込・千駄木
+              li.c-list__item
+                a(href='/relax/area1337/today/?l-id=rb_todaylp_todayakabane_relax') 赤羽・十条・王子
+              li.c-list__item
+                a(href='/relax/area1323/today/?l-id=rb_todaylp_todaykasai_relax') 葛西・西葛西・門前仲町
+              li.c-list__item
+                a(href='/relax/area1320/today/?l-id=rb_todaylp_todaymachida_relax') 町田
+              li.c-list__item
+                a(href='/relax/area1314/today/?l-id=rb_todaylp_todaysangenchaya_relax') 三軒茶屋・用賀・二子玉川
+              li.c-list__item
+                a(href='/relax/area1309/today/?l-id=rb_todaylp_todayshimokitazawa_relax') 下北沢・代々木上原
+              li.c-list__item
+                a(href='/relax/area1332/today/?l-id=rb_todaylp_todayitabashi_relax') 板橋・成増・巣鴨
+              li.c-list__item
+                a(href='/relax/area1327/today/?l-id=rb_todaylp_todaymeguro_relax') 目黒・戸越・武蔵小山
+              li.c-list__item
+                a(href='/relax/area1333/today/?l-id=rb_todaylp_todaytanashi_relax') 田無・小平・久米川
+              li.c-list__item
+                a(href='/relax/area1316/today/?l-id=rb_todaylp_todayooizumigakuen_relax') 大泉学園・江古田・練馬
+              li.c-list__item
+                a(href='/relax/area1338/today/?l-id=rb_todaylp_todayhigashikurume_relax') 東久留米・ひばりヶ丘
+              li.c-list__item
+                a(href='/relax/area1319/today/?l-id=rb_todaylp_todaychofu_relax') 調布・府中
+              li.c-list__item
+                a(href='/relax/area1334/today/?l-id=rb_todaylp_todaytama_relax') 多摩・聖蹟桜ヶ丘・稲城
+              li.c-list__item
+                a(href='/relax/area1330/today/?l-id=rb_todaylp_todaykyodo_relax') 経堂・成城学園・狛江
+              li.c-list__item
+                a(href='/relax/area1322/today/?l-id=rb_todaylp_todayiidabashi_relax') 飯田橋・四谷・御茶ノ水
+              li.c-list__item
+                a(href='/relax/area1328/today/?l-id=rb_todaylp_todaysasazuka_relax') 笹塚・下高井戸・千歳烏山
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText エステサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/esthe/area1301/today/?l-id=rb_todaylp_todayshinjyuku_esthe') 新宿
+              li.c-list__item
+                a(href='/esthe/area1303/today/?l-id=rb_todaylp_todayikebukuro_esthe') 池袋
+              li.c-list__item
+                a(href='/esthe/area1306/today/?l-id=rb_todaylp_todayginza_esthe') 銀座・新橋・有楽町
+              li.c-list__item
+                a(href='/esthe/area1336/today/?l-id=rb_todaylp_todayomotesando_esthe') 表参道・青山
+              li.c-list__item
+                a(href='/esthe/area1335/today/?l-id=rb_todaylp_todayharajuku_esthe') 原宿
+              li.c-list__item
+                a(href='/esthe/area1302/today/?l-id=rb_todaylp_todayshibuya_esthe') 渋谷
+              li.c-list__item
+                a(href='/esthe/area1308/today/?l-id=rb_todaylp_todayebisu_esthe') 恵比寿・代官山・中目黒
+              li.c-list__item
+                a(href='/esthe/area1312/today/?l-id=rb_todaylp_todayjiyugaoka_esthe') 自由が丘・学芸大学
+              li.c-list__item
+                a(href='/esthe/area1307/today/?l-id=rb_todaylp_todayroppongi_esthe') 六本木・麻布十番
+              li.c-list__item
+                a(href='/esthe/area1325/today/?l-id=rb_todaylp_todaykitasenjyu_esthe') 北千住・町屋・亀有
+              li.c-list__item
+                a(href='/esthe/area1329/today/?l-id=rb_todaylp_todaykinshichou_esthe') 錦糸町・小岩・青砥
+              li.c-list__item
+                a(href='/esthe/area1317/today/?l-id=rb_todaylp_todaykichijyoji_esthe') 吉祥寺・荻窪・三鷹
+              li.c-list__item
+                a(href='/esthe/area1331/today/?l-id=rb_todaylp_todaytachikawa_esthe') 立川・国立・国分寺
+              li.c-list__item
+                a(href='/esthe/area1318/today/?l-id=rb_todaylp_todayhachioji_esthe') 八王子・日野・昭島
+              li.c-list__item
+                a(href='/esthe/area1315/today/?l-id=rb_todaylp_todaynakano_esthe') 中野・高円寺・阿佐ヶ谷
+              li.c-list__item
+                a(href='/esthe/area1321/today/?l-id=rb_todaylp_todayshinagawa_esthe') 品川・大森・蒲田
+              li.c-list__item
+                a(href='/esthe/area1310/today/?l-id=rb_todaylp_todayueno_esthe') 上野・日本橋・浅草
+              li.c-list__item
+                a(href='/esthe/area1326/today/?l-id=rb_todaylp_todaynippori_esthe') 日暮里・駒込・千駄木
+              li.c-list__item
+                a(href='/esthe/area1337/today/?l-id=rb_todaylp_todayakabane_esthe') 赤羽・十条・王子
+              li.c-list__item
+                a(href='/esthe/area1323/today/?l-id=rb_todaylp_todaykasai_esthe') 葛西・西葛西・門前仲町
+              li.c-list__item
+                a(href='/esthe/area1320/today/?l-id=rb_todaylp_todaymachida_esthe') 町田
+              li.c-list__item
+                a(href='/esthe/area1314/today/?l-id=rb_todaylp_todaysangenchaya_esthe') 三軒茶屋・用賀・二子玉川
+              li.c-list__item
+                a(href='/esthe/area1309/today/?l-id=rb_todaylp_todayshimokitazawa_esthe') 下北沢・代々木上原
+              li.c-list__item
+                a(href='/esthe/area1332/today/?l-id=rb_todaylp_todayitabashi_esthe') 板橋・成増・巣鴨
+              li.c-list__item
+                a(href='/esthe/area1327/today/?l-id=rb_todaylp_todaymeguro_esthe') 目黒・戸越・武蔵小山
+              li.c-list__item
+                a(href='/esthe/area1333/today/?l-id=rb_todaylp_todaytanashi_esthe') 田無・小平・久米川
+              li.c-list__item
+                a(href='/esthe/area1316/today/?l-id=rb_todaylp_todayooizumigakuen_esthe') 大泉学園・江古田・練馬
+              li.c-list__item
+                a(href='/esthe/area1338/today/?l-id=rb_todaylp_todayhigashikurume_esthe') 東久留米・ひばりヶ丘
+              li.c-list__item
+                a(href='/esthe/area1319/today/?l-id=rb_todaylp_todaychofu_esthe') 調布・府中
+              li.c-list__item
+                a(href='/esthe/area1334/today/?l-id=rb_todaylp_todaytama_esthe') 多摩・聖蹟桜ヶ丘・稲城
+              li.c-list__item
+                a(href='/esthe/area1330/today/?l-id=rb_todaylp_todaykyodo_esthe') 経堂・成城学園・狛江
+              li.c-list__item
+                a(href='/esthe/area1322/today/?l-id=rb_todaylp_todayiidabashi_esthe') 飯田橋・四谷・御茶ノ水
+              li.c-list__item
+                a(href='/esthe/area1328/today/?l-id=rb_todaylp_todaysasazuka_esthe') 笹塚・下高井戸・千歳烏山
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText ネイル・まつげサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/nail/area1301/today/?l-id=rb_todaylp_todayshinjyuku_nail') 新宿
+              li.c-list__item
+                a(href='/nail/area1303/today/?l-id=rb_todaylp_todayikebukuro_nail') 池袋
+              li.c-list__item
+                a(href='/nail/area1306/today/?l-id=rb_todaylp_todayginza_nail') 銀座・新橋・有楽町
+              li.c-list__item
+                a(href='/nail/area1336/today/?l-id=rb_todaylp_todayomotesando_nail') 表参道・青山
+              li.c-list__item
+                a(href='/nail/area1335/today/?l-id=rb_todaylp_todayharajuku_nail') 原宿
+              li.c-list__item
+                a(href='/nail/area1302/today/?l-id=rb_todaylp_todayshibuya_nail') 渋谷
+              li.c-list__item
+                a(href='/nail/area1308/today/?l-id=rb_todaylp_todayebisu_nail') 恵比寿・代官山・中目黒
+              li.c-list__item
+                a(href='/nail/area1312/today/?l-id=rb_todaylp_todayjiyugaoka_nail') 自由が丘・学芸大学
+              li.c-list__item
+                a(href='/nail/area1307/today/?l-id=rb_todaylp_todayroppongi_nail') 六本木・麻布十番
+              li.c-list__item
+                a(href='/nail/area1325/today/?l-id=rb_todaylp_todaykitasenjyu_nail') 北千住・町屋・亀有
+              li.c-list__item
+                a(href='/nail/area1329/today/?l-id=rb_todaylp_todaykinshichou_nail') 錦糸町・小岩・青砥
+              li.c-list__item
+                a(href='/nail/area1317/today/?l-id=rb_todaylp_todaykichijyoji_nail') 吉祥寺・荻窪・三鷹
+              li.c-list__item
+                a(href='/nail/area1331/today/?l-id=rb_todaylp_todaytachikawa_nail') 立川・国立・国分寺
+              li.c-list__item
+                a(href='/nail/area1318/today/?l-id=rb_todaylp_todayhachioji_nail') 八王子・日野・昭島
+              li.c-list__item
+                a(href='/nail/area1315/today/?l-id=rb_todaylp_todaynakano_nail') 中野・高円寺・阿佐ヶ谷
+              li.c-list__item
+                a(href='/nail/area1321/today/?l-id=rb_todaylp_todayshinagawa_nail') 品川・大森・蒲田
+              li.c-list__item
+                a(href='/nail/area1310/today/?l-id=rb_todaylp_todayueno_nail') 上野・日本橋・浅草
+              li.c-list__item
+                a(href='/nail/area1326/today/?l-id=rb_todaylp_todaynippori_nail') 日暮里・駒込・千駄木
+              li.c-list__item
+                a(href='/nail/area1337/today/?l-id=rb_todaylp_todayakabane_nail') 赤羽・十条・王子
+              li.c-list__item
+                a(href='/nail/area1323/today/?l-id=rb_todaylp_todaykasai_nail') 葛西・西葛西・門前仲町
+              li.c-list__item
+                a(href='/nail/area1320/today/?l-id=rb_todaylp_todaymachida_nail') 町田
+              li.c-list__item
+                a(href='/nail/area1314/today/?l-id=rb_todaylp_todaysangenchaya_nail') 三軒茶屋・用賀・二子玉川
+              li.c-list__item
+                a(href='/nail/area1309/today/?l-id=rb_todaylp_todayshimokitazawa_nail') 下北沢・代々木上原
+              li.c-list__item
+                a(href='/nail/area1332/today/?l-id=rb_todaylp_todayitabashi_nail') 板橋・成増・巣鴨
+              li.c-list__item
+                a(href='/nail/area1327/today/?l-id=rb_todaylp_todaymeguro_nail') 目黒・戸越・武蔵小山
+              li.c-list__item
+                a(href='/nail/area1333/today/?l-id=rb_todaylp_todaytanashi_nail') 田無・小平・久米川
+              li.c-list__item
+                a(href='/nail/area1316/today/?l-id=rb_todaylp_todayooizumigakuen_nail') 大泉学園・江古田・練馬
+              li.c-list__item
+                a(href='/nail/area1338/today/?l-id=rb_todaylp_todayhigashikurume_nail') 東久留米・ひばりヶ丘
+              li.c-list__item
+                a(href='/nail/area1319/today/?l-id=rb_todaylp_todaychofu_nail') 調布・府中
+              li.c-list__item
+                a(href='/nail/area1330/today/?l-id=rb_todaylp_todaykyodo_nail') 経堂・成城学園・狛江
+              li.c-list__item
+                a(href='/nail/area1322/today/?l-id=rb_todaylp_todayiidabashi_nail') 飯田橋・四谷・御茶ノ水
+              li.c-list__item
+                a(href='/nail/area1328/today/?l-id=rb_todaylp_todaysasazuka_nail') 笹塚・下高井戸・千歳烏山
+      .titleWrap
+        h2.titleWrap--title 明日行けるサロンを東京都内で探す
+      .m-popularAreaList__column
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText 美容室
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/area1301/tomorrow/?l-id=rb_todaylp_tomorrowshinjyuku_hair') 新宿
+              li.c-list__item
+                a(href='/area1303/tomorrow/?l-id=rb_todaylp_tomorrowikebukuro_hair') 池袋
+              li.c-list__item
+                a(href='/area1306/tomorrow/?l-id=rb_todaylp_tomorrowginza_hair') 銀座・新橋・有楽町
+              li.c-list__item
+                a(href='/area1336/tomorrow/?l-id=rb_todaylp_tomorrowomotesando_hair') 表参道・青山
+              li.c-list__item
+                a(href='/area1335/tomorrow/?l-id=rb_todaylp_tomorrowharajuku_hair') 原宿
+              li.c-list__item
+                a(href='/area1302/tomorrow/?l-id=rb_todaylp_tomorrowshibuya_hair') 渋谷
+              li.c-list__item
+                a(href='/area1308/tomorrow/?l-id=rb_todaylp_tomorrowebisu_hair') 恵比寿・代官山・中目黒
+              li.c-list__item
+                a(href='/area1312/tomorrow/?l-id=rb_todaylp_tomorrowjiyugaoka_hair') 自由が丘・学芸大学
+              li.c-list__item
+                a(href='/area1307/tomorrow/?l-id=rb_todaylp_tomorrowroppongi_hair') 六本木・麻布十番
+              li.c-list__item
+                a(href='/area1325/tomorrow/?l-id=rb_todaylp_tomorrowkitasenjyu_hair') 北千住・町屋・亀有
+              li.c-list__item
+                a(href='/area1329/tomorrow/?l-id=rb_todaylp_tomorrowkinshichou_hair') 錦糸町・小岩・青砥
+              li.c-list__item
+                a(href='/area1317/tomorrow/?l-id=rb_todaylp_tomorrowkichijyoji_hair') 吉祥寺・荻窪・三鷹
+              li.c-list__item
+                a(href='/area1331/tomorrow/?l-id=rb_todaylp_tomorrowtachikawa_hair') 立川・国立・国分寺
+              li.c-list__item
+                a(href='/area1318/tomorrow/?l-id=rb_todaylp_tomorrowhachioji_hair') 八王子・日野・昭島
+              li.c-list__item
+                a(href='/area1315/tomorrow/?l-id=rb_todaylp_tomorrownakano_hair') 中野・高円寺・阿佐ヶ谷
+              li.c-list__item
+                a(href='/area1321/tomorrow/?l-id=rb_todaylp_tomorrowshinagawa_hair') 品川・大森・蒲田
+              li.c-list__item
+                a(href='/area1310/tomorrow/?l-id=rb_todaylp_tomorrowueno_hair') 上野・日本橋・浅草
+              li.c-list__item
+                a(href='/area1326/tomorrow/?l-id=rb_todaylp_tomorrownippori_hair') 日暮里・駒込・千駄木
+              li.c-list__item
+                a(href='/area1337/tomorrow/?l-id=rb_todaylp_tomorrowakabane_hair') 赤羽・十条・王子
+              li.c-list__item
+                a(href='/area1323/tomorrow/?l-id=rb_todaylp_tomorrowkasai_hair') 葛西・西葛西・門前仲町
+              li.c-list__item
+                a(href='/area1320/tomorrow/?l-id=rb_todaylp_tomorrowmachida_hair') 町田
+              li.c-list__item
+                a(href='/area1314/tomorrow/?l-id=rb_todaylp_tomorrowsangenchaya_hair') 三軒茶屋・用賀・二子玉川
+              li.c-list__item
+                a(href='/area1309/tomorrow/?l-id=rb_todaylp_tomorrowshimokitazawa_hair') 下北沢・代々木上原
+              li.c-list__item
+                a(href='/area1332/tomorrow/?l-id=rb_todaylp_tomorrowitabashi_hair') 板橋・成増・巣鴨
+              li.c-list__item
+                a(href='/area1327/tomorrow/?l-id=rb_todaylp_tomorrowmeguro_hair') 目黒・戸越・武蔵小山
+              li.c-list__item
+                a(href='/area1333/tomorrow/?l-id=rb_todaylp_tomorrowtanashi_hair') 田無・小平・久米川
+              li.c-list__item
+                a(href='/area1316/tomorrow/?l-id=rb_todaylp_tomorrowooizumigakuen_hair') 大泉学園・江古田・練馬
+              li.c-list__item
+                a(href='/area1338/tomorrow/?l-id=rb_todaylp_tomorrowhigashikurume_hair') 東久留米・ひばりヶ丘
+              li.c-list__item
+                a(href='/area1319/tomorrow/?l-id=rb_todaylp_tomorrowchofu_hair') 調布・府中
+              li.c-list__item
+                a(href='/area1334/tomorrow/?l-id=rb_todaylp_tomorrowtama_hair') 多摩・聖蹟桜ヶ丘・稲城
+              li.c-list__item
+                a(href='/area1330/tomorrow/?l-id=rb_todaylp_tomorrowkyodo_hair') 経堂・成城学園・狛江
+              li.c-list__item
+                a(href='/area1322/tomorrow/?l-id=rb_todaylp_tomorrowiidabashi_hair') 飯田橋・四谷・御茶ノ水
+              li.c-list__item
+                a(href='/area1328/tomorrow/?l-id=rb_todaylp_tomorrowsasazuka_hair') 笹塚・下高井戸・千歳烏山
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText リラク・マッサージサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/relax/area1301/tomorrow/?l-id=rb_todaylp_tomorrowshinjyuku_relax') 新宿
+              li.c-list__item
+                a(href='/relax/area1303/tomorrow/?l-id=rb_todaylp_tomorrowikebukuro_relax') 池袋
+              li.c-list__item
+                a(href='/relax/area1306/tomorrow/?l-id=rb_todaylp_tomorrowginza_relax') 銀座・新橋・有楽町
+              li.c-list__item
+                a(href='/relax/area1336/tomorrow/?l-id=rb_todaylp_tomorrowomotesando_relax') 表参道・青山
+              li.c-list__item
+                a(href='/relax/area1335/tomorrow/?l-id=rb_todaylp_tomorrowharajuku_relax') 原宿
+              li.c-list__item
+                a(href='/relax/area1302/tomorrow/?l-id=rb_todaylp_tomorrowshibuya_relax') 渋谷
+              li.c-list__item
+                a(href='/relax/area1308/tomorrow/?l-id=rb_todaylp_tomorrowebisu_relax') 恵比寿・代官山・中目黒
+              li.c-list__item
+                a(href='/relax/area1312/tomorrow/?l-id=rb_todaylp_tomorrowjiyugaoka_relax') 自由が丘・学芸大学
+              li.c-list__item
+                a(href='/relax/area1307/tomorrow/?l-id=rb_todaylp_tomorrowroppongi_relax') 六本木・麻布十番
+              li.c-list__item
+                a(href='/relax/area1325/tomorrow/?l-id=rb_todaylp_tomorrowkitasenjyu_relax') 北千住・町屋・亀有
+              li.c-list__item
+                a(href='/relax/area1329/tomorrow/?l-id=rb_todaylp_tomorrowkinshichou_relax') 錦糸町・小岩・青砥
+              li.c-list__item
+                a(href='/relax/area1317/tomorrow/?l-id=rb_todaylp_tomorrowkichijyoji_relax') 吉祥寺・荻窪・三鷹
+              li.c-list__item
+                a(href='/relax/area1331/tomorrow/?l-id=rb_todaylp_tomorrowtachikawa_relax') 立川・国立・国分寺
+              li.c-list__item
+                a(href='/relax/area1318/tomorrow/?l-id=rb_todaylp_tomorrowhachioji_relax') 八王子・日野・昭島
+              li.c-list__item
+                a(href='/relax/area1315/tomorrow/?l-id=rb_todaylp_tomorrownakano_relax') 中野・高円寺・阿佐ヶ谷
+              li.c-list__item
+                a(href='/relax/area1321/tomorrow/?l-id=rb_todaylp_tomorrowshinagawa_relax') 品川・大森・蒲田
+              li.c-list__item
+                a(href='/relax/area1310/tomorrow/?l-id=rb_todaylp_tomorrowueno_relax') 上野・日本橋・浅草
+              li.c-list__item
+                a(href='/relax/area1326/tomorrow/?l-id=rb_todaylp_tomorrownippori_relax') 日暮里・駒込・千駄木
+              li.c-list__item
+                a(href='/relax/area1337/tomorrow/?l-id=rb_todaylp_tomorrowakabane_relax') 赤羽・十条・王子
+              li.c-list__item
+                a(href='/relax/area1323/tomorrow/?l-id=rb_todaylp_tomorrowkasai_relax') 葛西・西葛西・門前仲町
+              li.c-list__item
+                a(href='/relax/area1320/tomorrow/?l-id=rb_todaylp_tomorrowmachida_relax') 町田
+              li.c-list__item
+                a(href='/relax/area1314/tomorrow/?l-id=rb_todaylp_tomorrowsangenchaya_relax') 三軒茶屋・用賀・二子玉川
+              li.c-list__item
+                a(href='/relax/area1309/tomorrow/?l-id=rb_todaylp_tomorrowshimokitazawa_relax') 下北沢・代々木上原
+              li.c-list__item
+                a(href='/relax/area1332/tomorrow/?l-id=rb_todaylp_tomorrowitabashi_relax') 板橋・成増・巣鴨
+              li.c-list__item
+                a(href='/relax/area1327/tomorrow/?l-id=rb_todaylp_tomorrowmeguro_relax') 目黒・戸越・武蔵小山
+              li.c-list__item
+                a(href='/relax/area1333/tomorrow/?l-id=rb_todaylp_tomorrowtanashi_relax') 田無・小平・久米川
+              li.c-list__item
+                a(href='/relax/area1316/tomorrow/?l-id=rb_todaylp_tomorrowooizumigakuen_relax') 大泉学園・江古田・練馬
+              li.c-list__item
+                a(href='/relax/area1338/tomorrow/?l-id=rb_todaylp_tomorrowhigashikurume_relax') 東久留米・ひばりヶ丘
+              li.c-list__item
+                a(href='/relax/area1319/tomorrow/?l-id=rb_todaylp_tomorrowchofu_relax') 調布・府中
+              li.c-list__item
+                a(href='/relax/area1334/tomorrow/?l-id=rb_todaylp_tomorrowtama_relax') 多摩・聖蹟桜ヶ丘・稲城
+              li.c-list__item
+                a(href='/relax/area1330/tomorrow/?l-id=rb_todaylp_tomorrowkyodo_relax') 経堂・成城学園・狛江
+              li.c-list__item
+                a(href='/relax/area1322/tomorrow/?l-id=rb_todaylp_tomorrowiidabashi_relax') 飯田橋・四谷・御茶ノ水
+              li.c-list__item
+                a(href='/relax/area1328/tomorrow/?l-id=rb_todaylp_tomorrowsasazuka_relax') 笹塚・下高井戸・千歳烏山
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText エステサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/esthe/area1301/tomorrow/?l-id=rb_todaylp_tomorrowshinjyuku_esthe') 新宿
+              li.c-list__item
+                a(href='/esthe/area1303/tomorrow/?l-id=rb_todaylp_tomorrowikebukuro_esthe') 池袋
+              li.c-list__item
+                a(href='/esthe/area1306/tomorrow/?l-id=rb_todaylp_tomorrowginza_esthe') 銀座・新橋・有楽町
+              li.c-list__item
+                a(href='/esthe/area1336/tomorrow/?l-id=rb_todaylp_tomorrowomotesando_esthe') 表参道・青山
+              li.c-list__item
+                a(href='/esthe/area1335/tomorrow/?l-id=rb_todaylp_tomorrowharajuku_esthe') 原宿
+              li.c-list__item
+                a(href='/esthe/area1302/tomorrow/?l-id=rb_todaylp_tomorrowshibuya_esthe') 渋谷
+              li.c-list__item
+                a(href='/esthe/area1308/tomorrow/?l-id=rb_todaylp_tomorrowebisu_esthe') 恵比寿・代官山・中目黒
+              li.c-list__item
+                a(href='/esthe/area1312/tomorrow/?l-id=rb_todaylp_tomorrowjiyugaoka_esthe') 自由が丘・学芸大学
+              li.c-list__item
+                a(href='/esthe/area1307/tomorrow/?l-id=rb_todaylp_tomorrowroppongi_esthe') 六本木・麻布十番
+              li.c-list__item
+                a(href='/esthe/area1325/tomorrow/?l-id=rb_todaylp_tomorrowkitasenjyu_esthe') 北千住・町屋・亀有
+              li.c-list__item
+                a(href='/esthe/area1329/tomorrow/?l-id=rb_todaylp_tomorrowkinshichou_esthe') 錦糸町・小岩・青砥
+              li.c-list__item
+                a(href='/esthe/area1317/tomorrow/?l-id=rb_todaylp_tomorrowkichijyoji_esthe') 吉祥寺・荻窪・三鷹
+              li.c-list__item
+                a(href='/esthe/area1331/tomorrow/?l-id=rb_todaylp_tomorrowtachikawa_esthe') 立川・国立・国分寺
+              li.c-list__item
+                a(href='/esthe/area1318/tomorrow/?l-id=rb_todaylp_tomorrowhachioji_esthe') 八王子・日野・昭島
+              li.c-list__item
+                a(href='/esthe/area1315/tomorrow/?l-id=rb_todaylp_tomorrownakano_esthe') 中野・高円寺・阿佐ヶ谷
+              li.c-list__item
+                a(href='/esthe/area1321/tomorrow/?l-id=rb_todaylp_tomorrowshinagawa_esthe') 品川・大森・蒲田
+              li.c-list__item
+                a(href='/esthe/area1310/tomorrow/?l-id=rb_todaylp_tomorrowueno_esthe') 上野・日本橋・浅草
+              li.c-list__item
+                a(href='/esthe/area1326/tomorrow/?l-id=rb_todaylp_tomorrownippori_esthe') 日暮里・駒込・千駄木
+              li.c-list__item
+                a(href='/esthe/area1337/tomorrow/?l-id=rb_todaylp_tomorrowakabane_esthe') 赤羽・十条・王子
+              li.c-list__item
+                a(href='/esthe/area1323/tomorrow/?l-id=rb_todaylp_tomorrowkasai_esthe') 葛西・西葛西・門前仲町
+              li.c-list__item
+                a(href='/esthe/area1320/tomorrow/?l-id=rb_todaylp_tomorrowmachida_esthe') 町田
+              li.c-list__item
+                a(href='/esthe/area1314/tomorrow/?l-id=rb_todaylp_tomorrowsangenchaya_esthe') 三軒茶屋・用賀・二子玉川
+              li.c-list__item
+                a(href='/esthe/area1309/tomorrow/?l-id=rb_todaylp_tomorrowshimokitazawa_esthe') 下北沢・代々木上原
+              li.c-list__item
+                a(href='/esthe/area1332/tomorrow/?l-id=rb_todaylp_tomorrowitabashi_esthe') 板橋・成増・巣鴨
+              li.c-list__item
+                a(href='/esthe/area1327/tomorrow/?l-id=rb_todaylp_tomorrowmeguro_esthe') 目黒・戸越・武蔵小山
+              li.c-list__item
+                a(href='/esthe/area1333/tomorrow/?l-id=rb_todaylp_tomorrowtanashi_esthe') 田無・小平・久米川
+              li.c-list__item
+                a(href='/esthe/area1316/tomorrow/?l-id=rb_todaylp_tomorrowooizumigakuen_esthe') 大泉学園・江古田・練馬
+              li.c-list__item
+                a(href='/esthe/area1338/tomorrow/?l-id=rb_todaylp_tomorrowhigashikurume_esthe') 東久留米・ひばりヶ丘
+              li.c-list__item
+                a(href='/esthe/area1319/tomorrow/?l-id=rb_todaylp_tomorrowchofu_esthe') 調布・府中
+              li.c-list__item
+                a(href='/esthe/area1334/tomorrow/?l-id=rb_todaylp_tomorrowtama_esthe') 多摩・聖蹟桜ヶ丘・稲城
+              li.c-list__item
+                a(href='/esthe/area1330/tomorrow/?l-id=rb_todaylp_tomorrowkyodo_esthe') 経堂・成城学園・狛江
+              li.c-list__item
+                a(href='/esthe/area1322/tomorrow/?l-id=rb_todaylp_tomorrowiidabashi_esthe') 飯田橋・四谷・御茶ノ水
+              li.c-list__item
+                a(href='/esthe/area1328/tomorrow/?l-id=rb_todaylp_tomorrowsasazuka_esthe') 笹塚・下高井戸・千歳烏山
+        dl.m-regionList
+          dt.m-regionList__genre
+            span.m-regionList__genreText ネイル・まつげサロン
+          dd.m-regionList__pref
+            ul.c-list--divideInline
+              li.c-list__item
+                a(href='/nail/area1301/tomorrow/?l-id=rb_todaylp_tomorrowshinjyuku_nail') 新宿
+              li.c-list__item
+                a(href='/nail/area1303/tomorrow/?l-id=rb_todaylp_tomorrowikebukuro_nail') 池袋
+              li.c-list__item
+                a(href='/nail/area1306/tomorrow/?l-id=rb_todaylp_tomorrowginza_nail') 銀座・新橋・有楽町
+              li.c-list__item
+                a(href='/nail/area1336/tomorrow/?l-id=rb_todaylp_tomorrowomotesando_nail') 表参道・青山
+              li.c-list__item
+                a(href='/nail/area1335/tomorrow/?l-id=rb_todaylp_tomorrowharajuku_nail') 原宿
+              li.c-list__item
+                a(href='/nail/area1302/tomorrow/?l-id=rb_todaylp_tomorrowshibuya_nail') 渋谷
+              li.c-list__item
+                a(href='/nail/area1308/tomorrow/?l-id=rb_todaylp_tomorrowebisu_nail') 恵比寿・代官山・中目黒
+              li.c-list__item
+                a(href='/nail/area1312/tomorrow/?l-id=rb_todaylp_tomorrowjiyugaoka_nail') 自由が丘・学芸大学
+              li.c-list__item
+                a(href='/nail/area1307/tomorrow/?l-id=rb_todaylp_tomorrowroppongi_nail') 六本木・麻布十番
+              li.c-list__item
+                a(href='/nail/area1325/tomorrow/?l-id=rb_todaylp_tomorrowkitasenjyu_nail') 北千住・町屋・亀有
+              li.c-list__item
+                a(href='/nail/area1329/tomorrow/?l-id=rb_todaylp_tomorrowkinshichou_nail') 錦糸町・小岩・青砥
+              li.c-list__item
+                a(href='/nail/area1317/tomorrow/?l-id=rb_todaylp_tomorrowkichijyoji_nail') 吉祥寺・荻窪・三鷹
+              li.c-list__item
+                a(href='/nail/area1331/tomorrow/?l-id=rb_todaylp_tomorrowtachikawa_nail') 立川・国立・国分寺
+              li.c-list__item
+                a(href='/nail/area1318/tomorrow/?l-id=rb_todaylp_tomorrowhachioji_nail') 八王子・日野・昭島
+              li.c-list__item
+                a(href='/nail/area1315/tomorrow/?l-id=rb_todaylp_tomorrownakano_nail') 中野・高円寺・阿佐ヶ谷
+              li.c-list__item
+                a(href='/nail/area1321/tomorrow/?l-id=rb_todaylp_tomorrowshinagawa_nail') 品川・大森・蒲田
+              li.c-list__item
+                a(href='/nail/area1310/tomorrow/?l-id=rb_todaylp_tomorrowueno_nail') 上野・日本橋・浅草
+              li.c-list__item
+                a(href='/nail/area1326/tomorrow/?l-id=rb_todaylp_tomorrownippori_nail') 日暮里・駒込・千駄木
+              li.c-list__item
+                a(href='/nail/area1337/tomorrow/?l-id=rb_todaylp_tomorrowakabane_nail') 赤羽・十条・王子
+              li.c-list__item
+                a(href='/nail/area1323/tomorrow/?l-id=rb_todaylp_tomorrowkasai_nail') 葛西・西葛西・門前仲町
+              li.c-list__item
+                a(href='/nail/area1320/tomorrow/?l-id=rb_todaylp_tomorrowmachida_nail') 町田
+              li.c-list__item
+                a(href='/nail/area1314/tomorrow/?l-id=rb_todaylp_tomorrowsangenchaya_nail') 三軒茶屋・用賀・二子玉川
+              li.c-list__item
+                a(href='/nail/area1309/tomorrow/?l-id=rb_todaylp_tomorrowshimokitazawa_nail') 下北沢・代々木上原
+              li.c-list__item
+                a(href='/nail/area1332/tomorrow/?l-id=rb_todaylp_tomorrowitabashi_nail') 板橋・成増・巣鴨
+              li.c-list__item
+                a(href='/nail/area1327/tomorrow/?l-id=rb_todaylp_tomorrowmeguro_nail') 目黒・戸越・武蔵小山
+              li.c-list__item
+                a(href='/nail/area1333/tomorrow/?l-id=rb_todaylp_tomorrowtanashi_nail') 田無・小平・久米川
+              li.c-list__item
+                a(href='/nail/area1316/tomorrow/?l-id=rb_todaylp_tomorrowooizumigakuen_nail') 大泉学園・江古田・練馬
+              li.c-list__item
+                a(href='/nail/area1338/tomorrow/?l-id=rb_todaylp_tomorrowhigashikurume_nail') 東久留米・ひばりヶ丘
+              li.c-list__item
+                a(href='/nail/area1319/tomorrow/?l-id=rb_todaylp_tomorrowchofu_nail') 調布・府中
+              li.c-list__item
+                a(href='/nail/area1330/tomorrow/?l-id=rb_todaylp_tomorrowkyodo_nail') 経堂・成城学園・狛江
+              li.c-list__item
+                a(href='/nail/area1322/tomorrow/?l-id=rb_todaylp_tomorrowiidabashi_nail') 飯田橋・四谷・御茶ノ水
+              li.c-list__item
+                a(href='/nail/area1328/tomorrow/?l-id=rb_todaylp_tomorrowsasazuka_nail') 笹塚・下高井戸・千歳烏山
+
+  //- Breadcrumb for SP
+  -
+   var linklist = lists
+
+  #SPbreadcrumb.c-container.-sp
+    ul(class="c-breadcrumbs")
+      li.c-breadcrumbs__item: a(href = "/", class="c-breadcrumbs__link") 楽天ビューティ
+
+      each item in linklist
+        if item.link !== 'current'
+          li.c-breadcrumbs__item: a(href = item.link, class="c-breadcrumbs__link") #{item.name}
+        else
+          li.c-breadcrumbs__item: strong.c-breadcrumbs__current #{item.name}
+
+
+  
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  script(src="/cnt/common/js/area-search/shopSearch.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く

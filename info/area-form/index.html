@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+  <head>
+    <meta charset="UTF-8">
+    <title>【地域限定】ヘアサロン出店リクエストフォーム | 楽天ビューティ</title>
+    <meta name="viewport" content="width=1300">
+    <meta name="description" content="東京都・札幌市・仙台市・さいたま市・神戸市・福岡市を対象とした、楽天ビューティへのヘアサロン出店リクエストフォームです。">
+    <link rel="canonical" href="https://beauty.rakuten.co.jp/cnt/topics/campaign/info/area-form/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="楽天ビューティ">
+    <meta property="og:url" content="https://beauty.rakuten.co.jp/cnt/topics/campaign/info/area-form/">
+    <meta property="fb:app_id" content="461054960620939">
+    <meta property="og:title" content="【地域限定】ヘアサロン出店リクエストフォーム | 楽天ビューティ">
+    <meta property="og:description" content="東京都・札幌市・仙台市・さいたま市・神戸市・福岡市を対象とした、楽天ビューティへのヘアサロン出店リクエストフォームです。">
+    <meta property="og:image" content="https://beauty.rakuten.co.jp/asset/img/Beauty/ogp.png?202101">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="apple-touch-icon-precomposed" href="//beauty.rakuten.co.jp/cnt/common/images/beauty_192px.png?v20180702">
+    <link rel="shortcut icon" href="//jp.rakuten-static.com/1/im/ci/rakuten/favicon/pi.ico?20181001">
+    <link rel="mask-icon" href="//jp.rakuten-static.com/1/im/ci/rakuten/favicon/Rakuten_SafariPin.svg?20181001" color="#ff41be">
+    <link href="css/main.css?v20240906" rel="stylesheet" type="text/css">
+    <link rel="dns-prefetch" href="https://cdn.rex.contents.rakuten.co.jp">
+    <script>
+      const ua = navigator.userAgent;
+      //- viewport for Tablet
+      if( ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || (ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) || ( ua.indexOf('windows') > 0 && ua.indexOf('phone') > 0) || ( ua.indexOf('firefox') > 0 && ua.indexOf('mobile') > 0) ) {
+        document.querySelector("meta[name='viewport']").setAttribute("content", "width=device-width,initial-scale=1,user-scalable=no");
+      } else if( ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0 || (ua.indexOf('windows') > 0 && ua.indexOf('touch') > 0) || ( ua.indexOf('firefox') > 0 && ua.indexOf('tablet') > 0) ) {
+        document.querySelector("meta[name='viewport']").setAttribute("content", "width=1300");
+      }
+    </script>
+    <script type="text/javascript">
+      function doTrim(el) {
+        el.value = el.value.replace(/^\s+|\s+$/g, '');
+      }
+      
+      function isInput(el) {
+        return el.value.length != 0;
+      }
+      
+      function isChecked(el) {
+        if (el.length) {
+          for (var i = 0; i < el.length; i++) {
+            if (el[i].checked) {
+              return true;
+            }
+          }
+        } else {
+          if (el.checked) {
+            return true;
+          }
+        }
+        return false;
+      }
+      
+      function isLength(el, len) {
+        if ("え".length == 2) {
+          len *= 2;
+        }
+        return el.value.length <= len;
+      }
+      
+      function zen2han(el) {
+        el.value = el.value.replace(/[０]/g, "0");
+        el.value = el.value.replace(/[１]/g, "1");
+        el.value = el.value.replace(/[２]/g, "2");
+        el.value = el.value.replace(/[３]/g, "3");
+        el.value = el.value.replace(/[４]/g, "4");
+        el.value = el.value.replace(/[５]/g, "5");
+        el.value = el.value.replace(/[６]/g, "6");
+        el.value = el.value.replace(/[７]/g, "7");
+        el.value = el.value.replace(/[８]/g, "8");
+        el.value = el.value.replace(/[９]/g, "9");
+      }
+      
+      function checkForm() {
+        var el;
+        var obj = document.enenForm;
+      
+        el = obj.elements['answers[41240_279679]'];
+        if (!isChecked(el)) {
+          alert("「エリア」を選択してください。");
+          return false;
+        }
+      
+        el = obj.elements['answers[41240_279680]'];
+        doTrim(el);
+        zen2han(el);
+        if (!isInput(el)) {
+          alert("「サロン名・企業名」を入力してください。");
+          return false;
+        }
+      
+        if (!isLength(el, 256)) {
+          alert("「サロン名・企業名」は256文字以内で入力してください。");
+          return false;
+        }
+      
+        el = obj.elements['answers[41240_279681]'];
+        doTrim(el);
+        zen2han(el);
+        if (!isInput(el)) {
+          alert("「サロンの最寄駅」を入力してください。");
+          return false;
+        }
+      
+        if (!isLength(el, 256)) {
+          alert("「サロンの最寄駅」は256文字以内で入力してください。");
+          return false;
+        }
+      
+        el = obj.elements['answers[41240_279682]'];
+        doTrim(el);
+        zen2han(el);
+        if (!isLength(el, 1000)) {
+          alert("「サロンのURL 」は1000文字以内で入力してください。");
+          return false;
+        }
+      
+        el = obj.elements['answers[41240_279683]'];
+        doTrim(el);
+        zen2han(el);
+        if (!isInput(el)) {
+          alert("「オススメ・応援メッセージ」を入力してください。");
+          return false;
+        }
+      
+        if (!isLength(el, 1000)) {
+          alert("「オススメ・応援メッセージ」は1000文字以内で入力してください。");
+          return false;
+        }
+      }
+      // -->
+      
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <iframe class="txt_h vis_h" src="//www.googletagmanager.com/ns.html?id=GTM-RKLN" height="0" width="0"></iframe>
+    </noscript>
+    <script>
+      (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-RKLN');
+    </script>
+    <script src="//jp.rakuten-static.com/1/grp/banner/js/create.js"></script>
+    <div id="mkdiv_header_pitari"></div>
+    <header class="-excludeApp" id="SP_header">
+      <p id="serviceID"><a class="logo" href="/"><img src="https://beauty.rakuten.co.jp/sp/images/global/rb_logo_v201807.svg" width="74" height="40"></a></p>
+    </header>
+        <header id="PC_header">
+          <div class="rc-h-standard">
+            <noscript>
+              <div class="rc-h-noscript-bar">
+                <div class="rc-h-inner">
+                  <p>JavaScriptが無効の為、一部のコンテンツをご利用いただけません。JavaScriptの設定を有効にしてからご利用いただきますようお願いいたします。（<a href="//ichiba.faq.rakuten.co.jp/app/answers/detail/a_id/154">設定方法</a>）</p>
+                </div>
+              </div>
+            </noscript>
+            <div class="rc-h-utility-bar">
+              <div class="rc-h-inner">
+                <div class="rb_wrapper">
+                  <ul class="rc-h-group-nav">
+                    <li id="grpNote">
+                      <noscript><a href="//card.rakuten.co.jp/entry/">今すぐ2,000ポイント！</a></noscript>
+                    </li>
+                    <li class="rc-h-dropdown rc-h-group-dropdown"><a href="//www.rakuten.co.jp/sitemap/">楽天グループ</a>
+                      <ul class="rc-h-dropdown-panel">
+                        <li><a href="//books.rakuten.co.jp/?scid=wi_grp_gmx_bea_hepullbu_boo" rel="nofollow">楽天ブックス</a></li>
+                        <li><a href="//hoken.rakuten.co.jp/?scid=wi_grp_gmx_bea_hepullbu_hkn" rel="nofollow">楽天の保険</a></li>
+                        <li><a href="//www.infoseek.co.jp/?scid=wi_grp_gmx_bea_hepullbu_ifs" rel="nofollow">インフォシーク</a></li>
+                        <li><a href="//sm.rakuten.co.jp/?scid=wi_grp_gmx_bea_hepullbu_sup&amp;xadid=wi_grp_gmx_bea_hepullbu_sup" rel="nofollow">楽天西友ネットスーパー</a></li>
+                        <li><a href="//www.rakuten.co.jp/sitemap/">サービス一覧</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="//www.rakuten-life.co.jp/?scid=wi_grp_gmx_bea_hetopbu_sei" rel="nofollow">楽天生命</a></li>
+                    <li><a href="//www.rakuten.co.jp/" rel="nofollow">楽天市場</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="rb_wrapper">
+              <div class="rc-h-service-bar">
+                <div class="rc-h-inner">
+                  <div class="rc-h-site-id">
+                    <p class="rc-h-logo"><a href="/"><img src="//beauty.rakuten.co.jp/images/global/rb_logo_v201807.svg" width="206" height="32" alt="Rakuten BEAUTY"></a></p>
+                  </div>
+                  <div class="rc-h-site-menu">
+                    <div class="rc-h-menu-btns">
+                      <ul class="rc-h-help-nav">
+                        <li><a href="/cnt/topics/guide/">はじめての方へ</a></li>
+                        <li><a href="//beauty.faq.rakuten.net/user/s/">ヘルプ</a></li>
+                        <li><a href="//emagazine.rakuten.co.jp/ne?n=294" onclick="_gaq.push(['_trackEvent', 'permission', 'click', 'rbpc_header']);">お得な情報を受け取る</a></li>
+                        <li><a href="/cnt/topics/bp/?l-id=rb_pc_header_bp">掲載ご希望のサロン様</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <nav id="globalNav">
+            <ul class="globalNav__list c-container">
+              <li class="globalNav__item"><a class="globalNav__link" href="/">美容院・ヘアサロン</a></li>
+              <li class="globalNav__item"><a class="globalNav__link" href="/nail/">ネイル・まつげサロン</a></li>
+              <li class="globalNav__item"><a class="globalNav__link" href="/esthe/">エステサロン</a></li>
+              <li class="globalNav__item"><a class="globalNav__link" href="/relax/">リラク・マッサージサロン</a></li>
+              <li class="globalNav__item"><a class="globalNav__link" href="/style/">ヘアカタログ</a></li>
+              <li class="globalNav__item"><a class="globalNav__link" href="/naildesign/">ネイルカタログ</a></li>
+              <li class="globalNav__item"><a class="globalNav__current" href="/cnt/topics/">キャンペーン一覧・特集</a></li>
+              <li class="globalNav__item"><a class="globalNav__link" href="/rakulab/">Raku Lab</a></li>
+            </ul>
+          </nav>
+        </header>
+        <div class="c-container" id="breadcrumb">
+          <ul class="c-breadcrumbs">
+            <li class="c-breadcrumbs__item"><a class="c-breadcrumbs__link" href="/">楽天ビューティ</a></li>
+            <li class="c-breadcrumbs__item"><strong class="c-breadcrumbs__current">【地域限定】ヘアサロン出店リクエストフォーム</strong></li>
+          </ul>
+        </div>
+        <script type="application/ld+json">
+           {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "楽天ビューティ",
+                "item": "https://beauty.rakuten.co.jp/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "【地域限定】ヘアサロン出店リクエストフォーム"
+              }
+            ]
+           }
+        </script>
+    <main id="content">
+      <div id="area_form">
+        <div id="mainArea">
+          <h1 class="main__image"><img class="main__titleImg -pc" src="img/main.png" alt="あなたのお気に入りを応援！楽天ビューティに出店してほしいヘアサロンを教えてください"><img class="main__titleImg -sp" src="img/main_sp.png" alt="あなたのお気に入りを応援！楽天ビューティに出店してほしいヘアサロンを教えてください"></h1>
+          <dl class="main__targetArea">
+            <dt class="main__targetArea__title">現在の募集対象エリア</dt>
+            <dd class="main__targetArea__area">東京都・札幌市・仙台市・<br class="spbr">さいたま市・神戸市・広島市・福岡市</dd>
+          </dl>
+          <h2 class="main_ttl">リクエストすると<br class="spbr">こんな良いことが！</h2>
+          <div class="request_merit">
+            <dl class="request_merit__box">
+              <dt class="request_merit__pict"><img src="img/merit_point.png" alt="ポイントが貯まるサロンに"></dt>
+              <dd class="request_merit__txt">
+                <h3 class="request_merit__title">ポイントが貯まるサロンに</h3>
+                <p>掲載されると、楽天ポイントが貯まる・使えるヘアサロンの仲間入り！</p>
+              </dd>
+            </dl>
+            <dl class="request_merit__box">
+              <dt class="request_merit__pict"><img src="img/merit_campaign.png" alt="ラ・クーポンでおトクに"></dt>
+              <dd class="request_merit__txt">
+                <h3 class="request_merit__title">おトクに予約できるサロンに</h3>
+                <p>対象の1都6都市にあるヘアサロンを利用して応援するお得なキャンペーンが続々</p>
+              </dd>
+            </dl>
+            <dl class="request_merit__box">
+              <dt class="request_merit__pict"><img src="img/merit_cheerup.png" alt="サロンも元気に"></dt>
+              <dd class="request_merit__txt">
+                <h3 class="request_merit__title">サロンも元気に</h3>
+                <p>あなたの応援でお気に入りのサロンに活気が生まれるかも</p>
+              </dd>
+            </dl>
+          </div>
+          <div class="request_area">
+            <h2 class="main_ttl">あなたの声を楽天ビューティが<br class="spbr">ご希望のヘアサロンにお届け！</h2>
+            <h3 class="request_message">「いつも利用している」「行ってみたい」など、<br class="spbr">出店してほしいヘアサロンを教えてください</h3>
+            <form action="https://form.rakuten.co.jp/ans/apply/41240" name="enenForm" method="POST" onsubmit="return checkForm()">
+              <table border="1">
+                <tbody>
+                  <tr>
+                    <td>エリア<span> ※必須</span></td>
+                    <td>
+                      <label for="a776961">
+                        <input id="a776961" type="radio" name="answers[41240_279679]" value="776961">東京都
+                      </label>
+                      <label for="a776962">
+                        <input id="a776962" type="radio" name="answers[41240_279679]" value="776962">札幌市
+                      </label>
+                      <label for="a776963">
+                        <input id="a776963" type="radio" name="answers[41240_279679]" value="776963">仙台市
+                      </label>
+                      <label for="a776964">
+                        <input id="a776964" type="radio" name="answers[41240_279679]" value="776964">さいたま市
+                      </label>
+                      <label for="a776965">
+                        <input id="a776965" type="radio" name="answers[41240_279679]" value="776965">神戸市
+                      </label>
+                      <label for="a776966">
+                        <input id="a776966" type="radio" name="answers[41240_279679]" value="776966">広島市
+                      </label>
+                      <label for="a776967">
+                        <input id="a776967" type="radio" name="answers[41240_279679]" value="776967">福岡市
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ヘアサロン名・企業名<span> ※必須</span></td>
+                    <td>
+                      <input type="text" name="answers[41240_279680]" placeholder="例）ヘアサロンビューティ">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ヘアサロンの最寄駅<span> ※必須</span></td>
+                    <td>
+                      <input type="text" name="answers[41240_279681]" placeholder="例）二子玉川駅">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ヘアサロンのURL</td>
+                    <td>
+                      <input type="text" name="answers[41240_279682]" placeholder="https://">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>オススメ・応援メッセージ<span> ※必須</span></td>
+                    <td>
+                      <textarea name="answers[41240_279683]" rows="5" cols="40" placeholder="ご紹介いただいた理由や、ヘアサロンへの応援メッセージをご自由にお書きください。"></textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <input type="hidden" name="c" value="楽天">
+              <input type="hidden" name="l" value="ja">
+              <p class="btn_area">
+                <input id="button" type="submit" value="リクエストする">
+              </p>
+              <ul class="readme">
+                <li>※リクエストには、楽天IDでのログインが必要です。</li>
+                <li>※リクエスト内容は、ご希望のサロンをスカウトする際や楽天ビューティ内コンテンツ等でお客様からの声として掲載する可能性があります（会員情報を含む個人情報は一切開示・掲載いたしません）。</li>
+                <li>※おひとりにつき複数店舗のリクエストが可能です。</li>
+              </ul>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer id="PC_footer">
+      <ul class="global-footer__utility">
+        <li class="global-footer__utilityItem"><a class="global-footer__utilityLink" href="/cnt/topics/bp/">掲載ご希望のサロン様</a></li>
+        <li class="global-footer__utilityItem"><a class="global-footer__utilityLink" href="/cnt/terms/">利用規約</a></li>
+        <li class="global-footer__utilityItem"><a class="global-footer__utilityLink" href="/sitemap/">サイトマップ</a></li>
+        <li class="global-footer__utilityItem"><a class="global-footer__utilityLink" href="//beauty.faq.rakuten.net/user/s/ask">お問い合わせ</a></li>
+        <li class="global-footer__utilityItem"><a class="global-footer__utilityLink" href="//beauty.faq.rakuten.net/user/s/">ヘルプ</a></li>
+        <li class="global-footer__utilityItem"><a class="global-footer__utilityLink" href="/cnt/topics/release/">リリース情報</a></li>
+        <li class="global-footer__utilityItem"><a class="global-footer__utilityLink" href="//www.facebook.com/RakutenBeauty" target="_blank">Facebook</a></li>
+        <li class="global-footer__utilityItem"><a class="global-footer__utilityLink" href="//x.com/Rakuten__BEAUTY" target="_blank">X</a></li>
+      </ul>
+      <div class="rc-f-standard rc-f-liquid rc-f-custom00">
+        <div class="rc-f-section-content00">
+          <div class="rc-f-section-bar rc-f-first">
+            <div class="rc-f-inner">
+              <dl class="rc-f-dl-inline-box">
+                <dt class="rc-f-dl-title01 rc-f-text-em">楽天グループ</dt>
+                <dd>
+                  <ul class="rc-f-list-inline">
+                    <li><a class="rc-f-btn" href="//www.rakuten.co.jp/sitemap/"><span>サービス一覧</span></a></li>
+                    <li><a class="rc-f-btn" href="//www.rakuten.co.jp/sitemap/inquiry.html"><span>お問い合わせ一覧</span></a></li>
+                  </ul>
+                </dd>
+              </dl>
+            </div>
+          </div>
+          <div class="rc-f-section-bar">
+            <div class="rc-f-inner">
+              <dl class="rc-f-dl-inline rc-f-block">
+                <dt class="rc-f-dl-title01">おすすめ</dt>
+                <dd class="rc-f-text-strong" id="grpRakutenRecommend"><a href="//www.rakuten-card.co.jp/">【楽天カード】楽天ポイントが貯まるクレジットカード。年会費無料。</a></dd>
+              </dl>
+              <ul class="rc-f-row rc-f-row-dot rc-f-row4">
+                <li class="rc-f-col rc-f-first">
+                  <div class="rc-f-media rc-f-nav-item rc-f-nav-item">
+                    <div class="rc-f-media-head"><a href="/rakulab/">「キレイの主役」を応援するビューティメディア</a></div>
+                    <div class="rc-f-media-body">Raku Lab(ラクラボ)</div>
+                  </div>
+                </li>
+                <li class="rc-f-col">
+                  <div class="rc-f-media rc-f-nav-item rc-f-nav-item-delimit">
+                    <div class="rc-f-media-head"><a href="https://brandavenue.rakuten.co.jp/">人気ブランド新作やヘア小物をGET</a></div>
+                    <div class="rc-f-media-body">Rakuten Fashion</div>
+                  </div>
+                </li>
+                <li class="rc-f-col">
+                  <div class="rc-f-media rc-f-nav-item rc-f-nav-item-delimit">
+                    <div class="rc-f-media-head"><a href="https://www.infoseek.co.jp/">楽天が運営するポータルサイト</a></div>
+                    <div class="rc-f-media-body">Infoseekトップ</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div id="mkdiv_footer_pitari"></div>
+        <div class="rc-f-section01">
+          <div class="-excludeApp" id="footerRakutenBnr"><a href="//corp.rakuten.co.jp/event/climateaction/?scid=wi_bty_gogreen_footer" target="_blank"><img class="footerRakutenBnr__img" src="//cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto/w_150,h_40/v1/front/image/common/bnr_gogreen_pc.svg" alt="本サービスは再生可能エネルギー100%" width="150" height="40"></a></div>
+          <div class="rc-f-inner">
+            <ul class="rcf-list-inline rcf-list-block">
+              <li><a href="//corp.rakuten.co.jp/" rel="nofollow">企業情報</a></li>
+              <li><a href="//privacy.rakuten.co.jp/" rel="nofollow">個人情報保護方針</a></li>
+              <li><a href="//corp.rakuten.co.jp/csr/">社会的責任[CSR]</a></li>
+              <li><a href="//corp.rakuten.co.jp/careers/">採用情報</a></li>
+            </ul>
+            <p class="copyright">© Rakuten Group, Inc.</p>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript" src="//jp.rakuten-static.com/1/js/lib/prm_selector.js"></script>
+      <script type="text/javascript" src="//jp.rakuten-static.com/1/js/grp/hdr/prm_sender.js"></script>
+      <script type="text/javascript" src="//jp.rakuten-static.com/1/js/grp/ftr/js/parm_selector_footer.js"></script>
+    </footer>
+    <div id="SP_footer">
+      <div class="c-section c-text--alignCenter">
+        <ul class="c-list--inlineSmall c-section__inside">
+          <li class="c-list__item"><a href="/cnt/topics/guide/">はじめての方へ</a></li>
+          <li class="c-list__item"><a href="//beauty.faq.rakuten.net/user/s/ask">お問い合わせ</a></li>
+          <li class="c-list__item"><a href="//beauty.faq.rakuten.net/user/s/">ヘルプ</a></li>
+          <li class="c-list__item"><a href="/cnt/topics/release/">リリース情報</a></li>
+          <li class="c-list__item"><a href="/cnt/terms/">利用規約</a></li>
+          <li class="c-list__item"><a href="/cnt/topics/bp/">掲載ご希望のサロン様</a></li>
+        </ul>
+      </div>
+      <div id="footer">
+        <ul>
+          <li><a rel="nofollow" href="//corp.rakuten.co.jp/">企業情報</a></li>
+          <li><a rel="nofollow" href="//privacy.rakuten.co.jp/sp/">個人情報保護方針</a></li>
+          <li><a rel="nofollow" href="//www.rakuten.co.jp/sitemap/sp/">楽天のサービス一覧</a></li>
+          <li><a rel="nofollow" href="//www.rakuten.co.jp/sitemap/sp/app.html">アプリ一覧</a></li>
+        </ul>
+        <div id="copyright">&copy; Rakuten Group, Inc.</div>
+        <div class="-excludeApp" id="footerRakutenBnr"><a href="//corp.rakuten.co.jp/event/climateaction/?scid=wi_bty_gogreen_footer" target="_blank"><img class="footerRakutenBnr__img" src="https://cloudinary-a.akamaihd.net/vivivi/image/upload/t_beauty,f_auto/w_150,h_40/v1/front/image/common/bnr_gogreen_sp.svg" alt="本サービスは再生可能エネルギー100%" width="150" height="40"></a></div>
+      </div>
+    </div>
+    <script src="/cnt/common/js/ua-parser/ua-parser.min.js"></script>
+    <script src="/cnt/common/js/ua-parser/main.js"></script>
+    <script src="/cnt/common/js/smooth-scroll.min.js"></script>
+    <script>
+      var scroll = new SmoothScroll('a[href*="#"]');
+      
+    </script>
+    <!-- RAT tag start-->
+    <!-- Generic Parameter-->
+    <input id="ratAccountId" type="hidden" name="rat" value="426">
+    <input id="ratServiceId" type="hidden" name="rat" value="1">
+    <input id="ratPageLayout" type="hidden" name="rat" value="resp">
+    <input id="ratSiteSection" type="hidden" name="rat" value="cnt">
+    <input id="ratPageName" type="hidden" name="rat" value="cnt">
+    <input id="ratPageType" type="hidden" name="rat" value="cnt_item">
+    <script type="text/javascript" src="//r.r10s.jp/com/rat/js/rat-main.js"></script>
+    <!-- /RAT tag end-->
+  </body>
+</html>

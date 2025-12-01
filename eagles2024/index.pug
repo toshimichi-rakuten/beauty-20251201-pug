@@ -1,0 +1,354 @@
+//- LP用ベーステンプレート。新規作成 or 改修時は最新のものをフォルダごと複製して使用してください
+//- クーポンがあるLPは_template_coupon/を複製→このテンプレートから必要なものを移植して作成したほうが簡単です
+//- template / ver 3.0.3 / 更新日時：2024.6.13 / APP DLパーツの第二引数にAdjust URL追加
+
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = '?v20250206'
+    var meta = {
+      title: '楽天イーグルス感謝祭 10万ポイント山分けキャンペーン',
+      description: '楽天イーグルス感謝祭 10万ポイント山分けキャンペーンを開催!',
+      url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/eagles2024/',
+      directory: 'eagles2024', //- ディレクトリ名 for Click or Appear Tag（例：/xxxx/→'xxxx'）
+      og_image: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/eagles2024/img/share.png' + parameter,//- default (シェア画像があれば変更)
+    }
+    var css = 'css/main.css' + parameter
+    //- PITARI使用時、bodyタグに属性付与する時だけコメントを外して使用
+    //- var bodyPITARI = {'data-phoenix-xxx_xxx_xxx' : true}
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+
+block nav
+  //- grobalNav / ''に入れた部分がcurrent表示になる
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: meta.title, //- タイトル以外を設定したいときは変更
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+  //- #Pagename はページ固有の名前に置換してください
+  #vissel2024
+
+    //- 終了対応
+    #End
+      - var endflag
+      - var endTxt = 'このキャンペーンは終了しました' //- ページ上部の文言
+      - var btnTxt = 'エントリー期間が終了しました' //- ボタンの文言
+      +endSet(endTxt)
+
+    //- Campaign Tag
+    //- Rule: https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2688949406
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー必要', //- エントリー不要は自動的に青色になります
+            //- '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+            'ネット予約・施術完了',
+            //- '毎月開催',
+          ],
+        }
+      +campaignTag(taglist)
+
+    //- ID、class名は自由
+    section#EaglesBnr.eaglesBnr(data-ratid='cpn_' + meta.directory + '_EaglesBnr' data-ratevent='appear' data-ratparam='all')
+      a(href="https://event.rakuten.co.jp/group/eagles/thankscampaign/2024/?scid=wi_egl_cpn2024_bty_00") 
+        img.-pc(src="img/eagles_950_80.jpg", alt="楽天イーグルス感謝祭 10万ポイント山分けキャンペーン") 
+        img.-sp(src="img/eagles_760_120.jpg", alt="楽天イーグルス感謝祭 10万ポイント山分けキャンペーン") 
+
+    section#Main.main(data-ratid='cpn_' + meta.directory + '_Main' data-ratevent='appear' data-ratparam='all')
+      //- Use h1
+      h1.main__title
+        img.main__titleImg.-pc(src='img/main.png' + parameter, alt=meta.title)
+        img.main__titleImg.-sp(src='img/main_sp.png' + parameter, alt=meta.title)
+      .main__terms
+        .main__termsBox
+          p.main__termsTxt
+            | 対象条件：期間中のエントリー／3,000円(税込)以上のネット予約・施術完了
+          p.main__termsTxt
+            | 対象の予約期間：2024年11月14日 10:00 ～ 2024年11月21日 9:59
+            span.-pc
+              | ／
+            br.-sp
+            | 対象の施術期間：2024年11月14日 10:00 ～ 2024年12月31日 23:59
+          p.main__termsTxt.-small
+            | ※本キャンペーンは予告なく変更・中止される可能性がございます。
+          p.main__termsTxt.-small
+            | ※進呈するポイント（期間限定ポイントを含む）には上限や条件があります。
+          p.main__termsTxt.-small
+            | キャンペーン詳細は
+            a.main__termsLink(href='#Detail')
+              | こちら
+
+    //- Entry Btn
+    section#EntryBox.entryBox(data-ratid='cpn_' + meta.directory + '_EntryBox' data-ratevent='appear' data-ratparam='all')
+
+      //- 終了対応
+      if endflag == true
+        //- ボタンセット(url,txt,endflag)
+        +btnSet('',btnTxt,true)
+      else
+
+        //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+        //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+        // ReX Campaign Entry Button: Mounting points
+        // mounting point for button 1
+        #rex-ceb-01
+        // ReX Campaign Entry Button: Configuration
+        script
+          | var rexButtons = {language: 'ja', buttons: [{"code":"/rbeauty/eagles20244","theme":"red","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","below":{"isCheckboxMandatory":true,"isChecked":true,"checkboxText":"エントリーしてメルマガを購読する","html":""},"ids":["rex-ceb-01"]}]}
+        // ReX Campaign Entry Button: Script
+        script(src='https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js' defer)
+
+        //- メルマガパーミッション
+        include ../../../../_common/pug/Module/Common/_mailPermissionTxt
+        +mailPermissionTxt()
+
+    //- flow
+    section#Flow.flow(data-ratid='cpn_' + meta.directory + '_Flow' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title キャンペーンの流れ
+      .flow__wrapper
+        p.flow__caption 
+          | キャンペーン期間中に
+          a.flow__link(href='#EntryBox')
+            | エントリー
+          | ＋
+          a.flow__link(href='#SearchArea')
+            | サロン
+          | のネット予約・施術された方で 
+          span.-visselRed 10 万ポイント山分け！
+        ul.flow__boxWrap
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 1
+            .flow__box1
+              img.flow__boxImg(src='img/img_step_entry.png' + parameter, alt='Step1' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 1
+              p.flow__txt
+                a.flow__link(href='#EntryBox')
+                  | エントリー
+                | する
+                br
+                | （予約後でもOK！）
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 2
+            .flow__box1
+              img.flow__boxImg(src='/cnt/common/images/cpn-parts/img_step_rb.png' + parameter, alt='Step2' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 2
+              p.flow__txt
+                | 11月21日(木) 9:59までに
+                br
+                a.flow__link(href='#SearchArea')
+                  | サロン
+                | にネット予約
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 3
+            .flow__box1
+              img.flow__boxImg(src='/cnt/common/images/cpn-parts/img_step_salon.png' + parameter, alt='Step3' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 3
+              p.flow__txt
+                | 12月31日(火)までに
+                br
+                | 施術完了
+          li.flow__box
+            .flow__box0.-pc
+              p.flow__boxTitle
+                | Step 4
+            .flow__box1
+              img.flow__boxImg(src='/cnt/common/images/cpn-parts/img_step_point.png' + parameter, alt='Step4' width='200' height='200')
+            .flow__box2
+              p.flow__boxTitle.-sp
+                | Step 4
+              p.flow__txt
+                | 10 万ポイント山分け！
+              p.flow__txt.-small
+                | ※ポイント進呈に関する詳細は
+                a.flow__link(href='#Detail')
+                  | こちら
+      ul.flow__attention
+        li.flow__txt.-small
+          | キャンペーン期間内であれば、エントリーとネット予約・施術の順番は問いません。
+        li.flow__txt.-small
+          | ポイントの付与は2025年1月末頃を予定しています。キャンペーン詳細は
+          a.flow__link(href='#Detail')
+            | こちら
+          | 。
+
+    //- Area Search
+    section#SearchArea.searchArea(data-ratid='cpn_' + meta.directory + '_SearchArea' data-ratevent='appear' data-ratparam='all')
+      h3.titleWrap--subtitle 対象サロンを探す
+
+      //- プロパティをつけると検索内容をカスタマイズできます
+      //- https://git.rakuten-it.com/projects/RBEAUT/repos/rbeautyuicomponent/browse/src/components/ShopSearch/readme.md
+      #shopSearch(default-genre-id="", default-prefectures-id="13", search-style="", search-type="")
+        include ../../../../_common/pug/Module/Common/_shopSearchList
+
+    //- banner
+    section#Banner.banner(data-ratid='cpn_' + meta.directory + '_Banner' data-ratevent='appear' data-ratparam='all')
+      .banner__box
+        a.banner__link(href='https://event.rakuten.co.jp/group/eagles/thankscampaign/2024/?scid=wi_egl_cpn2024_bty_00')
+          img.banner__img(src='img/eagles_banner.jpg' + parameter, alt='楽天イーグルス感謝祭 10万ポイント山分けキャンペーン' width='700' height='200')
+
+    //- app DL
+    section#App.app.-excludeApp(data-ratid='cpn_' + meta.directory + '_App' data-ratevent='appear' data-ratparam='all')
+
+      //- app DL parts(app2x or app3x, url)
+      //- キャンペーン対象地域が宮城、兵庫のみの場合は'app3x'に変更推奨 / DL用のAdjust URLを変えたい時はurlを変更
+      +appDL('app2x','https://app.adjust.com/1br8kbt0')
+
+    //- Campaign Detail
+    section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+      .detailBox
+        .titleWrap
+          h2.titleWrap--title キャンペーン詳細
+        //- h3.titleWrap--subtitle
+        p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+        table.detail__table
+          tbody
+            tr.detail__tableBlock
+              th.detail__tableBlockHead エントリー・予約期間
+              td.detail__tableBlockBody 2024年11月14日(木) 10:00～2024年11月21日(木) 9:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 施術期間
+              td.detail__tableBlockBody 2024年11月14日(木) 10:00～2024年12月31日(火) 23:59まで
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 対象者
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                p.detail__tableBlockTxt--space
+                p.detail__tableBlockTxt ＜対象条件＞
+                ul.detail__tableBlockList--disc
+                  li.detail__tableBlockList--li エントリーをされた方
+                  li.detail__tableBlockList--li 予約期間中に楽天ビューティで 3,000 円以上(税込)ネット予約された方
+                  li.detail__tableBlockList--li 施術期間中に施術を完了された方
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li エントリーには楽天会員登録が必要です。楽天会員でない方は、エントリーと同時に楽天会員登録(無料)ができます。
+                  li.detail__tableBlockList--li エントリー履歴は
+                    a.detail__tableBlockTxt--link(href="https://oubo.rakuten.co.jp/list?spk=f1636b")
+                      | こちら
+                    | から確認できます。
+                  li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、
+                    span.detail__tableBlockTxt--red クーポン割引後
+                    | の価格が3,000円(税込)以上の場合に対象となります。
+                  li.detail__tableBlockList--li 電話予約や直接来店、Webページからのネット予約は対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約や直接来店で施術完了された場合は、ポイント進呈の対象外となります。
+                  li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の来店期間内で施術完了された場合は、ポイント進呈の対象となります。
+                  li.detail__tableBlockList--li 期間内の予約・施術完了であればエントリーと予約・施術完了どちらが先でも対象となります。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 特典内容
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 対象条件を満たした方で、楽天ポイント 10 万ポイントを山分けして進呈いたします。
+                p.detail__tableBlockTxt--space
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 10 万ポイントを条件達成された方の人数で割り、小数点以下を切り捨てたポイント数を進呈いたします。
+                  li.detail__tableBlockList--li 条件を満たした方が 10 万名より多い場合は、お一人様あたり 1 ポイントを進呈いたします。
+                  li.detail__tableBlockList--li 条件を満たした方へのポイントは、200 ポイントを上限といたします。そのため、ご参加いただいた人数によっては、10 万ポイントの山分けにならない場合がございます。
+                  li.detail__tableBlockList--li 現在実施中のキャンペーンとの併用が可能です（一部併用が出来ないキャンペーンもございます）
+                    a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/')
+                      | キャンペーン一覧はこちら
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント進呈予定日
+              td.detail__tableBlockBody
+                p.detail__tableBlockTxt 2025年1月末頃
+                p.detail__tableBlockTxt 獲得した特典ポイントは、
+                  a.detail__tableBlockTxt--link(href='https://point.rakuten.co.jp/history/')
+                    | 楽天PointClubのポイント実績
+                  | でご確認いただけます。
+            tr.detail__tableBlock
+              th.detail__tableBlockHead ポイント有効期限
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList--none
+                  li.detail__tableBlockList--li ポイント進呈日から 6 ヶ月間有効な期間限定ポイントとして進呈されます。
+                  li.detail__tableBlockList--li 期間限定ポイントの詳細は
+                    a.detail__tableBlockTxt--link(href='https://ichiba.faq.rakuten.net/detail/000006532?scid=su_2312')
+                      | こちら
+                    | をご確認ください。　
+            tr.detail__tableBlock
+              th.detail__tableBlockHead 注意事項
+              td.detail__tableBlockBody
+                ul.detail__tableBlockList
+                  li.detail__tableBlockList--li 一部ネット予約が行えないサロンがございます。また、サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                  li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                  li.detail__tableBlockList--li 取得したユーザ情報は
+                    a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                      | 個人情報保護方針
+                    | に基づいてお取り扱いいたします。
+                  li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                  li.detail__tableBlockList--li キャンペーンのエントリー及び条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                  li.detail__tableBlockList--li 「QRコード」は、株式会社デンソーウェーブの登録商標です。
+                  li.detail__tableBlockList--li 本キャンペーンは楽天グループ株式会社「楽天ビューティ」が主催しているものであり、Apple Inc., Apple Japan 合同会社によるものではありません。
+                  li.detail__tableBlockList--li その他ご不明な点は
+                    a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/')
+                      | こちら
+                    | よりお問い合わせください。
+
+    //- Other Campaign
+    section#Campaign.campaign(data-ratid='cpn_' + meta.directory + '_Campaign' data-ratevent='appear' data-ratparam='all')
+      .titleWrap
+        h2.titleWrap--title その他のキャンペーン
+
+      include ../../../../_common/pug/Module/Common/_campaignList
+      +campaignList()
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- エリア検索
+  script(src="/cnt/common/js/area-search/shopSearch.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //- ボタン+checkbox（vue）
+  script(src="/cnt/common/js/cpn-parts/btn_checkbox.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- あればここに書く

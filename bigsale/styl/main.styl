@@ -1,0 +1,648 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+redColor = #bf0000
+pinkColor = #FCE9F9
+yellowColor = #FFE066
+
+pcWidth = 1216px
+
+//------------------------------
+
+#Pagename　// #Pagenameはページ固有の名前に置換してください
+
+  // 共通パーツは_common/stylus/Module/Common/_campaignParts.stylにあります
+  // 各ページでカスタム使用したい場合はclass名で上書きしてください
+
+  // common
+  // override
+  .titleWrap
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+
+  // main
+  .main
+    margin-bottom: 40px
+    +sp()
+      margin-bottom: 24px
+    .main__title
+      display: block
+      width:pcWidth
+      margin: 0 auto
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin: 0 auto
+      &Img
+        width:100%
+    .main__terms
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.3rem
+          &.-big
+            font-weight: bold
+            +pc()
+              font-size: 2.2rem
+            +sp()
+              font-size: 1.6rem
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+          .-small
+            font-size: 1.1rem
+            vertical-align: super
+        .main__termsLink
+          color:secondColor
+    // 毎月開催
+    .main__termsAlways
+      // display: flex
+      // flex-direction: column
+      // align-items: center
+      text-align: center
+      //
+      margin: 0 auto
+      box-sizing: border-box
+      background: grayBgColor
+      +pc()
+        width:pcWidth
+        padding: 20px
+      +sp()
+        padding: 8px 10px
+      .main__termsBox
+        width: 100% //IE対応
+        margin: 0 auto
+        &:first-of-type
+          display: block
+          border-bottom: 1px solid secondColor
+          +pc()
+            width: 800px
+            margin-bottom: 10px
+            padding-bottom: 10px
+          +sp()
+            margin-bottom: 8px
+            padding-bottom: 8px
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          font-weight: bold
+          margin-bottom: 0.4rem
+          +pc()
+            display: block
+            font-size: 1.8rem
+          +sp()
+            font-size: 1.4rem
+          &.-big
+            line-height 1.3
+            color: secondColor
+            margin: 0
+            +pc()
+              font-size: 2.8rem
+            +sp()
+              font-size: 1.6rem
+          &.-small
+            color:grayTxtColor
+            font-weight: normal
+            margin: 0
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.2rem
+        .main__termsLink
+          color:secondColor
+
+  // entry btn
+  .entryBox
+    +pc()
+      margin-bottom: 40px
+    +sp()
+      margin: 0 16px 24px
+
+    // ReX Entry btn
+    @import passStr + '_common/stylus/Module/Common/_btnEntry'
+    btnEntry()
+
+    // paermission text
+    @import passStr + '_common/stylus/Module/Common/_mailPermissionTxt'
+    mailPermissionTxt()
+
+    // 終了対応
+    // ボタンセット(bgColor,txtColor)
+    btnSet(grayTagColor, #fff)
+
+
+  //- flow
+  .flow
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+    // common
+    .flow__boxTitle
+      text-align: center
+      line-height: 1.5
+      font-weight: bold
+      color: grayTxtColor
+      +pc()
+        font-size: 2.4rem
+      +sp()
+        font-size: 1.6rem
+        margin-bottom: 8px
+    .flow__txt
+      text-align: center
+      line-height: 1.5
+      color: grayTxtColor
+      +pc()
+        font-size: 1.8rem
+        font-weight: bold
+      +sp()
+        font-size: 1.4rem
+      &.-small
+        margin-top: 8px
+        +pc()
+          font-size: 1.4rem
+          font-weight: normal
+        +sp()
+          font-size: 1.2rem
+    .flow__link
+      color: secondColor
+      &:hover
+        opacity: .8
+    .flow__boxImg
+      width: 100%
+      height: auto
+    // contents
+    .flow__wrapper
+      +pc()
+        margin-bottom: 24px
+      +sp()
+        background-color: grayBgColor
+        padding:24px 16px
+        box-sizing: border-box
+      .flow__caption
+        text-align: center
+        color: grayTxtColor
+        font-weight:bold
+        +pc()
+          font-size: 2rem
+          line-height: 1.5
+          margin-bottom: 40px
+        +sp()
+          font-size: 1.4rem
+          line-height: 1.5
+          margin-bottom: 16px
+      .flow__boxWrap
+        +pc()
+          display: flex
+          justify-content: space-between
+          //
+          width: 1160px
+          margin: 0 auto
+        .flow__box
+          display: flex
+          align-items: center
+          //
+          position: relative
+          background: grayBgColor
+          box-sizing: border-box
+          +pc()
+            flex-direction: column
+            //
+            width: 260px
+            padding: 16px
+            border-radius: 8px
+          +sp()
+            justify-content: center
+            // 
+            margin: 0 auto 16px
+          &::after
+            +pc()
+              content:''
+              position: absolute
+              top:calc((100% - 20px * 2) / 2)
+              right: -32px
+              arrowFill(right,20px,grayTagColor)
+          &:last-of-type
+            margin-bottom: 0
+            &::after
+              display: none
+          .flow__box0
+            +pc()
+              margin-bottom: 16px
+          .flow__box1
+            +pc()
+              width: 200px
+              height: 200px
+              margin-bottom: 16px
+            +sp()
+              flex-shrink: 0
+              //
+              width: 100px
+              height: 100px
+              margin-left: 8px
+          &:last-of-type
+            .flow__box1
+              &::after
+                border:none
+          .flow__box2
+            position: relative
+            width: 100%
+            +pc()
+              display: flex
+              flex-direction: column
+              align-items: center
+              // 
+              height: 100%
+            +sp()
+              max-width: 200px
+              margin: 0 8px
+            // override
+            .flow__txt
+              &.-small
+                +sp()
+                  color: grayTagColor
+            &::after
+              +sp()
+                z-index:100
+                content:''
+                position: absolute
+                left:calc((100% - 10px * 2) / 2)
+                bottom: -24px
+                arrowFill(bottom,10px,grayTagColor)
+          &:last-of-type
+            .flow__box2
+              &::after
+                border:none
+    .flow__attention
+      margin: 0 auto
+      +pc()
+        width: 1160px
+      +sp()
+        width: auto
+        margin: 16px 16px 0
+      // override
+      .flow__txt
+        text-align: left
+        line-height: 1.8
+        &::before
+          display:inline-block
+          margin:0
+          content:'※'
+          text-indent:-1.8rem
+          +sp()
+            text-indent:-1.6rem
+        +pc()
+          margin-left: 1.8rem // text-indent分
+        +sp()
+          margin-left: 1.6rem // text-indent分
+        &.-small
+          margin-top: 0
+
+  
+  //- Services
+  #Services
+    +pc()
+     margin-bottom: 60px
+    .Services-list
+      display: flex
+      justify-content: space-around
+      max-width: 1160px
+      margin: 0 auto 32px
+      +sp()
+        flex-wrap: wrap
+        justify-content: center
+        margin-bottom: 0
+      .Services-list-li 
+        text-align: center
+        +sp()
+          margin-bottom: 16px
+      +sp()
+        .Services-list-li:nth-child(odd)
+          margin-right: 12px
+      a
+        color:secondColor
+        font-weight: bold
+        +pc()
+          font-size: 1.8rem
+        +sp()
+          font-size: 1.2rem
+        img
+          +pc()
+            margin-bottom: 10px
+          +sp()
+            height: 15vw
+            max-height: 106px
+            margin-bottom: 4px
+    .services__attention
+      margin: 0 auto
+      +pc()
+        width: 1160px
+        font-size: 1.4rem
+      +sp()
+        width: auto
+        margin: 0 16px
+      // override
+      .services__txt
+        text-align: left
+        line-height: 1.8
+        &::before
+          display:inline-block
+          margin:0
+          content:'※'
+          text-indent:-1.8rem
+          +sp()
+            text-indent:-1.6rem
+        +pc()
+          margin-left: 1.8rem // text-indent分
+        +sp()
+          margin-left: 1.6rem // text-indent分
+        &.-small
+          margin-top: 0
+        .services__link
+          color:  secondColor
+
+  //-  楽天市場のお買い物ポイントも対象！
+  .rb-SPU
+    background: redColor
+    line-height: 1.3
+    +pc()
+      padding: 40px
+      margin-bottom: 40px
+    +sp()
+      padding: 20px 10px
+      margin-bottom: 20px
+    .titleWrap--subtitle
+      color: yellowColor
+      text-align: center
+      line-height: 1.3
+      margin: 0 auto 20px
+      .-white
+        color: #fff
+      +pc()
+        font-size: 3.4rem
+        margin-bottom: 30px
+        .textcolor
+          display: block
+      +sp()
+        font-size: 2.6rem
+      .-small
+        display: inline-block
+        margin-top: 6px
+        color: #fff
+        +pc()
+          font-size: 1.4rem
+        +sp()
+          font-size: 1.2rem
+        font-weight: normal
+        a
+          color: yellowColor
+    .rb-SPU_box
+      background-color: white
+      text-align: center
+      max-width: 992px
+      margin: 0 auto
+      +pc()
+        padding: 40px
+      +sp()
+        padding: 16px
+      .rb-SPU_logo
+        margin-bottom: 24px
+        img
+          width:100%
+          max-width: 400px
+      .rb-SPU_img
+        margin-bottom: 16px
+      +sp()
+        img
+          width:100%
+          max-width: 524px
+    .rb-SPU__attention
+      margin: 0 auto
+      +pc()
+        width: 1160px
+        font-size: 1.4rem
+      +sp()
+        width: auto
+        margin: 0
+      // override
+      .rb-SPU__txt
+        text-align: left
+        line-height: 1.8
+        &::before
+          display:inline-block
+          margin:0
+          content:'※'
+          text-indent:-1.8rem
+          +sp()
+            text-indent:-1.6rem
+        +pc()
+          margin-left: 1.8rem // text-indent分
+        +sp()
+          margin-left: 1.6rem // text-indent分
+        &.-red
+          color: redColor
+          font-weight: bold
+
+  // もっとキレイ、もっとお得に！
+  .rb-more
+    text-align: center
+    padding: 0
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 32px
+    .titleWrap--subtitle
+      color: redColor
+      margin-bottom: 10px 
+      line-height: 1.3
+      +pc()
+        font-size: 3.4rem
+      +sp()
+        font-size: 2.6rem
+    .rb-more__termsTxt
+      font-size: 1.6rem
+      +pc()
+        margin-bottom: 30px
+      +sp()
+        margin: 0 16px 20px
+    .main__termsBox
+      +sp()
+        margin: 0 16px
+      .main__termsBoxWrap
+        margin: 0 auto
+        +pc()
+          display: flex
+          justify-content: space-between
+          width: 950px
+        +sp()
+          display: block
+          width: auto
+        .maintermsBox
+          border: 1px solid #d1d1d1
+          border-radius: 8px
+          box-sizing: border-box
+          +pc()
+            padding: 24px
+            width: 300px
+          +sp()
+            display: flex
+            padding: 16px 10px
+            margin-bottom: 10px 
+            width: auto
+            flex-direction: row-reverse
+            align-items: center
+          .mainTxtBox
+            +pc()
+              font-size: 2rem
+              margin-bottom: 16px
+            +sp()
+              font-size: 1.6rem
+              text-align: left
+              margin-bottom: 0
+              width: 100%
+          .mainImgBox
+            +sp()
+              width: 50%;
+              max-width: 160px;
+              margin-right: 10px
+            .mainBoxImg
+              +pc()
+                width: 172px
+                height: 172px
+              +sp()
+                width: 100%
+                height: auto
+
+  // banner
+  .banner
+    margin: 0 auto 60px
+    +sp()
+      margin-bottom: 40px
+    .banner__box
+      width: 100%
+      margin: 0 auto
+      text-align: center
+      background-color: grayBgColor
+      box-sizing: border-box
+      +pc()
+        padding: 24px
+      +sp()
+        width: auto
+        margin: 0 8px
+        padding: 10px 16px 16px
+      .banner__txt
+        font-weight: bold
+        line-height: 1.5
+        +pc()
+          font-size 2rem
+          padding-bottom: 24px
+        +sp()
+          font-size 1.4rem
+          padding-bottom: 8px
+      .banner__boxInner
+        background-color: #fff
+        box-sizing: border-box
+        +pc()
+          padding: 24px
+          width 842px
+          margin 0 auto
+        +sp()
+          padding: 16px
+        .banner__link
+          display: block
+          width: auto
+          max-width: 540px
+          margin: 0 auto
+          transition: opacity .2s ease-out
+          &:hover
+            opacity: 0.8
+          .banner__img
+            width: 100%
+            height: auto
+
+  // Search Area
+  .searchArea
+    background: pinkColor
+    +pc()
+      display: block
+      padding: 32px 0
+    .titleWrap--subtitle
+      color: #333
+      .-small
+        display: block
+        font-weight: normal
+        +pc()
+          font-size: 1.4rem
+        +sp()
+          font-size: 1.2rem
+
+    //- Search Area Component / ()内に色を入れる
+    @import passStr + '_common/stylus/Module/Common/_searchArea'
+    searchArea(yellowColor)
+
+    .feature-search__form 
+      .feature-search__item select
+        border-color: #333
+
+      .feature-search__buttonItem .feature-search__button
+        color: #333
+
+  // Campaign Deatail
+  .detail
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+  
+  // Other Campaign
+  .campaign
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)
+
+  #PC_footer #footerRakutenBnr
+    float: right 

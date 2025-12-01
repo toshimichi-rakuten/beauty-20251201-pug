@@ -1,0 +1,377 @@
+passStr = '../../../../../'
+@import passStr + '_common/stylus/Base/_init'
+
+//------------------------------// Common - このページで使う共通設定。自由に設定可能
+
+mainColor = #cc5777
+mainColorSub = #f3abbf
+secondColor = #45a9bc
+secondColorSub = #98ccd6
+grayBgColor = #f7f7f7
+grayTxtColor = #333333
+grayTagColor = #828282
+grayLineColor = #d1d1d1
+
+pinkColor = #c0347a
+redColor = #bf0000
+pcWidth = 1216px
+pcInnerWidth = 970px
+
+//------------------------------
+
+#Gakuwari　// #Pagenameはページ固有の名前に置換してください
+
+  // common
+  // override
+  .titleWrap
+    border: none
+    text-align: center
+    margin: 0 auto
+    padding: 0
+    .titleWrap--title
+      border: none
+      +pc()
+        font-size: 2.6rem
+        padding: 8px
+        margin-bottom: 32px
+      +sp()
+        font-size: 1.6rem
+        margin-bottom: 16px
+  // override
+  .titleWrap--subtitle
+    font-size:3.6rem
+    color:pinkColor
+    margin-bottom: 16px
+    +sp()
+      font-size:1.6rem
+      margin: 0 auto 16px
+    &::before
+    &::after
+      content: ''
+      display: inline-block
+      vertical-align: middle
+      width: 34px
+      height:2px
+      border-bottom: 2px solid pinkColor
+      +sp()
+        width: 24px
+      height:2px
+    &::before
+      transform:rotate(45deg)
+    &::after
+      transform:rotate(-45deg)
+
+  // title
+  .title
+    text-align: center
+    .titleLogo
+      width: 720px
+      margin: 0 auto 16px
+      +sp()
+        width: auto
+        margin: 0 auto
+        padding: 0 8px
+        box-sizing: border-box
+      .titleLogoImg
+        width: 100%
+    // override
+    .titleWrap--subtitle
+      color:grayTxtColor
+      +sp()
+        margin-bottom: 8px
+      &::before
+      &::after
+        border-color: grayTxtColor
+    .titleLabel
+      display: flex
+      justify-content: center
+      align-items: center
+      //
+      margin: 0 auto 40px
+      +sp()
+        margin: 0 auto 16px
+      .titleLabelBox
+        margin-right: 8px
+        &:last-of-type
+          margin-right: 0
+        .titleLabelBoxTxt
+          font-size: 3rem
+          font-weight: bold
+          color: grayTxtcolor
+          +sp()
+            font-size: 1.5rem
+        .titleLabelBoxImg
+          width: 100%
+          +sp()
+            width: 92px
+
+  // main
+  .main
+    margin-bottom: (60px - 8px)
+    +sp()
+      margin-bottom: (24px - 8px)
+    &__title
+      display: block
+      width:1100px
+      margin: 0 auto 16px
+      line-height:1
+      font-size:1.4rem
+      text-align: center
+      +sp()
+        width:100%
+        margin-bottom: 0
+      &Img
+        width:100%
+    .main__terms
+      text-align: center
+      padding: 8px 10px
+      margin: 0 auto
+      box-sizing: border-box
+      +pc()
+        width:pcWidth
+      .main__termsBox
+        .main__termsTxt
+          line-height 1.5
+          color:grayTxtColor
+          +pc()
+            display: block
+            font-size: 1.6rem
+          +sp()
+            font-size: 1.2rem
+          &.-small
+            color:grayTxtColor
+            +pc()
+              display: inline-block
+              font-size: 1.4rem
+            +sp()
+              display: inline
+              font-size: 1.1rem
+          &.-red
+            color: redColor
+        .main__termsLink
+          color:secondColor
+
+  // salon
+  .salon
+    text-align: center
+    +pc()
+      margin: 0 auto 48px
+    +sp()
+      margin: 0 auto 24px
+    .titleWrap
+      //ovrride
+      margin-bottom: 40px
+      +sp()
+        margin-bottom: 16px
+    .salonBoxWrapper
+      .salonBoxInner
+        display: flex
+        justify-content: center
+        +sp()
+          flex-wrap: wrap
+        .salonBox
+          max-width: 150px
+          margin-right: 40px
+          +pc()
+            &:last-of-type
+              margin-right:0
+          +sp()
+            width: 40%
+            margin:0 8px
+            &:nth-of-type(-n+2)
+              margin-bottom: 16px
+          .salonLink
+            display: block
+            transition: opacity 0.2s ease
+            &:hover
+              opacity:0.6
+            .salonImg
+              width: 100%
+
+  // app DL
+  .app
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      margin-bottom: 40px
+
+    // app DL parts(bgColor)
+    // 目立たせたい時は #FFE8E8 など推奨
+    appDL(#FFE8E8)
+
+  //- service btn
+  .service
+    text-align: center
+    font-size: 3rem
+    font-weight: bold
+    +pc()
+      margin-bottom: 60px
+    +sp()
+      font-size: 1.6rem
+      margin: 0 10px 24px
+    .serviceTitle
+      color: grayTxtColor
+      line-height: 1.2
+      +pc()
+        margin-bottom: 24px
+      +sp()
+        margin-bottom: 16px
+    .serviceBtnRb
+    .serviceBtnGakuwari
+      display: block
+      margin: 0 auto
+      color: #fff
+      box-sizing: border-box
+      border-radius: 100px
+      transition: opacity 0.2s ease
+      &:hover
+        opacity:0.6
+      +pc()
+        width: 640px
+        padding: 32px
+      +sp()
+        max-width: 640px
+        padding: 24px
+    .serviceBtnGakuwari
+      background: redColor
+
+  // about gakuwari
+  .aboutGakuwari
+    margin-bottom: 60px
+    +sp()
+      margin-bottom: 24px
+    .aboutGakuwari__box
+      box-sizing: border-box
+      +pc()
+        width: pcWidth
+        margin: 0 auto
+      +sp()
+        width: auto
+      .titleWrap
+        position: relative
+        cursor: pointer
+        .titleWrap--title
+          //
+        .icon-plus
+        .icon-minus
+          font-size: 2rem
+          position: absolute
+          top: calc((100% - 20px)/2)
+          right: 16px
+      .aboutGakuwari__contents
+        display: none
+        margin: 8px
+        box-sizing: border-box
+        +pc()
+          @import _cmn_pc
+        +sp()
+          @import _cmn_sp
+
+  //- pointget
+  .pointget
+    width: pcWidth
+    margin: 0 auto 60px
+    +sp()
+      width: auto
+      margin: 0 auto 24px
+    .titleWrap
+      .titleWrap--title
+        //
+    .pointgetWrapper
+      .pointgetBoxInner
+        display: flex
+        +pc()
+          justify-content: center
+        +sp()
+          flex-direction: column
+          //
+          margin: 0 8px
+        .pointgetBox
+          +pc()
+            margin-right: 48px
+            &:last-of-type
+              margin-right:0
+          +sp()
+            margin-bottom: 16px
+            &:last-of-type
+              margin-bottom:0
+          .pointgetImg
+            width: auto
+            +sp()
+              width: 100%
+
+  // Campaign List
+  .campaignLists
+    width: pcWidth
+    margin: 0 auto 60px
+    +sp()
+      width: auto
+      margin: 0 auto 24px
+
+    // Campaign List / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+    @import passStr + '_common/stylus/Module/Common/_campaignList'
+    campaignList(pcWidth)
+
+    // override
+    .campaignList
+      +sp()
+        margin: 0 auto
+
+  // Campaign Deatail / ()の中にwidthを入れる。SPは何もしなくてもwidth:autoになる
+  .detail
+    width: pcWidth
+    margin: 0 auto 60px
+    +sp()
+      width: auto
+      margin: 0 auto 24px
+
+    @import passStr + '_common/stylus/Module/Common/_campaignDetail'
+    campaignDetail(pcWidth)
+
+    // override
+    .detailBox
+      .detail__tableBlockHead
+        +pc()
+          width: 16%
+
+  //- gakuwari back btn
+  .backBtn
+    text-align: center
+    font-size: 3rem
+    font-weight: bold
+    +pc()
+      //
+    +sp()
+      font-size: 1.6rem
+      margin: 0 10px 40px
+    .backBtnLink
+      display: block
+      margin: 0 auto
+      color: #fff
+      background: redColor
+      box-sizing: border-box
+      border-radius: 100px
+      transition: opacity 0.2s ease
+      &:hover
+        opacity:0.6
+      +pc()
+        width: 640px
+        padding: 24px
+      +sp()
+        max-width: 640px
+        padding: 16px
+      .backBtnLinkBox
+        width: 100%
+        //
+        display: flex
+        justify-content: center
+        align-items: center
+        .backBtnLinkParts
+          margin-right: 8px
+          &:last-of-type
+            margin-right:0
+          .backBtnImg
+            +pc()
+              width: 240px
+            +sp()
+              width: 100%

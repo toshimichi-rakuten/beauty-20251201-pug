@@ -1,0 +1,74 @@
+//- 新クーポンLP専用テンプレート。毎回最新のものをフォルダごと複製して使用してください
+//- テンプレートの種類について：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=2443993509
+//- CSV Coupon Template / ver 1.4.1 / 更新日時：2025.4.7 / クーポン注意事項追記・クーポン使い方画像切り替え追加
+
+-
+  //- こちらは基本更新の必要はありません。 店舗リストの設定変更が必要な場合のみ更新
+
+  //- 全員対象のクーポンがあればそちらのタイトルとディスクリプションを表示。なければ最初のクーポン
+  //- 手動で入れたい場合は''で括って手動で入れてください（例：title: 'sample'）
+  var meta = {
+    title: '美容室予約が最大1,100円OFF！DMハガキ限定クーポン配布中', //- ページタイトルとパンくずリスト
+    description: '2025年4月15日現在、楽天ビューティに掲載されているヘアサロンのうちDMハガキ対象エリアのネット予約にお使いいただけます。※他のラ・クーポンとの併用不可。※獲得済みであっても利用上限に達した場合はご利用いただけません※ネット予約確定の前に、他のネット予約が成立し利用上限枚数に達した場合にはエラーとなり、ラ・クーポンをご利用になれません※予約状況によってご希望に添えなかったり、お断りする場合もございます。※ラ・クーポンを利用した予約をキャンセルした場合、利用条件を満たしていれば、マイクーポンに返還されます。', //- ページの説明。Googleなどの検索結果でタイトルの下に表示される文章
+    url: 'https://beauty.rakuten.co.jp/cnt/topics/campaign/dm/202505_R7gnXVWz',
+    og_image: shareImg, //- 事前：デフォルト画像、獲得：img/share.pngに自動で切り替わる。手動で指定したい場合は''で括った絶対パスで入力
+    directory: directory //- ディレクトリ名, meta.directoryもCpnlistパーツ内で使用中のためここで作成
+  }
+
+  //- タグを手動で入れたい場合は下記のコメントアウトを外して入力
+  var taglist = {
+     tag: [
+       'ラ・クーポン', //- エントリー不要は自動的に青色になります
+       //- '初回利用限定', //- 初回限定と全員、両方のクーポンがある場合はタグはなし
+       '対象者限定', //- セグメントがない場合はなし
+       '美容室限定',
+     ],
+   }
+
+  //- coupon設定
+  //- クーポン内金額上のテキスト：自動切り替え(default) or クーポン名(manual)
+  //- 自動切り替えの詳細はこちら: https://confluence.rakuten-it.com/confluence/pages/editpage.action?pageId=5284144875
+  var couponTerms = 'manual'
+  //- クーポン下「対象サロンはこちら」ボタンの表示(true) or 非表示(false)
+  var salonBtnFlag = true
+
+  //- shop list
+  var shoplist = {
+    //- 検索UI 1カラム(1column) or 2カラム(2column) or 1カラムボタン(btn)
+    select: '2column',
+    //- メニュークーポン表示ON(true) or OFF(false)
+    menu: false,
+    //- 2カラム時 & 最初から絞り込みが必要な場合下記も変更
+    //- 1カラム目のデフォルト文言
+    //- 例：すべての都道府県
+    firstTxt1: 'すべての都道府県',
+    //- 初期絞り込み設定（デフォルトは空欄）
+    //- 例：東京都（jsonのselect1から1つ選ぶ）
+    firstSelect1: '',
+    //- 2カラム目のデフォルト文言
+    //- 例：すべてのエリア
+    firstTxt2: 'すべてのエリア',
+    //- 初期絞り込み設定（デフォルトは空欄）
+    //- 例：新宿（jsonのselect2から1つ選ぶ）
+    firstSelect2: '',
+
+    title: [
+      '【Special Coupon】',
+      '対象サロンはこちら！',
+    ],
+  }
+
+  //- もっと探すボタン
+  var morebtn = {
+    //- 出し分け(true/false)
+    visible: true,
+    url: '/',
+    title: '全国のサロンを探す',
+    subtxt: '※本企画のラ・クーポン対象外',
+  }
+  
+  //- howto
+  //- ラ・クーポンの使い方の画像を手動入力する場合は、コメントアウトを外して''内に画像パスを記載
+  //- var howtoStep1 = '' + parameter 
+  //- var howtoStep2 = '' + parameter 
+  //- var howtoStep3 = '' + parameter 
