@@ -1,0 +1,74 @@
+doctype html
+html(lang='ja')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title SPU(スーパーポイントアッププログラム）
+    meta(name='description', content='SPU（スーパーポイントアッププログラム）は、楽天グループサービスを使えば使うほどポイントアップするお得なプログラムです。通常ポイント1倍に加えて、楽天ビューティで当月3,000円(税込)以上のメニューでネット予約して施術完了すると、その月の楽天市場のお買い物が更にポイント+0.5倍に！')
+    link(rel='stylesheet', href='../spu/css/main.css?v20250119')
+    link(rel='stylesheet', href='../spu/css/splide.min.css')
+    script(src='//www.rakuten.co.jp/com/advance/beauty/AreaTarget_SPU_2021/responsive/condition.js')
+
+  body
+    #Spu.spu
+
+      #CpnTags
+        .campaign-tags
+          span.tag.tag-required エントリー不要
+          span.tag ネット予約・施術完了
+          span.tag 常時開催
+
+      #header.header
+        h1 SPU（スーパーポイントアッププログラム）
+
+      #rbSPU.rbSPU
+        section#rbSPUContainer.rbSPUContainer
+
+          //- SPU赤枠内
+          section#rbSPU-box.rbSPU-box(data-ratid='rbSPU-box', data-ratevent='appear', data-ratparam='all')
+            h2.rbSPU-title
+              img.rb_logo(src='../spu/img/rb_logo.png', alt='楽天ビューティ' width='100%' height='auto')
+              | 楽天ビューティご利用で
+              br(class='sp-only')
+              | ポイント＋0.5倍
+
+            div.rbSPU-tag-box
+              ul
+                li.rbSPU-tag 上限ポイントあり
+                li.rbSPU-tag 期間限定ポイント
+
+            .rbSPU-box-inner-wrap
+              .rbSPU-box-inner
+                p.rbSPU-box-inner-catch
+                  span.rbSPU-box-inner-catch-underline
+                    | 3,000円
+                    span.rbSPU-box-inner-catch-normal (税込)
+                    | 以上
+                  | の
+                  br(class='sp-only')
+                  | ネット予約＆施術完了で
+
+                p.rbSPU-box-inner-lead
+                  span.rbSPU-box-inner-underline 予約した月の
+                  | 楽天市場のお買い物が
+
+                .rbSPU-box-inner-caption
+                  .rbSPU-box-inner-caption-unit
+                    | ポイント
+                    span.rbSPU-box-inner-caption-unit-icon +
+                  .rbSPU-box-inner-caption-point
+                    | 0.5
+                    span.rbSPU-box-inner-caption-point-text 倍
+
+                .rbSPU-box-inner-left-img
+                  img(src='../spu/img/rb_coins_left.png', width='100%' height='auto')
+
+                .rbSPU-box-inner-right-img
+                  img(src='../spu/img/rb_coins_right.png', width='100%' height='auto')
+
+            .rbSPU-box-attention
+              p.rbSPU-box-attention-text ※詳細は下記をご確認ください
+
+          //- その他のコンテンツ
+          .content-area
+            p このページはFigmaから生成されたコンポーネントをベースにしています。

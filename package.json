@@ -1,0 +1,21 @@
+{
+  "name": "spu-figma",
+  "version": "1.0.0",
+  "description": "SPU campaign page with Pug",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run watch:pug\" \"npm run serve\"",
+    "watch:pug": "pug -w index-standalone.pug -o . -P",
+    "build:pug": "pug index-standalone.pug -o . -P",
+    "serve": "browser-sync start --server --files '*.html, ../spu/css/*.css, ../spu/js/*.js' --port 3000 --no-notify --no-open",
+    "build": "npm run build:pug"
+  },
+  "keywords": ["pug", "html", "campaign"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "pug-cli": "^1.0.0-alpha6",
+    "browser-sync": "^3.0.2",
+    "concurrently": "^8.2.2"
+  }
+}

@@ -1,0 +1,1051 @@
+extends ../../../../_common/pug/Base/_layout.pug
+
+block init
+  -
+    var parameter = "?v20250119"
+    var meta = {
+      title: "SPU(スーパーポイントアッププログラム）",
+      directory: "spu-figma",
+      description: "SPU（スーパーポイントアッププログラム）は、楽天グループサービスを使えば使うほどポイントアップするお得なプログラムです。通常ポイント1倍に加えて、楽天ビューティで当月3,000円(税込)以上のメニューでネット予約して施術完了すると、その月の楽天市場のお買い物が更にポイント+0.5倍に！",
+      url: "https://beauty.rakuten.co.jp/cnt/topics/campaign/spu-figma/",
+      og_image: "https://beauty.rakuten.co.jp/cnt/topics/campaign/spu/img/ogp_spu.png" + parameter,
+    }
+    var css = "../spu/css/main.css" + parameter
+
+block addHead
+  //- nofollowが必要なときはコメントを外す
+  //- meta(name='robots', content='noindex,nofollow')
+  //- PITARI_area_cpnlist（PITARI関連jsは読み込み順調整のためdeferをつけない / WebBlocksを使わない時のみ使用）
+  script(src='//www.rakuten.co.jp/com/advance/beauty/AreaTarget_SPU_2021/responsive/condition.js')
+  link(rel='stylesheet', href="../spu/css/splide.min.css")
+
+block nav
+  //- grobalNav
+  +grobalNav('/cnt/topics/')
+
+  //- breadcrumb
+  -
+    var lists = [
+      {
+        name: 'キャンペーン一覧・特集',
+        link: 'https://beauty.rakuten.co.jp/cnt/topics/',
+      },
+      {
+        name: '【SPU】楽天ビューティ月1回3,000円（税込）以上のネット予約＆施術完了でポイント＋0.5倍',
+        link: 'current', //- 'current' is no link
+      },
+    ]
+  +breadcrumb(lists)
+
+block content
+
+  #Spu.spu
+
+    #CpnTags
+      -
+        var taglist = {
+          tag: [
+            'エントリー不要', //- エントリー不要は自動的に青色になります
+            'ネット予約・施術完了',
+            '常時開催',
+          ],
+        }
+      +campaignTag(taglist)
+
+    #haeder.header
+      include ../spu/_inc_common_header_responsive
+
+    #rbSPU.rbSPU
+      section#rbSPUContainer.rbSPUContainer
+
+        //- SPU赤枠内
+        section#rbSPU-box.rbSPU-box(data-ratid='rbSPU-box', data-ratevent='appear', data-ratparam='all')
+          h2.rbSPU-title
+            img.rb_logo(src="../spu/img/rb_logo.png", alt="楽天ビューティ" width='100%' height='auto')
+            | 楽天ビューティご利用で
+            br.-sp
+            | ポイント＋0.5倍
+          div.rbSPU-tag-box
+            ul
+              li.rbSPU-tag
+                | 上限ポイントあり
+              li.rbSPU-tag
+                | 期間限定ポイント
+
+          .rbSPU-box-inner-wrap
+            .rbSPU-box-inner
+              p.rbSPU-box-inner-catch
+                span.rbSPU-box-inner-catch-underline
+                  | 3,000円
+                  span.rbSPU-box-inner-catch-normal
+                    | (税込)
+                  | 以上
+                | の
+                br.-sp
+                | ネット予約＆施術完了で
+              p.rbSPU-box-inner-lead
+                span.rbSPU-box-inner-underline
+                  | 予約した月の
+                | 楽天市場のお買い物が
+              .rbSPU-box-inner-caption
+                .rbSPU-box-inner-caption-unit
+                  | ポイント
+                  span.rbSPU-box-inner-caption-unit-icon
+                    | +
+                .rbSPU-box-inner-caption-point
+                  | 0.5
+                  span.rbSPU-box-inner-caption-point-text
+                    | 倍
+              .rbSPU-box-inner-left-img
+                img(src="../spu/img/rb_coins_left.png", width='100%' height='auto')
+              .rbSPU-box-inner-right-img
+                img(src="../spu/img/rb_coins_right.png", width='100%' height='auto')
+              .rbSPU-box-inner-panda-img
+                img(src="../spu/img/rb_coins_panda.png", width='100%' height='auto')
+              .rbSPU-box-inner-info-wrap
+                p.rbSPU-box-inner-info
+                  span.rbSPU-box-inner-info-action
+                    span.rbSPU-box-inner-info-action-underline
+                      | ※予約した月のみSPUの特典倍率の対象
+                    | となります。
+                  br
+                  | ※ご利用状況の反映には最長2日かかります。
+                  br.-sp
+                  | ※本キャンペーン���予告なく変更・中止される可能性があります。
+                  br
+                  | ※楽天市場のお買い物における楽天ビューティに関する
+                  br.-sp
+                  | 獲得上限ポイント：500ポイント
+                  br
+                  | ※獲得ポイントの上限や条件があります。
+                  br.-sp
+                  a.text-link(href="#Detail")
+                    | キャンペーン詳細はこちら≫
+
+            .rbSPU-box-inner-announce
+              p.rbSPU-box-inner-announce-title-add
+                | さらに
+              .rbSPU-box-inner-announce-box
+                p.rbSPU-box-inner-announce-title
+                  | 楽天ビューティを
+                  br
+                  | はじめてご利用する方限定
+                  span.rbSPU-box-inner-announce-title-icon
+                    img(src="../spu/img/announce-title-icon.png", width='100%' height='auto')
+              ul.rbSPU-box-inner-announce-desc-wrap
+                li.rbSPU-box-inner-announce-desc
+                  p.rbSPU-box-inner-announce-desc-text
+                    | エントリー + 条件達成で
+                    span.rbSPU-box-inner-announce-desc-text-catch
+                      | もれなく
+                    span.rbSPU-box-inner-announce-desc-text-catch-point
+                      | 300
+                    span.rbSPU-box-inner-announce-desc-text-catch
+                      | ポイント!
+              p.rbSPU-box-inner-announce-info
+                | ※獲得ポイント（期間限定）の上限や条件があります。
+                br.-sp
+                a.text-link(href="#Detail2")
+                  | キャンペーン詳細はこちら≫
+
+            //- ビューティで予約する
+            .rbSPU-content-yoyaku_inner
+              h2.ttl
+                  | 今すぐ近くのサロンを検索！
+                  //- br
+                  //- | 美容室やマッサージサロンを
+                  //- | 予約しよう！
+              .rbSPU-content-yoyaku_box
+                //- Area Search
+                #SearchArea.searchArea
+                  //- プロパティをつけると検索内容をカスタマイズできます
+                  //- https://git.rakuten-it.com/projects/RBEAUT/repos/rbeautyuicomponent/browse/src/components/ShopSearch/readme.md
+                  #shopSearch(default-genre-id="1", default-prefectures-id="13", search-style="default", search-type="?l-id=rb_spu_lp_search" data-ratid="rbSPU-boxbtn-shop-search" data-ratevent="click")
+                    include ../../../../_common/pug/Module/Common/_shopSearchList
+
+        //- navigation
+        nav#pageScrollNav.pageScrollNav
+          ul.navigation
+            li.navigation__item
+              a.navigation__link(href="#rbSPU-content-pointflow", data-ratid='rbSPU-content-nav-pointflow', data-ratevent='click', data-ratparam='all')
+                span.navigation__text
+                  span ポイント
+                  span シミュレータ
+            li.navigation__item
+              a.navigation__link(href="#rbSPU-Shop-Search", data-ratid='rbSPU-Shop-Search', data-ratevent='click', data-ratparam='all')
+                span.navigation__text
+                  span 対象サロン
+                  span を探す
+            li.navigation__item
+              a.navigation__link(href="#rbSPU-content-point", data-ratid='rbSPU-content-nav-point', data-ratevent='click', data-ratparam='all')
+                span.navigation__text
+                  span SPU
+                  span 達成条件
+            li.navigation__item
+              a.navigation__link(href="#rbSPU-content-qa", data-ratid='rbSPU-content-nav-qa', data-ratevent='click', data-ratparam='all')
+                span.navigation__text
+                  span よくある
+                  span ご質問
+
+        //- 赤枠外コンテンツ
+        section#rbSPU-content.rbSPU-content
+
+          //- ポイント付与スケジュール例
+          section#rbSPU-content-pointflow.rbSPU-content-pointflow.scroll-point.bg__pink(data-ratid='point-flow', data-ratevent='appear', data-ratparam='all')
+            h2.ttl
+              span
+                span ポイントアップ対象月・
+                span ポイント付与日を確認！
+            #point-simulation.point-simulation(:class="{ 'is-show': is_initEnd }")
+              .point-simulation__content
+                .point-simulation__main
+                  .point-simulation__form
+                    .point-simulation__section
+                      .point-simulation__form__line
+                        h3.point-simulation__title 予約月を選択
+                        .point-simulation__form__select.is-year
+                          select.point-simulation__form__year(v-model='rsv_year_selected')
+                            option(v-for="item, index in rsv_years", :value='item.value') {{ item.text }}
+                        .point-simulation__form__select.is-month
+                          select.point-simulation__form__month(v-model='rsv_month_selected')
+                            option(v-for="item, index in rsv_months", :value='item.value') {{ item.text }}
+
+                    .point-simulation__section
+                      .point-simulation__form__line
+                        h3.point-simulation__title 来店月を選択
+                        .point-simulation__form__select.is-year
+                          select.point-simulation__form__year(v-model='visit_year_selected')
+                            option(v-for="item in visit_year_month", :value='item.value') {{ item.text }}
+                        .point-simulation__form__select.is-month
+                          select.point-simulation__form__month(v-model='visit_month_selected')
+                            option(v-for="item, index in visit_months", :value='item.value') {{ item.text }}
+
+                    button#simulationSubmit.point-simulation__form__submit(v-on:click="submit_checker", data-ratid='rbSPU-point-simulation_submit', data-ratevent='click', data-ratparam='all') チェックする
+                  .point-simulation__result
+                    .point-simulation__section
+                      h3.point-simulation__title
+                        span 楽天市場のお買い物
+                        span ポイントアップ対象月
+                      p.point-simulation__date {{ result.spu_year }}年{{ result.spu_month }}月分
+                    .point-simulation__section
+                      h3.point-simulation__title ポイント付与時期
+                      p.point-simulation__date {{ result.add_year }}年{{ result.add_month }}月15日頃
+                ul.point-simulation__info
+                  li ※ 予約��た来店・施術日の変更を行った場合などのよくあるご質問は
+                    a.text-link(href="#rbSPU-content-qa")
+                      | こちら
+                  li ※ 「楽天ビューティをはじめてご利用する方限定」ポイントの進呈タイミングは異なります。
+                  li 詳しくは
+                    a.text-link(href="#Detail")
+                      | キャンペーン詳細
+                    | をご確認ください。
+              .point-simulation__accordion
+                button.point-simulation__accordion__button(@click="toggle_accordion()", data-ratid='rbSPU-point-simulation_accordion', data-ratevent='click', data-ratparam='all')
+                  span.point-simulation__accordion__button__icon
+                    i.icon-minus(v-if="is_accordion")
+                    i.icon-plus(v-else)
+                  span.point-simulation__accordion__button__text ポイントアップ対象期間とポイント付与時期のイメージを見る
+              .point-simulation__accordion__body(:class="{ 'is-expand': is_accordion }")
+                .point-simulation__accordion__body__img
+                  img(src="../spu/img/img_point.png" + parameter, width="636", alt="ポイント付与スケジュール例")
+                  p.point-simulation__note
+                    | ※ 予約した来店・施術日の変更を行った場合などのよくあるご質問は
+                    a.link-underline(href="#rbSPU-content-qa")
+                      | こちら
+
+          //- 楽天ビューティをはじめてご利用する方限定
+          section#rbSPU-content-firstuse.rbSPU-content-firstuse(data-ratid='rbSPU-content-firstuse', data-ratevent='appear', data-ratparam='all')
+            h2.ttl.-sp
+              span
+                span はじめて利用なら
+                span さらにおトク！
+            .rbSPU-content-firstuse-container-wrap
+              .rbSPU-content-firstuse-container
+                .rbSPU-content-firstuse-container-title
+                  .rbSPU-content-firstuse-container-title-icon
+                    img(src="../spu/img/img_firstuse_title_icon.png", width='100%' height='auto')
+                  .rbSPU-content-firstuse-container-title-text
+                    | 楽天ビューティを
+                    br
+                    | はじめてご利用する方限定
+                .rbSPU-content-firstuse-container-lead
+                  | 3,000円
+                  span.rbSPU-content-firstuse-container-lead-small
+                    | (税込)
+                  | 以上のネット予約＆施術完了で
+                .rbSPU-content-firstuse-container-catch
+                  .rbSPU-content-firstuse-container-catch-icon
+                    img(src="../spu/img/img_firstuse_icon.png", alt="もれなく" width='100%' height='auto')
+                  .rbSPU-content-firstuse-container-catch-point
+                    img(src="../spu/img/img_firstuse_point.png", alt="300" width='100%' height='auto')
+                  .rbSPU-content-firstuse-container-catch-text
+                    img(src="../spu/img/img_firstuse_text.png", alt="ポイントプレゼント" width='100%' height='auto')
+                .rbSPU-content-firstuse-container-summary
+                  | いつものサロンをもっとおトクに！
+                .rbSPU-content-firstuse-container-entry
+                  //- 非遷移ボタンジェネレータで作成（使い回しはできません）
+                  //- https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=4315826663
+                  // ReX Campaign Entry Button: Mounting points
+                  // mounting point for button 1
+                  #rex-ceb-01
+                  // ReX Campaign Entry Button: Configuration
+                  script
+                    | var rexButtons = {language: 'ja', buttons: [{"code":"/rbeauty/spunext202505","theme":"red","wide":true,"showCelebration":false,"alreadyAppliedText":"エントリー済みです","below":{"isCheckboxMandatory":true,"isChecked":true,"checkboxText":"エントリーしてメルマガを購読する","html":""},"ids":["rex-ceb-01"]}]}
+                  // ReX Campaign Entry Button: Script
+                  script(src='https://cdn.rex.contents.rakuten.co.jp/rex-ceb/5.1.0/static/js/main.js' defer='')
+                 
+                  //- メルマガパーミッション
+                  include ../../../../_common/pug/Module/Common/_mailPermissionTxt
+                  +mailPermissionTxt()
+
+                #entry-detail.rbSPU-content-firstuse-container-entry-detail-wrap
+                  .rbSPU-content-firstuse-container-entry-detail-title
+                    span.rbSPU-content-firstuse-container-entry-detail-title-icon
+                      img(src="../spu/img/img_firstuse_detail_icon.png", width='100%' height='auto')
+                    p.rbSPU-content-firstuse-container-entry-detail-title-text
+                      | 対象期間
+                  ul.rbSPU-content-firstuse-container-entry-detail
+                    li.rbSPU-content-firstuse-container-entry-detail-container
+                      p.rbSPU-content-firstuse-container-entry-detail-intro
+                        | エントリー・予約期間
+                      p.rbSPU-content-firstuse-container-entry-detail-text
+                        | 2025年5月1日(木)10:00〜2025年6月2日(月)9:59
+                      p.rbSPU-content-firstuse-container-entry-detail-info
+                        | ※エントリーは対象期間ごとに毎回必要です。
+                    li.rbSPU-content-firstuse-container-entry-detail-container
+                      p.rbSPU-content-firstuse-container-entry-detail-intro
+                        | 施術期間
+                      p.rbSPU-content-firstuse-container-entry-detail-text
+                        | 2025年5月1日(木)10:00〜2025年7月31日(木)23:59
+                ul.rbSPU-content-firstuse-container-info
+                  li ※進呈対象のポイント倍率及び対象条件は、開催月毎に変更となる可能性があります。
+                  li ※進呈するポイント（期間限定ポイント）には条件があります。
+                  li 詳しくは
+                    a.text-link(href="#Detail2")
+                      | キャンペーン詳細
+                    | をご確認ください。
+
+          //- ポイントアップまでの3ステップ
+          section#rbSPU-content-step.rbSPU-content-step(data-ratid='rbSPU-content-step', data-ratevent='appear', data-ratparam='all')
+            h2.ttl
+              span
+                span ポイントアップまでの3STEP！
+            //-  pc用 リスト
+            ul.rbSPU-content-step-menu.-pc
+              li.rbSPU-content-step-menu-list
+                p.rbSPU-content-step-menu-list-lead
+                  | step1
+                img.rbSPU-content-step-menu-list-img(src='../spu/img/img_step1.png' + parameter, width='100%' height='auto')
+                ul.rbSPU-content-step-menu-summary-container
+                  li.rbSPU-content-step-menu-summary
+                    img.rbSPU-content-step-menu-summary-icon(src='../spu/img/img_cisor_icon.png' + parameter, width='100%' height='auto')
+                    p.rbSPU-content-step-menu-summary-text
+                      | 楽天ビューティで
+                      br
+                      | サロンのネット予約
+                  li.rbSPU-content-step-menu-summary
+                    img.rbSPU-content-step-menu-summary-icon(src='../spu/img/img_coins_icon.png' + parameter, width='100%' height='auto')
+                    p.rbSPU-content-step-menu-summary-text
+                      | 予約月の楽天市場での
+                      br
+                      | お買い物ポイントが
+                      br
+                      | +0.5倍に！
+                .rbSPU-content-step-menu-start-container
+                  .rbSPU-content-step-menu-start-title
+                    .rbSPU-content-step-menu-start-title-icon
+                      img(src='../spu/img/img_start_icon.png' + parameter, width='100%' height='auto')
+                    p.rbSPU-content-step-menu-start-title-text
+                      | 楽天ビューティを
+                      br
+                      | はじめて利用する方限定
+                  .rbSPU-content-step-menu-start-liad
+                    | もれなく300ポイントプレゼント
+                    br
+                    | エントリーは
+                    a.text-link.rbSPU-content-step-menu-start-liad-bold(href="#rbSPU-content-firstuse")
+                      | こちら
+              li.rbSPU-content-step-menu-list
+                p.rbSPU-content-step-menu-list-lead
+                  | step2
+                img.rbSPU-content-step-menu-list-img(src='../spu/img/img_step2.png' + parameter, width='100%' height='auto')
+                ul.rbSPU-content-step-menu-summary-container
+                  li.rbSPU-content-step-menu-summary
+                    p.rbSPU-content-step-menu-summary-text
+                      | 予約から5ヶ月以内に
+                      br
+                      | サロンにて施術完了
+                .rbSPU-content-step-menu-start-container
+                  .rbSPU-content-step-menu-start-title
+                    .rbSPU-content-step-menu-start-title-icon
+                      img(src='../spu/img/img_start_icon.png' + parameter, width='100%' height='auto')
+                    p.rbSPU-content-step-menu-start-title-text
+                      | 楽天ビューティを
+                      br
+                      | はじめて利用する方限定
+                  .rbSPU-content-step-menu-start-liad
+                    | 300ポイントの獲得には
+                    a.text-link.rbSPU-content-step-menu-start-liad-bold(href="#Detail2")
+                      | 別途記載の対象期間内
+                    | の施術完了が必要です
+              li.rbSPU-content-step-menu-list
+                p.rbSPU-content-step-menu-list-lead
+                  | step3
+                img.rbSPU-content-step-menu-list-img(src='../spu/img/img_step3.png' + parameter, width='100%' height='auto')
+                ul.rbSPU-content-step-menu-summary-container
+                  li.rbSPU-content-step-menu-summary
+                    p.rbSPU-content-step-menu-summary-text
+                      | 施術完了の翌月15日頃に
+                      br
+                      | SPU分ポイント獲得
+                      span.rbSPU-content-step-menu-summary-info
+                        | ※キャンペーン詳細は
+                        a.text-link.rbSPU-content-step-menu-start-liad-bold(href="#Detail2")
+                          | こちら
+
+                .rbSPU-content-step-menu-start-container
+                  .rbSPU-content-step-menu-start-title
+                    .rbSPU-content-step-menu-start-title-icon
+                      img(src='../spu/img/img_start_icon.png' + parameter, width='100%' height='auto')
+                    p.rbSPU-content-step-menu-start-title-text
+                      | 楽天ビューティを
+                      br
+                      | はじめて利用する方限定
+                  .rbSPU-content-step-menu-start-liad
+                    | 施術完了の
+                    span.rbSPU-content-step-menu-start-liad-bold
+                      | 翌月末頃
+                    | に
+                    br
+                    | 300ポイント獲得
+
+            //-  sp用 リスト スライダー
+            .splide.-sp
+              .splide__track
+                ul.splide__list.rbSPU-content-step-menu.-sp
+                  li.splide__slide.rbSPU-content-step-menu-list
+                    p.rbSPU-content-step-menu-list-lead
+                      | step1
+                    img.rbSPU-content-step-menu-list-img(src='../spu/img/img_step1.png' + parameter, width='100%' height='auto')
+                    ul.rbSPU-content-step-menu-summary-container
+                      li.rbSPU-content-step-menu-summary
+                        img.rbSPU-content-step-menu-summary-icon(src='../spu/img/img_cisor_icon.png' + parameter, width='100%' height='auto')
+                        p.rbSPU-content-step-menu-summary-text
+                          | 楽天ビューティで
+                          br
+                          | サロンのネット予約
+                      li.rbSPU-content-step-menu-summary
+                        img.rbSPU-content-step-menu-summary-icon(src='../spu/img/img_coins_icon.png' + parameter, width='100%' height='auto')
+                        p.rbSPU-content-step-menu-summary-text
+                          | 予約月の楽天市場での
+                          br
+                          | お買い物ポイントが
+                          br
+                          | +0.5倍に！
+                    .rbSPU-content-step-menu-start-container
+                      .rbSPU-content-step-menu-start-title
+                        .rbSPU-content-step-menu-start-title-icon
+                          img(src='../spu/img/img_start_icon.png' + parameter, width='100%' height='auto')
+                        p.rbSPU-content-step-menu-start-title-text
+                          | 楽天ビューティ��
+                          br
+                          | はじめて利用する方限定
+                      .rbSPU-content-step-menu-start-liad
+                        | もれなく300ポイントプレゼント
+                        br
+                        | エントリーは
+                        a.text-link.rbSPU-content-step-menu-start-liad-bold(href="#rbSPU-content-firstuse")
+                          | こちら
+                  li.splide__slide.rbSPU-content-step-menu-list
+                    p.rbSPU-content-step-menu-list-lead
+                      | step2
+                    img.rbSPU-content-step-menu-list-img(src='../spu/img/img_step2.png' + parameter, width='100%' height='auto')
+                    ul.rbSPU-content-step-menu-summary-container
+                      li.rbSPU-content-step-menu-summary
+                        p.rbSPU-content-step-menu-summary-text
+                          | 予約から5ヶ月以内に
+                          br
+                          | サロンにて施術完了
+                    .rbSPU-content-step-menu-start-container
+                      .rbSPU-content-step-menu-start-title
+                        .rbSPU-content-step-menu-start-title-icon
+                          img(src='../spu/img/img_start_icon.png' + parameter, width='100%' height='auto')
+                        p.rbSPU-content-step-menu-start-title-text
+                          | 楽天ビューティを
+                          br
+                          | はじめて利用する方限定
+                      .rbSPU-content-step-menu-start-liad
+                        | 300ポイントの獲得には
+                        a.text-link.rbSPU-content-step-menu-start-liad-bold(href="#Detail2")
+                          | 別途記載の対象期間内
+                        | の施術完了が必要です
+                  li.splide__slide.rbSPU-content-step-menu-list
+                    p.rbSPU-content-step-menu-list-lead
+                      | step3
+                    img.rbSPU-content-step-menu-list-img(src='../spu/img/img_step3.png' + parameter, width='100%' height='auto')
+                    ul.rbSPU-content-step-menu-summary-container
+                      li.rbSPU-content-step-menu-summary
+                        p.rbSPU-content-step-menu-summary-text
+                          | 施術完了の翌月15日頃に
+                          br
+                          | SPU分ポイント獲得
+                          span.rbSPU-content-step-menu-summary-info
+                            | ※キャンペーン詳細は
+                            a.text-link(href="#Detail2")
+                              | こちら
+                    .rbSPU-content-step-menu-start-container
+                      .rbSPU-content-step-menu-start-title
+                        .rbSPU-content-step-menu-start-title-icon
+                          img(src='../spu/img/img_start_icon.png' + parameter, width='100%' height='auto')
+                        p.rbSPU-content-step-menu-start-title-text
+                          | 楽天ビューティを
+                          br
+                          | はじめて利用する方限定
+                      .rbSPU-content-step-menu-start-liad
+                        | 施術完了の
+                        span.rbSPU-content-step-menu-start-liad-bold
+                          | 翌月末頃
+                        | に
+                        br
+                        | 300ポイント獲得
+
+          //- Shop Search
+          section#rbSPU-Shop-Search.rbSPU-shop-search.bg__pink.scroll-point(data-ratid='rbSPU-Shop-Search', data-ratevent='appear', data-ratparam='all')
+            h2.ttl
+              span
+                span 楽天ビューティで予約してみよう！
+            .rbSPU-shop-search__wrap
+              .searchCategory__button__wrap
+                .searchCategory__button__icon
+                  img(src='../spu/img/img_category_button_icon.png' + parameter, width='100%' height='auto')
+                a.searchCategory__button(href="https://beauty.rakuten.co.jp/?l-id=rb_spu_lp_search_second")
+                  | 対象サロンはこちら
+              .searchCategory__wrap
+                h3.searchCategory--title
+                  | 人気メニューから探す
+                ul.searchCategory
+                  li.searchCategory__menu
+                    a.searchCategory__menuLink(href="https://beauty.rakuten.co.jp/tk101/?l-id=rb_spu_cut")
+                      span.searchCategory__menuLink__icon
+                        img(src="../spu/img/img_menu_1.png" + parameter width='100%' height='auto')
+                      | カット
+                  li.searchCategory__menu
+                    a.searchCategory__menuLink(href="https://beauty.rakuten.co.jp/men/tk135/?l-id=rb_spu_menscut")
+                      span.searchCategory__menuLink__icon
+                        img(src="../spu/img/img_menu_2.png" + parameter width='100%' height='auto')
+                      | メンズ
+                      br
+                      | カット
+                  li.searchCategory__menu
+                    a.searchCategory__menuLink(href="https://beauty.rakuten.co.jp/tk104/?l-id=rb_spu_retouchcolor")
+                      span.searchCategory__menuLink__icon
+                        img(src="../spu/img/img_menu_3.png" + parameter width='100%' height='auto')
+                      | リタッチ
+                      br
+                      | カラー
+                  li.searchCategory__menu
+                    a.searchCategory__menuLink(href="https://beauty.rakuten.co.jp/tk109/?l-id=rb_spu_headspa")
+                      span.searchCategory__menuLink__icon
+                        img(src="../spu/img/img_menu_4.png" + parameter width='100%' height='auto')
+                      | ヘッド
+                      br
+                      | スパ
+                  li.searchCategory__menu
+                    a.searchCategory__menuLink(href="https://beauty.rakuten.co.jp/relax/?l-id=rb_spu_massage")
+                      span.searchCategory__menuLink__icon
+                        img(src="../spu/img/img_menu_5.png" + parameter width='100%' height='auto')
+                      | マッサージ
+
+          //- app DL
+          section#App.app.-excludeApp(data-ratid='rbSPU-content-App' data-ratevent='appear' data-ratparam='all')
+
+            //- app DL parts(app2x or app3x)
+            //- appInfoFlag 注意文の表示/非表示 trueで表示、falseで非表示
+            - var appInfoFlag = false
+            //- キャンペーン対象地域が宮城、兵庫のみの場���は'app3x'に変更推奨
+            +appDL('app2x')
+
+          //- Web-blocks_areaBanner（PITARIを使わない時のみ使用）
+          //- #SPU-AreaBanner.rbSPU-content-areaBanner(data-ratid='rbSPU-content-areaBanner', data-ratevent='appear', data-ratparam='all')
+
+          //- PITARI_area_cpnlist（WebBlocksを使わない時のみ使用）
+          //- PITARI実装ページ一覧コンフル：https://confluence.rakuten-it.com/confluence/pages/viewpage.action?pageId=1646474551
+          #SPU-BannerPitari.rbSPU-content-pitari(data-phoenix-areatarget_spu_2021_responsive, data-ratid='rbSPU-content-pitari', data-ratevent='appear', data-ratparam='all')
+            //- PITARI読み込み確認用。下のコメントを外すとPITARIを読み込んだ状態の確認ができます。
+            //- html書き出しはpreprosで各PITARI用pugを書き出してTeamsiteにアップしてください。
+            //- 確認したい地域のpugを入れてください / 読み込み順でエラーは出るが確認可能 / 実際にPITARIで読み込むとエラーは���ない
+            //- include pitari/pitari_area_cpnlist_sendai.pug
+            //- script.
+            //-   const campaignlistsendai = true;
+
+          //- ReX UX Survey Trigger Point
+          #trigger
+
+          //- SPU達成条件
+          section#rbSPU-content-point.rbSPU-content-point.scroll-point(data-ratid='rbSPU-content-point', data-ratevent='appear', data-ratparam='all')
+            h2.ttl
+              span
+                span 楽天ビューティでの
+                span SPU達成条件
+            .point-caption
+              p.point-caption-txt
+                span.point-caption-txt.-strong.-big.-red
+                  | 1回の予約で3,000円（税込）以上のネット予約＆施術完了
+                | をしていただくと
+                br.-pc
+                span.point-caption-txt.-strong.-red
+                  | 予約した月の
+                | SPU(スーパーポイントアッププログラム)のポイントアップ対象となります。
+              p.point-txt
+                | ※ご利用状況の反映には最長2日かかります。
+            .point-table-wrap
+              table.point-table
+                thead
+                  tr
+                    th.point-table-title.-big
+                    th.point-table-title.-big.-red ○  SPU対象
+                    th.point-table-title.-big ×  SPU対象外
+                tbody
+                  tr
+                    th.point-table-title 予約方法
+                    td.point-table-txt ネット予約
+                    td.point-table-txt 電話予約
+                  tr
+                    th.point-table-title 予約金額
+                    td.point-table-txt 1回の予約・施術金額が
+                      span.point-table-txt.-bold
+                        | 3,000円以上
+                    td.point-table-txt 1回の予約・施術金額が
+                      span.point-table-txt.-bold
+                        | 2,999円以下
+                  tr
+                    th.point-table-title ラ・クーポン利用
+                    td
+                      p.point-table-txt
+                        | ラ・クーポン
+                        span.point-table-txt.-bold
+                          | 利用分を除いて
+                        span.point-table-txt.-red.-bold
+                          | 3,000円以上
+                    td
+                      p.point-table-txt
+                        | ラ・クーポン
+                        span.point-table-txt.-bold
+                          | 利用分を除いて
+                        span.point-table-txt.-red.-bold
+                          | 2,999円以下
+                      p.point-table-txt.-attention
+                        | ※
+                        span.point-table-txt.-attention.-red
+                          | 割引後の支払金額が3,000円以上
+                        | であれば対象。
+                  tr
+                    th.point-table-title ポイント利用
+                    td
+                      p.point-table-txt
+                        | ポイント
+                        span.point-table-txt.-bold
+                          | 利用分込みで
+                        span.point-table-txt.-bold.-red
+                          | 3,000円以上
+                      p.point-table-txt.-attention
+                        | ※全額ポイント利用で
+                        span.point-table-txt.-attention.-red
+                          | 現地支払い金額が0円
+                        | の場合でも対象。
+                    td
+                      p.point-table-txt
+                        | -
+                  tr
+                    th.point-table-title 来店
+                    td.point-table-txt 来店・施術完了
+                    td.point-table-txt 予約キャンセル
+            ul.point-attention
+              li.point-attention-txt 表記の金額はすべて税込価格です。
+              li.point-attention-txt 【複数回/月のご予約について】月の合計金額が3,000円（税込）以上でも、1回の予約の施術料金が3,000円（税込）未満の場合は対象外となりま���。
+              li.point-attention-txt 【来店日の変更について】予約した来店日の変更を行った場合でも来店・施術いただければ対象となります。（施術完了月の翌月15日頃に予約操作月のSPU対象のポイントが付与されます）
+
+          //- QA
+          section#rbSPU-content-qa.rbSPU-content-qa.scroll-point(data-ratid='rbSPU-content-qa', data-ratevent='appear', data-ratparam='all')
+            h2.ttl
+              span
+                | SPUについてよくあるご質問
+            .qa__listBox
+
+              //- QA内容（質問の数だけ自動で増えます）
+              -
+                QAList = [
+                  {
+                    click_name: 'SPU - SPUの達成条件が分からない',
+                    question: 'SPUの達成条件が分かりません',
+                    answer: `<p>達成条件は下記になります。</p>
+                      <p>
+                        <strong>■ エントリー</strong><br>
+                        不要
+                      </p>
+                      <p>
+                        <strong>■ 対象サロン</strong><br>
+                        すべて
+                      </p>
+
+                      <p>
+                        <strong>■ 金額条件</strong><br>
+                        3,000円（税込）以上でのネット予約＆ご来店（※）<br>
+                        ※ ネット予約時の合計金額が3,000円(税込）である必要があります。<br>
+                        ※ ポイント利用も対象となります。<br>
+                        ※ ラ・クーポン利用でも対象ですが、ラ・クーポン利用後の合計金額が3,000円（税込）以上である必要があります。<br>
+                        ※ 電話予約は対象外です。<br>
+                        ※ 「楽天ビューティをはじめてご利用する方限定」のポイント進呈条件は異なりますのでご注意ください。
+                      </p>
+
+                      <p>
+                        <strong>■ ポイン���アップ対象</strong><br>
+                        ネット予約をした月と同月の楽天市場でのお買い物分（※）<br>
+                        ※ 楽天市場でのお買い物分の+0.5倍ポイントが付与されます。
+                      </p>
+
+                      <p>
+                        <strong>■ ポイント付与日</strong><br>
+                        来店日の翌月15日頃
+                      </p>
+
+                      <p>
+                        <strong>■ 獲得ポイントの上限や条件があります。</strong><br>
+                        ・3,000 円(税込)以上のネット予約&施術完了で楽天市場のお買い物がポイント＋0.5倍<br>
+                        　キャンペー詳細は<a class="text-link" href="#Detail">こちら</a><br>
+                        ・楽天ビューティをはじめてご利用する方限定　エントリー＋条件達成でもれなく300ポイントキャンペーン<br>
+                        　キャンペー詳細は<a class="text-link" href="#Detail2">こちら</a>
+                      </p>`,
+                  },
+                  {
+                    click_name: 'SPU - ポイント●倍表記が更新されない',
+                    question: '楽天ビューティで予約したがSPUの対象としてカウントされていません',
+                    answer: `
+                      <p>SPU倍率（対象マーク）が反映されていない場合は以下のような理由が考えられます。</p>
+
+                      <p><strong>■ 反映までに時間が掛かっている（ご利用状況の反映に最長2日かかります）</strong></p>
+
+                      <p><strong>■ SPU達成条件を満たしていない</strong></p>
+                      <ol>
+                        <li>
+                          ネット予約時の金額が3,000円(税込)未満<br>
+                          ⇒ 来店後に3,000円(税込)以上のメニューに変更されても対象外です。
+                        </li>
+                        <li>
+                          来店時に3,000円(税込)未満のメニューに変更した<br>
+                          ⇒ ネット予約時に3,000円(税込)以上でも、来店後に3,000円(税込)未満のメニューに変更された場合は対象外です。
+                        </li>
+                        <li>
+                          ラ・クーポン利用後の合計金額が3,000円(税込）未満<br>
+                          ⇒ ラ・クーポン利用の場合は、合計金額からラ・クーポン分を差し引いた金額が3,000円(税込）以上である必要があります。
+                        </li>
+                        <li>電話予約</li>
+                      </ol>
+
+                      <p>
+                        <strong>■ SPU倍率(対象マーク）を確認している月と予約月が異なる</strong><br>
+                        予約した月の同月内はSPUの倍率（対象マーク）は表示されますが、翌月になると反映されません。但し、条件を満たしていれば「対象」表示に反映してい��い場合でも実際にはポイント付与となります。<br>
+                        ポイントは後日付与されますので付与状況については、【SPU】楽天ビューティ利用者特典ポイント数をご確認ください。
+                      </p>
+
+                      <p>
+                        例：4月に予約し���場合<br>
+                        ・4月SPU対象表示を確認した場合：対象マーク反映あり<br>
+                        ・5月SPU対象表示を確認した場合：対象マーク反映なし
+                      </p>
+                    `,
+                  },
+                  {
+                    click_name: 'SPU - ポイント付与日について',
+                    question: 'SPUポイントが付与される日はいつですか？',
+                    answer: '<p>来店日の翌月15日頃です。</p><p>※ 楽天ビューティでネット予約をした月と同じ月の楽天市場でのお買い物に対して+0.5倍のポイントが進呈されます。<br>※ 詳しくは来��日の翌月15日以降に「楽天point club」にて【SPU】楽天ビューティ利用者特典ポイント数をご確認ください。<br><a class="text-link" href="https://point.rakuten.co.jp/">https://point.rakuten.co.jp/</a><br>※「楽天ビューティをはじめてご利用する方限定」のポイントは来店日の翌月末頃に進呈されます。</p>',
+                  },
+                  {
+                    click_name: 'SPU - 来店日が変更になった場合について',
+                    question: '来店日が変更になった場合でもSPUの対象になりますか？',
+                    answer: '<p>予約をした月の5ヶ月以内が来店日となる変更であればSPU対象となります。</p><p>※ 予約をキャンセルされた場合は対象外です<br>※ 来店日の変更はお客様のマイページではできません。サロンにお電話で来店日変更のご連絡をお願いします。<br>※ 「楽天ビューティをはじめてご利用する方限定」キャンペーンの施術期間はSPU対象期間と異なります。詳しくは<a href="#Detail">キャンペーン詳細</a>をご確認ください。</p>',
+                  },
+                  {
+                    click_name: 'SPU - 楽天市場で購買前にした予約について',
+                    question: '楽天市場で購買前にした予約もSPUの対象になりますか？',
+                    answer: '<p>楽天市場での購買前に楽天ビューティでネット予約をした場合でも、同じ月であればSPUの対象となります。</p><p>※ ご予約をキャンセルされた場合���対象外となります</p>'
+                  },
+                  {
+                    click_name: 'SPU - 来店時にSPU条件金額以下から金額以上のメニューに変更した場合について',
+                    question: '来店時に3,000円（税込）未満のメニューから3,000円（税込）以上のメニューに変更した。SPUの対象になりますか？',
+                    answer: '<p>SPU対象にはなりません。<br>ご予約時のメニューが3,000円（税込）以上である必要があります。</p><p>▼ SPU（スーパーポイントアッププログラム)の達成条件はこちらをご確認ください<br><a class="text-link" href="https://beauty.faq.rakuten.net/user/s/detail/000003461">https://beauty.faq.rakuten.net/user/s/detail/000003461</a></p>',
+                  },
+                  {
+                    click_name: 'SPU - 同月に複数回予約した場合のSPU倍率について',
+                    question: '同じ月にネット予約を複数回した場合、SPUの倍率は変わりますか��',
+                    answer: '<p>同じ月に複数回ネット予約をされてもSPUの倍率は変わりません。<br>なお、来店日の一番早い予約がSPU対象となります。</p>',
+                  },
+                  {
+                    click_name: 'SPU - 来店月と予約月が異なる場合のSPU対象対象月に��いて',
+                    question: '来店日は同じ月だが、ネット予約をした月が異なる場合、SPU対象となるのはどの月ですか？（例：1月、2月、3月にそれぞれ3月来店の予約をした）',
+                    answer: '<p>予約した月がSPUの基準になるため、来店月が同じ月の場合もそれぞれの予約がSPU対象となります。<br>SPUポイントの付与は【来店日の翌月15日頃】です。</p>',
+                  },
+                  {
+                    click_name: 'SPU - 初回予約をキャンセルした場合について',
+                    question: '初回予約をキャンセルした場合、「楽天ビューティをはじめてご利用す���方限定」の対象になりますか？',
+                    answer: '<p>初回予約をキャンセルされた場合でも、改めて新たにご予約のうえ条件達成されますと「初めてのご利用」扱いとなり、当キャンペーンの対象となります。（予約月が変わる場合は、当キャンペーンへ��再エントリーが必要となります）</p>',
+                  }
+                ]
+                QAListBtn = {
+                  btnTxt: 'よくあるご質問一覧を見る',
+                  btnUrl: 'https://beauty.faq.rakuten.net/user/s/topic/0TO0o000000e1TBGAY/spu',
+                }
+
+              //- よくあるご質問セット
+              +QAset()
+
+          //- other campaign
+          section#Campaign.rbSPU-content-cpnList(data-ratid='rrbSPU-content-cpnList', data-ratevent='appear', data-ratparam='all').bg__pink
+            h2.ttl
+              span
+                | お得なキャンペーン開催中！
+            .cpnList
+
+              //- Campaign List
+              include ../../../../_common/pug/Module/Common/_campaignList
+              +campaignList()
+
+          //- presentation of RB
+          section#rbSPU-content-rb.rbSPU-content-rb(data-ratid='rbSPU-content-rb', data-ratevent='appear', data-ratparam='all')
+            h2.ttl
+              span
+                | 楽天ビューティの
+                br.-sp
+                | ここがオススメ
+            .rb-box
+
+              //- RBを使うわけセット
+              +presenRBset()
+
+          //- Campaign Detail
+          section#Detail.detail(data-ratid='cpn_' + meta.directory + '_Detail' data-ratevent='appear' data-ratparam='all')
+            .detailBox
+              .titleWrap
+                h2.titleWrap--title キャンペーン詳細
+              h3.titleWrap--subtitle 3,000 円(税込)以上のネット予約&施術完了で楽天市場のお買い物がポイント＋0.5 倍
+              p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+              table.detail__table
+                tbody
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead 開催期間
+                    td.detail__tableBlockBody 常時開催
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead 対象者
+                    td.detail__tableBlockBody
+                      p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                      p.detail__tableBlockTxt--space
+                      p.detail__tableBlockTxt ＜対象条件＞
+                      ul.detail__tableBlockList--disc
+                        li.detail__tableBlockList--li 楽天市場購買月の同月中に1回3,000円（税込）以上のネット予約された方
+                        li.detail__tableBlockList--li ネット予約申込月を含む5ヶ月以内に来店・施術完了された方
+                      p.detail__tableBlockTxt--space
+                      ul.detail__tableBlockList
+                        li.detail__tableBlockList--li 楽天市場で���購入と楽天ビューティのネット予約が同月中であれば条件達成の順番は問わず対象となります。
+                        li.detail__tableBlockList--li ラ・クーポンをご利用の場合、クーポン割引後の価格が3,000円(税込)以上の場合に対象となります。
+                        li.detail__tableBlockList--li 電話予約は対象外です。
+                        li.detail__tableBlockList--li 3,000円（税込）未満のネット予約は対象外です。
+
+                        li.detail__tableBlockList--li ネット予約時に3,000円（税込）未満で、来店時にメニュー追加などで3,000円（税込）以上になった場合でも、対象外となります。
+                        li.detail__tableBlockList--li ネット予約後、キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead 特典内容
+                    td.detail__tableBlockBody
+                      p.detail__tableBlockTxt ネット予約申込月の楽天市場でのお買い物がポイント+0.5倍
+                      p.detail__tableBlockTxt--space
+                      ul.detail__tableBlockList
+                        li.detail__tableBlockList--li 月間獲得上限ポイントは500ポイントまでとなります。
+                        li.detail__tableBlockList--li 200円（税抜）で1ポイント付与となります。
+                        li.detail__tableBlockList--li 小数点以下は切り捨てとなります。
+                        li.detail__tableBlockList--li 小数点以下（0.5 倍）の切り捨ての計算方法は
+                          a.detail__tableBlockTxt--link(href='https://ichiba.faq.rakuten.net/detail/000011407')
+                            | こちら
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead ポイント進呈予定日
+                    td.detail__tableBlockBody
+                      p.detail__tableBlockTxt 施術完了月の翌月15日
+                      ul.detail__tableBlockList
+                        li.detail__tableBlockList--li 獲得した特典ポイントは、
+                          a.detail__tableBlockTxt--link(href='https://point.rakuten.co.jp/history/')
+                            | 楽天PointClubのポイント実績
+                          | でご確認いただけます���
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead ポイント有効期限
+                    td.detail__tableBlockBody
+                      p.detail__tableBlockTxt 進呈月の翌月末日 23:59
+                      ul.detail__tableBlockList
+                        li.detail__tableBlockList--li 期間限定ポイントの詳細は
+                          a.detail__tableBlockTxt--link(href='https://ichiba.faq.rakuten.net/detail/000006532?scid=su_2312')
+                            | こちら
+                          | をご確認ください。
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead その他注意事項
+                    td.detail__tableBlockBody
+                      ul.detail__tableBlockList
+                        li.detail__tableBlockList--li サロンの予約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                        li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線��状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                        li.detail__tableBlockList--li 取得したユーザ情報は
+                          a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                            | 個人情報保護方針
+                          | に基づいてお取り扱いいたします。
+                        li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特��対象から除外する場合がございます。
+                        li.detail__tableBlockList--li 条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                        li.detail__tableBlockList--li その他ご不明な点は
+                          a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/')
+                            | こちら
+                          | よりお問い合わせください。
+
+              h3#Detail2.titleWrap--subtitle 楽天ビューティをはじめてご利用する方限定 エントリー＋条件達成でもれなく300ポイントキャンペーン
+              p.detail__caption ※本キャンペーンは予告なく変更・中止される可能性がございます。
+              table.detail__table
+                tbody
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead エントリー・予約期間
+                    td.detail__tableBlockBody 
+                      | 常時���催
+                      br
+                      | 2025年5月1日10:00 ～ 2025年6月2日9:59
+                      ul.detail__tableBlockList
+                        li.detail__tableBlockList--li エントリーは対象期間ごとに毎回必要です。
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead 施術期間
+                    td.detail__tableBlockBody 2025年5月1日10:00 ～ 2025年7月31日23:59
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead 対象者
+                    td.detail__tableBlockBody
+                      p.detail__tableBlockTxt 下記の対象条件を全て満たした方が、特典の対象となります。
+                      p.detail__tableBlockTxt--space
+                      p.detail__tableBlockTxt ＜対象条件＞
+                      ul.detail__tableBlockList--disc
+                        li.detail__tableBlockList--li エントリーをされた方
+                        li.detail__tableBlockList--li 初めて楽天ビューティでネット予約・施術完了された方
+                        li.detail__tableBlockList--li 予約期間中に1回3,000円（税込）以上のネット予約された方
+                        li.detail__tableBlockList--li 施術期間中に施術を完了された方
+                      p.detail__tableBlockTxt--space
+                      ul.detail__tableBlockList
+                        li.detail__tableBlockList--li エントリーには楽天会員登録が必要です。楽天会員でない方は、エントリーと同時に楽天会員登録(無料)ができます。
+                        li.detail__tableBlockList--li エントリー履歴は
+                          a.detail__tableBlockTxt--link(href="https://oubo.rakuten.co.jp/list?spk=f1636b")
+                            | こちら
+                          | から確認できます。
+                        li.detail__tableBlockList--li ネット予約後キャンセルされた場合、ご来店いただけなかった場合は対象外となります。
+                        li.detail__tableBlockList--li 楽天発行の割引クーポン利用の場合は、
+                          span.detail__tableBlockTxt--red クーポン割引後の価格が
+                          | 3,000円(税込)以上の場合に対象となります。
+                        li.detail__tableBlockList--li 電話予約や直接来店は対象��となります。
+                        li.detail__tableBlockList--li ネット予約後、お客様都合や店舗都合でキャンセルになり、その後電話予約や直接来店で施術完了された場合は、ポイント進呈の対象外となります。
+                        li.detail__tableBlockList--li ネット予約後、来店日時が変更になった場合でも、対象の施術期間内で施術完了された場合は、ポイント進呈の対象となります。
+                        li.detail__tableBlockList--li 期間内の予約であればエントリーと予約どちらが先でも対象となります。
+                        li.detail__tableBlockList--li 対象条件は開催月毎に変更となる可能性がご��います。
+                        li.detail__tableBlockList--li 初回予約をキャンセルされた場合でも、改めて新たにご予約のうえ条件達成されますと「初めてのご利用」扱いとなり、当キャンペーンの対象となります。（予約月が変わる場合は、当キャンペー���への再エントリーが必要となります）
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead 特典内容
+                    td.detail__tableBlockBody
+                      p.detail__tableBlockTxt 300ポイント（期間限定ポイント）
+                      p.detail__tableBlockTxt--space
+                      ul.detail__tableBlockList
+                        li.detail__tableBlockList--li 進呈ポイント数は開催月毎に変更となる可能性がございます。
+                        li.detail__tableBlockList--li 当キャンペーンのポイント進呈対象者は、同時期に行われている一部キャンペーンの対象から除外してポイント進呈をいたします。
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead ポイント進呈予定日
+                    td.detail__tableBlockBody
+                      p.detail__tableBlockTxt 施術完了月の翌月末頃
+                      p.detail__tableBlockTxt 獲得した特典ポイントは、
+                        a.detail__tableBlockTxt--link(href='https://point.rakuten.co.jp/history/')
+                          | 楽天PointClubのポイント実績
+                        | でご確認いただけます。
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead ポイント有効期限
+                    td.detail__tableBlockBody
+                      p.detail__tableBlockTxt ポイント進呈日から6ヶ月間有効な期間限定ポイントとして進呈されます。
+                      p.detail__tableBlockTxt 期間限定ポイントの詳細は
+                        a.detail__tableBlockTxt--link(href='https://ichiba.faq.rakuten.net/detail/000006532?scid=su_2312')
+                          | こちら
+                        | をご確認ください。
+                  tr.detail__tableBlock
+                    th.detail__tableBlockHead キャンペーン対象外となる場合／その他注意事項
+                    td.detail__tableBlockBody
+                      ul.detail__tableBlockList
+                        li.detail__tableBlockList--li 下記キャンペーンのポイント進呈対象者は、同時期に行われている当キャンペーンの対象外となります。
+                          br
+                          a.detail__tableBlockTxt--link(href='https://beauty.rakuten.co.jp/cnt/topics/campaign/sbc/')
+                            | スタート1000楽天ビューティで初めてのネット予約＆6,000円(税込)以上の施術完了で1,000ポイント！
+                        li.detail__tableBlockList--li 一部ネット予約が行えないサロンがございます。また、サロンの���約状況によっては、ご希望に添えない場合やお断りする場合もございます。
+                        li.detail__tableBlockList--li 本サービスへのアクセス集中や通信回線の状態による遅延、不具合などにより本サービスへのアクセスや登録・表示などができないことにより発生した障害、または起因して発生したすべての事象に関しましては、当社の責めに帰すべき場合を除き、責任を負いかねます。
+                        li.detail__tableBlockList--li 取得したユーザ情報は
+                          a.detail__tableBlockTxt--link(href='https://privacy.rakuten.co.jp/')
+                            | 個人情報保護方針
+                          | に基づいてお取り扱いいたします。
+                        li.detail__tableBlockList--li 掲載店舗、あるいは弊社が不正と合理的に判断した場合は、特典対象から除外する場合がございます。
+                        li.detail__tableBlockList--li キャンペーン��エントリー及び条件達成状況に関わるお問い合わせは一切お受けいたしかねますので、ご了承ください。
+                        li.detail__tableBlockList--li 「QR コード」は、株式会社デンソーウェーブの登録商標です。
+                        li.detail__tableBlockList--li 本キャンペーンは楽天グループ株式会社「楽天ビューティ」が主催しているものであり、Apple Inc., Apple Japan 合同会社によるものではありません。
+                        li.detail__tableBlockList--li その他ご不明な点は
+                          a.detail__tableBlockTxt--link(href='https://beauty.faq.rakuten.net/user/s/')
+                            | こちら
+                          | よりお問い合わせください。
+
+          //- ReX UX Survey: Mounting point for embedded components
+          section#rbSPU-content-popask.rbSPU-content-popask(data-ratid='rbSPU-content-popask', data-ratevent='appear', data-ratparam='all')
+            #rexSurveyEmbedded.rexSurveyNamespace
+
+
+block js
+  //- jsはここに書く
+
+  //------------------------------- ライブラリ読み込み -------------------------------//
+
+  //- jQuery（使用しない時はコメントアウト）
+  script(src="/cnt/common/js/jquery/3.7.1/jquery.min.js", defer)
+
+  //- vue（使用しない時はコメントアウト）
+  script(src='/cnt/common/js/vue/vue.min.js', defer)
+  script(src='/cnt/common/js/vue/axios.min.js', defer)
+
+  //------------------------------- CPNパーツ用js読み込み -------------------------------//
+
+  //- Web-Blocks動作用（PITARIを使わない時のみ使用）
+  //- //- WebCX start
+  //- script#webcx-web-blocks-sdk-v2176(async='' defer='' src='https://cdn.rmc.contents.rakuten.co.jp/sdk/webcx-web-blocks/2.17.6/webcx-web-blocks.production.min.js' data-client-id='2ec42bc1f3e672fc1cf7fdcfc23246415dcf20f03c0d4a5bbbd92a185708f5b7' data-rat-account-id='426' data-rat-service-type='beauty_jp')
+  //- //- WebCX end
+
+  //- PITARI動作用（PITARI関連jsは読み込み順調整のためdeferをつけない / WebBlocksを使わな��時のみ使用）
+  script(src='//r.r10s.jp/com/ap/target/phoenix-2.7.2.min.js')
+  
+  //- エリア検索
+  script(src="/cnt/common/js/area-search/shopSearch.js", defer)
+
+  //- キャンペーン一覧 (vue)（cpnlist/barter枠のjson読み込み）
+  script(src='/cnt/common/js/readjson.js' + parameter, defer)
+  //- 読み込みたいjson名をtrueにする（ハイフン抜き）
+  script.
+    const campaignlist = true;
+
+  //- よくあるご質問（jQuery）
+  script(src="/cnt/common/js/cpn-parts/qa_accordion.js", defer)
+
+  //------------------------------- このページ用のjs -------------------------------//
+
+  //- pop ask
+  //- ReX UX Survey: Config
+  script.
+    window.rexSurveyConfig = {"language":"ja","surveyId":"40989","cId":{"name":"answers[40989_278298]","value":""},"embedded":true,"url":{"name":"answers[40989_278299]"},"triggerIdName":"trigger","reappearancePeriodWithRespond":30,"reappearancePeriodWithoutRespond":30,"enableDisplaySuppressionPerPage":true,"enableFormAction":false,"displayStartDate":"2024-07-05","displayEndDate":"2025-07-04T23:59:59","permission":{"inquiryTxt":"キャンペーンをより分かりやすくするためにアンケートにご協力ください (選択式1問)","yesBtnTxt":"協力する","noBtnTxt":"今は協力しない","available":false},"thanks":{"txt0":"ご協力ありがとうございました","txt1":"いただいた情報は、サービス改善のために使用させていただきます。","thanksDisplaySeconds":3},"nps":{"available":true,"question":{"label":"あなたはこのキャンペーンを家族や友達に薦めたいと思いますか？"},"options":[{"name":"answers[40989_278300]","value":"772427"},{"name":"answers[40989_278300]","value":"772428"},{"name":"answers[40989_278300]","value":"772429"},{"name":"answers[40989_278300]","value":"772430"},{"name":"answers[40989_278300]","value":"772431"}],"txt0":"薦めたくない","txt1":"薦めたい","checked":4},"inquiry":{"available":true,"checkList":{"questionType":"multipleAnswer","available":true,"question":"このキャンペーンに関し、あなたの意見にあてはまるものを下記(選択肢1～7)から選んでください。(複数選択可)","shuffleChoices":true,"options":[{"name":"answers[40989_278301][]","value":"772432","label":"分からないことがページ上で解決できた"},{"name":"answers[40989_278301][]","value":"772433","label":"キャンペーンの特典が魅力的"},{"name":"answers[40989_278301][]","value":"772434","label":"自分がキャンペーンの対象かどうか分かりやすい"},{"name":"answers[40989_278301][]","value":"772435","label":"キャンペーンの達成条件が分かりやすい"},{"name":"answers[40989_278301][]","value":"772436","label":"キャンペーンの特典や付与のタイミングが分かりやすい"},{"name":"answers[40989_278301][]","value":"772437","label":"キャンペーンのコンテンツ（バナーやページなど）が魅力的"},{"name":"answers[40989_278301][]","value":"772438","label":"どれにも当��はまらない"}]},"freeInput":{"available":true,"name":"answers[40989_278302]","title":"このキャンペーンに関して上記以外にご意見ございましたらお知らせください(任意)【1000文字】"},"sendBtnTxt":"送信する","footerNote":{"available":true,"text":"お客様よりご提供いただく情報はサービス向上のため使用させていただきます。","link":"https://privacy.rakuten.co.jp/","htmlText":""}},"inquiryNegative":{"checkList":{"available":true,"options":[{"name":"answers[40989_278301][]","value":"772432","label":"分からないことがページ上で解決できなかった"},{"name":"answers[40989_278301][]","value":"772433","label":"キャンペーンの特典が魅力的でない"},{"name":"answers[40989_278301][]","value":"772434","label":"自分がキャンペーンの対象かどうか分からない"},{"name":"answers[40989_278301][]","value":"772435","label":"キャンペーンの達成条件が分かりにくい"},{"name":"answers[40989_278301][]","value":"772436","label":"キャンペーンの特典や付与のタイミングが分かりにくい"},{"name":"answers[40989_278301][]","value":"772437","label":"キャンペーンのコンテンツ（バナーやページなど）が魅力的ではない"},{"name":"answers[40989_278301][]","value":"772438","label":"どれにも当てはまらない"}]}},"ua":{"name":"answers[40989_278303]"},"href":{"name":"answers[40989_278304]"},"cookie":{"available":false},"assetPaths":{"closeButton":"","checkIcon":""}}
+  //- ReX UX Survey: Script
+  script(type='text/javascript' src='https://cdn.rex.contents.rakuten.co.jp/rex-ips/2.1.0/js/main.js' defer='')
+
+  //- ポイントチェッカー (vue)
+  script(src="../spu/js/spu.js" + parameter, defer)
+
+  //- splide
+  script(src="../spu/js/splide.min.js", defer)
+  script.
+    document.addEventListener( 'DOMContentLoaded', function() {
+      var elms = document.getElementsByClassName( 'splide' );
+      for ( var i = 0; i < elms.length; i++ ) {
+        new Splide( elms[ i ] ).mount();
+      }
+    } );
